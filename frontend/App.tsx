@@ -5,6 +5,7 @@ export default function App() {
   return (
     <View style={styles.container}>
           <Text>I can see all the text {'>'}:)</Text>
+          <Text>Using type script</Text>
       <StatusBar style="auto" />
     </View>
   );
