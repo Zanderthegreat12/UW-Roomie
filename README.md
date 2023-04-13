@@ -8,8 +8,7 @@ who answered similarly and display those people to the user.
 If the user likes one of the potential dormmates, 
 then they can attempt to get in contact with that user 
 and if the other user agrees then it will display their contact information. 
-From there then the users can determine if they want to dorm or not.
-__
+From there then the users can determine if they want to dorm or not.__
 How to run code in devlopment environment:
 1. Install ExpoGo on phone to test app
 2. Run "npx expo start" in UWRoomieFront folder from Command Prompt
