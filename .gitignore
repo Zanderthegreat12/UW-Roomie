@@ -7,3 +7,4 @@
 .vs/VSWorkspaceState.json
 *.xml
 .idea/modules.xml
+*.iml
