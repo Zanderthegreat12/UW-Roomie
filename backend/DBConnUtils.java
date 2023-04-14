@@ -26,7 +26,7 @@ public class DBConnUtils {
     String password = configProps.getProperty("roomieapp.password");
 
     String connectionUrl =
-        String.format("jdbc:sqlserver://%s:3306;databaseName=%s;user=%s;password=%s",
+        String.format("jdbc:mysql://%s:3306;databaseName=%s;user=%s;password=%s",
                       serverURL, dbName, adminName, password);
     Connection conn = DriverManager.getConnection(connectionUrl);
 
