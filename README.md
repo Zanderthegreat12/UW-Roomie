@@ -10,7 +10,8 @@ then they can attempt to get in contact with that user
 and if the other user agrees then it will display their contact information. 
 From there then the users can determine if they want to dorm or not. <br /> <br />
 How to run code in devlopment environment:
-1. Install ExpoGo on phone to test app
-2. Run "npm install expo" in frontend folder from Command Prompt
-3. Run "npx expo start" in frontend folder from Command Prompt
-4. Scan QR code on computer from within ExpoGo app
+1. Clone UW-Roomie repository on your local machine
+2. Install ExpoGo on phone to test app
+3. Run "npm install expo" in frontend folder from Command Prompt
+4. Run "npx expo start" in frontend folder from Command Prompt
+5. Scan QR code on computer from within ExpoGo app
