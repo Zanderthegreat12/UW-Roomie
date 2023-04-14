@@ -20,13 +20,13 @@ public class DBConnUtils {
     Properties configProps = new Properties();
     configProps.load(new FileInputStream("dbconn.properties"));
 
-    String serverURL = configProps.getProperty("flightapp.server_url");
-    String dbName = configProps.getProperty("flightapp.database_name");
-    String adminName = configProps.getProperty("flightapp.username");
-    String password = configProps.getProperty("flightapp.password");
+    String serverURL = configProps.getProperty("roomieapp.server_url");
+    String dbName = configProps.getProperty("roomieapp.database_name");
+    String adminName = configProps.getProperty("roomieapp.username");
+    String password = configProps.getProperty("roomieapp.password");
 
     String connectionUrl =
-        String.format("jdbc:sqlserver://%s:1433;databaseName=%s;user=%s;password=%s", 
+        String.format("jdbc:sqlserver://%s:3306;databaseName=%s;user=%s;password=%s",
                       serverURL, dbName, adminName, password);
     Connection conn = DriverManager.getConnection(connectionUrl);
 
