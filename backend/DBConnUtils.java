@@ -22,14 +22,14 @@ public class DBConnUtils {
     Properties configProps = new Properties();
     configProps.load(new FileInputStream("dbconn.properties"));
 
-    String serverURL = configProps.getProperty("roomieapp.server_url");
+    String hostname = configProps.getProperty("roomieapp.server_url");
+    String port = "3306"
     String dbName = configProps.getProperty("roomieapp.database_name");
     String adminName = configProps.getProperty("roomieapp.username");
     String password = configProps.getProperty("roomieapp.password");
 
-    String connectionUrl =
-        String.format("jdbc:mysql://%s:3306;databaseName=%s;user=%s;password=%s",
-                      serverURL, dbName, adminName, password);
+    String connectionUrl = "jdbc:postgresql://" + hostname + ":" + port +
+            "/" + dbName + "?user=" + adminName + "&password=" + password;
     Connection conn = DriverManager.getConnection(connectionUrl);
 
     // By default, automatically commit after each statement
