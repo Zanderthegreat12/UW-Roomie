@@ -8,3 +8,4 @@
 *.xml
 .idea/modules.xml
 *.iml
+.idea/.name

@@ -1,3 +1,5 @@
+package roomieapp;
+
 class MatchingAlgorithm {
 
 }
