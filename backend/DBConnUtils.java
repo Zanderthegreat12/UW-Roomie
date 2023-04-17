@@ -23,12 +23,12 @@ public class DBConnUtils {
     configProps.load(new FileInputStream("dbconn.properties"));
 
     String hostname = configProps.getProperty("roomieapp.server_url");
-    String port = "3306"
+    String port = configProps.getProperty("roomieapp.port");
     String dbName = configProps.getProperty("roomieapp.database_name");
     String adminName = configProps.getProperty("roomieapp.username");
     String password = configProps.getProperty("roomieapp.password");
 
-    String connectionUrl = "jdbc:postgresql://" + hostname + ":" + port +
+    String connectionUrl = "jdbc:mysql://" + hostname + ":" + port +
             "/" + dbName + "?user=" + adminName + "&password=" + password;
     Connection conn = DriverManager.getConnection(connectionUrl);
 
