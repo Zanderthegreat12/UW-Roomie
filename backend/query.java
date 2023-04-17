@@ -13,8 +13,18 @@ public class Query {
         this.conn = DBConnUtils.openConnection();
     }
 
-    public void createTables() {
-
+    public void clearTables() {
+        try {
+            clearTable("Users");
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
+
+    private void clearTable(String tableName) throws SQLException{
+        conn.prepareStatement("DELETE FROM " + tableName + ";").executeUpdate();
+    }
+
+    public addUser
 
 }
