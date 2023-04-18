@@ -28,7 +28,7 @@ Review user interface design prototype
 
 ## Individual Reports:
 
-    Alex -
+### Alex:
 #### First Subsection: N/A
 
 #### Second Subsection:
@@ -43,8 +43,8 @@ of them or create my own.
 - Create a prototype Matching algorithm <br>
 - Set-up React Native on my computer <br>
 
-    Colby -
-First subsection: N/A
+### Colby -
+#### First subsection: N/A
 
 #### Second subsection: 
 - I successfully set up an SQL server on AWS and got a connection set up to my computer. I was able to create tables on the server successfully. 
@@ -56,7 +56,7 @@ First subsection: N/A
 - Edit my database schema based off survey questions
 - Create basic functions to query database for matching algorithm
 
-    Leah -
+### Leah -
 #### First subsection: N/A
 
 #### Second Subsection:
@@ -69,7 +69,7 @@ First subsection: N/A
 - Start designing the user interface in Figma
 - Get comfortable with React Native
 
-    Bella -
+### Bella -
 #### First subsection: N/A
 
 #### Second subsection:
