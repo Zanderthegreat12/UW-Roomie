@@ -16,6 +16,10 @@ public class Query {
     public void clearTables() {
         try {
             clearTable("Users");
+            clearTable("Surveys");
+            clearTable("Contact_Info");
+            clearTable("User_Survey_Pairs");
+            clearTable("User_Contact_Pairs");
         } catch (Exception e){
             e.printStackTrace();
         }
