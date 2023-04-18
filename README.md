@@ -21,3 +21,4 @@ The Structure of this Repo is as follows:
                Also contains the files where the backend interacts with the frontend.
   2. Frontend - contains the layout and design of the UW-Roomie app which the user sees when
                 they open up and use the app. 
+  3. reports - stores the progress reports for the TA for each week we have worked on.
