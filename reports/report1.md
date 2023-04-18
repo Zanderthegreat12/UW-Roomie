@@ -5,10 +5,10 @@ Review user interface design prototype
 
 
 
-# Team Report:
-First subsection: N/A
+## Team Report:
+#### First subsection: N/A
 
-Second subsection:
+#### Second subsection:
 We set up our Git repository and practiced using Git
 React Native and SQL connection set up on GitHub
 We did research in our respective fields to be ready to start the project.
@@ -17,7 +17,7 @@ Matching algorithms
 
 
 
-Third subsection:
+#### Third subsection:
 Finish creating the survey questions - Bella and Alex
 Connection between database and survey - Colby
 Create code structure for our project - Everyone
@@ -27,7 +27,7 @@ Start creating SQL query functions - Colby
 Create prototypes for database - Bella and Colby
 
 
-# Individual Reports:
+## Individual Reports:
 
     Alex -
 First Subsection: N/A
