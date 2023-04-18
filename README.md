@@ -15,3 +15,9 @@ How to run code in devlopment environment:
 3. Run "npm install expo" in frontend folder from Command Prompt
 4. Run "npx expo start" in frontend folder from Command Prompt
 5. Scan QR code on computer from within ExpoGo app
+
+The Structure of this Repo is as follows:
+  1. Backend - contains the programming data about the servers, database and the matching algorithms. 
+               Also contains the files where the backend interacts with the frontend.
+  2. Frontend - contains the layout and design of the UW-Roomie app which the user sees when
+                they open up and use the app. 
