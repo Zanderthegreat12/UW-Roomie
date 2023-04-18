@@ -43,7 +43,7 @@ of them or create my own.
 - Create a prototype Matching algorithm <br>
 - Set-up React Native on my computer <br>
 
-### Colby -
+### Colby:
 #### First subsection: N/A
 
 #### Second subsection: 
@@ -56,7 +56,7 @@ of them or create my own.
 - Edit my database schema based off survey questions
 - Create basic functions to query database for matching algorithm
 
-### Leah -
+### Leah:
 #### First subsection: N/A
 
 #### Second Subsection:
@@ -69,7 +69,7 @@ of them or create my own.
 - Start designing the user interface in Figma
 - Get comfortable with React Native
 
-### Bella -
+### Bella:
 #### First subsection: N/A
 
 #### Second subsection:
