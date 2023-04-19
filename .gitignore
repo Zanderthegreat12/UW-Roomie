@@ -5,10 +5,8 @@
 .vs/UW-Roomie/FileContentIndex/read.lock
 .vs/UW-Roomie/v17/.wsuo
 .vs/VSWorkspaceState.json
-*.xml
 .idea/modules.xml
 *.iml
-.idea/.name
-*.class
-*.lst
+.idea/
+backend/target
 backend/target/surefire-reports/roomieapp.SQLTest.txt

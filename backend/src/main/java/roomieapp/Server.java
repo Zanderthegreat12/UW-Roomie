@@ -1,0 +1,5 @@
+package roomieapp;
+
+class Server {
+
+}
