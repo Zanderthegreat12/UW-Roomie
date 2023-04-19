@@ -10,3 +10,5 @@
 *.iml
 .idea/.name
 *.class
+*.lst
+backend/target/surefire-reports/roomieapp.SQLTest.txt
