@@ -10,7 +10,11 @@ public class Query {
     private Connection conn;
 
     public Query() {
-        this.conn = DBConnUtils.openConnection();
+        try {
+            this.conn = DBConnUtils.openConnection();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public void clearTables() {
@@ -28,7 +32,4 @@ public class Query {
     private void clearTable(String tableName) throws SQLException{
         conn.prepareStatement("DELETE FROM " + tableName + ";").executeUpdate();
     }
-
-    public addUser
-
 }
