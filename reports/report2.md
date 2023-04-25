@@ -41,10 +41,13 @@ Review overview of our Software design/architecture
 - Create basic functions to query database for matching algorithm
 
 #### Second subsection: 
-
+- Setup backend build using Maven (Can test code now)
+- Set up Survey Table to store survey answers
+- Created and successfully tested simple clearTable function
 
 #### Third Subsection:
-
+- Create API for my class Query
+- Implement Query Functions associated with account management
 
 ### Leah:
 #### First subsection:
