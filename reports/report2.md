@@ -66,6 +66,16 @@ Review overview of our Software design/architecture
 - Create prototype users for testing matching algorithm and database
 
 #### Second subsection:
-
+- I finished the survey questions with Alex.
+- I started gathering data and feedback about the survey. This allows us to:
+  - Create fake user profiles for testing.
+  - Update the survey according to people's feedback.
+- I researched more on how to do API calls with Node.js. This is still what I am stuck on since I have not gotten many
+opportunities to practice with it.
 
 #### Third subsection:
+- Create at least 20 fake user profiles for testing the matching algorithms.
+- Download and set up React Native.
+- Practice using Node.js with SQL.
+- Start planning the API calls with Node.js
+- Talk to Alex/Colby to figure out how to format the data I retrieve from the database for the algorithm.
