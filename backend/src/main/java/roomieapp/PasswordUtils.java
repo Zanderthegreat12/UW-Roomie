@@ -20,6 +20,8 @@ import javax.crypto.spec.PBEKeySpec;
 public class PasswordUtils {
   /**
    * Generates a cryptographically-secure salted password.
+   * @param password non-encrypted password.
+   * @returns byte[] containing encrypted form of password
    */
   public static byte[] hashPassword(String password) {
     byte[] salt = generateSalt();
@@ -39,6 +41,9 @@ public class PasswordUtils {
 
   /**
    * Verifies whether the plaintext password can be hashed to provided salted hashed password.
+   * @param plaintext non-encrypted form of password to compare.
+   * @param saltedHashed encrypted form of password to compare.
+   * @return true if passwords match, otherwise false
    */
   public static boolean plaintextMatchesHash(String plaintext, byte[] saltedHashed) {
     // extract the salt from the byte array (i.e., undo the logic implemented in
@@ -58,12 +63,17 @@ public class PasswordUtils {
   }
   
   // Password hashing parameter constants.
+
+  // The higher the hash_strength, the less likely there's a collision
   private static final int HASH_STRENGTH = 65536;
+  // The length of encrypted password
   private static final int KEY_LENGTH = 128;
+  // The length of salt part of encrypted password
   private static final int SALT_LENGTH = 16;
 
   /**
    * Generate a small bit of randomness to serve as a password "salt"
+   * @return a random byte array representing the salt part of the encrypted password
    */
   static byte[] generateSalt() {
     byte[] salt = new byte[SALT_LENGTH];
@@ -75,6 +85,9 @@ public class PasswordUtils {
   /**
    * Uses the provided salt to generate a cryptographically-secure hash of the provided password.
    * The resultant byte array should be KEY_LENGTH bytes long.
+   * @param password non-encrypted password
+   * @param salt random btye[] used to generate encrypted password
+   * @return byte[] containing the encrypted password generated from password and salt
    */
   static byte[] generateSaltedPassword(String password, byte[] salt)
     throws IllegalStateException {
