@@ -15,10 +15,19 @@ Review overview of our Software design/architecture
 - Create prototypes for database - Bella and Colby
 
 #### Second subsection:
-
+- Finished the survey questions and created a google doc to get feedback on them
+- Continued setting up the platforms we will be coding on.
+- Created a prototype of the front end of our app
+- Started creating the matching algorithm
+- Set up the backend build
 
 #### Third subsection:
-
+- Finish gather data about our questions. (Bella and Alex)
+- Finish creating the initial Matching Algorithim. (Alex)
+- Create fake user profiles for testing. (Bella)
+- Start implementing query functions for the database. (Colby)
+- Get user input about the front-end design. (Leah)
+- Implement user interface in React. (Leah)
 
 ## Individual Reports:
 
