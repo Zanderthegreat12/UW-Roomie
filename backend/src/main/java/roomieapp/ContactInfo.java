@@ -4,13 +4,22 @@ package roomieapp;
  * Stores a user's email, phone number, and discord
  */
 public class ContactInfo {
-    /** user this contact info belongs to */
+    /** User this contact info belongs to */
     public String username;
-    /** user's email address */
+    /**
+     * User's email address.
+     * Must follow format: email_username@domain.type
+     */
     public String email;
-    /** user's phone number */
+    /**
+     * user's phone number
+     * Must have 10 digits.
+     */
     public long phoneNumber;
-    /** user's discord name */
+    /**
+     * User's discord name
+     * Must follow format: discord_username#xxxx (where x is a digit 1-9)
+     */
     public String discord;
 
     /**
@@ -18,7 +27,7 @@ public class ContactInfo {
      * @param username user's identifier
      * @param email user's email address. Requires email format to be correct
      * @param phoneNumber user's phone number. Requires phone number format to be correct
-     * @param discord user's discord name. Requires discord name to be correct format
+     * @param discord user's discord name. Requires discord name format to be correct
      */
     public ContactInfo(String username, String email,
                        long phoneNumber, String discord) {
