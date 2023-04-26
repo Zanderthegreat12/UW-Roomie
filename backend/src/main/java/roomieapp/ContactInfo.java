@@ -16,9 +16,9 @@ public class ContactInfo {
     /**
      * Store contact information provided in parameters in this class
      * @param username user's identifier
-     * @param email user's email address
-     * @param phoneNumber user's phone number
-     * @param discord user's discord name
+     * @param email user's email address. Requires email format to be correct
+     * @param phoneNumber user's phone number. Requires phone number format to be correct
+     * @param discord user's discord name. Requires discord name to be correct format
      */
     public ContactInfo(String username, String email,
                        long phoneNumber, String discord) {
