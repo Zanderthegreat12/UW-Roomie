@@ -9,19 +9,19 @@ public class Survey {
 
     /**
      * User's top dorm preference.
-     * firstDorm must be a valid UW dorm
+     * firstDorm must be a valid UW dorm.
      */
     public String firstDorm;
 
     /**
      * User's second dorm preference.
-     * secondDorm must be a valid UW dorm
+     * secondDorm must be a valid UW dorm.
      */
     public String secondDorm;
 
     /**
      * User's third dorm preference.
-     * thirdDorm must be a valid UW dorm
+     * thirdDorm must be a valid UW dorm.
      */
     public String thirdDorm;
 
