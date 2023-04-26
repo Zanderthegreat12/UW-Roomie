@@ -1,6 +1,6 @@
 package roomieapp;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import org.apache.commons.lang3.NotImplementedException;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -73,7 +73,7 @@ public class Query {
      *         return true if login was successful
      */
     public boolean createUser(String username, String password) {
-        throw new NotImplementedException();
+        throw new NotImplementedException("");
     }
 
     /**
@@ -83,7 +83,7 @@ public class Query {
      * @return return true if login was successful, otherwise return false
      */
     public boolean login(String username, String password) {
-        throw new NotImplementedException();
+        throw new NotImplementedException("");
     }
 
     /**
@@ -94,7 +94,7 @@ public class Query {
      * @throws IllegalArgumentException if user not found in database
      */
     public ContactInfo getContactInfo(String username) {
-        throw new NotImplementedException();
+        throw new NotImplementedException("");
     }
 
     /**
@@ -106,7 +106,7 @@ public class Query {
      * @throws IllegalArgumentException if user not found in database
      */
     public Survey getSurvey(String username) {
-        throw new NotImplementedException();
+        throw new NotImplementedException("");
     }
 
     /**
@@ -117,7 +117,7 @@ public class Query {
      * @throws IllegalArgumentException if userContactInfo has invalid values
      */
     public void setContactInfo(ContactInfo userContactInfo) {
-        throw new NotImplementedException();
+        throw new NotImplementedException("");
     }
 
     /**
@@ -127,7 +127,7 @@ public class Query {
      * @throws IllegalArgumentException if userSurvey has invalid values
      */
     public void setSurvey(Survey userSurvey) {
-        throw new NotImplementedException();
+        throw new NotImplementedException("");
     }
 
     /**
@@ -137,7 +137,7 @@ public class Query {
      * @throws IllegalArgumentException if matchInfo has invalid values
      */
     public void updateMatch(Match matchInfo) {
-        throw new NotImplementedException();
+        throw new NotImplementedException("");
     }
 
     /**
@@ -149,6 +149,6 @@ public class Query {
      * @throws IllegalArgumentException if either user1 or user2 not in database
      */
     public Match getMatch(String user1, String user2) {
-        throw new NotImplementedException();
+        throw new NotImplementedException("");
     }
 }
