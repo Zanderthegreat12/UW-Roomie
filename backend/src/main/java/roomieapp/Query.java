@@ -86,4 +86,12 @@ public class Query {
         throw new NotImplementedException();
     }
 
+    /**
+     *
+     * @param username
+     */
+    public ContactInfo getContactInfo(String username) {
+        throw new NotImplementedException();
+    }
+
 }
