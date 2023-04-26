@@ -87,8 +87,9 @@ public class Query {
     }
 
     /**
-     *
-     * @param username
+     * Returns the contact information of the given user
+     * @param username user's identifier
+     * @return contact info
      */
     public ContactInfo getContactInfo(String username) {
         throw new NotImplementedException();
