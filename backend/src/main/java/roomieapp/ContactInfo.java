@@ -25,6 +25,13 @@ public class ContactInfo {
      */
     public String discord;
 
+    /**
+     * Creates empty contact info for user with the given username
+     * @param username user's identifier
+     */
+    public ContactInfo(String username) {
+        this.username = username;
+    }
 
     /**
      * Store contact information provided in parameters in this class.
