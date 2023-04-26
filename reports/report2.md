@@ -25,14 +25,22 @@ Review overview of our Software design/architecture
 ### Alex:
 #### First Subsection:
 - Finalized the survey questions
-- Create a prototype Matching algorithm
+- Create a prototype Matching Algorithm
 - Set-up React Native on my computer
 
 #### Second Subsection:
-
+- Created a google survey to gather data about our questions
+- Started to work on the matching algorithm.
+- I learned that creating a reflexive result based on ranking of dorms is fairly difficult.
+  This is primarily where I am stuck at since making rankings reflexive is complicated so I need to
+  do some reseach on it.
 
 #### Third Subsection:
-
+- Finish gather data about our quesitons
+- Finsh creating the inital Matching Algorthim
+- Start working on a method which runs through and
+  scores the compatability between one person and
+  everyone else using the platform.
 
 ### Colby:
 #### First subsection:
