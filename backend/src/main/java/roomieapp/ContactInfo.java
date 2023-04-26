@@ -9,7 +9,7 @@ public class ContactInfo {
     /** user's email address */
     public String email;
     /** user's phone number */
-    public String phoneNumber;
+    public long phoneNumber;
     /** user's discord name */
     public String discord;
 
@@ -21,7 +21,7 @@ public class ContactInfo {
      * @param discord user's discord name
      */
     public ContactInfo(String username, String email,
-                       String phoneNumber, String discord) {
+                       long phoneNumber, String discord) {
         this.username = username;
         this.email = email;
         this.phoneNumber = phoneNumber;
