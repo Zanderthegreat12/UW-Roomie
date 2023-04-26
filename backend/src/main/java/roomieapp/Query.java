@@ -1,5 +1,7 @@
 package roomieapp;
 
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.*;
@@ -16,9 +18,8 @@ public class Query {
     // This is how Query will queries to the SQL database
     private Connection conn;
 
-    // query to check if certain user exists
-    // executing stmt return 1 if user exists, otherwise it returns 0
-    private PreparedStatement checkUserStmt;
+    // query to get username and password of user
+    private PreparedStatement getUserStmt;
 
     /**
      * Initializes a connection with SQL database
@@ -36,8 +37,8 @@ public class Query {
 
     // Prepares all queries during object initialization to prevent SQL injections
     private void prepareStatements() throws SQLException{
-        checkUserStmt = conn.prepareStatement(
-           "SELECT COUNT(*) " +
+        getUserStmt = conn.prepareStatement(
+           "SELECT * " +
                "FROM Users " +
                "WHERE username = ?;"
         );
@@ -54,7 +55,7 @@ public class Query {
             clearTable("Users");
             clearTable("Surveys");
             clearTable("Contact_Info");
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -64,5 +65,25 @@ public class Query {
         conn.prepareStatement("DELETE FROM " + tableName + ";").executeUpdate();
     }
 
-    public 
+    /**
+     * Creates a new user with given username and password
+     * @param username user's identifier
+     * @param password a string to verify user's identity
+     * @return return false if another user already has username, otherwise
+     *         return true if login was successful
+     */
+    public Boolean createUser(String username, String password) {
+        throw new NotImplementedException();
+    }
+
+    /**
+     * Checks if login is successful based on username and password
+     * @param username user's identifier
+     * @param password a string to verify user's identity
+     * @return return true if login was successful, otherwise return false
+     */
+    public Boolean login(String username, String password) {
+        throw new NotImplementedException();
+    }
+
 }
