@@ -56,10 +56,13 @@ Review overview of our Software design/architecture
 - Get comfortable with React Native
 
 #### Second Subsection:
-
+- Received positive feedback from Vinay and some target users on the low-fidelity prototype
+- Created a high-fidelity prototype in Figma for further user testing
+- Started playing with React Native and read documentation 
 
 #### Third Subsection:
-
+- Get user feedback on the high-fidelity prototype 
+- Start implementing the user interface design with React Native
 
 ### Bella:
 #### First subsection:
