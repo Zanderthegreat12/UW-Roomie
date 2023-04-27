@@ -15,7 +15,7 @@ import java.util.Properties;
 public class Query {
 
     // The connection manager
-    // This is how Query will queries to the SQL database
+    // This is how Query will make queries to the SQL database
     private Connection conn;
 
     // query to get username and password of user
