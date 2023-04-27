@@ -222,8 +222,8 @@ public class SQLTest
                 "userTest#6969"
         );
         querier.setContactInfo(userContact);
-        ContactInfo retrievedData = querier.getContactInfo("firstUser");
-        assertTrue(retrievedData.username.equals("firstUser"));
+        ContactInfo retrievedData = querier.getContactInfo("user");
+        assertTrue(retrievedData.username.equals("user"));
         assertTrue(retrievedData.email.equals("userTest@helpMe.com"));
         assertTrue(retrievedData.phoneNumber == 1028392074L);
         assertTrue(retrievedData.discord.equals("userTest#6969"));
@@ -266,6 +266,7 @@ public class SQLTest
         assertTrue(retrievedData.phoneNumber == 1028392074L);
         assertTrue(retrievedData.discord.equals("userTest#6969"));
 
+        querier.createUser("user2", "otherPass");
         userContact = new ContactInfo(
                 "user2",
                 "help@helpMe.com",
@@ -279,8 +280,8 @@ public class SQLTest
         assertTrue(retrievedData.phoneNumber == 7392392074L);
         assertTrue(retrievedData.discord.equals("welp#9696"));
 
-        retrievedData = querier.getContactInfo("firstUser");
-        assertTrue(retrievedData.username.equals("firstUser"));
+        retrievedData = querier.getContactInfo("user");
+        assertTrue(retrievedData.username.equals("user"));
         assertTrue(retrievedData.email.equals("userTest@helpMe.com"));
         assertTrue(retrievedData.phoneNumber == 1028392074L);
         assertTrue(retrievedData.discord.equals("userTest#6969"));
