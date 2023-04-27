@@ -121,20 +121,32 @@ public class SQLTest
     }
 
     /**
+     * test setContactInfo creates new contactInfo for single user
+     */
+    @Test
+    public void testSetContactInfoSimple()
+    {
+        Query querier = new Query();
+        querier.clearTables();
+        querier.createUser("user", "userPass");
+        ContactInfo userContact = new ContactInfo(
+                "user",
+                "userTest@helpMe.com",
+                1028392074L,
+                "userTest#6969"
+        );
+        querier.setContactInfo(userContact);
+    }
+
+    /**
      *
      */
     @Test
-    public void testGetContactInfo()
+    public void testGetContactInfoSimple()
     {
         Query querier = new Query();
         querier.clearTables();
-    }
-
-    @Test
-    public void testSetContactInfo()
-    {
-        Query querier = new Query();
-        querier.clearTables();
+        querier.createUser("firstUser", "firstPassword");
 
     }
 
