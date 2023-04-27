@@ -4,7 +4,32 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
 
+/**
+ * unit tests for setting/getting contact info
+ */
 public class SQLTestContactInfo {
+
+    private static final ContactInfo userContact = new ContactInfo(
+            "user",
+            "userTest@helpMe.com",
+            1028392074L,
+            "userTest#6969"
+    );
+
+    private static final ContactInfo otherUserContact = new ContactInfo(
+             "user2",
+             "help@helpMe.com",
+             7392392074L,
+             "welp#9696"
+    );
+
+    private static final ContactInfo updatedUserContact = new ContactInfo(
+            "user",
+            "whyOwhy@hasThisHappened.com",
+            5038640723L,
+            "goodLuck#2094"
+    );
+
     /**
      * test setContactInfo creates new contactInfo for single user
      */
@@ -13,13 +38,7 @@ public class SQLTestContactInfo {
     {
         Query querier = new Query();
         querier.clearTables();
-        querier.createUser("user", "userPass");
-        ContactInfo userContact = new ContactInfo(
-                "user",
-                "userTest@helpMe.com",
-                1028392074L,
-                "userTest#6969"
-        );
+        querier.createUser(userContact.username, "userPass");
         querier.setContactInfo(userContact);
         querier.clearTables();
     }
@@ -32,18 +51,10 @@ public class SQLTestContactInfo {
     {
         Query querier = new Query();
         querier.clearTables();
-        querier.createUser("firstUser", "firstPassword");
-        ContactInfo userContact = new ContactInfo(
-                "firstUser",
-                "userTest@helpMe.com",
-                1028392074L,
-                "userTest#6969"
-        );
-        ContactInfo retrievedData = querier.getContactInfo("firstUser");
-        assertTrue(retrievedData.username.equals("firstUser"));
-        assertTrue(retrievedData.email.equals("userTest@helpMe.com"));
-        assertTrue(retrievedData.phoneNumber == 1028392074L);
-        assertTrue(retrievedData.discord.equals("userTest#6969"));
+        querier.createUser(userContact.username, "firstPassword");
+        querier.setContactInfo(userContact);
+        ContactInfo retrievedData = querier.getContactInfo(userContact.username);
+        assertTrue(retrievedData.equals(userContact));
         querier.clearTables();
     }
 
@@ -55,12 +66,6 @@ public class SQLTestContactInfo {
     {
         Query querier = new Query();
         querier.clearTables();
-        ContactInfo userContact = new ContactInfo(
-                "firstUser",
-                "userTest@helpMe.com",
-                1028392074L,
-                "userTest#6969"
-        );
         querier.setContactInfo(userContact);
         querier.clearTables();
     }
@@ -73,7 +78,7 @@ public class SQLTestContactInfo {
     {
         Query querier = new Query();
         querier.clearTables();
-        querier.getContactInfo("user");
+        ContactInfo test = querier.getContactInfo("user");
         querier.clearTables();
     }
 
@@ -99,33 +104,13 @@ public class SQLTestContactInfo {
     {
         Query querier = new Query();
         querier.clearTables();
-        querier.createUser("user", "userPass");
-        ContactInfo userContact = new ContactInfo(
-                "user",
-                "userTest@helpMe.com",
-                1028392074L,
-                "userTest#6969"
-        );
+        querier.createUser(userContact.username, "userPass");
         querier.setContactInfo(userContact);
-        ContactInfo retrievedData = querier.getContactInfo("user");
-        assertTrue(retrievedData.username.equals("user"));
-        assertTrue(retrievedData.email.equals("userTest@helpMe.com"));
-        assertTrue(retrievedData.phoneNumber == 1028392074L);
-        assertTrue(retrievedData.discord.equals("userTest#6969"));
-
-        userContact = new ContactInfo(
-                "user",
-                "help@helpMe.com",
-                7392392074L,
-                "welp#9696"
-        );
-        querier.setContactInfo(userContact);
-        retrievedData = querier.getContactInfo("user");
-        assertTrue(retrievedData.username.equals("user"));
-        assertTrue(retrievedData.email.equals("help@helpMe.com"));
-        assertTrue(retrievedData.phoneNumber == 7392392074L);
-        assertTrue(retrievedData.discord.equals("welp#9696"));
-
+        ContactInfo retrievedData = querier.getContactInfo(userContact.username);
+        assertTrue(retrievedData.equals(userContact));
+        querier.setContactInfo(updatedUserContact);
+        retrievedData = querier.getContactInfo(updatedUserContact.username);
+        assertTrue(retrievedData.equals(updatedUserContact));
         querier.clearTables();
     }
 
@@ -137,40 +122,18 @@ public class SQLTestContactInfo {
     {
         Query querier = new Query();
         querier.clearTables();
-        querier.createUser("user", "userPass");
-        ContactInfo userContact = new ContactInfo(
-                "user",
-                "userTest@helpMe.com",
-                1028392074L,
-                "userTest#6969"
-        );
+        querier.createUser(userContact.username, "userPass");
         querier.setContactInfo(userContact);
-        ContactInfo retrievedData = querier.getContactInfo("firstUser");
-        assertTrue(retrievedData.username.equals("firstUser"));
-        assertTrue(retrievedData.email.equals("userTest@helpMe.com"));
-        assertTrue(retrievedData.phoneNumber == 1028392074L);
-        assertTrue(retrievedData.discord.equals("userTest#6969"));
+        ContactInfo retrievedData = querier.getContactInfo(userContact.username);
+        assertTrue(retrievedData.equals(userContact));
 
-        querier.createUser("user2", "otherPass");
-        userContact = new ContactInfo(
-                "user2",
-                "help@helpMe.com",
-                7392392074L,
-                "welp#9696"
-        );
-        querier.setContactInfo(userContact);
-        retrievedData = querier.getContactInfo("user2");
-        assertTrue(retrievedData.username.equals("user2"));
-        assertTrue(retrievedData.email.equals("help@helpMe.com"));
-        assertTrue(retrievedData.phoneNumber == 7392392074L);
-        assertTrue(retrievedData.discord.equals("welp#9696"));
+        querier.createUser(otherUserContact.username, "otherPass");
+        querier.setContactInfo(otherUserContact);
+        retrievedData = querier.getContactInfo(otherUserContact.username);
+        assertTrue(retrievedData.equals(otherUserContact));
 
-        retrievedData = querier.getContactInfo("user");
-        assertTrue(retrievedData.username.equals("user"));
-        assertTrue(retrievedData.email.equals("userTest@helpMe.com"));
-        assertTrue(retrievedData.phoneNumber == 1028392074L);
-        assertTrue(retrievedData.discord.equals("userTest#6969"));
-
+        retrievedData = querier.getContactInfo(userContact.username);
+        assertTrue(retrievedData.equals(userContact));
         querier.clearTables();
     }
 }

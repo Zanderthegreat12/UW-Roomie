@@ -87,6 +87,7 @@ public class SQLTestSurvey {
         querier.setSurvey(exampleSurvey);
         Survey test = querier.getSurvey(exampleSurvey.username);
         assertTrue(exampleSurvey.equals(test));
+        querier.clearTables();
     }
 
     /**
@@ -101,17 +102,21 @@ public class SQLTestSurvey {
         querier.clearTables();
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testSetSurveyNoUser()
     {
         Query querier = new Query();
         querier.clearTables();
+        querier.setSurvey(exampleSurvey);
+        querier.clearTables();
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testGetSurveyNoUser()
     {
         Query querier = new Query();
+        querier.clearTables();
+        Survey test = querier.getSurvey(exampleSurvey.username);
         querier.clearTables();
     }
 
@@ -120,6 +125,10 @@ public class SQLTestSurvey {
     {
         Query querier = new Query();
         querier.clearTables();
+        querier.createUser(exampleSurvey.username, "lolololol");
+        Survey test = querier.getSurvey(exampleSurvey.username);
+        assertTrue(test == null);
+        querier.clearTables();
     }
 
     @Test
@@ -127,12 +136,33 @@ public class SQLTestSurvey {
     {
         Query querier = new Query();
         querier.clearTables();
+        querier.createUser(exampleSurvey.username, "lolololol");
+        querier.setSurvey(exampleSurvey);
+        Survey test = querier.getSurvey(exampleSurvey.username);
+        assertTrue(exampleSurvey.equals(test));
+
+        querier.setSurvey(updatedSurvey);
+        test = querier.getSurvey(updatedSurvey.username);
+        assertTrue(updatedSurvey.equals(test));
+        querier.clearTables();
     }
 
     @Test
     public void testSurveyMulti()
     {
         Query querier = new Query();
+        querier.clearTables();
+        querier.createUser(exampleSurvey.username, "lolololol");
+        querier.setSurvey(exampleSurvey);
+        Survey test = querier.getSurvey(exampleSurvey.username);
+        assertTrue(exampleSurvey.equals(test));
+
+        querier.setSurvey(otherSurvey);
+        test = querier.getSurvey(otherSurvey.username);
+        assertTrue(otherSurvey.equals(test));
+
+        test = querier.getSurvey(exampleSurvey.username);
+        assertTrue(exampleSurvey.equals(test));
         querier.clearTables();
     }
 }

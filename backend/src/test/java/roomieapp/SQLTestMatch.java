@@ -2,6 +2,9 @@ package roomieapp;
 
 import org.junit.Test;
 
+/**
+ * unit tests for setting/getting matches
+ */
 public class SQLTestMatch {
     @Test
     public void testCreateMatch()
