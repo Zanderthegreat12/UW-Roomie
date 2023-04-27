@@ -136,7 +136,7 @@ public class Query {
      * @param matchInfo contains match information to be added/updated
      * @throws IllegalArgumentException if matchInfo has invalid values
      */
-    public void updateMatch(Match matchInfo) {
+    public void setMatch(Match matchInfo) {
         throw new NotImplementedException("");
     }
 
