@@ -1,6 +1,6 @@
 package roomieapp;
 
-import org.junit.Test;
+import org.junit.*;
 
 import static junit.framework.TestCase.assertTrue;
 
