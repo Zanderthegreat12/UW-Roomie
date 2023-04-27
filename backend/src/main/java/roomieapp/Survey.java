@@ -210,4 +210,31 @@ public class Survey {
         this.roommateNeat = roommateNeat;
         this.hobbies = hobbies;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if(!(other instanceof Survey)) {
+            return false;
+        }
+        Survey otherSurvey = (Survey) other;
+        return (this.username.equals(otherSurvey.username)) &&
+            (this.firstDorm.equals(otherSurvey.firstDorm)) &&
+            (this.secondDorm.equals(otherSurvey.secondDorm)) &&
+            (this.thirdDorm.equals(otherSurvey.thirdDorm)) &&
+            (this.roomType == otherSurvey.roomType) &&
+            (this.genderInclusive == otherSurvey.genderInclusive) &&
+            (this.studentYear == otherSurvey.studentYear) &&
+            (this.roommateYear == otherSurvey.roommateYear) &&
+            (this.drinkingPref == otherSurvey.drinkingPref) &&
+            (this.wakeTime == otherSurvey.wakeTime) &&
+            (this.sleepTime == otherSurvey.sleepTime) &&
+            (this.heavySleep == otherSurvey.heavySleep) &&
+            (this.studentVert == otherSurvey.studentVert) &&
+            (this.roommateVert == otherSurvey.roommateVert) &&
+            (this.studentFriends == otherSurvey.studentFriends) &&
+            (this.roommateFriends == otherSurvey.roommateFriends) &&
+            (this.studentNeat == otherSurvey.studentNeat) &&
+            (this.roommateNeat == otherSurvey.roommateNeat) &&
+            (this.hobbies.equals(otherSurvey.hobbies));
+    }
 }
