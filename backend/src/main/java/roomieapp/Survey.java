@@ -109,6 +109,7 @@ public class Survey {
      * 0 = introvert;
      * 1 = ambivert;
      * 2 = extrovert;
+     * 3 = don't care;
      */
     public final int roommateVert;
 
