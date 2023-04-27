@@ -57,6 +57,7 @@ public class Survey {
     /**
      * User's preferred roommate year (not status).
      * Only the following values are allowed.
+     * -1 = don't care
      * 1 = first year at UW;
      * 2 = second year at UW;
      * 3 = third year at UW;
@@ -106,10 +107,11 @@ public class Survey {
     /**
      * Whether the user prefers their roommate to be an introvert, extrovert, or ambivert.
      * Only the following values are allowed.
+     * -1 = don't care
      * 0 = introvert;
      * 1 = ambivert;
      * 2 = extrovert;
-     * 3 = don't care;
+     *
      */
     public final int roommateVert;
 
@@ -212,6 +214,10 @@ public class Survey {
         this.hobbies = hobbies;
     }
 
+    /**
+     * Return true if all fields in this and otherSurvey object are equals
+     * otherwise return false.
+     */
     @Override
     public boolean equals(Object other) {
         if(!(other instanceof Survey)) {
