@@ -5,7 +5,7 @@ import org.junit.*;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Unit tests for SQL queries
+ * Unit tests for SQL all-purpose queries
  */
 public class SQLTest
 {
