@@ -5,33 +5,25 @@ package roomieapp;
  */
 public class ContactInfo {
     /** User this contact info belongs to */
-    public String username;
+    public final String username;
 
     /**
      * User's email address.
      * Must follow format: email_username@domain.type.
      */
-    public String email;
+    public final String email;
 
     /**
-     * user's phone number.
+     * User's phone number.
      * Must have 10 digits.
      */
-    public long phoneNumber;
+    public final long phoneNumber;
 
     /**
      * User's discord name.
      * Must follow format: discord_username#xxxx (where x is a digit 1-9).
      */
-    public String discord;
-
-    /**
-     * Creates empty contact info for user with the given username
-     * @param username user's identifier
-     */
-    public ContactInfo(String username) {
-        this.username = username;
-    }
+    public final String discord;
 
     /**
      * Store contact information provided in parameters in this class.

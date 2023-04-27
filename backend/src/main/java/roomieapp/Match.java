@@ -28,21 +28,22 @@ public class Match {
     public int matchStatus;
 
     /**
-     *
+     * Stores Match info into this object with given parameters.
+     * Look at class fields for value restrictions.
      * @param user1 username for first user. Must be a valid username
      * @param user2 username for second user. Must be a valid username
-     * @param compatibility How compatible user1 and user2 would be dorming together
+     * @param compatibility How compatible user1 and user2 would be dorming together.
      * @param matchStatus whether user1 and user2 have a pending match request between them
-     *                    or if they have successfully matched with each other.
-     *                    3 = user1 and user2 both matched with each other;
-     *                    2 = user2 sent match request to user1;
-     *                    1 = user1 sent match request to user2;
-     *                    0 = neither user1 nor user2 matched with each other;
+     *                    or if they have successfully matched with each other
      * @throws IllegalArgumentException if user1 >= user2;
      */
     public Match(String user1, String user2, float compatibility, int matchStatus) {
         if(user1.compareTo(user2) >= 0) {
             throw new IllegalArgumentException();
         }
+        this.user1 = user1;
+        this.user2 = user2;
+        this.compatibility = compatibility;
+        this.matchStatus = matchStatus;
     }
 }
