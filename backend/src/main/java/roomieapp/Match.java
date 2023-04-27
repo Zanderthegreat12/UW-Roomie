@@ -47,6 +47,12 @@ public class Match {
         this.matchStatus = matchStatus;
     }
 
+    /**
+     * Return true if this object and other object have equal user1, user2, compatibility,
+     * and matchStatus, otherwise return false.
+     * @param other comparison object
+     * @return true if objects equal, otherwise false
+     */
     @Override
     public boolean equals(Object other) {
         if(!(other instanceof Match)) {

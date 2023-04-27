@@ -40,6 +40,12 @@ public class ContactInfo {
         this.discord = discord;
     }
 
+    /**
+     * Objects are equal if username, email, phoneNumber, and discord fields
+     * are all the same.
+     * @param other the comparison object
+     * @return true if objects equal
+     */
     @Override
     public boolean equals(Object other) {
         if(!(other instanceof ContactInfo)) {

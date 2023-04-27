@@ -217,6 +217,8 @@ public class Survey {
     /**
      * Return true if all fields in this and otherSurvey object are equals
      * otherwise return false.
+     * @param other comparison object
+     * @return true if objects equal, otherwise false
      */
     @Override
     public boolean equals(Object other) {
