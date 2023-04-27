@@ -102,6 +102,9 @@ public class SQLTestSurvey {
         querier.clearTables();
     }
 
+    /**
+     * test setting a survey for user not in database
+     */
     @Test(expected = IllegalArgumentException.class)
     public void testSetSurveyNoUser()
     {
@@ -111,6 +114,9 @@ public class SQLTestSurvey {
         querier.clearTables();
     }
 
+    /**
+     * test getting survey for user not in database
+     */
     @Test(expected = IllegalArgumentException.class)
     public void testGetSurveyNoUser()
     {
@@ -120,6 +126,9 @@ public class SQLTestSurvey {
         querier.clearTables();
     }
 
+    /**
+     * test getting survey that doesn't exist
+     */
     @Test
     public void testGetSurveyNoneExists()
     {
@@ -131,6 +140,9 @@ public class SQLTestSurvey {
         querier.clearTables();
     }
 
+    /**
+     * test updating survey for single user
+     */
     @Test
     public void testUpdateSurvey()
     {
@@ -147,6 +159,9 @@ public class SQLTestSurvey {
         querier.clearTables();
     }
 
+    /**
+     * test getting/setting survey results for multiple users
+     */
     @Test
     public void testSurveyMulti()
     {
