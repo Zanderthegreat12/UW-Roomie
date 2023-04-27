@@ -39,4 +39,15 @@ public class ContactInfo {
         this.phoneNumber = phoneNumber;
         this.discord = discord;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if(!(other instanceof ContactInfo)) {
+            return false;
+        }
+        ContactInfo otherInfo = (ContactInfo) other;
+        return (this.username.equals(otherInfo.username)) && (this.email.equals(otherInfo.email))
+                && (this.phoneNumber == otherInfo.phoneNumber) &&
+                (this.discord.equals(otherInfo.discord));
+    }
 }
