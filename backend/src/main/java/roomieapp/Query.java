@@ -5,6 +5,7 @@ import org.apache.commons.lang3.NotImplementedException;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.*;
+import java.util.*;
 import java.util.Properties;
 
 /**
@@ -20,6 +21,39 @@ public class Query {
 
     // query to get username and password of user
     private PreparedStatement getUserStmt;
+
+    // query to get survey belonging to given user
+    private PreparedStatement getSurveyStmt;
+
+    // query to get match information of specified 2 users
+    private PreparedStatement getMatchStmt;
+
+    // query to get contact information belonging to given user
+    private PreparedStatement getContactStmt;
+
+    // query to add new user
+    private PreparedStatement createUserStmt;
+
+    // query to add a new survey belonging to specified user
+    private PreparedStatement createSurveyStmt;
+
+    // query to add new contact information belonging to specified user
+    private PreparedStatement createContactStmt;
+
+    // query to add new match information between 2 specified users
+    private PreparedStatement createMatchStmt;
+
+    // query to update survey of specified user
+    private PreparedStatement updateSurveyStmt;
+
+    // query to update contact info of specified user
+    private PreparedStatement updateContactStmt;
+
+    // query to update match info of specified 2 users
+    private PreparedStatement updateMatchStmt;
+
+    // query to get k number of top matches with given user
+    private PreparedStatement getTopMatches;
 
     /**
      * Initializes a connection with SQL database
@@ -41,6 +75,90 @@ public class Query {
            "SELECT * " +
                "FROM Users " +
                "WHERE username = ?;"
+        );
+
+        getSurveyStmt = conn.prepareStatement(
+           "SELECT * " +
+               "FROM Surveys " +
+               "WHERE username = ?;"
+        );
+
+        getContactStmt = conn.prepareStatement(
+            "SELECT * " +
+                "FROM Contact_Info " +
+                "WHERE username = ?;"
+        );
+
+        getMatchStmt = conn.prepareStatement(
+            "SELECT * " +
+                "FROM Matches " +
+                "WHERE user1 = ? and user2 = ?;"
+        );
+
+        createUserStmt = conn.prepareStatement(
+            "INSERT INTO Users " +
+                "VALUES (?, ?);"
+        );
+
+        createSurveyStmt = conn.prepareStatement(
+            "INSERT INTO Surveys " +
+                "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?," +
+                    "?, ?, ?, ?, ?, ?, ?, ?, ?);"
+        );
+
+        createContactStmt = conn.prepareStatement(
+            "INSERT INTO Contact_Info " +
+                "VALUES(?, ?, ?, ?);"
+        );
+
+        createMatchStmt = conn.prepareStatement(
+            "INSERT INTO Matches " +
+                "VALUES(?, ?, ?, ?);"
+        );
+
+        updateSurveyStmt = conn.prepareStatement(
+            "UPDATE Surveys " +
+                "SET firstDorm = ?," +
+                    "secondDorm = ?," +
+                    "thirdDorm = ?," +
+                    "roomType = ?," +
+                    "genderInclusive = ?," +
+                    "studentYear = ?," +
+                    "roommateYear = ?," +
+                    "drinkingPref = ?," +
+                    "wakeTime = ?," +
+                    "sleepTime = ?," +
+                    "heavySleep = ?," +
+                    "studentVert = ?," +
+                    "roommateVert = ?," +
+                    "studentFriends = ?," +
+                    "roommateFriends = ?," +
+                    "studentNeat = ?," +
+                    "roommateNeat = ?," +
+                    "hobbies = ? " +
+                "WHERE username = ?"
+        );
+
+        updateContactStmt = conn.prepareStatement(
+            "UPDATE Contact_Info " +
+                "SET email = ?," +
+                    "phoneNumber = ?," +
+                    "discord = ? " +
+                "WHERE username = ?"
+        );
+
+        updateMatchStmt = conn.prepareStatement(
+            "UPDATE Matches " +
+                "SET compatibility = ?," +
+                    "matchStatus = ? " +
+                "WHERE user1 = ? and user2 = ?"
+        );
+
+        getTopMatches = conn.prepareStatement(
+            "SELECT * " +
+                "FROM Match " +
+                "WHERE user1 = ? or user2 = ?" +
+                "LIMIT ?"
         );
     }
 
@@ -149,6 +267,20 @@ public class Query {
      * @throws IllegalArgumentException if either user1 or user2 not in database
      */
     public Match getMatch(String user1, String user2) {
+        throw new NotImplementedException("");
+    }
+
+    /**
+     * Return topK users with the highest compatibility of parameter user in sorted order
+     * @param user the username of the user of interest
+     * @param topK the number of possible matches to return.
+     *             If there are less than topK results, return possible matches
+     * @return the usernames of the user's with highest compatibility of parameter user.
+     *         user's with higher compatibility will be at beginning of list.
+     *         user's with lower compatibility will be at the end of the list.
+     * @throws IllegalArgumentException if either user not in database
+     */
+    public List<String> getTopMatches(String user, int topK) {
         throw new NotImplementedException("");
     }
 }
