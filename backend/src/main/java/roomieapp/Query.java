@@ -271,7 +271,8 @@ public class Query {
     }
 
     /**
-     * Return topK users with the highest compatibility of parameter user in sorted order
+     * Return topK users with the highest compatibility of parameter user in sorted order.
+     * Ignores other users who've already matched with given user.
      * @param user the username of the user of interest
      * @param topK the number of possible matches to return.
      *             If there are less than topK results, return all possible matches

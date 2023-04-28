@@ -1,6 +1,7 @@
 package roomieapp;
 
 import org.junit.*;
+import java.util.*;
 
 import static junit.framework.TestCase.assertTrue;
 
@@ -35,6 +36,20 @@ public class SQLTestMatch {
         "secondUser",
         12,
         1
+    );
+
+    private static final Match overlapMatch2 = new Match(
+            "user1",
+            "user4",
+            20,
+            0
+    );
+
+    private static final Match overlapMatch3 = new Match(
+            "alphaUser",
+            "user1",
+            63,
+            0
     );
 
     /**
@@ -192,6 +207,7 @@ public class SQLTestMatch {
         querier.createUser(match.user1, "passIt");
         querier.createUser(match.user2, "hitIt");
         querier.createUser(overlapMatch.user2, "user3");
+        querier.setMatch(match);
         Match test = querier.getMatch(match.user1, match.user2);
         assertTrue(match.equals(test));
 
@@ -201,6 +217,61 @@ public class SQLTestMatch {
 
         test = querier.getMatch(match.user1, match.user2);
         assertTrue(match.equals(test));
+        querier.clearTables();
+    }
+
+    /**
+     * test getting top 2 matches among 4 total matches for single user
+     */
+    @Test
+    public void testGetTop2Matches()
+    {
+        Query querier = new Query();
+        querier.clearTables();
+        querier.createUser(match.user1, "passIt");
+        querier.createUser(match.user2, "hitIt");
+        querier.createUser(overlapMatch.user2, "lololol");
+        querier.createUser(overlapMatch2.user2, "user3");
+        querier.createUser(overlapMatch3.user1, "alpha");
+
+        querier.setMatch(match);
+        querier.setMatch(overlapMatch);
+        querier.setMatch(overlapMatch2);
+        querier.setMatch(overlapMatch3);
+
+        List<String> test = querier.getTopMatches(match.user1, 2);
+        assertTrue(test.size() == 2);
+        assertTrue(test.get(0).equals(match.user2));
+        assertTrue(test.get(1).equals(overlapMatch3.user1));
+
+        querier.clearTables();
+    }
+
+    /**
+     * test getting all matches among 4 total matches for single user
+     */
+    @Test
+    public void testGetTop10Matches()
+    {
+        Query querier = new Query();
+        querier.clearTables();
+        querier.createUser(match.user1, "passIt");
+        querier.createUser(match.user2, "hitIt");
+        querier.createUser(overlapMatch.user2, "lololol");
+        querier.createUser(overlapMatch2.user2, "user3");
+        querier.createUser(overlapMatch3.user1, "alpha");
+
+        querier.setMatch(match);
+        querier.setMatch(overlapMatch);
+        querier.setMatch(overlapMatch2);
+        querier.setMatch(overlapMatch3);
+
+        List<String> test = querier.getTopMatches(match.user1, 10);
+        assertTrue(test.size() == 3);
+        assertTrue(test.get(0).equals(match.user2));
+        assertTrue(test.get(1).equals(overlapMatch3.user1));
+        assertTrue(test.get(2).equals(overlapMatch2.user2));
+
         querier.clearTables();
     }
 }
