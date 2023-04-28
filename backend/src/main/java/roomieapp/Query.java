@@ -156,7 +156,7 @@ public class Query {
 
         getTopMatches = conn.prepareStatement(
             "SELECT * " +
-                "FROM Match " +
+                "FROM Matches " +
                 "WHERE user1 = ? or user2 = ? " +
                 "LIMIT ?;"
         );
