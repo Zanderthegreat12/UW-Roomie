@@ -136,7 +136,7 @@ public class Query {
                     "studentNeat = ?," +
                     "roommateNeat = ?," +
                     "hobbies = ? " +
-                "WHERE username = ?"
+                "WHERE username = ?;"
         );
 
         updateContactStmt = conn.prepareStatement(
@@ -144,21 +144,21 @@ public class Query {
                 "SET email = ?," +
                     "phoneNumber = ?," +
                     "discord = ? " +
-                "WHERE username = ?"
+                "WHERE username = ?;"
         );
 
         updateMatchStmt = conn.prepareStatement(
             "UPDATE Matches " +
                 "SET compatibility = ?," +
                     "matchStatus = ? " +
-                "WHERE user1 = ? and user2 = ?"
+                "WHERE user1 = ? and user2 = ?;"
         );
 
         getTopMatches = conn.prepareStatement(
             "SELECT * " +
                 "FROM Match " +
-                "WHERE user1 = ? or user2 = ?" +
-                "LIMIT ?"
+                "WHERE user1 = ? or user2 = ? " +
+                "LIMIT ?;"
         );
     }
 
