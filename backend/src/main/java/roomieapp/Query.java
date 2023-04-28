@@ -278,7 +278,7 @@ public class Query {
      * @return the usernames of the user's with highest compatibility of parameter user.
      *         user's with higher compatibility will be at beginning of list.
      *         user's with lower compatibility will be at the end of the list.
-     * @throws IllegalArgumentException if either user not in database
+     * @throws IllegalArgumentException if user not in database
      */
     public List<String> getTopMatches(String user, int topK) {
         throw new NotImplementedException("");
