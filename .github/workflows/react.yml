@@ -20,3 +20,9 @@ jobs:
     - name: Run tests
       run: npm test
       working-directory: frontend
+    - name: build android
+      run: expo build:android
+      working-directory: frontend
+    - name: build ios
+      run: expo build:ios
+      working-directory: frontend
