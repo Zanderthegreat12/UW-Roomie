@@ -167,8 +167,6 @@ public class Query {
      */
     public void clearTables() {
         try {
-            clearTable("User_Survey_Pairs");
-            clearTable("User_Contact_Pairs");
             clearTable("Matches");
             clearTable("Users");
             clearTable("Surveys");
