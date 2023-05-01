@@ -189,7 +189,24 @@ public class Query {
      *         return true if login was successful
      */
     public boolean createUser(String username, String password) {
-        throw new NotImplementedException("");
+        try {
+            // check if username already exists
+            getUserStmt.setString(1, username);
+            ResultSet sameUser = getUserStmt.executeQuery();
+            if(sameUser.next()) {
+                // username exists, thus we return false
+                return false;
+            }
+
+            // username doesn't exist, so create the new user and return true
+            createUserStmt.setString(1, username);
+            createUserStmt.setBytes(2, PasswordUtils.hashPassword(password));
+            createUserStmt.execute();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     /**
@@ -199,7 +216,23 @@ public class Query {
      * @return return true if login was successful, otherwise return false
      */
     public boolean login(String username, String password) {
-        throw new NotImplementedException("");
+        try {
+            getUserStmt.setString(1, username);
+            ResultSet user = getUserStmt.executeQuery();
+
+            // if username incorrect, return false
+            if(!user.next()) {
+                return false;
+            }
+
+            // if password matches, return true, otherwise return false
+            return PasswordUtils.plaintextMatchesHash(
+                    password, user.getBytes(2));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     /**
@@ -210,7 +243,7 @@ public class Query {
      * @throws IllegalArgumentException if user not found in database
      */
     public ContactInfo getContactInfo(String username) {
-        throw new NotImplementedException("");
+        
     }
 
     /**
