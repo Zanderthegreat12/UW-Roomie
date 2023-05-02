@@ -571,7 +571,8 @@ public class Query {
      * @param username the identifier of the user of interest
      * @param topK the number of possible matches to return.
      *             If there are less than topK results, return all possible matches
-     * @return the usernames of the user's with highest compatibility of parameter user.
+     * @return the usernames of the user's with highest compatibility between them
+     *         and parameter user.
      *         user's with higher compatibility will be at beginning of list.
      *         user's with lower compatibility will be at the end of the list.
      * @throws IllegalArgumentException if user not in database
