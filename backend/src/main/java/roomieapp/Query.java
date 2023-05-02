@@ -467,19 +467,101 @@ public class Query {
      * @throws IllegalArgumentException if matchInfo has invalid values
      */
     public void setMatch(Match matchInfo) {
-        throw new NotImplementedException("");
+        try {
+            // if user1 not found, throw exception
+            getUserStmt.setString(1, matchInfo.user1);
+            ResultSet user1 = getUserStmt.executeQuery();
+            if(!user1.next()) {
+                throw new IllegalArgumentException();
+            }
+            user1.close();
+
+            // if user2 not found, throw exception
+            getUserStmt.setString(1, matchInfo.user2);
+            ResultSet user2 = getUserStmt.executeQuery();
+            if(!user2.next()) {
+                throw new IllegalArgumentException();
+            }
+            user2.close();
+
+            // if user's contactInfo already there, update their info
+            // else Create new contactInfo for user
+            getMatchStmt.setString(1, matchInfo.user1);
+            getMatchStmt.setString(2, matchInfo.user2);
+            ResultSet match = getMatchStmt.executeQuery();
+            if(match.next()) {
+                updateMatchStmt.setFloat(1, matchInfo.compatibility);
+                updateMatchStmt.setInt(2, matchInfo.matchStatus);
+                updateMatchStmt.setString(3, matchInfo.user1);
+                updateMatchStmt.setString(4, matchInfo.user2);
+                updateMatchStmt.execute();
+            } else {
+                createMatchStmt.setString(1, matchInfo.user1);
+                createMatchStmt.setString(2, matchInfo.user2);
+                createMatchStmt.setFloat(3, matchInfo.compatibility);
+                createMatchStmt.setInt(4, matchInfo.matchStatus);
+                createMatchStmt.execute();
+            }
+            match.close();
+
+        } catch (SQLException e) {
+            // if value incorrect format, throw exception, else try again
+            if(e.getErrorCode() == 530) {
+                throw new IllegalArgumentException();
+            } else {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**
      * Find and return the match information between user1 and user2
-     * @param user1 user 1 identifier
-     * @param user2 user 2 identifier
+     * @param username1 user 1 identifier
+     * @param username2 user 2 identifier
      * @return match info between user1 and user2.
      *         Return null if match info between user1 and user2 doesn't exist
      * @throws IllegalArgumentException if either user1 or user2 not in database
      */
-    public Match getMatch(String user1, String user2) {
-        throw new NotImplementedException("");
+    public Match getMatch(String username1, String username2) {
+        try {
+            // if user1 not found, throw exception
+            getUserStmt.setString(1, username1);
+            ResultSet user1 = getUserStmt.executeQuery();
+            if(!user1.next()) {
+                throw new IllegalArgumentException();
+            }
+            user1.close();
+
+            // if user2 not found, throw exception
+            getUserStmt.setString(1, username2);
+            ResultSet user2 = getUserStmt.executeQuery();
+            if(!user2.next()) {
+                throw new IllegalArgumentException();
+            }
+            user2.close();
+
+            // if users' match not in database, return null
+            getMatchStmt.setString(1, username1);
+            getMatchStmt.setString(2, username2);
+            ResultSet match = getMatchStmt.executeQuery();
+            if(!match.next()) {
+                return null;
+            }
+
+            // return users' match info
+            Match usersMatch = new Match(
+                    username1, // user1
+                    username2, // user2
+                    match.getFloat(3), // compatibility
+                    match.getInt(4) // matchStatus
+            );
+            match.close();
+            return usersMatch;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     /**
