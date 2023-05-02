@@ -168,9 +168,9 @@ public class Query {
     public void clearTables() {
         try {
             clearTable("Matches");
-            clearTable("Users");
             clearTable("Surveys");
             clearTable("Contact_Info");
+            clearTable("Users");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -273,7 +273,7 @@ public class Query {
             contact.close();
             return usersContact;
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             return null;
         }
@@ -329,7 +329,7 @@ public class Query {
             survey.close();
             return usersSurvey;
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             return null;
         }
@@ -363,23 +363,22 @@ public class Query {
                 updateContactStmt.setLong(2, userContactInfo.phoneNumber);
                 updateContactStmt.setString(3, userContactInfo.discord);
                 updateContactStmt.setString(4, username);
-                updateContactStmt.executeQuery();
+                updateContactStmt.execute();
             } else {
                 createContactStmt.setString(1, username);
                 createContactStmt.setString(2, userContactInfo.email);
                 createContactStmt.setLong(3, userContactInfo.phoneNumber);
                 createContactStmt.setString(4, userContactInfo.discord);
-                createContactStmt.executeQuery();
+                createContactStmt.execute();
             }
             contact.close();
 
         } catch (SQLException e) {
-            // if deadlock occurs, try again, else throw exception
-            if(e.getErrorCode() == 1205) {
-                e.printStackTrace();
-            } else {
-                // one of the parameter values incorrect format
+            // if value incorrect format, throw exception, else try again
+            if(e.getErrorCode() == 530) {
                 throw new IllegalArgumentException();
+            } else {
+                e.printStackTrace();
             }
         }
     }
@@ -407,57 +406,56 @@ public class Query {
             getSurveyStmt.setString(1, username);
             ResultSet survey = getSurveyStmt.executeQuery();
             if(survey.next()) {
-                updateContactStmt.setString(1, userSurvey.firstDorm);
-                updateContactStmt.setString(2, userSurvey.secondDorm);
-                updateContactStmt.setString(3, userSurvey.thirdDorm);
-                updateContactStmt.setInt(4, userSurvey.roomType);
-                updateContactStmt.setInt(5, userSurvey.genderInclusive);
-                updateContactStmt.setInt(6, userSurvey.studentYear);
-                updateContactStmt.setInt(7, userSurvey.roommateYear);
-                updateContactStmt.setInt(8, userSurvey.drinkingPref);
-                updateContactStmt.setInt(9, userSurvey.wakeTime);
-                updateContactStmt.setInt(10, userSurvey.sleepTime);
-                updateContactStmt.setInt(11, userSurvey.heavySleep);
-                updateContactStmt.setInt(12, userSurvey.studentVert);
-                updateContactStmt.setInt(13, userSurvey.roommateVert);
-                updateContactStmt.setInt(14, userSurvey.studentFriends);
-                updateContactStmt.setInt(15, userSurvey.roommateFriends);
-                updateContactStmt.setInt(16, userSurvey.studentNeat);
-                updateContactStmt.setInt(17, userSurvey.roommateNeat);
-                updateContactStmt.setString(18, userSurvey.hobbies);
-                updateContactStmt.setString(19, username);
-                updateContactStmt.executeQuery();
+                updateSurveyStmt.setString(1, userSurvey.firstDorm);
+                updateSurveyStmt.setString(2, userSurvey.secondDorm);
+                updateSurveyStmt.setString(3, userSurvey.thirdDorm);
+                updateSurveyStmt.setInt(4, userSurvey.roomType);
+                updateSurveyStmt.setInt(5, userSurvey.genderInclusive);
+                updateSurveyStmt.setInt(6, userSurvey.studentYear);
+                updateSurveyStmt.setInt(7, userSurvey.roommateYear);
+                updateSurveyStmt.setInt(8, userSurvey.drinkingPref);
+                updateSurveyStmt.setInt(9, userSurvey.wakeTime);
+                updateSurveyStmt.setInt(10, userSurvey.sleepTime);
+                updateSurveyStmt.setInt(11, userSurvey.heavySleep);
+                updateSurveyStmt.setInt(12, userSurvey.studentVert);
+                updateSurveyStmt.setInt(13, userSurvey.roommateVert);
+                updateSurveyStmt.setInt(14, userSurvey.studentFriends);
+                updateSurveyStmt.setInt(15, userSurvey.roommateFriends);
+                updateSurveyStmt.setInt(16, userSurvey.studentNeat);
+                updateSurveyStmt.setInt(17, userSurvey.roommateNeat);
+                updateSurveyStmt.setString(18, userSurvey.hobbies);
+                updateSurveyStmt.setString(19, username);
+                updateSurveyStmt.execute();
             } else {
-                createContactStmt.setString(1, username);
-                createContactStmt.setString(2, userSurvey.firstDorm);
-                createContactStmt.setString(3, userSurvey.secondDorm);
-                createContactStmt.setString(4, userSurvey.thirdDorm);
-                createContactStmt.setInt(5, userSurvey.roomType);
-                createContactStmt.setInt(6, userSurvey.genderInclusive);
-                createContactStmt.setInt(7, userSurvey.studentYear);
-                createContactStmt.setInt(8, userSurvey.roommateYear);
-                createContactStmt.setInt(9, userSurvey.drinkingPref);
-                createContactStmt.setInt(10, userSurvey.wakeTime);
-                createContactStmt.setInt(11, userSurvey.sleepTime);
-                createContactStmt.setInt(12, userSurvey.heavySleep);
-                createContactStmt.setInt(13, userSurvey.studentVert);
-                createContactStmt.setInt(14, userSurvey.roommateVert);
-                createContactStmt.setInt(15, userSurvey.studentFriends);
-                createContactStmt.setInt(16, userSurvey.roommateFriends);
-                createContactStmt.setInt(17, userSurvey.studentNeat);
-                createContactStmt.setInt(18, userSurvey.roommateNeat);
-                createContactStmt.setString(19, userSurvey.hobbies);
-                createContactStmt.executeQuery();
+                createSurveyStmt.setString(1, username);
+                createSurveyStmt.setString(2, userSurvey.firstDorm);
+                createSurveyStmt.setString(3, userSurvey.secondDorm);
+                createSurveyStmt.setString(4, userSurvey.thirdDorm);
+                createSurveyStmt.setInt(5, userSurvey.roomType);
+                createSurveyStmt.setInt(6, userSurvey.genderInclusive);
+                createSurveyStmt.setInt(7, userSurvey.studentYear);
+                createSurveyStmt.setInt(8, userSurvey.roommateYear);
+                createSurveyStmt.setInt(9, userSurvey.drinkingPref);
+                createSurveyStmt.setInt(10, userSurvey.wakeTime);
+                createSurveyStmt.setInt(11, userSurvey.sleepTime);
+                createSurveyStmt.setInt(12, userSurvey.heavySleep);
+                createSurveyStmt.setInt(13, userSurvey.studentVert);
+                createSurveyStmt.setInt(14, userSurvey.roommateVert);
+                createSurveyStmt.setInt(15, userSurvey.studentFriends);
+                createSurveyStmt.setInt(16, userSurvey.roommateFriends);
+                createSurveyStmt.setInt(17, userSurvey.studentNeat);
+                createSurveyStmt.setInt(18, userSurvey.roommateNeat);
+                createSurveyStmt.setString(19, userSurvey.hobbies);
+                createSurveyStmt.execute();
             }
             survey.close();
 
         } catch (SQLException e) {
-            // if deadlock occurs, try again, else throw exception
-            if(e.getErrorCode() == 1205) {
-                e.printStackTrace();
-            } else {
-                // one of the parameter values incorrect format
+            // if value incorrect format, throw exception, else try again
+            if(e.getErrorCode() == 530) {
                 throw new IllegalArgumentException();
+            } else {
+                e.printStackTrace();
             }
         }
     }

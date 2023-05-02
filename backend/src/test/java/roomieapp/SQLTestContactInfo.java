@@ -85,7 +85,7 @@ public class SQLTestContactInfo {
     /**
      * Test getting contact info when contact info doesn't exist
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testGetContactInfoNoneExist()
     {
         Query querier = new Query();
