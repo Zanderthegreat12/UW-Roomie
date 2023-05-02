@@ -77,8 +77,13 @@ public class SQLMatchTest {
         querier.createUser(match.user1, "passIt");
         querier.createUser(match.user2, "hitIt");
         querier.setMatch(match);
+
+        // test shouldn't change between these 2 iterations
         Match test = querier.getMatch(match.user1, match.user2);
         assertTrue(match.equals(test));
+        test = querier.getMatch(match.user2, match.user1);
+        assertTrue(match.equals(test));
+
         querier.clearTables();
     }
 
