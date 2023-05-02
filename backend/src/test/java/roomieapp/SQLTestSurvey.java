@@ -84,6 +84,7 @@ public class SQLTestSurvey {
     {
         Query querier = new Query();
         querier.clearTables();
+        querier.createUser(exampleSurvey.username, "overHere");
         querier.setSurvey(exampleSurvey);
         Survey test = querier.getSurvey(exampleSurvey.username);
         assertTrue(exampleSurvey.equals(test));
@@ -98,6 +99,7 @@ public class SQLTestSurvey {
     {
         Query querier = new Query();
         querier.clearTables();
+        querier.createUser(exampleSurvey.username, "wellNow");
         querier.setSurvey(exampleSurvey);
         querier.clearTables();
     }
@@ -168,6 +170,8 @@ public class SQLTestSurvey {
         Query querier = new Query();
         querier.clearTables();
         querier.createUser(exampleSurvey.username, "lolololol");
+        querier.createUser(otherSurvey.username, "lolololol");
+
         querier.setSurvey(exampleSurvey);
         Survey test = querier.getSurvey(exampleSurvey.username);
         assertTrue(exampleSurvey.equals(test));
