@@ -105,7 +105,7 @@ public class SQLMatchTest {
         querier.createUser(otherMatch.user1, "passIt");
         querier.createUser(otherMatch.user2, "hitIt");
         querier.setMatch(otherMatch);
-        test = querier.getMatch(otherMatch.user1, otherMatch.user2);
+        test = querier.getMatch(otherMatch.user2, otherMatch.user1);
         assertTrue(otherMatch.equals(test));
 
         test = querier.getMatch(match.user1, match.user2);
