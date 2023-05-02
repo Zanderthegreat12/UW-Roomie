@@ -197,12 +197,14 @@ public class Query {
                 // username exists, thus we return false
                 return false;
             }
+            sameUser.close();
 
             // username doesn't exist, so create the new user and return true
             createUserStmt.setString(1, username);
             createUserStmt.setBytes(2, PasswordUtils.hashPassword(password));
             createUserStmt.execute();
             return true;
+
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -226,8 +228,10 @@ public class Query {
             }
 
             // if password matches, return true, otherwise return false
-            return PasswordUtils.plaintextMatchesHash(
+            boolean correctLogin = PasswordUtils.plaintextMatchesHash(
                     password, user.getBytes(2));
+            user.close();
+            return correctLogin;
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -243,7 +247,36 @@ public class Query {
      * @throws IllegalArgumentException if user not found in database
      */
     public ContactInfo getContactInfo(String username) {
-        
+        try {
+            // if username not found, throw exception
+            getUserStmt.setString(1, username);
+            ResultSet user = getUserStmt.executeQuery();
+            if(!user.next()) {
+                throw new IllegalArgumentException();
+            }
+            user.close();
+
+            // if user's contact info not in database, return null
+            getContactStmt.setString(1, username);
+            ResultSet contact = getContactStmt.executeQuery();
+            if(!contact.next()) {
+                return null;
+            }
+
+            // return user's contact info
+            ContactInfo usersContact = new ContactInfo(
+                username, // username
+                contact.getString(2), // email
+                contact.getLong(3), // phone number
+                contact.getString(4) // discord
+            );
+            contact.close();
+            return usersContact;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     /**
@@ -255,7 +288,51 @@ public class Query {
      * @throws IllegalArgumentException if user not found in database
      */
     public Survey getSurvey(String username) {
-        throw new NotImplementedException("");
+        try {
+            // if username not found, throw exception
+            getUserStmt.setString(1, username);
+            ResultSet user = getUserStmt.executeQuery();
+            if(!user.next()) {
+                throw new IllegalArgumentException();
+            }
+            user.close();
+
+            // if user's survey not in database, return null
+            getSurveyStmt.setString(1, username);
+            ResultSet survey = getSurveyStmt.executeQuery();
+            if(!survey.next()) {
+                return null;
+            }
+
+            // return user's survey answers
+            Survey usersSurvey = new Survey(
+                    username, // username
+                    survey.getString(2), // firstDorm
+                    survey.getString(3), // secondDorm
+                    survey.getString(4), // thirdDorm
+                    survey.getInt(5), // roomType
+                    survey.getInt(6), // genderInclusive
+                    survey.getInt(7), // studentYear
+                    survey.getInt(8), // roommateYear
+                    survey.getInt(9), // drinkingPref
+                    survey.getInt(10), // wakeTime
+                    survey.getInt(11), // sleepTime
+                    survey.getInt(12), // heavySleep
+                    survey.getInt(13), // studentVert
+                    survey.getInt(14), // roommateVert
+                    survey.getInt(15), // studentFriends
+                    survey.getInt(16), // roommateFriends
+                    survey.getInt(17), // studentNeat
+                    survey.getInt(18), // roommateNeat
+                    survey.getString(19) // hobbies
+            );
+            survey.close();
+            return usersSurvey;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     /**
@@ -266,7 +343,45 @@ public class Query {
      * @throws IllegalArgumentException if userContactInfo has invalid values
      */
     public void setContactInfo(ContactInfo userContactInfo) {
-        throw new NotImplementedException("");
+        try {
+            String username = userContactInfo.username;
+
+            // if username not found, throw exception
+            getUserStmt.setString(1, username);
+            ResultSet user = getUserStmt.executeQuery();
+            if(!user.next()) {
+                throw new IllegalArgumentException();
+            }
+            user.close();
+
+            // if user's contactInfo already there, update their info
+            // else Create new contactInfo for user
+            getContactStmt.setString(1, username);
+            ResultSet contact = getContactStmt.executeQuery();
+            if(contact.next()) {
+                updateContactStmt.setString(1, userContactInfo.email);
+                updateContactStmt.setLong(2, userContactInfo.phoneNumber);
+                updateContactStmt.setString(3, userContactInfo.discord);
+                updateContactStmt.setString(4, username);
+                updateContactStmt.executeQuery();
+            } else {
+                createContactStmt.setString(1, username);
+                createContactStmt.setString(2, userContactInfo.email);
+                createContactStmt.setLong(3, userContactInfo.phoneNumber);
+                createContactStmt.setString(4, userContactInfo.discord);
+                createContactStmt.executeQuery();
+            }
+            contact.close();
+
+        } catch (SQLException e) {
+            // if deadlock occurs, try again, else throw exception
+            if(e.getErrorCode() == 1205) {
+                e.printStackTrace();
+            } else {
+                // one of the parameter values incorrect format
+                throw new IllegalArgumentException();
+            }
+        }
     }
 
     /**
@@ -276,7 +391,75 @@ public class Query {
      * @throws IllegalArgumentException if userSurvey has invalid values
      */
     public void setSurvey(Survey userSurvey) {
-        throw new NotImplementedException("");
+        try {
+            String username = userSurvey.username;
+
+            // if username not found, throw exception
+            getUserStmt.setString(1, username);
+            ResultSet user = getUserStmt.executeQuery();
+            if(!user.next()) {
+                throw new IllegalArgumentException();
+            }
+            user.close();
+
+            // if user's contactInfo already there, update their info
+            // else Create new contactInfo for user
+            getSurveyStmt.setString(1, username);
+            ResultSet survey = getSurveyStmt.executeQuery();
+            if(survey.next()) {
+                updateContactStmt.setString(1, userSurvey.firstDorm);
+                updateContactStmt.setString(2, userSurvey.secondDorm);
+                updateContactStmt.setString(3, userSurvey.thirdDorm);
+                updateContactStmt.setInt(4, userSurvey.roomType);
+                updateContactStmt.setInt(5, userSurvey.genderInclusive);
+                updateContactStmt.setInt(6, userSurvey.studentYear);
+                updateContactStmt.setInt(7, userSurvey.roommateYear);
+                updateContactStmt.setInt(8, userSurvey.drinkingPref);
+                updateContactStmt.setInt(9, userSurvey.wakeTime);
+                updateContactStmt.setInt(10, userSurvey.sleepTime);
+                updateContactStmt.setInt(11, userSurvey.heavySleep);
+                updateContactStmt.setInt(12, userSurvey.studentVert);
+                updateContactStmt.setInt(13, userSurvey.roommateVert);
+                updateContactStmt.setInt(14, userSurvey.studentFriends);
+                updateContactStmt.setInt(15, userSurvey.roommateFriends);
+                updateContactStmt.setInt(16, userSurvey.studentNeat);
+                updateContactStmt.setInt(17, userSurvey.roommateNeat);
+                updateContactStmt.setString(18, userSurvey.hobbies);
+                updateContactStmt.setString(19, username);
+                updateContactStmt.executeQuery();
+            } else {
+                createContactStmt.setString(1, username);
+                createContactStmt.setString(2, userSurvey.firstDorm);
+                createContactStmt.setString(3, userSurvey.secondDorm);
+                createContactStmt.setString(4, userSurvey.thirdDorm);
+                createContactStmt.setInt(5, userSurvey.roomType);
+                createContactStmt.setInt(6, userSurvey.genderInclusive);
+                createContactStmt.setInt(7, userSurvey.studentYear);
+                createContactStmt.setInt(8, userSurvey.roommateYear);
+                createContactStmt.setInt(9, userSurvey.drinkingPref);
+                createContactStmt.setInt(10, userSurvey.wakeTime);
+                createContactStmt.setInt(11, userSurvey.sleepTime);
+                createContactStmt.setInt(12, userSurvey.heavySleep);
+                createContactStmt.setInt(13, userSurvey.studentVert);
+                createContactStmt.setInt(14, userSurvey.roommateVert);
+                createContactStmt.setInt(15, userSurvey.studentFriends);
+                createContactStmt.setInt(16, userSurvey.roommateFriends);
+                createContactStmt.setInt(17, userSurvey.studentNeat);
+                createContactStmt.setInt(18, userSurvey.roommateNeat);
+                createContactStmt.setString(19, userSurvey.hobbies);
+                createContactStmt.executeQuery();
+            }
+            survey.close();
+
+        } catch (SQLException e) {
+            // if deadlock occurs, try again, else throw exception
+            if(e.getErrorCode() == 1205) {
+                e.printStackTrace();
+            } else {
+                // one of the parameter values incorrect format
+                throw new IllegalArgumentException();
+            }
+        }
     }
 
     /**
