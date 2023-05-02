@@ -41,10 +41,15 @@ Review overview of our Software design/architecture
 - Implement Query Functions associated with account management
 
 #### Second subsection: 
-
+- I created documentation for all necessary Query functions
+- I've implemented all necessary Query functions (they only work sequentially right now)
+- I have about 2-4 Junit tests created per Query function
+- I've set up SparkJava
 
 #### Third Subsection:
-
+- Make my queries work with concurrency
+- Clean up my code using private helper methods
+- implement encryption for contactInfo.
 
 ### Leah:
 #### First subsection:
