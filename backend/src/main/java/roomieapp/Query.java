@@ -645,7 +645,8 @@ public class Query {
     /**
      * Get a list of survey answers of all users in database.
      * This is used to determine compatibility scores between 2 users.
-     * @return list of survey answers of all users in database
+     * @return list of survey answers of all users in database.
+     *      If there are no surveys, return an empty list
      */
     public List<Survey> getAllSurveys() {
         try {
