@@ -588,7 +588,7 @@ public class Query {
             }
             user.close();
 
-            // return up to topk matches
+            // return up to topK matches
             getTopMatches.setString(1, username);
             getTopMatches.setString(2, username);
             getTopMatches.setInt(3, topK);

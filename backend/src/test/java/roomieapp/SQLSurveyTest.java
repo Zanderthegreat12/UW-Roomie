@@ -7,7 +7,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * unit tests for getting/setting surveys
  */
-public class SQLTestSurvey {
+public class SQLSurveyTest {
 
     private static final Survey exampleSurvey = new Survey(
             "user",

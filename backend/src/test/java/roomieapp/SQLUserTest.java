@@ -7,7 +7,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * unit test for creating user and logging a user in
  */
-public class SQLTestUser {
+public class SQLUserTest {
     /**
      * Tests createUser method with only one user
      */

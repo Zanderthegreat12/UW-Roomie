@@ -7,7 +7,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * unit tests for setting/getting contact info
  */
-public class SQLTestContactInfo {
+public class SQLContactInfoTest {
 
     private static final ContactInfo userContact = new ContactInfo(
             "user",

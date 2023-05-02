@@ -8,7 +8,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * unit tests for setting/getting matches
  */
-public class SQLTestMatch {
+public class SQLMatchTest {
 
     private static final Match match = new Match(
         "user1",
