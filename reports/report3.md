@@ -71,7 +71,18 @@ Review Testing, Continuous Integration, and Alpha Build Implementation
 - Talk to Alex/Colby to figure out how to format the data I retrieve from the database for the algorithm.
 
 #### Second subsection:
-
+- Created 10 fake user profiles.
+- Practiced with Node.js, eventually decided to switch from Node to Spark for the server side.
+  - Allows us to connect it easily to the java side of the app
+  - Lets us write query calls and format them in java
+- Created several spark server calls including
+  - Create Account
+  - Get K Matches
+  - Log in
+  - Create contact
+  - Run Algorithm
 
 #### Third subsection:
-
+- Finish the 20 fake user profiles and put them in a Survey format.
+- Finish the server calls.
+- Help Leah integrate the server calls with the front end of the app.
