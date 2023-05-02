@@ -11,9 +11,9 @@ import java.util.List;
 import static spark.Spark.*;
 
 class Server {
-    final static Query q = new Query();
     //http://localhost:4567
     public static void main(String[] args) {
+        final Query q = new Query();
         //Test to make sure its working
         Spark.get("/hello", new Route() {
             @Override
@@ -22,17 +22,28 @@ class Server {
             }
         });
 
-        //Gets the first k matches from the database
         Spark.get("/get_match", new Route() {
             @Override
             public Object handle(Request request, Response response) throws Exception {
                 String username = request.queryParams("username");
-                //int numMatch = Integer.parseInt(request.queryParams("numMatch"));
+                int numMatch = Integer.parseInt(request.queryParams("numMatch"));
                 //List<String> matches = q.getTopMatches(username, numMatch);
-                /*Gson g = new Gson();
-                String jsonResponse = g.toJson(matches);
-                return jsonResponse;*/
+                //Gson g = new Gson();
+                //String jsonResponse = g.toJson(matches);
+                //return jsonResponse;
                 return "hello";
+            }
+        });
+
+        //Gets the first k matches from the database
+        Spark.get("/connect", new Route() {
+            @Override
+            public Object handle(Request request, Response response) throws Exception {
+                //Gson g = new Gson();
+                //String jsonResponse = g.toJson(qTest);
+                //return jsonResponse;
+                q.clearTables();
+                return "Test connect successful!";
             }
         });
 
