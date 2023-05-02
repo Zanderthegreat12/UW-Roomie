@@ -54,6 +54,20 @@ public class SQLMatchTest {
             0
     );
 
+    private static final Match updatedCompMatch = new Match(
+            "user1",
+            "user2",
+            70,
+            0
+    );
+
+    private static final Match updatedStatusMatch = new Match(
+            "user1",
+            "user2",
+            90,
+            2
+    );
+
     /**
      * test creating match for single pair of users
      */
@@ -277,13 +291,13 @@ public class SQLMatchTest {
         querier.createUser(match.user2, "hitIt");
         querier.setMatch(match);
 
-        querier.updateCompatibility(match.user1, match.user2, overlapMatch.compatibility);
+        querier.updateCompatibility(match.user1, match.user2, updatedCompMatch.compatibility);
         Match test = querier.getMatch(match.user1, match.user2);
-        assertTrue(overlapMatch.equals(test));
+        assertTrue(updatedCompMatch.equals(test));
 
-        querier.updateCompatibility(match.user2, match.user1, overlapMatch.compatibility);
+        querier.updateCompatibility(match.user2, match.user1, updatedCompMatch.compatibility);
         test = querier.getMatch(match.user1, match.user2);
-        assertTrue(overlapMatch.equals(test));
+        assertTrue(updatedCompMatch.equals(test));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -312,13 +326,13 @@ public class SQLMatchTest {
         querier.createUser(match.user2, "hitIt");
         querier.setMatch(match);
 
-        querier.updateMatchStatus(match.user1, match.user2, overlapMatch.matchStatus);
+        querier.updateMatchStatus(match.user1, match.user2, updatedStatusMatch.matchStatus);
         Match test = querier.getMatch(match.user1, match.user2);
-        assertTrue(overlapMatch.equals(test));
+        assertTrue(updatedStatusMatch.equals(test));
 
-        querier.updateMatchStatus(match.user2, match.user1, overlapMatch.matchStatus);
+        querier.updateMatchStatus(match.user2, match.user1, updatedStatusMatch.matchStatus);
         test = querier.getMatch(match.user1, match.user2);
-        assertTrue(overlapMatch.equals(test));
+        assertTrue(updatedStatusMatch.equals(test));
     }
 
     @Test(expected = IllegalArgumentException.class)

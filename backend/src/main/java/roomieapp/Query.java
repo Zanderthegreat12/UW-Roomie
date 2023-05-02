@@ -363,7 +363,7 @@ public class Query {
 
         } catch (SQLException e) {
             // if value incorrect format, throw exception, else try again
-            if(e.getErrorCode() == 530) {
+            if(e.getErrorCode() == 3819) {
                 throw new IllegalArgumentException();
             } else {
                 e.printStackTrace();
@@ -437,7 +437,7 @@ public class Query {
 
         } catch (SQLException e) {
             // if value incorrect format, throw exception, else try again
-            if(e.getErrorCode() == 530) {
+            if(e.getErrorCode() == 3819) {
                 throw new IllegalArgumentException();
             } else {
                 e.printStackTrace();
@@ -480,7 +480,7 @@ public class Query {
 
         } catch (SQLException e) {
             // if value incorrect format, throw exception, else try again
-            if(e.getErrorCode() == 530) {
+            if(e.getErrorCode() == 3819) {
                 throw new IllegalArgumentException();
             } else {
                 e.printStackTrace();
@@ -597,7 +597,7 @@ public class Query {
 
         } catch (SQLException e) {
             // if value incorrect format, throw exception, else try again
-            if(e.getErrorCode() == 530) {
+            if(e.getErrorCode() == 3819) {
                 throw new IllegalArgumentException();
             } else {
                 e.printStackTrace();
@@ -634,7 +634,7 @@ public class Query {
 
         } catch (SQLException e) {
             // if value incorrect format, throw exception, else try again
-            if(e.getErrorCode() == 530) {
+            if(e.getErrorCode() == 3819) {
                 throw new IllegalArgumentException();
             } else {
                 e.printStackTrace();
