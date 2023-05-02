@@ -8,13 +8,15 @@ import static org.junit.Assert.assertTrue;
  * unit test for creating user and logging a user in
  */
 public class SQLUserTest {
+
+    private static final Query querier = new Query();
+
     /**
      * Tests createUser method with only one user
      */
     @Test
     public void testCreateUserSimple()
     {
-        Query querier = new Query();
         querier.clearTables();
         assertTrue(querier.createUser("user1", "password"));
         querier.clearTables();
@@ -26,7 +28,6 @@ public class SQLUserTest {
     @Test
     public void testCreateUsers()
     {
-        Query querier = new Query();
         querier.clearTables();
         // matching passwords between users shouldn't matter
         assertTrue(querier.createUser("user1", "password1"));
@@ -41,7 +42,6 @@ public class SQLUserTest {
     @Test
     public void testCreateSameUsernames()
     {
-        Query querier = new Query();
         querier.clearTables();
         assertTrue(querier.createUser("user1", "password1"));
         assertTrue(!querier.createUser("user1", "password2"));
@@ -54,7 +54,6 @@ public class SQLUserTest {
     @Test
     public void testLoginSimpleSuccess()
     {
-        Query querier = new Query();
         querier.clearTables();
         assertTrue(querier.createUser("user", "user"));
         assertTrue(querier.login("user", "user"));
@@ -67,7 +66,6 @@ public class SQLUserTest {
     @Test
     public void testLoginSimpleFail()
     {
-        Query querier = new Query();
         querier.clearTables();
         assertTrue(querier.createUser("user", "passThis"));
         assertTrue(!querier.login("userFail", "passThis"));
@@ -82,7 +80,6 @@ public class SQLUserTest {
     @Test
     public void testMultiLogin()
     {
-        Query querier = new Query();
         querier.clearTables();
         assertTrue(querier.createUser("testUser1", "password1"));
         assertTrue(querier.createUser("testUser2", "password2"));

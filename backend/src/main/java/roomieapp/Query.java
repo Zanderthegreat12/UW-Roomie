@@ -53,7 +53,16 @@ public class Query {
     private PreparedStatement updateMatchStmt;
 
     // query to get k number of top matches with given user
-    private PreparedStatement getTopMatches;
+    private PreparedStatement getTopMatchesStmt;
+
+    // query to update only compatibility of a match
+    private PreparedStatement updateCompatibilityStmt;
+
+    // query to update only matchStatus of a match
+    private PreparedStatement updateMatchStatusStmt;
+
+    // query to get all surveys
+    private PreparedStatement getAllSurveysStmt;
 
     /**
      * Initializes a connection with SQL database
@@ -154,12 +163,28 @@ public class Query {
                 "WHERE user1 = ? and user2 = ?;"
         );
 
-        getTopMatches = conn.prepareStatement(
+        getTopMatchesStmt = conn.prepareStatement(
             "SELECT * " +
                 "FROM Matches " +
                 "WHERE (user1 = ? or user2 = ?) and matchStatus = 0 " +
                 "ORDER BY compatibility DESC " +
                 "LIMIT ?;"
+        );
+
+        updateCompatibilityStmt = conn.prepareStatement(
+            "UPDATE Matches " +
+                "SET compatibility = ? " +
+                "WHERE user1 = ? and user2 = ?;"
+        );
+
+        updateMatchStatusStmt = conn.prepareStatement(
+            "UPDATE Matches " +
+                "SET matchStatus = ? " +
+                "WHERE user1 = ? and user2 = ?;"
+        );
+
+        getAllSurveysStmt = conn.prepareStatement(
+                "SELECT * FROM Surveys;"
         );
     }
 
@@ -192,13 +217,9 @@ public class Query {
     public boolean createUser(String username, String password) {
         try {
             // check if username already exists
-            getUserStmt.setString(1, username);
-            ResultSet sameUser = getUserStmt.executeQuery();
-            if(sameUser.next()) {
-                // username exists, thus we return false
+            if(userExists(username)) {
                 return false;
             }
-            sameUser.close();
 
             // username doesn't exist, so create the new user and return true
             createUserStmt.setString(1, username);
@@ -250,12 +271,9 @@ public class Query {
     public ContactInfo getContactInfo(String username) {
         try {
             // if username not found, throw exception
-            getUserStmt.setString(1, username);
-            ResultSet user = getUserStmt.executeQuery();
-            if(!user.next()) {
+            if(!userExists(username)) {
                 throw new IllegalArgumentException();
             }
-            user.close();
 
             // if user's contact info not in database, return null
             getContactStmt.setString(1, username);
@@ -265,12 +283,7 @@ public class Query {
             }
 
             // return user's contact info
-            ContactInfo usersContact = new ContactInfo(
-                username, // username
-                contact.getString(2), // email
-                contact.getLong(3), // phone number
-                contact.getString(4) // discord
-            );
+            ContactInfo usersContact = storeContactInfo(contact);
             contact.close();
             return usersContact;
 
@@ -291,12 +304,9 @@ public class Query {
     public Survey getSurvey(String username) {
         try {
             // if username not found, throw exception
-            getUserStmt.setString(1, username);
-            ResultSet user = getUserStmt.executeQuery();
-            if(!user.next()) {
+            if(!userExists(username)) {
                 throw new IllegalArgumentException();
             }
-            user.close();
 
             // if user's survey not in database, return null
             getSurveyStmt.setString(1, username);
@@ -306,27 +316,7 @@ public class Query {
             }
 
             // return user's survey answers
-            Survey usersSurvey = new Survey(
-                    username, // username
-                    survey.getString(2), // firstDorm
-                    survey.getString(3), // secondDorm
-                    survey.getString(4), // thirdDorm
-                    survey.getInt(5), // roomType
-                    survey.getInt(6), // genderInclusive
-                    survey.getInt(7), // studentYear
-                    survey.getInt(8), // roommateYear
-                    survey.getInt(9), // drinkingPref
-                    survey.getInt(10), // wakeTime
-                    survey.getInt(11), // sleepTime
-                    survey.getInt(12), // heavySleep
-                    survey.getInt(13), // studentVert
-                    survey.getInt(14), // roommateVert
-                    survey.getInt(15), // studentFriends
-                    survey.getInt(16), // roommateFriends
-                    survey.getInt(17), // studentNeat
-                    survey.getInt(18), // roommateNeat
-                    survey.getString(19) // hobbies
-            );
+            Survey usersSurvey = storeSurvey(survey);
             survey.close();
             return usersSurvey;
 
@@ -348,12 +338,9 @@ public class Query {
             String username = userContactInfo.username;
 
             // if username not found, throw exception
-            getUserStmt.setString(1, username);
-            ResultSet user = getUserStmt.executeQuery();
-            if(!user.next()) {
+            if(!userExists(username)) {
                 throw new IllegalArgumentException();
             }
-            user.close();
 
             // if user's contactInfo already there, update their info
             // else Create new contactInfo for user
@@ -376,7 +363,7 @@ public class Query {
 
         } catch (SQLException e) {
             // if value incorrect format, throw exception, else try again
-            if(e.getErrorCode() == 530) {
+            if(e.getErrorCode() == 3819) {
                 throw new IllegalArgumentException();
             } else {
                 e.printStackTrace();
@@ -395,15 +382,12 @@ public class Query {
             String username = userSurvey.username;
 
             // if username not found, throw exception
-            getUserStmt.setString(1, username);
-            ResultSet user = getUserStmt.executeQuery();
-            if(!user.next()) {
+            if(!userExists(username)) {
                 throw new IllegalArgumentException();
             }
-            user.close();
 
-            // if user's contactInfo already there, update their info
-            // else Create new contactInfo for user
+            // if user's survey already there, update their info
+            // else Create new survey for user
             getSurveyStmt.setString(1, username);
             ResultSet survey = getSurveyStmt.executeQuery();
             if(survey.next()) {
@@ -453,7 +437,7 @@ public class Query {
 
         } catch (SQLException e) {
             // if value incorrect format, throw exception, else try again
-            if(e.getErrorCode() == 530) {
+            if(e.getErrorCode() == 3819) {
                 throw new IllegalArgumentException();
             } else {
                 e.printStackTrace();
@@ -469,24 +453,13 @@ public class Query {
      */
     public void setMatch(Match matchInfo) {
         try {
-            // if user1 not found, throw exception
-            getUserStmt.setString(1, matchInfo.user1);
-            ResultSet user1 = getUserStmt.executeQuery();
-            if(!user1.next()) {
+            // if users don't exist, throw exception
+            if(!userExists(matchInfo.user1) || !userExists(matchInfo.user2)) {
                 throw new IllegalArgumentException();
             }
-            user1.close();
 
-            // if user2 not found, throw exception
-            getUserStmt.setString(1, matchInfo.user2);
-            ResultSet user2 = getUserStmt.executeQuery();
-            if(!user2.next()) {
-                throw new IllegalArgumentException();
-            }
-            user2.close();
-
-            // if user's contactInfo already there, update their info
-            // else Create new contactInfo for user
+            // if user's match info already there, update their info
+            // else Create new match for users
             getMatchStmt.setString(1, matchInfo.user1);
             getMatchStmt.setString(2, matchInfo.user2);
             ResultSet match = getMatchStmt.executeQuery();
@@ -507,7 +480,7 @@ public class Query {
 
         } catch (SQLException e) {
             // if value incorrect format, throw exception, else try again
-            if(e.getErrorCode() == 530) {
+            if(e.getErrorCode() == 3819) {
                 throw new IllegalArgumentException();
             } else {
                 e.printStackTrace();
@@ -524,22 +497,16 @@ public class Query {
      * @throws IllegalArgumentException if either user1 or user2 not in database
      */
     public Match getMatch(String username1, String username2) {
+        if(username1.compareTo(username2) >= 0) {
+            String temp = username1;
+            username1 = username2;
+            username2 = temp;
+        }
         try {
-            // if user1 not found, throw exception
-            getUserStmt.setString(1, username1);
-            ResultSet user1 = getUserStmt.executeQuery();
-            if(!user1.next()) {
+            // if users don't exist, throw exception
+            if(!userExists(username1) || !userExists(username2)) {
                 throw new IllegalArgumentException();
             }
-            user1.close();
-
-            // if user2 not found, throw exception
-            getUserStmt.setString(1, username2);
-            ResultSet user2 = getUserStmt.executeQuery();
-            if(!user2.next()) {
-                throw new IllegalArgumentException();
-            }
-            user2.close();
 
             // if users' match not in database, return null
             getMatchStmt.setString(1, username1);
@@ -550,12 +517,7 @@ public class Query {
             }
 
             // return users' match info
-            Match usersMatch = new Match(
-                    username1, // user1
-                    username2, // user2
-                    match.getFloat(3), // compatibility
-                    match.getInt(4) // matchStatus
-            );
+            Match usersMatch = storeMatch(match);
             match.close();
             return usersMatch;
 
@@ -582,18 +544,15 @@ public class Query {
             List<String> topMatches = new LinkedList<String>();
 
             // throw exception if user not in database
-            getUserStmt.setString(1, username);
-            ResultSet user = getUserStmt.executeQuery();
-            if(!user.next()) {
+            if(!userExists(username)) {
                 throw new IllegalArgumentException();
             }
-            user.close();
 
             // return up to topK matches
-            getTopMatches.setString(1, username);
-            getTopMatches.setString(2, username);
-            getTopMatches.setInt(3, topK);
-            ResultSet currMatch = getTopMatches.executeQuery();
+            getTopMatchesStmt.setString(1, username);
+            getTopMatchesStmt.setString(2, username);
+            getTopMatchesStmt.setInt(3, topK);
+            ResultSet currMatch = getTopMatchesStmt.executeQuery();
             while(currMatch.next()) {
                 if(currMatch.getString(1).equals(username)) {
                     topMatches.add(currMatch.getString(2));
@@ -607,5 +566,184 @@ public class Query {
             e.printStackTrace();
             return null;
         }
+    }
+
+    /**
+     * updates compatibility rating with newCompatibility for 2 users named
+     * user1 and user2.
+     * @param username1 identifier for username1
+     * @param username2 identifier for username2
+     * @param newCompatibility the updated compatibility for the 2 users
+     * @throws IllegalArgumentException if users or match not found in database
+     *         or if newCompatibility not between 0 and 100
+     */
+    public void updateCompatibility(String username1, String username2,
+                                    float newCompatibility) {
+        if(username1.compareTo(username2) >= 0) {
+            String temp = username1;
+            username1 = username2;
+            username2 = temp;
+        }
+        try {
+            if(!userExists(username1) || !userExists(username2) ||
+                    !matchExists(username1, username2)) {
+                throw new IllegalArgumentException();
+            }
+
+            updateCompatibilityStmt.setFloat(1, newCompatibility);
+            updateCompatibilityStmt.setString(2, username1);
+            updateCompatibilityStmt.setString(3, username2);
+            updateCompatibilityStmt.execute();
+
+        } catch (SQLException e) {
+            // if value incorrect format, throw exception, else try again
+            if(e.getErrorCode() == 3819) {
+                throw new IllegalArgumentException();
+            } else {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * updates match status with newMatchStatus for 2 users named
+     * username1 and username2.
+     * @param username1 identifier for user1
+     * @param username2 identifier for user2
+     * @param newMatchStatus the updated compatibility for the 2 users
+     * @throws IllegalArgumentException if users or match not found in database
+     *         or if newMatchStatus not between 0 and 3
+     */
+    public void updateMatchStatus(String username1, String username2, int newMatchStatus) {
+        if(username1.compareTo(username2) >= 0) {
+            String temp = username1;
+            username1 = username2;
+            username2 = temp;
+        }
+        try {
+            // if user1, user2, or match not found, throw exception
+            if(!userExists(username1) || !userExists(username2) ||
+                    !matchExists(username1, username2)) {
+                throw new IllegalArgumentException();
+            }
+
+            updateMatchStatusStmt.setFloat(1, newMatchStatus);
+            updateMatchStatusStmt.setString(2, username1);
+            updateMatchStatusStmt.setString(3, username2);
+            updateMatchStatusStmt.execute();
+
+        } catch (SQLException e) {
+            // if value incorrect format, throw exception, else try again
+            if(e.getErrorCode() == 3819) {
+                throw new IllegalArgumentException();
+            } else {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * Get a list of survey answers of all users in database.
+     * This is used to determine compatibility scores between 2 users.
+     * @return list of survey answers of all users in database.
+     *      If there are no surveys, return an empty list
+     */
+    public List<Survey> getAllSurveys() {
+        try {
+            List<Survey> surveys = new LinkedList<>();
+            ResultSet currSurvey = getAllSurveysStmt.executeQuery();
+            while(currSurvey.next()) {
+                Survey survey = storeSurvey(currSurvey);
+                surveys.add(survey);
+            }
+            return surveys;
+
+        } catch(SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    // check if user with given username exists
+    private boolean userExists(String username) throws SQLException {
+        getUserStmt.setString(1, username);
+        ResultSet user = getUserStmt.executeQuery();
+        boolean userExists = user.next();
+        user.close();
+        return userExists;
+    }
+
+    // checks if match with the 2 given users exist
+    // assumes username1 < username2
+    private boolean matchExists(String username1, String username2) throws SQLException {
+        getMatchStmt.setString(1, username1);
+        getMatchStmt.setString(2, username2);
+        ResultSet match = getMatchStmt.executeQuery();
+        boolean matchExists = match.next();
+        match.close();
+        return matchExists;
+    }
+
+    // checks if survey with given user exists
+    private boolean surveyExists(String username) throws SQLException {
+        getSurveyStmt.setString(1, username);
+        ResultSet survey = getSurveyStmt.executeQuery();
+        boolean surveyExists = survey.next();
+        survey.close();
+        return surveyExists;
+    }
+
+    // checks if contact info with given user exists
+    private boolean contactExists(String username) throws SQLException {
+        getContactStmt.setString(1, username);
+        ResultSet contact = getContactStmt.executeQuery();
+        boolean contactExists = contact.next();
+        contact.close();
+        return contactExists;
+    }
+
+    // take SQL match data, and store in Java Match object
+    private Match storeMatch(ResultSet match) throws SQLException {
+        return new Match(
+                match.getString(1), // user1
+                match.getString(2), // user2
+                match.getFloat(3), // compatibility
+                match.getInt(4) // matchStatus
+        );
+    }
+
+    // take SQL contactInfo, and store in Java ContactInfo object
+    private ContactInfo storeContactInfo(ResultSet contact) throws SQLException {
+        return new ContactInfo(
+                contact.getString(1), // username
+                contact.getString(2), // email
+                contact.getLong(3), // phone number
+                contact.getString(4) // discord
+        );
+    }
+
+    // take SQL survey data, and store in Java Survey object
+    private Survey storeSurvey(ResultSet survey) throws SQLException {
+        return new Survey(
+                survey.getString(1), // username
+                survey.getString(2), // firstDorm
+                survey.getString(3), // secondDorm
+                survey.getString(4), // thirdDorm
+                survey.getInt(5), // roomType
+                survey.getInt(6), // genderInclusive
+                survey.getInt(7), // studentYear
+                survey.getInt(8), // roommateYear
+                survey.getInt(9), // drinkingPref
+                survey.getInt(10), // wakeTime
+                survey.getInt(11), // sleepTime
+                survey.getInt(12), // heavySleep
+                survey.getInt(13), // studentVert
+                survey.getInt(14), // roommateVert
+                survey.getInt(15), // studentFriends
+                survey.getInt(16), // roommateFriends
+                survey.getInt(17), // studentNeat
+                survey.getInt(18), // roommateNeat
+                survey.getString(19) // hobbies
+        );
     }
 }
