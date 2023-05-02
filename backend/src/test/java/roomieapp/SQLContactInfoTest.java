@@ -9,6 +9,8 @@ import static org.junit.Assert.assertTrue;
  */
 public class SQLContactInfoTest {
 
+    private static final Query querier = new Query();
+
     private static final ContactInfo userContact = new ContactInfo(
             "user",
             "userTest@helpMe.com",
@@ -36,7 +38,6 @@ public class SQLContactInfoTest {
     @Test
     public void testCreateContactInfo()
     {
-        Query querier = new Query();
         querier.clearTables();
         querier.createUser(userContact.username, "userPass");
         querier.setContactInfo(userContact);
@@ -49,7 +50,6 @@ public class SQLContactInfoTest {
     @Test
     public void testGetContactInfoSimple()
     {
-        Query querier = new Query();
         querier.clearTables();
         querier.createUser(userContact.username, "firstPassword");
         querier.setContactInfo(userContact);
@@ -64,7 +64,6 @@ public class SQLContactInfoTest {
     @Test(expected = IllegalArgumentException.class)
     public void testSetContactInfoNoUser()
     {
-        Query querier = new Query();
         querier.clearTables();
         querier.setContactInfo(userContact);
         querier.clearTables();
@@ -76,7 +75,6 @@ public class SQLContactInfoTest {
     @Test(expected = IllegalArgumentException.class)
     public void testGetContactInfoNoUser()
     {
-        Query querier = new Query();
         querier.clearTables();
         ContactInfo test = querier.getContactInfo("user");
         querier.clearTables();
@@ -88,7 +86,6 @@ public class SQLContactInfoTest {
     @Test
     public void testGetContactInfoNoneExist()
     {
-        Query querier = new Query();
         querier.clearTables();
         querier.createUser("firstUser", "firstPassword");
         ContactInfo retrievedData = querier.getContactInfo("firstUser");
@@ -102,7 +99,6 @@ public class SQLContactInfoTest {
     @Test
     public void testUpdateContactInfo()
     {
-        Query querier = new Query();
         querier.clearTables();
         querier.createUser(userContact.username, "userPass");
         querier.setContactInfo(userContact);
@@ -120,7 +116,6 @@ public class SQLContactInfoTest {
     @Test
     public void testMultiContactInfo()
     {
-        Query querier = new Query();
         querier.clearTables();
         querier.createUser(userContact.username, "userPass");
         querier.setContactInfo(userContact);

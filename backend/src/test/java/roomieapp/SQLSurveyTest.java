@@ -9,6 +9,8 @@ import static org.junit.Assert.assertTrue;
  */
 public class SQLSurveyTest {
 
+    private static final Query querier = new Query();
+
     private static final Survey exampleSurvey = new Survey(
             "user",
             "Poplar",
@@ -82,7 +84,6 @@ public class SQLSurveyTest {
     @Test
     public void testGetSurveySimple()
     {
-        Query querier = new Query();
         querier.clearTables();
         querier.createUser(exampleSurvey.username, "overHere");
         querier.setSurvey(exampleSurvey);
@@ -97,7 +98,6 @@ public class SQLSurveyTest {
     @Test
     public void testCreateSurvey()
     {
-        Query querier = new Query();
         querier.clearTables();
         querier.createUser(exampleSurvey.username, "wellNow");
         querier.setSurvey(exampleSurvey);
@@ -110,7 +110,6 @@ public class SQLSurveyTest {
     @Test(expected = IllegalArgumentException.class)
     public void testSetSurveyNoUser()
     {
-        Query querier = new Query();
         querier.clearTables();
         querier.setSurvey(exampleSurvey);
         querier.clearTables();
@@ -122,7 +121,6 @@ public class SQLSurveyTest {
     @Test(expected = IllegalArgumentException.class)
     public void testGetSurveyNoUser()
     {
-        Query querier = new Query();
         querier.clearTables();
         Survey test = querier.getSurvey(exampleSurvey.username);
         querier.clearTables();
@@ -134,7 +132,6 @@ public class SQLSurveyTest {
     @Test
     public void testGetSurveyNoneExists()
     {
-        Query querier = new Query();
         querier.clearTables();
         querier.createUser(exampleSurvey.username, "lolololol");
         Survey test = querier.getSurvey(exampleSurvey.username);
@@ -148,7 +145,6 @@ public class SQLSurveyTest {
     @Test
     public void testUpdateSurvey()
     {
-        Query querier = new Query();
         querier.clearTables();
         querier.createUser(exampleSurvey.username, "lolololol");
         querier.setSurvey(exampleSurvey);
@@ -167,7 +163,6 @@ public class SQLSurveyTest {
     @Test
     public void testSurveyMulti()
     {
-        Query querier = new Query();
         querier.clearTables();
         querier.createUser(exampleSurvey.username, "lolololol");
         querier.createUser(otherSurvey.username, "lolololol");

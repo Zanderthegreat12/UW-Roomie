@@ -10,6 +10,8 @@ import static org.junit.Assert.assertTrue;
  */
 public class SQLMatchTest {
 
+    private static final Query querier = new Query();
+
     private static final Match match = new Match(
         "user1",
         "user2",
@@ -58,7 +60,6 @@ public class SQLMatchTest {
     @Test
     public void testCreateMatch()
     {
-        Query querier = new Query();
         querier.clearTables();
         querier.createUser(match.user1, "passIt");
         querier.createUser(match.user2, "hitIt");
@@ -72,7 +73,6 @@ public class SQLMatchTest {
     @Test
     public void testGetMatch()
     {
-        Query querier = new Query();
         querier.clearTables();
         querier.createUser(match.user1, "passIt");
         querier.createUser(match.user2, "hitIt");
@@ -93,7 +93,6 @@ public class SQLMatchTest {
     @Test
     public void testMultiMatch()
     {
-        Query querier = new Query();
         querier.clearTables();
 
         querier.createUser(match.user1, "passIt");
@@ -119,7 +118,6 @@ public class SQLMatchTest {
     @Test
     public void testUpdateMatch()
     {
-        Query querier = new Query();
         querier.clearTables();
 
         querier.createUser(match.user1, "passIt");
@@ -140,7 +138,6 @@ public class SQLMatchTest {
     @Test(expected = IllegalArgumentException.class)
     public void testSetMatchNoUser2()
     {
-        Query querier = new Query();
         querier.clearTables();
         querier.createUser(match.user1, "passIt");
         querier.setMatch(match);
@@ -153,7 +150,6 @@ public class SQLMatchTest {
     @Test(expected = IllegalArgumentException.class)
     public void testSetMatchNoUser1()
     {
-        Query querier = new Query();
         querier.clearTables();
         querier.createUser(match.user2, "hitIt");
         querier.setMatch(match);
@@ -166,7 +162,6 @@ public class SQLMatchTest {
     @Test(expected = IllegalArgumentException.class)
     public void testGetMatchNoUser2()
     {
-        Query querier = new Query();
         querier.clearTables();
         querier.createUser(match.user1, "passIt");
         Match test = querier.getMatch(match.user1, match.user2);
@@ -179,7 +174,6 @@ public class SQLMatchTest {
     @Test(expected = IllegalArgumentException.class)
     public void testGetMatchNoUser1()
     {
-        Query querier = new Query();
         querier.clearTables();
         querier.createUser(match.user2, "passIt");
         Match test = querier.getMatch(match.user1, match.user2);
@@ -192,7 +186,6 @@ public class SQLMatchTest {
     @Test
     public void testGetMatchNoneExists()
     {
-        Query querier = new Query();
         querier.clearTables();
         querier.createUser(match.user1, "passIt");
         querier.createUser(match.user2, "hitIt");
@@ -207,7 +200,6 @@ public class SQLMatchTest {
     @Test
     public void testOverlapMatch()
     {
-        Query querier = new Query();
         querier.clearTables();
         querier.createUser(match.user1, "passIt");
         querier.createUser(match.user2, "hitIt");
@@ -231,7 +223,6 @@ public class SQLMatchTest {
     @Test
     public void testGetTop2Matches()
     {
-        Query querier = new Query();
         querier.clearTables();
         querier.createUser(match.user1, "passIt");
         querier.createUser(match.user2, "hitIt");
@@ -258,7 +249,6 @@ public class SQLMatchTest {
     @Test
     public void testGetTop10Matches()
     {
-        Query querier = new Query();
         querier.clearTables();
         querier.createUser(match.user1, "passIt");
         querier.createUser(match.user2, "hitIt");
@@ -278,5 +268,15 @@ public class SQLMatchTest {
         assertTrue(test.get(2).equals(overlapMatch2.user2));
 
         querier.clearTables();
+    }
+
+    @Test
+    public void testUpdateCompatibility() {
+
+    }
+
+    @Test
+    public void testUpdateCompatibilityError() {
+
     }
 }

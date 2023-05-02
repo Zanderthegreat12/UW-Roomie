@@ -575,7 +575,7 @@ public class Query {
      * @param username2 identifier for username2
      * @param newCompatibility the updated compatibility for the 2 users
      * @throws IllegalArgumentException if users or match not found in database
-     *         or if newCompatibility > 100 or newCompatibility < 0
+     *         or if newCompatibility not between 0 and 100
      */
     public void updateCompatibility(String username1, String username2,
                                     float newCompatibility) {
@@ -612,6 +612,7 @@ public class Query {
      * @param username2 identifier for user2
      * @param newMatchStatus the updated compatibility for the 2 users
      * @throws IllegalArgumentException if users or match not found in database
+     *         or if newMatchStatus not between 0 and 3
      */
     public void updateMatchStatus(String username1, String username2, int newMatchStatus) {
         if(username1.compareTo(username2) >= 0) {
