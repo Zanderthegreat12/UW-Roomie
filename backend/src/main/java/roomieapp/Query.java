@@ -157,7 +157,8 @@ public class Query {
         getTopMatches = conn.prepareStatement(
             "SELECT * " +
                 "FROM Matches " +
-                "WHERE user1 = ? or user2 = ? " +
+                "WHERE (user1 = ? or user2 = ?) and matchStatus = 0 " +
+                "ORDER BY compatibility DESC " +
                 "LIMIT ?;"
         );
     }
@@ -567,7 +568,7 @@ public class Query {
     /**
      * Return topK users with the highest compatibility of parameter user in sorted order.
      * Ignores other users who've already matched with given user.
-     * @param user the username of the user of interest
+     * @param username the identifier of the user of interest
      * @param topK the number of possible matches to return.
      *             If there are less than topK results, return all possible matches
      * @return the usernames of the user's with highest compatibility of parameter user.
@@ -575,7 +576,35 @@ public class Query {
      *         user's with lower compatibility will be at the end of the list.
      * @throws IllegalArgumentException if user not in database
      */
-    public List<String> getTopMatches(String user, int topK) {
-        throw new NotImplementedException("");
+    public List<String> getTopMatches(String username, int topK) {
+        try {
+            List<String> topMatches = new LinkedList<String>();
+
+            // throw exception if user not in database
+            getUserStmt.setString(1, username);
+            ResultSet user = getUserStmt.executeQuery();
+            if(!user.next()) {
+                throw new IllegalArgumentException();
+            }
+            user.close();
+
+            // return up to topk matches
+            getTopMatches.setString(1, username);
+            getTopMatches.setString(2, username);
+            getTopMatches.setInt(3, topK);
+            ResultSet currMatch = getTopMatches.executeQuery();
+            while(currMatch.next()) {
+                if(currMatch.getString(1).equals(username)) {
+                    topMatches.add(currMatch.getString(2));
+                } else {
+                    topMatches.add(currMatch.getString(1));
+                }
+            }
+            return topMatches;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }
