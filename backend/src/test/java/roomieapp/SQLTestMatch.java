@@ -3,7 +3,7 @@ package roomieapp;
 import org.junit.*;
 import java.util.*;
 
-import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertTrue;
 
 /**
  * unit tests for setting/getting matches
