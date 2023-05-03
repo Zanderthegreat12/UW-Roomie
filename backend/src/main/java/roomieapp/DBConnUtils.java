@@ -33,7 +33,7 @@ public class DBConnUtils {
     Connection conn = DriverManager.getConnection(connectionUrl);
 
     // By default, automatically commit after each statement
-    conn.setAutoCommit(true);
+    conn.setAutoCommit(false);
 
     // By default, set the transaction isolation level to serializable
     conn.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
