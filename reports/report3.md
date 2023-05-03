@@ -24,15 +24,24 @@ Review Testing, Continuous Integration, and Alpha Build Implementation
 ### Alex:
 #### First Subsection:
 - Finish gather data about our quesitons
-- Finsh creating the inital Matching Algorthim
+- Finish creating the inital Matching Algorthim
 - Start working on a method which runs through and
   scores the compatability between one person and
   everyone else using the platform.
 
 #### Second Subsection:
-
+-  I Finished the inital Matching Algorthim
+-  I created JUnit tests for the Algorithm
+-  I started to calcuate the weights for it. I found it difficult
+   to properly calculate the weights since we have a low question
+   count which makes all of the questions matter more so small difference
+   could result in a large difference in compabibiltiy.
 
 #### Third Subsection:
+- With the information gather properly assign weights to the Matching Alogrithm
+- Finsh creating the method which runs through and scores the conpatability between
+  one person and everyone else using the platform
+- Implement the Matching Algorithm to work with the database and the frontend
 
 
 ### Colby:
