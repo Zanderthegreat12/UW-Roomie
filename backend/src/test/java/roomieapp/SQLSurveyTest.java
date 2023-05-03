@@ -207,7 +207,7 @@ public class SQLSurveyTest {
     @Test
     public void testGetAllSurveysEmpty() {
         querier.clearTables();
-        List<Survey> test = querier.getAllSurveys();
+        Set<Survey> test = querier.getAllSurveys();
         assertTrue(test.size() == 0);
         querier.clearTables();
     }
@@ -218,9 +218,11 @@ public class SQLSurveyTest {
         querier.createUser(exampleSurvey.username, "hardy har har");
         querier.setSurvey(exampleSurvey);
 
-        List<Survey> test = querier.getAllSurveys();
+        Set<Survey> test = querier.getAllSurveys();
         assertTrue(test.size() == 1);
-        assertTrue(test.get(0).equals(exampleSurvey));
+        for(Survey currSurvey : test) {
+            assertTrue(exampleSurvey.equals(currSurvey));
+        }
         querier.clearTables();
     }
 
@@ -238,11 +240,11 @@ public class SQLSurveyTest {
         actual.add(otherSurvey);
         actual.add(thirdSurvey);
 
-        List<Survey> test = querier.getAllSurveys();
+        Set<Survey> test = querier.getAllSurveys();
         assertTrue(test.size() == 3);
-        for(int i = 0; i < test.size(); i++) {
-            assertTrue(actual.contains(test.get(i)));
-            actual.remove(test.get(i));
+        for(Survey currSurvey : test) {
+            assertTrue(actual.contains(currSurvey));
+            actual.remove(currSurvey);
         }
 
         querier.clearTables();

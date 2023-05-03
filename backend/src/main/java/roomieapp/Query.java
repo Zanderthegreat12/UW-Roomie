@@ -648,9 +648,9 @@ public class Query {
      * @return list of survey answers of all users in database.
      *      If there are no surveys, return an empty list
      */
-    public List<Survey> getAllSurveys() {
+    public Set<Survey> getAllSurveys() {
         try {
-            List<Survey> surveys = new LinkedList<>();
+            Set<Survey> surveys = new HashSet<>();
             ResultSet currSurvey = getAllSurveysStmt.executeQuery();
             while(currSurvey.next()) {
                 Survey survey = storeSurvey(currSurvey);
