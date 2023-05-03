@@ -226,11 +226,15 @@ public class Query {
             createUserStmt.setString(1, username);
             createUserStmt.setBytes(2, PasswordUtils.hashPassword(password));
             createUserStmt.execute();
+            conn.commit();
             return true;
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
-            return false;
+            try {
+                conn.rollback();
+            } catch (SQLException otherE) {}
+            return createUser(username, password);
         }
     }
 
@@ -247,6 +251,7 @@ public class Query {
 
             // if username incorrect, return false
             if(!user.next()) {
+                conn.commit();
                 return false;
             }
 
@@ -254,11 +259,15 @@ public class Query {
             boolean correctLogin = PasswordUtils.plaintextMatchesHash(
                     password, user.getBytes(2));
             user.close();
+            conn.commit();
             return correctLogin;
 
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
+            try {
+                conn.rollback();
+            } catch (SQLException otherE) {}
+            return login(username, password);
         }
     }
 
@@ -273,6 +282,7 @@ public class Query {
         try {
             // if username not found, throw exception
             if(!userExists(username)) {
+                conn.commit();
                 throw new IllegalArgumentException();
             }
 
@@ -280,17 +290,22 @@ public class Query {
             getContactStmt.setString(1, username);
             ResultSet contact = getContactStmt.executeQuery();
             if(!contact.next()) {
+                conn.commit();
                 return null;
             }
 
             // return user's contact info
             ContactInfo usersContact = storeContactInfo(contact);
             contact.close();
+            conn.commit();
             return usersContact;
 
         } catch (SQLException e) {
             e.printStackTrace();
-            return null;
+            try {
+                conn.rollback();
+            } catch (SQLException otherE) {}
+            return getContactInfo(username);
         }
     }
 
@@ -306,6 +321,7 @@ public class Query {
         try {
             // if username not found, throw exception
             if(!userExists(username)) {
+                conn.commit();
                 throw new IllegalArgumentException();
             }
 
@@ -313,17 +329,22 @@ public class Query {
             getSurveyStmt.setString(1, username);
             ResultSet survey = getSurveyStmt.executeQuery();
             if(!survey.next()) {
+                conn.commit();
                 return null;
             }
 
             // return user's survey answers
             Survey usersSurvey = storeSurvey(survey);
             survey.close();
+            conn.commit();
             return usersSurvey;
 
         } catch (SQLException e) {
             e.printStackTrace();
-            return null;
+            try {
+                conn.rollback();
+            } catch (SQLException otherE) {}
+            return getSurvey(username);
         }
     }
 
@@ -340,6 +361,7 @@ public class Query {
 
             // if username not found, throw exception
             if(!userExists(username)) {
+                conn.commit();
                 throw new IllegalArgumentException();
             }
 
@@ -361,13 +383,19 @@ public class Query {
                 createContactStmt.execute();
             }
             contact.close();
+            conn.commit();
 
         } catch (SQLException e) {
+            try {
+                conn.rollback();
+            } catch (SQLException otherE) {}
+
             // if value incorrect format, throw exception, else try again
             if(e.getErrorCode() == 3819) {
                 throw new IllegalArgumentException();
             } else {
                 e.printStackTrace();
+                setContactInfo(userContactInfo);
             }
         }
     }
@@ -384,6 +412,7 @@ public class Query {
 
             // if username not found, throw exception
             if(!userExists(username)) {
+                conn.commit();
                 throw new IllegalArgumentException();
             }
 
@@ -435,13 +464,19 @@ public class Query {
                 createSurveyStmt.execute();
             }
             survey.close();
+            conn.commit();
 
         } catch (SQLException e) {
+            try {
+                conn.rollback();
+            } catch (SQLException otherE) {}
+
             // if value incorrect format, throw exception, else try again
             if(e.getErrorCode() == 3819) {
                 throw new IllegalArgumentException();
             } else {
                 e.printStackTrace();
+                setSurvey(userSurvey);
             }
         }
     }
@@ -456,6 +491,7 @@ public class Query {
         try {
             // if users don't exist, throw exception
             if(!userExists(matchInfo.user1) || !userExists(matchInfo.user2)) {
+                conn.commit();
                 throw new IllegalArgumentException();
             }
 
@@ -478,13 +514,19 @@ public class Query {
                 createMatchStmt.execute();
             }
             match.close();
+            conn.commit();
 
         } catch (SQLException e) {
+            try {
+                conn.rollback();
+            } catch (SQLException otherE) {}
+
             // if value incorrect format, throw exception, else try again
             if(e.getErrorCode() == 3819) {
                 throw new IllegalArgumentException();
             } else {
                 e.printStackTrace();
+                setMatch(matchInfo);
             }
         }
     }
@@ -506,6 +548,7 @@ public class Query {
         try {
             // if users don't exist, throw exception
             if(!userExists(username1) || !userExists(username2)) {
+                conn.commit();
                 throw new IllegalArgumentException();
             }
 
@@ -514,17 +557,22 @@ public class Query {
             getMatchStmt.setString(2, username2);
             ResultSet match = getMatchStmt.executeQuery();
             if(!match.next()) {
+                conn.commit();
                 return null;
             }
 
             // return users' match info
             Match usersMatch = storeMatch(match);
             match.close();
+            conn.commit();
             return usersMatch;
 
         } catch (SQLException e) {
             e.printStackTrace();
-            return null;
+            try {
+                conn.rollback();
+            } catch (SQLException otherE) {}
+            return getMatch(username1, username2);
         }
     }
 
@@ -546,6 +594,7 @@ public class Query {
 
             // throw exception if user not in database
             if(!userExists(username)) {
+                conn.commit();
                 throw new IllegalArgumentException();
             }
 
@@ -561,11 +610,15 @@ public class Query {
                     topMatches.add(currMatch.getString(1));
                 }
             }
+            conn.commit();
             return topMatches;
 
         } catch (SQLException e) {
             e.printStackTrace();
-            return null;
+            try {
+                conn.rollback();
+            } catch (SQLException otherE) {}
+            return getTopMatches(username, topK);
         }
     }
 
@@ -588,6 +641,7 @@ public class Query {
         try {
             if(!userExists(username1) || !userExists(username2) ||
                     !matchExists(username1, username2)) {
+                conn.commit();
                 throw new IllegalArgumentException();
             }
 
@@ -595,13 +649,19 @@ public class Query {
             updateCompatibilityStmt.setString(2, username1);
             updateCompatibilityStmt.setString(3, username2);
             updateCompatibilityStmt.execute();
+            conn.commit();
 
         } catch (SQLException e) {
+            try {
+                conn.rollback();
+            } catch (SQLException otherE) {}
+
             // if value incorrect format, throw exception, else try again
             if(e.getErrorCode() == 3819) {
                 throw new IllegalArgumentException();
             } else {
                 e.printStackTrace();
+                updateCompatibility(username1, username2, newCompatibility);
             }
         }
     }
@@ -625,6 +685,7 @@ public class Query {
             // if user1, user2, or match not found, throw exception
             if(!userExists(username1) || !userExists(username2) ||
                     !matchExists(username1, username2)) {
+                conn.commit();
                 throw new IllegalArgumentException();
             }
 
@@ -632,13 +693,19 @@ public class Query {
             updateMatchStatusStmt.setString(2, username1);
             updateMatchStatusStmt.setString(3, username2);
             updateMatchStatusStmt.execute();
+            conn.commit();
 
         } catch (SQLException e) {
+            try {
+                conn.rollback();
+            } catch (SQLException otherE) {}
+
             // if value incorrect format, throw exception, else try again
             if(e.getErrorCode() == 3819) {
                 throw new IllegalArgumentException();
             } else {
                 e.printStackTrace();
+                updateMatchStatus(username1, username2, newMatchStatus);
             }
         }
     }
@@ -657,11 +724,15 @@ public class Query {
                 Survey survey = storeSurvey(currSurvey);
                 surveys.add(survey);
             }
+            conn.commit();
             return surveys;
 
         } catch(SQLException e) {
             e.printStackTrace();
-            return null;
+            try {
+                conn.rollback();
+            } catch (SQLException otherE) {}
+            return getAllSurveys();
         }
     }
 
