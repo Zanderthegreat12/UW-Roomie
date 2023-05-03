@@ -1,4 +1,5 @@
 .vs/
 .idea/
 backend/target
-backen/.idea
+backend/.idea
+frontend/package-lock.json
