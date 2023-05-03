@@ -2,12 +2,16 @@ package roomieapp;
 
 import org.junit.*;
 
+import java.util.*;
+
 import static org.junit.Assert.assertTrue;
 
 /**
  * unit tests for getting/setting surveys
  */
 public class SQLSurveyTest {
+
+    private static final Query querier = new Query();
 
     private static final Survey exampleSurvey = new Survey(
             "user",
@@ -75,6 +79,28 @@ public class SQLSurveyTest {
             "Football"
     );
 
+    private static final Survey thirdSurvey = new Survey(
+            "popinUser",
+            "Poplar",
+            "Maple",
+            "Stevens Court",
+            2,
+            1,
+            3,
+            3,
+            1,
+            9,
+            23,
+            0,
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            "Gaming"
+    );
+
 
     /**
      * test getting a survey from single user
@@ -82,7 +108,6 @@ public class SQLSurveyTest {
     @Test
     public void testGetSurveySimple()
     {
-        Query querier = new Query();
         querier.clearTables();
         querier.createUser(exampleSurvey.username, "overHere");
         querier.setSurvey(exampleSurvey);
@@ -97,7 +122,6 @@ public class SQLSurveyTest {
     @Test
     public void testCreateSurvey()
     {
-        Query querier = new Query();
         querier.clearTables();
         querier.createUser(exampleSurvey.username, "wellNow");
         querier.setSurvey(exampleSurvey);
@@ -110,7 +134,6 @@ public class SQLSurveyTest {
     @Test(expected = IllegalArgumentException.class)
     public void testSetSurveyNoUser()
     {
-        Query querier = new Query();
         querier.clearTables();
         querier.setSurvey(exampleSurvey);
         querier.clearTables();
@@ -122,7 +145,6 @@ public class SQLSurveyTest {
     @Test(expected = IllegalArgumentException.class)
     public void testGetSurveyNoUser()
     {
-        Query querier = new Query();
         querier.clearTables();
         Survey test = querier.getSurvey(exampleSurvey.username);
         querier.clearTables();
@@ -134,7 +156,6 @@ public class SQLSurveyTest {
     @Test
     public void testGetSurveyNoneExists()
     {
-        Query querier = new Query();
         querier.clearTables();
         querier.createUser(exampleSurvey.username, "lolololol");
         Survey test = querier.getSurvey(exampleSurvey.username);
@@ -148,7 +169,6 @@ public class SQLSurveyTest {
     @Test
     public void testUpdateSurvey()
     {
-        Query querier = new Query();
         querier.clearTables();
         querier.createUser(exampleSurvey.username, "lolololol");
         querier.setSurvey(exampleSurvey);
@@ -167,7 +187,6 @@ public class SQLSurveyTest {
     @Test
     public void testSurveyMulti()
     {
-        Query querier = new Query();
         querier.clearTables();
         querier.createUser(exampleSurvey.username, "lolololol");
         querier.createUser(otherSurvey.username, "lolololol");
@@ -182,6 +201,50 @@ public class SQLSurveyTest {
 
         test = querier.getSurvey(exampleSurvey.username);
         assertTrue(exampleSurvey.equals(test));
+        querier.clearTables();
+    }
+
+    @Test
+    public void testGetAllSurveysEmpty() {
+        querier.clearTables();
+        List<Survey> test = querier.getAllSurveys();
+        assertTrue(test.size() == 0);
+        querier.clearTables();
+    }
+
+    @Test
+    public void testGetAllSurveysSingle() {
+        querier.clearTables();
+        querier.createUser(exampleSurvey.username, "hardy har har");
+        querier.setSurvey(exampleSurvey);
+
+        List<Survey> test = querier.getAllSurveys();
+        assertTrue(test.size() == 1);
+        assertTrue(test.get(0).equals(exampleSurvey));
+        querier.clearTables();
+    }
+
+    @Test
+    public void testGetAllSurveysMulti() {
+        querier.clearTables();
+        querier.createUser(exampleSurvey.username, "hardy har har");
+        querier.setSurvey(exampleSurvey);
+        querier.createUser(otherSurvey.username, "hee hee hee");
+        querier.setSurvey(otherSurvey);
+        querier.createUser(thirdSurvey.username, "pIp pOckin");
+        querier.setSurvey(thirdSurvey);
+        List<Survey> actual = new ArrayList<>();
+        actual.add(exampleSurvey);
+        actual.add(otherSurvey);
+        actual.add(thirdSurvey);
+
+        List<Survey> test = querier.getAllSurveys();
+        assertTrue(test.size() == 3);
+        for(int i = 0; i < test.size(); i++) {
+            assertTrue(actual.contains(test.get(i)));
+            actual.remove(test.get(i));
+        }
+
         querier.clearTables();
     }
 }
