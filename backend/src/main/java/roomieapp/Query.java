@@ -219,6 +219,7 @@ public class Query {
         try {
             // check if username already exists
             if(userExists(username)) {
+                conn.commit();
                 return false;
             }
 
