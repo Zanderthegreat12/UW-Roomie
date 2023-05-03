@@ -484,7 +484,7 @@ public class Query {
 
     /**
      * Sets the match info between matchInfo.user1 and matchInfo.user2
-     * to have matchInfo.compatibility and matchInfo.matchStatus
+     * to have properties contained in matchInfo.
      * @param matchInfo contains match information to be added/updated
      * @throws IllegalArgumentException if matchInfo has invalid values
      */
