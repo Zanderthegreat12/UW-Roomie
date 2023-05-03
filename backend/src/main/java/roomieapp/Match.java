@@ -12,8 +12,8 @@ public class Match {
     public final String user2;
 
     /**
-     * dorming compatibility between user1 and user2 .
-     * 0 <= compatibility <= 100
+     * dorming compatibility between user1 and user2.
+     * compatibility between 0 and 100.
      * The higher the compatibility, the more compatible user1 and user2 are
      */
     public final float compatibility;

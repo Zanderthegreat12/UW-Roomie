@@ -21,7 +21,7 @@ public class PasswordUtils {
   /**
    * Generates a cryptographically-secure salted password.
    * @param password non-encrypted password.
-   * @returns byte[] containing encrypted form of password
+   * @return byte[] containing encrypted form of password
    */
   public static byte[] hashPassword(String password) {
     byte[] salt = generateSalt();
