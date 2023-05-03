@@ -350,8 +350,8 @@ public class Query {
     }
 
     /**
-     * Sets contact information for userContactInfo.username to be
-     * the contact information provided in userContactInfo
+     * Sets contact information for desired user to have
+     * the contact information provided
      * @param userContactInfo updates contact information with info
      *                        provided in this
      * @throws IllegalArgumentException if userContactInfo has invalid values
@@ -402,8 +402,8 @@ public class Query {
     }
 
     /**
-     * Sets survey answers for user userContactInfo.username
-     * with the new survey answers provided in userSurvey
+     * Sets survey answers for desired user
+     * with the new survey answers provided
      * @param userSurvey updates a survey with the information provided in userSurvey
      * @throws IllegalArgumentException if userSurvey has invalid values
      */
@@ -483,8 +483,8 @@ public class Query {
     }
 
     /**
-     * Sets the match info between matchInfo.user1 and matchInfo.user2
-     * to have properties contained in matchInfo.
+     * Sets the match info between user1 and user2
+     * with the info provided.
      * @param matchInfo contains match information to be added/updated
      * @throws IllegalArgumentException if matchInfo has invalid values
      */
@@ -578,7 +578,7 @@ public class Query {
     }
 
     /**
-     * Return topK users with the highest compatibility of parameter user in sorted order.
+     * Return topK users who have the highest compatibility with given user.
      * Ignores other users who've already matched with given user.
      * @param username the identifier of the user of interest
      * @param topK the number of possible matches to return.
@@ -624,8 +624,7 @@ public class Query {
     }
 
     /**
-     * updates compatibility rating with newCompatibility for 2 users named
-     * user1 and user2.
+     * updates compatibility rating for user1 and user2
      * @param username1 identifier for username1
      * @param username2 identifier for username2
      * @param newCompatibility the updated compatibility for the 2 users
@@ -668,8 +667,7 @@ public class Query {
     }
 
     /**
-     * updates match status with newMatchStatus for 2 users named
-     * username1 and username2.
+     * updates match status for user1 and user2
      * @param username1 identifier for user1
      * @param username2 identifier for user2
      * @param newMatchStatus the updated compatibility for the 2 users
@@ -712,8 +710,8 @@ public class Query {
     }
 
     /**
-     * Get a set of survey answers of all users in database.
-     * This is used to determine compatibility scores between 2 users.
+     * Get the set of survey answers for all users in database.
+     * This is used to determine compatibility scores between users.
      * @return set of survey answers of all users in database.
      *      If there are no surveys, return an empty set
      */
