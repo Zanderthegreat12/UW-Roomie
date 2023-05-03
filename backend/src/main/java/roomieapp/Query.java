@@ -351,9 +351,9 @@ public class Query {
 
     /**
      * Sets contact information for userContactInfo.username to be
-     * the contact information provided in contacts
+     * the contact information provided in userContactInfo
      * @param userContactInfo updates contact information with info
-     *                        provided in contacts
+     *                        provided in this
      * @throws IllegalArgumentException if userContactInfo has invalid values
      */
     public void setContactInfo(ContactInfo userContactInfo) {
