@@ -14,8 +14,9 @@ public class DBConnUtils {
   /**
    * Open and return a connection using dbconn.properties file
    *
-   * @throws SQLException
-   * @throws IOException
+   * @throws SQLException if connection to database fails
+   * @throws IOException if opening dbconn.properties fails
+   * @return connection to MySQL database
    */
   public static Connection openConnection() throws SQLException, IOException {
     // Connect to the database with the provided connection configuration
