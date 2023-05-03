@@ -311,8 +311,8 @@ public class Query {
     }
 
     /**
-     * Returns the survey answers of given user used for determining compatibility
-     * between this user and other users
+     * Returns the survey answers of given user. This is used for determining
+     * compatibility between this user and other users
      * @param username user's identifier
      * @return survey answers of given user.
      *         If survey answers not found under user, return null.
