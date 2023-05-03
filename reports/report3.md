@@ -57,10 +57,14 @@ Review Testing, Continuous Integration, and Alpha Build Implementation
 - Start implementing the user interface design with React Native
 
 #### Second Subsection:
-
+- Received user feedback and now have a final app design
+- Added Home and Login screens to app user interface
+  - Implemented the main features of these screens
 
 #### Third Subsection:
-
+- Finish adding the rest of the app screens with their main features (less focus on looks)
+- Work with Bella to integrate the server calls with the front end
+- Start editing the user interface with good styles/design 
 
 ### Bella:
 #### First subsection:
