@@ -197,6 +197,7 @@ public class Query {
             clearTable("Surveys");
             clearTable("Contact_Info");
             clearTable("Users");
+            conn.commit();
         } catch (Exception e) {
             e.printStackTrace();
         }
