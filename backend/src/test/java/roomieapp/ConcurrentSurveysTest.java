@@ -44,34 +44,24 @@ public class ConcurrentSurveysTest {
     }
 
     public static class CreateUsers {
-        private static boolean firstThread = false;
-        private static boolean secondThread = false;
-        private static boolean thirdThread = false;
-        private static boolean fourthThread = false;
 
         @Test
         public void thread1() {
-            firstThread = q.createUser("user1", "thread1");
+            assertTrue(q.createUser("user1", "thread1"));
         }
 
         @Test
         public void thread2() {
-            secondThread = q.createUser("user2", "thread2");
+            assertTrue(q.createUser("user2", "thread2"));
         }
         @Test
         public void thread3() {
-            thirdThread = q.createUser("user3", "thread3");
+            assertTrue(q.createUser("user3", "thread3"));
         }
 
         @Test
         public void thread4() {
-            fourthThread = q.createUser("user4", "thread4");
-        }
-
-        @AfterClass
-        public static void works() {
-            assertTrue(firstThread ^ secondThread);
-            assertTrue(thirdThread ^ fourthThread);
+            assertTrue(q.createUser("user4", "thread4"));
         }
     }
 
