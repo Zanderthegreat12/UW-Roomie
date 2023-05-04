@@ -78,6 +78,8 @@ public class Query {
         }
     }
 
+    private PreparedStatement getUserStmt()
+
     // Prepares all queries during object initialization to prevent SQL injections
     private void prepareStatements() throws SQLException{
         getUserStmt = conn.prepareStatement(
@@ -226,7 +228,7 @@ public class Query {
             // username doesn't exist, so create the new user and return true
             createUserStmt.setString(1, username);
             createUserStmt.setBytes(2, PasswordUtils.hashPassword(password));
-            createUserStmt.execute();
+            createUserStmt.executeUpdate();
             conn.commit();
             return true;
 
@@ -375,13 +377,13 @@ public class Query {
                 updateContactStmt.setLong(2, userContactInfo.phoneNumber);
                 updateContactStmt.setString(3, userContactInfo.discord);
                 updateContactStmt.setString(4, username);
-                updateContactStmt.execute();
+                updateContactStmt.executeUpdate();
             } else {
                 createContactStmt.setString(1, username);
                 createContactStmt.setString(2, userContactInfo.email);
                 createContactStmt.setLong(3, userContactInfo.phoneNumber);
                 createContactStmt.setString(4, userContactInfo.discord);
-                createContactStmt.execute();
+                createContactStmt.executeUpdate();
             }
             contact.close();
             conn.commit();
@@ -441,7 +443,7 @@ public class Query {
                 updateSurveyStmt.setInt(17, userSurvey.roommateNeat);
                 updateSurveyStmt.setString(18, userSurvey.hobbies);
                 updateSurveyStmt.setString(19, username);
-                updateSurveyStmt.execute();
+                updateSurveyStmt.executeUpdate();
             } else {
                 createSurveyStmt.setString(1, username);
                 createSurveyStmt.setString(2, userSurvey.firstDorm);
@@ -462,7 +464,7 @@ public class Query {
                 createSurveyStmt.setInt(17, userSurvey.studentNeat);
                 createSurveyStmt.setInt(18, userSurvey.roommateNeat);
                 createSurveyStmt.setString(19, userSurvey.hobbies);
-                createSurveyStmt.execute();
+                createSurveyStmt.executeUpdate();
             }
             survey.close();
             conn.commit();
@@ -506,13 +508,13 @@ public class Query {
                 updateMatchStmt.setInt(2, matchInfo.matchStatus);
                 updateMatchStmt.setString(3, matchInfo.user1);
                 updateMatchStmt.setString(4, matchInfo.user2);
-                updateMatchStmt.execute();
+                updateMatchStmt.executeUpdate();
             } else {
                 createMatchStmt.setString(1, matchInfo.user1);
                 createMatchStmt.setString(2, matchInfo.user2);
                 createMatchStmt.setFloat(3, matchInfo.compatibility);
                 createMatchStmt.setInt(4, matchInfo.matchStatus);
-                createMatchStmt.execute();
+                createMatchStmt.executeUpdate();
             }
             match.close();
             conn.commit();
@@ -648,7 +650,7 @@ public class Query {
             updateCompatibilityStmt.setFloat(1, newCompatibility);
             updateCompatibilityStmt.setString(2, username1);
             updateCompatibilityStmt.setString(3, username2);
-            updateCompatibilityStmt.execute();
+            updateCompatibilityStmt.executeUpdate();
             conn.commit();
 
         } catch (SQLException e) {
@@ -691,7 +693,7 @@ public class Query {
             updateMatchStatusStmt.setFloat(1, newMatchStatus);
             updateMatchStatusStmt.setString(2, username1);
             updateMatchStatusStmt.setString(3, username2);
-            updateMatchStatusStmt.execute();
+            updateMatchStatusStmt.executeUpdate();
             conn.commit();
 
         } catch (SQLException e) {
