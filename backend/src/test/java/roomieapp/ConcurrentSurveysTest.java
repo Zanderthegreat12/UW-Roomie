@@ -10,7 +10,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
-public class ConcurrentUsersTest {
+public class ConcurrentSurveysTest {
     private static Query q;
 
     @BeforeClass
@@ -21,17 +21,21 @@ public class ConcurrentUsersTest {
 
     @Test
     public void runConcurrentUsers() {
-        Class<?>[] firstClass = { CreateUsers.class};
-        Class<?>[] secondClass = { LoginUsers.class};
+        Class<?>[] firstSet = { CreateUsers.class};
+        Class<?>[] secondSet = { CreateSurveys.class};
+        Class<?>[] thirdSet = { UpdateSurveys.class, SetSurveys.class};
 
         // ParallelComputer(true,true) will run all classes and methods
         // in parallel.  (First arg for classes, second arg for methods)
-        Result result1 = JUnitCore.runClasses(new ParallelComputer(false, true), firstClass);
-        Result result2 = JUnitCore.runClasses(new ParallelComputer(false, true), secondClass);
+        Result result1 = JUnitCore.runClasses(new ParallelComputer(false, true), firstSet);
+        Result result2 = JUnitCore.runClasses(new ParallelComputer(false, true), secondSet);
+        Result result3 = JUnitCore.runClasses(new ParallelComputer(true, true), thirdSet);
         List<Failure> failures1 = result1.getFailures();
         assertTrue(failures1.size() == 0);
         List<Failure> failures2 = result2.getFailures();
         assertTrue(failures2.size() == 0);
+        List<Failure> failures3 = result3.getFailures();
+        assertTrue(failures3.size() == 0);
     }
 
     @AfterClass
@@ -71,19 +75,84 @@ public class ConcurrentUsersTest {
         }
     }
 
-    public static class LoginUsers {
+    public static class CreateSurveys {
+        private final Survey exampleSurvey = new Survey(
+                "user",
+                "Poplar",
+                "Maple",
+                "Stevens Court",
+                2,
+                1,
+                3,
+                3,
+                1,
+                9,
+                23,
+                0,
+                0,
+                1,
+                1,
+                1,
+                1,
+                1,
+                "Gaming"
+        );
+
+        private final Survey otherSurvey = new Survey(
+                "user2",
+                "Willow",
+                "Mcmahon",
+                "Elm",
+                4,
+                0,
+                1,
+                1,
+                0,
+                10,
+                1,
+                1,
+                2,
+                2,
+                0,
+                0,
+                0,
+                1,
+                "Football"
+        );
+
         @Test
         public void thread1(){
-            boolean firstTry = q.login("user1", "thread1");
-            boolean secondTry = q.login("user1", "thread2");
-            assertTrue(firstTry ^ secondTry);
+            
         }
 
         @Test
         public void thread2() {
-            boolean firstTry = q.login("user2", "thread3");
-            boolean secondTry = q.login("user2", "thread4");
-            assertTrue(firstTry ^ secondTry);
+
+        }
+    }
+
+    public static class UpdateSurveys {
+        @Test
+        public void thread1(){
+
+        }
+
+        @Test
+        public void thread2() {
+
+        }
+    }
+
+    public static class SetSurveys {
+        @Test
+        public void thread1(){
+
+        }
+
+        @Test
+        public void thread2() {
+
         }
     }
 }
+
