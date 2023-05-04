@@ -9,6 +9,7 @@ If the user likes one of the potential dormmates,
 then they can attempt to get in contact with that user 
 and if the other user agrees then it will display their contact information. 
 From there then the users can determine if they want to dorm or not. <br /> <br />
+
 How to run code in devlopment environment:
 1. Clone UW-Roomie repository on your local machine
 2. Install ExpoGo on phone to test app
@@ -22,3 +23,12 @@ The Structure of this Repo is as follows:
   2. Frontend - contains the layout and design of the UW-Roomie app which the user sees when
                 they open up and use the app. 
   3. reports - stores the progress reports for the TA for each week we have worked on.
+  
+  How to test backend:
+  1. Set up JDK on computer
+  2. Run "mvn -B package --file pom.xml" in backend folder from Command Prompt
+  
+  How to test frontend:
+  1. Run "npm install" in frontend folder from Command Prompt
+  2. Run "npm install expo" in frontend folder from Command Prompt
+  3. Run "npm test" in frontend folder from Command Prompt
