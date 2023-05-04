@@ -14,10 +14,29 @@ Review Testing, Continuous Integration, and Alpha Build Implementation
 - Implement user interface in React. (Leah)
 
 #### Second subsection:
-
+- Finished initial matching algorithm
+- Created tests:
+  - JUnit tests for the matching algorithm
+  - JUnit tests for the database queries
+- Documented and implemented all query functions. (Sequential functionality)
+- Set up SparkJava for the server instead of Node.js for ease of connection to the queries and algorithm.
+- Received user feedback and created final app design
+- Added Home and Login screens to app user interface
+  - Implemented the main features of these screens (Still no connection to backend)
+- Created user profiles for testing purposes
+- Started creating server API calls to backend.
 
 #### Third subsection:
-
+- Finish the matching algorithm
+  - Assign weights to attributes of the matching algorithm (Alex)
+  - Finish the method which runs through and scores compatibility (Alex)
+  - Implement connection between matching algorithm and server. (Bella and Alex)
+- Finish the 20 fake user profiles and put them in a Survey format. (Bella)
+- Integrate the server calls with the front end of the app. (Bella and Leah)
+- Make queries concurrent (Colby)
+- Encrypt contactInfo (Colby).
+- Finish adding the rest of the app screens with their main features (Leah)
+- Start editing the user interface with good styles/design (Leah)
 
 ## Individual Reports:
 
@@ -94,6 +113,7 @@ Review Testing, Continuous Integration, and Alpha Build Implementation
   - Log in
   - Create contact
   - Run Algorithm
+- Could not test server calls because the matching algorithm is not fully implemented and the database is empty.
 
 #### Third subsection:
 - Finish the 20 fake user profiles and put them in a Survey format.
