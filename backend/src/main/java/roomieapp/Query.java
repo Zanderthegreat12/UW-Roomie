@@ -199,7 +199,7 @@ public class Query {
             clearTable("Users");
             conn.commit();
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
     }
 
@@ -231,7 +231,7 @@ public class Query {
             return true;
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             try {
                 conn.rollback();
             } catch (SQLException otherE) {}
@@ -264,7 +264,7 @@ public class Query {
             return correctLogin;
 
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             try {
                 conn.rollback();
             } catch (SQLException otherE) {}
@@ -302,7 +302,7 @@ public class Query {
             return usersContact;
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             try {
                 conn.rollback();
             } catch (SQLException otherE) {}
@@ -341,7 +341,7 @@ public class Query {
             return usersSurvey;
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             try {
                 conn.rollback();
             } catch (SQLException otherE) {}
@@ -395,7 +395,7 @@ public class Query {
             if(e.getErrorCode() == 3819) {
                 throw new IllegalArgumentException();
             } else {
-                e.printStackTrace();
+                //e.printStackTrace();
                 setContactInfo(userContactInfo);
             }
         }
@@ -476,7 +476,7 @@ public class Query {
             if(e.getErrorCode() == 3819) {
                 throw new IllegalArgumentException();
             } else {
-                e.printStackTrace();
+                //e.printStackTrace();
                 setSurvey(userSurvey);
             }
         }
@@ -526,7 +526,7 @@ public class Query {
             if(e.getErrorCode() == 3819) {
                 throw new IllegalArgumentException();
             } else {
-                e.printStackTrace();
+                //e.printStackTrace();
                 setMatch(matchInfo);
             }
         }
@@ -569,7 +569,7 @@ public class Query {
             return usersMatch;
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             try {
                 conn.rollback();
             } catch (SQLException otherE) {}
@@ -615,7 +615,7 @@ public class Query {
             return topMatches;
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             try {
                 conn.rollback();
             } catch (SQLException otherE) {}
@@ -660,7 +660,7 @@ public class Query {
             if(e.getErrorCode() == 3819) {
                 throw new IllegalArgumentException();
             } else {
-                e.printStackTrace();
+                //e.printStackTrace();
                 updateCompatibility(username1, username2, newCompatibility);
             }
         }
@@ -703,7 +703,7 @@ public class Query {
             if(e.getErrorCode() == 3819) {
                 throw new IllegalArgumentException();
             } else {
-                e.printStackTrace();
+                //e.printStackTrace();
                 updateMatchStatus(username1, username2, newMatchStatus);
             }
         }
@@ -727,7 +727,7 @@ public class Query {
             return surveys;
 
         } catch(SQLException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             try {
                 conn.rollback();
             } catch (SQLException otherE) {}
