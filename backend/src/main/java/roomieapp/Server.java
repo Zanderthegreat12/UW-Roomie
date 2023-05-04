@@ -142,6 +142,11 @@ class Server {
             }
         });
 
+        /**
+         * Creates a new survey based on the user's answers (or changes) and uploads it to the database. If the user
+         * has already created a survey, it updates it instead.
+         * @param str A string of every answer to the survey split by one space.
+         */
         Spark.get("/createSurvey", new Route() {
             @Override
             public Object handle(Request request, Response response) throws Exception {
