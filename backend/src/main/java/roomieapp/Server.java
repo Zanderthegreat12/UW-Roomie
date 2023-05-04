@@ -6,6 +6,7 @@ import spark.Route;
 import spark.Spark;
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static spark.Spark.*;
@@ -24,6 +25,18 @@ class Server {
             }
         });
 
+        //Tests to make sure we can connect to the database.
+        Spark.get("/connect", new Route() {
+            @Override
+            public Object handle(Request request, Response response) throws Exception {
+                //q.getAllSurveys();
+                Gson g = new Gson();
+                String jsonResponse = g.toJson(q.getAllSurveys());
+                return jsonResponse;
+                //return "Test connect successful!";
+            }
+        });
+
         /**
          * Gets the top k matches associated with the user that is logged in.
          * @param username a user's identifier
@@ -32,7 +45,7 @@ class Server {
          *
          * @return a json list of usernames that the current user has matched with.
          */
-        Spark.get("/get_Kmatch", new Route() {
+        Spark.get("/getKmatch", new Route() {
             @Override
             public Object handle(Request request, Response response) throws Exception {
                 String username = request.queryParams("username");
@@ -44,42 +57,28 @@ class Server {
             }
         });
 
-        //Gets the first k matches from the database
-        Spark.get("/connect", new Route() {
-            @Override
-            public Object handle(Request request, Response response) throws Exception {
-                //Gson g = new Gson();
-                //String jsonResponse = g.toJson(qTest);
-                //return jsonResponse;
-                q.clearTables();
-                return "Test connect successful!";
-            }
-        });
-
         /**
          * Runs the algorithm and generates matches to put into the database.
+         * @param username A String representing the name of the user needing to be matched
          */
-        Spark.get("/run_alg", new Route() {
+        Spark.get("/runAlg", new Route() {
             @Override
             public Object handle(Request request, Response response) throws Exception {
-                //Takes every person who isn't the user from the database
-                //Runs them through the matching algorithm
-                //Puts them back into the database under matches
-                /*List<Survey> sList = q.getAllSurveys(); //obviously wrong
-                MatchingAlgorithm alg = new MatchingAlgorithm();
-                Match m = alg.getMatches();
-                q.setMatch(m);*/
-                return "Completed";
-            }
-        });
+                String username = request.queryParams("username");
+                Survey user = q.getSurvey(username);
 
-        /**
-         * Gets the contact info and returns it
-         */
-        Spark.get("/contact", new Route() {
-            @Override
-            public Object handle(Request request, Response response) throws Exception {
-                return "Hello World";
+                //Takes every person who isn't the user from the database
+                List<Survey> sList = new ArrayList<>(q.getAllSurveys());
+
+                //Runs them through the matching algorithm
+                MatchingAlgorithm alg = new MatchingAlgorithm();
+                List<Match> mList = alg.ComputeCompatabilityForAll(user, sList);
+
+                //Puts them back into the database under matches
+                for(Match m: mList) {
+                    q.setMatch(m);
+                }
+                return "Completed";
             }
         });
 
@@ -94,6 +93,11 @@ class Server {
             }
         });
 
+        /**
+         * Creates a new user account and updates the database accordingly.
+         * @param username a String representing the name of the user
+         * @param password a String representing the password of the user
+         */
         Spark.get("/createUser", new Route() {
             @Override
             public Object handle(Request request, Response response) throws Exception {
@@ -124,6 +128,55 @@ class Server {
                 return true;
             }
         });
-    }
 
+        /**
+         * Gets the contact info and returns it
+         */
+        Spark.get("/getContact", new Route() {
+            @Override
+            public Object handle(Request request, Response response) throws Exception {
+                String username = request.queryParams("username");
+                Gson g = new Gson();
+                String jsonResponse = g.toJson(q.getContactInfo(username));
+                return jsonResponse;
+            }
+        });
+
+        /**
+         * Creates a new survey based on the user's answers (or changes) and uploads it to the database. If the user
+         * has already created a survey, it updates it instead.
+         * @param str A string of every answer to the survey split by one space.
+         */
+        Spark.get("/createSurvey", new Route() {
+            @Override
+            public Object handle(Request request, Response response) throws Exception {
+                String toParse = request.queryParams("str");
+                String[] parsed = toParse.split(" ");
+                for(String s : parsed){
+                    s.trim();
+                }
+
+                Survey newSurvey = new Survey(parsed[0], parsed[1], parsed[2], parsed[3], Integer.parseInt(parsed[4]),
+                        Integer.parseInt(parsed[5]), Integer.parseInt(parsed[6]), Integer.parseInt(parsed[7]),
+                        Integer.parseInt(parsed[8]), Integer.parseInt(parsed[9]), Integer.parseInt(parsed[10]),
+                        Integer.parseInt(parsed[11]), Integer.parseInt(parsed[12]), Integer.parseInt(parsed[13]),
+                        Integer.parseInt(parsed[14]), Integer.parseInt(parsed[15]), Integer.parseInt(parsed[16]),
+                        Integer.parseInt(parsed[17]), parsed[18]);
+
+                q.setSurvey(newSurvey);
+                return true; //returns true if it has successfully connected to the server
+            }
+        });
+
+        /**
+         *
+         */
+        Spark.get("/", new Route() {
+            @Override
+            public Object handle(Request request, Response response) throws Exception {
+                return true;
+            }
+        });
+
+    }
 }
