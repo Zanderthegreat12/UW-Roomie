@@ -29,8 +29,11 @@ class Server {
         Spark.get("/connect", new Route() {
             @Override
             public Object handle(Request request, Response response) throws Exception {
-                q.getAllSurveys();
-                return "Test connect successful!";
+                //q.getAllSurveys();
+                Gson g = new Gson();
+                String jsonResponse = g.toJson(q.getAllSurveys());
+                return jsonResponse;
+                //return "Test connect successful!";
             }
         });
 
@@ -42,7 +45,7 @@ class Server {
          *
          * @return a json list of usernames that the current user has matched with.
          */
-        Spark.get("/get_Kmatch", new Route() {
+        Spark.get("/getKmatch", new Route() {
             @Override
             public Object handle(Request request, Response response) throws Exception {
                 String username = request.queryParams("username");
@@ -58,7 +61,7 @@ class Server {
          * Runs the algorithm and generates matches to put into the database.
          * @param username A String representing the name of the user needing to be matched
          */
-        Spark.get("/run_alg", new Route() {
+        Spark.get("/runAlg", new Route() {
             @Override
             public Object handle(Request request, Response response) throws Exception {
                 String username = request.queryParams("username");
@@ -76,19 +79,6 @@ class Server {
                     q.setMatch(m);
                 }
                 return "Completed";
-            }
-        });
-
-        /**
-         * Gets the contact info and returns it
-         */
-        Spark.get("/contact", new Route() {
-            @Override
-            public Object handle(Request request, Response response) throws Exception {
-                String username = request.queryParams("username");
-                Gson g = new Gson();
-                String jsonResponse = g.toJson(q.getContactInfo(username));
-                return jsonResponse;
             }
         });
 
@@ -140,67 +130,33 @@ class Server {
         });
 
         /**
-         * Creates a new survey object and adds it to the database.
-         * @param username a String representing the name of the user
-         * @param dorm1 a String representing the user's first choice of dorm
-         * @param dorm2 a String representing the user's 2nd choice of dorm
-         * @param dorm3 a String representing the user's 3rd choice of dorm
-         * @param roomType an int representing the preferred type of room
-         *          1 = single/studio;
-         *          2 = double/2 bedroom;
-         *          3 = triple/3 bedroom;
-         *          4 = quad/4 bedroom;
-         *          5 = 5 bedroom;
-         *          6 = 6 bedroom;
-         * @param genderInc an int indicating if the user wants a gender inclusive room
-         *          0 = doesn't want to be in gender inclusive dorm;
-         *          1 = does want to be in gender inclusive dorm;
-         * @param sYear an int representing the user's class year. (not standing)
-         *          1 = first year at UW;
-         *          2 = second year at UW;
-         *          3 = third year at UW;
-         *          4 = fourth year at UW;
-         * @param rYear an int representing the preferred year for the roommate. (same options as sYear)
-         * @param drinkingPref an int indicating if the user is ok with the roommate drinking/smoking.
-         *          0 = does not tolerate drinking;
-         *          1 = they themselves drink or are fine with roommate drinking;
-         * @param wakeTime an int representing the hour the user wakes up.
-         * @param sleepTime an int representing the hour the user goes to sleep.
-         * @param heavySleep an int indicating if the user is a heavier sleeper or not.
-         * @param sVert an int indicating if the user is an introvert, extrovert, or ambivert.
-         * @param rVert an int indicating how outgoing the user wants their roommate to be.
-         * @param sFriends an int indicating if the user wants to bring friends to the room.
-         * @param rFriends an int indicating if the user is ok with the roommate bringing friends over.
-         * @param sNeat an int indicating if the user is neat or messy.
-         * @param rNeat an int indicating the user's preference for roommate cleanliness.
-         * @param hobbies a String of all the user's hobbies.
+         * Gets the contact info and returns it
          */
-        Spark.get("/createSurvey", new Route() {
+        Spark.get("/getContact", new Route() {
             @Override
             public Object handle(Request request, Response response) throws Exception {
                 String username = request.queryParams("username");
-                String dorm1 = request.queryParams("dorm1");
-                String dorm2 = request.queryParams("dorm2");
-                String dorm3 = request.queryParams("dorm3");
-                int roomType = Integer.parseInt(request.queryParams("roomType"));
-                int genderInc = Integer.parseInt(request.queryParams("genderInc"));
-                int sYear = Integer.parseInt(request.queryParams("sYear"));
-                int rYear = Integer.parseInt(request.queryParams("rYear"));
-                int drinkingPref = Integer.parseInt(request.queryParams("drinkingPref"));
-                int wakeTime = Integer.parseInt(request.queryParams("wakeTime"));
-                int sleepTime = Integer.parseInt(request.queryParams("sleepTime"));
-                int heavySleep = Integer.parseInt(request.queryParams("heavySleep"));
-                int sVert = Integer.parseInt(request.queryParams("sVert"));
-                int rVert = Integer.parseInt(request.queryParams("rVert"));
-                int sFriends = Integer.parseInt(request.queryParams("sFriends"));
-                int rFriends = Integer.parseInt(request.queryParams("rFriends"));
-                int sNeat = Integer.parseInt(request.queryParams("sNeat"));
-                int rNeat = Integer.parseInt(request.queryParams("rNeat"));
-                String hobbies = request.queryParams("hobbies");
+                Gson g = new Gson();
+                String jsonResponse = g.toJson(q.getContactInfo(username));
+                return jsonResponse;
+            }
+        });
 
-                Survey newSurvey = new Survey(username, dorm1, dorm2, dorm3, roomType, genderInc, sYear, rYear,
-                            drinkingPref, wakeTime, sleepTime, heavySleep, sVert, rVert, sFriends, rFriends, sNeat,
-                            rNeat, hobbies);
+        Spark.get("/createSurvey", new Route() {
+            @Override
+            public Object handle(Request request, Response response) throws Exception {
+                String toParse = request.queryParams("str");
+                String[] parsed = toParse.split(" ");
+                for(String s : parsed){
+                    s.trim();
+                }
+
+                Survey newSurvey = new Survey(parsed[0], parsed[1], parsed[2], parsed[3], Integer.parseInt(parsed[4]),
+                        Integer.parseInt(parsed[5]), Integer.parseInt(parsed[6]), Integer.parseInt(parsed[7]),
+                        Integer.parseInt(parsed[8]), Integer.parseInt(parsed[9]), Integer.parseInt(parsed[10]),
+                        Integer.parseInt(parsed[11]), Integer.parseInt(parsed[12]), Integer.parseInt(parsed[13]),
+                        Integer.parseInt(parsed[14]), Integer.parseInt(parsed[15]), Integer.parseInt(parsed[16]),
+                        Integer.parseInt(parsed[17]), parsed[18]);
 
                 q.setSurvey(newSurvey);
                 return true; //returns true if it has successfully connected to the server
@@ -216,6 +172,6 @@ class Server {
                 return true;
             }
         });
-    }
 
+    }
 }
