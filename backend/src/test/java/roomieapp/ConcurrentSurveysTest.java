@@ -56,16 +56,16 @@ public class ConcurrentSurveysTest {
 
         @Test
         public void thread2() {
-            secondThread = q.createUser("user1", "thread2");
+            secondThread = q.createUser("user2", "thread2");
         }
         @Test
         public void thread3() {
-            thirdThread = q.createUser("user2", "thread3");
+            thirdThread = q.createUser("user3", "thread3");
         }
 
         @Test
         public void thread4() {
-            fourthThread = q.createUser("user2", "thread4");
+            fourthThread = q.createUser("user4", "thread4");
         }
 
         @AfterClass
@@ -76,8 +76,8 @@ public class ConcurrentSurveysTest {
     }
 
     public static class CreateSurveys {
-        private final Survey exampleSurvey = new Survey(
-                "user",
+        private final Survey user1Survey = new Survey(
+                "user1",
                 "Poplar",
                 "Maple",
                 "Stevens Court",
@@ -98,7 +98,7 @@ public class ConcurrentSurveysTest {
                 "Gaming"
         );
 
-        private final Survey otherSurvey = new Survey(
+        private final Survey user2Survey = new Survey(
                 "user2",
                 "Willow",
                 "Mcmahon",
@@ -122,36 +122,136 @@ public class ConcurrentSurveysTest {
 
         @Test
         public void thread1(){
-            
+            q.setSurvey(user1Survey);
+            Survey user1Test = q.getSurvey(user1Survey.username);
+            assertTrue(user1Test.equals(user1Survey));
         }
 
         @Test
         public void thread2() {
-
+            q.setSurvey(user2Survey);
+            Survey user2Test = q.getSurvey(user2Survey.username);
+            assertTrue(user2Test.equals(user2Survey));
         }
     }
 
     public static class UpdateSurveys {
+        private final Survey user1Survey = new Survey(
+                "user1",
+                "Poplar",
+                "Maple",
+                "Stevens Court",
+                1,
+                0,
+                3,
+                3,
+                1,
+                11,
+                3,
+                1,
+                0,
+                1,
+                1,
+                1,
+                1,
+                1,
+                "Gaming"
+        );
+
+        private final Survey user2Survey = new Survey(
+                "user2",
+                "Mcmahon",
+                "Willow",
+                "Elm",
+                2,
+                0,
+                1,
+                1,
+                0,
+                10,
+                1,
+                1,
+                1,
+                2,
+                1,
+                0,
+                1,
+                1,
+                "Football"
+        );
+
         @Test
         public void thread1(){
-
+            q.setSurvey(user1Survey);
+            Survey user1Test = q.getSurvey(user1Survey.username);
+            assertTrue(user1Test.equals(user1Survey));
         }
 
         @Test
         public void thread2() {
-
+            q.setSurvey(user2Survey);
+            Survey user2Test = q.getSurvey(user2Survey.username);
+            assertTrue(user2Test.equals(user2Survey));
         }
     }
 
     public static class SetSurveys {
+        private final Survey user3Survey = new Survey(
+                "user3",
+                "Poplar",
+                "Maple",
+                "Stevens Court",
+                2,
+                1,
+                3,
+                3,
+                1,
+                9,
+                23,
+                0,
+                0,
+                1,
+                1,
+                1,
+                1,
+                1,
+                "Gaming"
+        );
+
+        private final Survey user4Survey = new Survey(
+                "user4",
+                "Willow",
+                "Mcmahon",
+                "Elm",
+                4,
+                0,
+                1,
+                1,
+                0,
+                10,
+                1,
+                1,
+                2,
+                2,
+                0,
+                0,
+                0,
+                1,
+                "Football"
+        );
+
         @Test
         public void thread1(){
-
+            q.setSurvey(user3Survey);
+            Survey user2Test = q.getSurvey(user3Survey.username);
+            assertTrue(user2Test.equals(user3Survey));
         }
 
         @Test
         public void thread2() {
-
+            q.setSurvey(user4Survey);
+            Survey user2Test = q.getSurvey(user4Survey.username);
+            assertTrue(user2Test.equals(user4Survey));
         }
     }
 }
