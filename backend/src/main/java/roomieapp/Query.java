@@ -19,51 +19,6 @@ public class Query {
     // This is how Query will make queries to the SQL database
     private Connection conn;
 
-    // query to get username and password of user
-    private PreparedStatement getUserStmt;
-
-    // query to get survey belonging to given user
-    private PreparedStatement getSurveyStmt;
-
-    // query to get match information of specified 2 users
-    private PreparedStatement getMatchStmt;
-
-    // query to get contact information belonging to given user
-    private PreparedStatement getContactStmt;
-
-    // query to add new user
-    private PreparedStatement createUserStmt;
-
-    // query to add a new survey belonging to specified user
-    private PreparedStatement createSurveyStmt;
-
-    // query to add new contact information belonging to specified user
-    private PreparedStatement createContactStmt;
-
-    // query to add new match information between 2 specified users
-    private PreparedStatement createMatchStmt;
-
-    // query to update survey of specified user
-    private PreparedStatement updateSurveyStmt;
-
-    // query to update contact info of specified user
-    private PreparedStatement updateContactStmt;
-
-    // query to update match info of specified 2 users
-    private PreparedStatement updateMatchStmt;
-
-    // query to get k number of top matches with given user
-    private PreparedStatement getTopMatchesStmt;
-
-    // query to update only compatibility of a match
-    private PreparedStatement updateCompatibilityStmt;
-
-    // query to update only matchStatus of a match
-    private PreparedStatement updateMatchStatusStmt;
-
-    // query to get all surveys
-    private PreparedStatement getAllSurveysStmt;
-
     /**
      * Initializes a connection with SQL database
      * and sets up a Query object to be able to send queries
@@ -72,60 +27,125 @@ public class Query {
     public Query() {
         try {
             this.conn = DBConnUtils.openConnection();
-            this.prepareStatements();
         } catch (Exception e){
             e.printStackTrace();
         }
     }
 
-    // Prepares all queries during object initialization to prevent SQL injections
-    private void prepareStatements() throws SQLException{
-        getUserStmt = conn.prepareStatement(
-           "SELECT * " +
-               "FROM Users " +
-               "WHERE username = ?;"
+    // query to get username and password of user
+    private PreparedStatement getUserStmt(String username) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement(
+            "SELECT * " +
+                "FROM Users " +
+                "WHERE username = ?;"
         );
+        stmt.setString(1, username);
+        return stmt;
+    }
 
-        getSurveyStmt = conn.prepareStatement(
-           "SELECT * " +
-               "FROM Surveys " +
-               "WHERE username = ?;"
+    // query to get survey belonging to given user
+    private PreparedStatement getSurveyStmt(String username) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement(
+            "SELECT * " +
+                "FROM Surveys " +
+                "WHERE username = ?;"
         );
+        stmt.setString(1, username);
+        return stmt;
+    }
 
-        getContactStmt = conn.prepareStatement(
+    // query to get contact information belonging to given user
+    private PreparedStatement getContactStmt(String username) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement(
             "SELECT * " +
                 "FROM Contact_Info " +
                 "WHERE username = ?;"
         );
+        stmt.setString(1, username);
+        return stmt;
+    }
 
-        getMatchStmt = conn.prepareStatement(
+    // query to get match information of specified 2 users
+    private PreparedStatement getMatchStmt(String user1, String user2) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement(
             "SELECT * " +
                 "FROM Matches " +
                 "WHERE user1 = ? and user2 = ?;"
         );
+        stmt.setString(1, user1);
+        stmt.setString(2, user2);
+        return stmt;
+    }
 
-        createUserStmt = conn.prepareStatement(
+    // query to add new user
+    private PreparedStatement createUserStmt(String username, byte[] password) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement(
             "INSERT INTO Users " +
                 "VALUES (?, ?);"
         );
+        stmt.setString(1, username);
+        stmt.setBytes(2, password);
+        return stmt;
+    }
 
-        createSurveyStmt = conn.prepareStatement(
+    // query to add a new survey belonging to specified user
+    private PreparedStatement createSurveyStmt(Survey survey) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement(
             "INSERT INTO Surveys " +
                 "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?," +
                     "?, ?, ?, ?, ?, ?, ?, ?, ?);"
         );
+        stmt.setString(1, survey.username);
+        stmt.setString(2, survey.firstDorm);
+        stmt.setString(3, survey.secondDorm);
+        stmt.setString(4, survey.thirdDorm);
+        stmt.setInt(5, survey.roomType);
+        stmt.setInt(6, survey.genderInclusive);
+        stmt.setInt(7, survey.studentYear);
+        stmt.setInt(8, survey.roommateYear);
+        stmt.setInt(9, survey.drinkingPref);
+        stmt.setInt(10, survey.wakeTime);
+        stmt.setInt(11, survey.sleepTime);
+        stmt.setInt(12, survey.heavySleep);
+        stmt.setInt(13, survey.studentVert);
+        stmt.setInt(14, survey.roommateVert);
+        stmt.setInt(15, survey.studentFriends);
+        stmt.setInt(16, survey.roommateFriends);
+        stmt.setInt(17, survey.studentNeat);
+        stmt.setInt(18, survey.roommateNeat);
+        stmt.setString(19, survey.hobbies);
+        return stmt;
+    }
 
-        createContactStmt = conn.prepareStatement(
+    // query to add new contact information belonging to specified user
+    private PreparedStatement createContactStmt(ContactInfo contact) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement(
             "INSERT INTO Contact_Info " +
                 "VALUES(?, ?, ?, ?);"
         );
+        stmt.setString(1, contact.username);
+        stmt.setString(2, contact.email);
+        stmt.setLong(3, contact.phoneNumber);
+        stmt.setString(4, contact.discord);
+        return stmt;
+    }
 
-        createMatchStmt = conn.prepareStatement(
+    // query to add new match information between 2 specified users
+    private PreparedStatement createMatchStmt(Match match) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement(
             "INSERT INTO Matches " +
                 "VALUES(?, ?, ?, ?);"
         );
+        stmt.setString(1, match.user1);
+        stmt.setString(2, match.user2);
+        stmt.setFloat(3, match.compatibility);
+        stmt.setInt(4, match.matchStatus);
+        return stmt;
+    }
 
-        updateSurveyStmt = conn.prepareStatement(
+    // query to update survey of specified user
+    private PreparedStatement updateSurveyStmt(Survey survey) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement(
             "UPDATE Surveys " +
                 "SET firstDorm = ?," +
                     "secondDorm = ?," +
@@ -147,45 +167,107 @@ public class Query {
                     "hobbies = ? " +
                 "WHERE username = ?;"
         );
+        stmt.setString(1, survey.firstDorm);
+        stmt.setString(2, survey.secondDorm);
+        stmt.setString(3, survey.thirdDorm);
+        stmt.setInt(4, survey.roomType);
+        stmt.setInt(5, survey.genderInclusive);
+        stmt.setInt(6, survey.studentYear);
+        stmt.setInt(7, survey.roommateYear);
+        stmt.setInt(8, survey.drinkingPref);
+        stmt.setInt(9, survey.wakeTime);
+        stmt.setInt(10, survey.sleepTime);
+        stmt.setInt(11, survey.heavySleep);
+        stmt.setInt(12, survey.studentVert);
+        stmt.setInt(13, survey.roommateVert);
+        stmt.setInt(14, survey.studentFriends);
+        stmt.setInt(15, survey.roommateFriends);
+        stmt.setInt(16, survey.studentNeat);
+        stmt.setInt(17, survey.roommateNeat);
+        stmt.setString(18, survey.hobbies);
+        stmt.setString(19, survey.username);
+        return stmt;
+    }
 
-        updateContactStmt = conn.prepareStatement(
+    // query to update contact info of specified user
+    private PreparedStatement updateContactStmt(ContactInfo contact) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement(
             "UPDATE Contact_Info " +
                 "SET email = ?," +
                     "phoneNumber = ?," +
                     "discord = ? " +
                 "WHERE username = ?;"
         );
+        stmt.setString(1, contact.email);
+        stmt.setLong(2, contact.phoneNumber);
+        stmt.setString(3, contact.discord);
+        stmt.setString(4, contact.username);
+        return stmt;
+    }
 
-        updateMatchStmt = conn.prepareStatement(
+    // query to update match info of specified 2 users
+    private PreparedStatement updateMatchStmt(Match match) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement(
             "UPDATE Matches " +
                 "SET compatibility = ?," +
                     "matchStatus = ? " +
                 "WHERE user1 = ? and user2 = ?;"
         );
+        stmt.setFloat(1, match.compatibility);
+        stmt.setInt(2, match.matchStatus);
+        stmt.setString(3, match.user1);
+        stmt.setString(4, match.user2);
+        return stmt;
+    }
 
-        getTopMatchesStmt = conn.prepareStatement(
+    // query to get k number of top matches with given user
+    private PreparedStatement getTopMatchesStmt(
+            String username, int topK) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement(
             "SELECT * " +
                 "FROM Matches " +
                 "WHERE (user1 = ? or user2 = ?) and matchStatus = 0 " +
                 "ORDER BY compatibility DESC " +
                 "LIMIT ?;"
         );
+        stmt.setString(1, username);
+        stmt.setString(2, username);
+        stmt.setInt(3, topK);
+        return stmt;
+    }
 
-        updateCompatibilityStmt = conn.prepareStatement(
+    // query to update only compatibility of a match
+    private PreparedStatement updateCompatibilityStmt(
+            String user1, String user2, float compatibility) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement(
             "UPDATE Matches " +
                 "SET compatibility = ? " +
                 "WHERE user1 = ? and user2 = ?;"
         );
+        stmt.setFloat(1, compatibility);
+        stmt.setString(2, user1);
+        stmt.setString(3, user2);
+        return stmt;
+    }
 
-        updateMatchStatusStmt = conn.prepareStatement(
+    // query to update only matchStatus of a match
+    private PreparedStatement updateMatchStatusStmt(
+            String user1, String user2, int matchStatus) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement(
             "UPDATE Matches " +
                 "SET matchStatus = ? " +
                 "WHERE user1 = ? and user2 = ?;"
         );
+        stmt.setFloat(1, matchStatus);
+        stmt.setString(2, user1);
+        stmt.setString(3, user2);
+        return stmt;
+    }
 
-        getAllSurveysStmt = conn.prepareStatement(
-                "SELECT * FROM Surveys;"
-        );
+    // query to get all surveys
+    private PreparedStatement getAllSurveysStmt() throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Surveys;");
+        return stmt;
     }
 
     /**
@@ -224,9 +306,9 @@ public class Query {
             }
 
             // username doesn't exist, so create the new user and return true
-            createUserStmt.setString(1, username);
-            createUserStmt.setBytes(2, PasswordUtils.hashPassword(password));
-            createUserStmt.execute();
+            PreparedStatement createUserStmt = createUserStmt(username,
+                    PasswordUtils.hashPassword(password));
+            createUserStmt.executeUpdate();
             conn.commit();
             return true;
 
@@ -247,7 +329,7 @@ public class Query {
      */
     public boolean login(String username, String password) {
         try {
-            getUserStmt.setString(1, username);
+            PreparedStatement getUserStmt = getUserStmt(username);
             ResultSet user = getUserStmt.executeQuery();
 
             // if username incorrect, return false
@@ -263,7 +345,7 @@ public class Query {
             conn.commit();
             return correctLogin;
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             //e.printStackTrace();
             try {
                 conn.rollback();
@@ -288,7 +370,7 @@ public class Query {
             }
 
             // if user's contact info not in database, return null
-            getContactStmt.setString(1, username);
+            PreparedStatement getContactStmt = getContactStmt(username);
             ResultSet contact = getContactStmt.executeQuery();
             if(!contact.next()) {
                 conn.commit();
@@ -327,7 +409,7 @@ public class Query {
             }
 
             // if user's survey not in database, return null
-            getSurveyStmt.setString(1, username);
+            PreparedStatement getSurveyStmt = getSurveyStmt(username);
             ResultSet survey = getSurveyStmt.executeQuery();
             if(!survey.next()) {
                 conn.commit();
@@ -368,20 +450,14 @@ public class Query {
 
             // if user's contactInfo already there, update their info
             // else Create new contactInfo for user
-            getContactStmt.setString(1, username);
+            PreparedStatement getContactStmt = getContactStmt(username);
             ResultSet contact = getContactStmt.executeQuery();
             if(contact.next()) {
-                updateContactStmt.setString(1, userContactInfo.email);
-                updateContactStmt.setLong(2, userContactInfo.phoneNumber);
-                updateContactStmt.setString(3, userContactInfo.discord);
-                updateContactStmt.setString(4, username);
-                updateContactStmt.execute();
+                PreparedStatement updateContactStmt = updateContactStmt(userContactInfo);
+                updateContactStmt.executeUpdate();
             } else {
-                createContactStmt.setString(1, username);
-                createContactStmt.setString(2, userContactInfo.email);
-                createContactStmt.setLong(3, userContactInfo.phoneNumber);
-                createContactStmt.setString(4, userContactInfo.discord);
-                createContactStmt.execute();
+                PreparedStatement createContactStmt = createContactStmt(userContactInfo);
+                createContactStmt.executeUpdate();
             }
             contact.close();
             conn.commit();
@@ -419,50 +495,14 @@ public class Query {
 
             // if user's survey already there, update their info
             // else Create new survey for user
-            getSurveyStmt.setString(1, username);
+            PreparedStatement getSurveyStmt = getSurveyStmt(username);
             ResultSet survey = getSurveyStmt.executeQuery();
             if(survey.next()) {
-                updateSurveyStmt.setString(1, userSurvey.firstDorm);
-                updateSurveyStmt.setString(2, userSurvey.secondDorm);
-                updateSurveyStmt.setString(3, userSurvey.thirdDorm);
-                updateSurveyStmt.setInt(4, userSurvey.roomType);
-                updateSurveyStmt.setInt(5, userSurvey.genderInclusive);
-                updateSurveyStmt.setInt(6, userSurvey.studentYear);
-                updateSurveyStmt.setInt(7, userSurvey.roommateYear);
-                updateSurveyStmt.setInt(8, userSurvey.drinkingPref);
-                updateSurveyStmt.setInt(9, userSurvey.wakeTime);
-                updateSurveyStmt.setInt(10, userSurvey.sleepTime);
-                updateSurveyStmt.setInt(11, userSurvey.heavySleep);
-                updateSurveyStmt.setInt(12, userSurvey.studentVert);
-                updateSurveyStmt.setInt(13, userSurvey.roommateVert);
-                updateSurveyStmt.setInt(14, userSurvey.studentFriends);
-                updateSurveyStmt.setInt(15, userSurvey.roommateFriends);
-                updateSurveyStmt.setInt(16, userSurvey.studentNeat);
-                updateSurveyStmt.setInt(17, userSurvey.roommateNeat);
-                updateSurveyStmt.setString(18, userSurvey.hobbies);
-                updateSurveyStmt.setString(19, username);
-                updateSurveyStmt.execute();
+                PreparedStatement updateSurveyStmt = updateSurveyStmt(userSurvey);
+                updateSurveyStmt.executeUpdate();
             } else {
-                createSurveyStmt.setString(1, username);
-                createSurveyStmt.setString(2, userSurvey.firstDorm);
-                createSurveyStmt.setString(3, userSurvey.secondDorm);
-                createSurveyStmt.setString(4, userSurvey.thirdDorm);
-                createSurveyStmt.setInt(5, userSurvey.roomType);
-                createSurveyStmt.setInt(6, userSurvey.genderInclusive);
-                createSurveyStmt.setInt(7, userSurvey.studentYear);
-                createSurveyStmt.setInt(8, userSurvey.roommateYear);
-                createSurveyStmt.setInt(9, userSurvey.drinkingPref);
-                createSurveyStmt.setInt(10, userSurvey.wakeTime);
-                createSurveyStmt.setInt(11, userSurvey.sleepTime);
-                createSurveyStmt.setInt(12, userSurvey.heavySleep);
-                createSurveyStmt.setInt(13, userSurvey.studentVert);
-                createSurveyStmt.setInt(14, userSurvey.roommateVert);
-                createSurveyStmt.setInt(15, userSurvey.studentFriends);
-                createSurveyStmt.setInt(16, userSurvey.roommateFriends);
-                createSurveyStmt.setInt(17, userSurvey.studentNeat);
-                createSurveyStmt.setInt(18, userSurvey.roommateNeat);
-                createSurveyStmt.setString(19, userSurvey.hobbies);
-                createSurveyStmt.execute();
+                PreparedStatement createSurveyStmt = createSurveyStmt(userSurvey);
+                createSurveyStmt.executeUpdate();
             }
             survey.close();
             conn.commit();
@@ -498,21 +538,14 @@ public class Query {
 
             // if user's match info already there, update their info
             // else Create new match for users
-            getMatchStmt.setString(1, matchInfo.user1);
-            getMatchStmt.setString(2, matchInfo.user2);
+            PreparedStatement getMatchStmt = getMatchStmt(matchInfo.user1, matchInfo.user2);
             ResultSet match = getMatchStmt.executeQuery();
             if(match.next()) {
-                updateMatchStmt.setFloat(1, matchInfo.compatibility);
-                updateMatchStmt.setInt(2, matchInfo.matchStatus);
-                updateMatchStmt.setString(3, matchInfo.user1);
-                updateMatchStmt.setString(4, matchInfo.user2);
-                updateMatchStmt.execute();
+                PreparedStatement updateMatchStmt = updateMatchStmt(matchInfo);
+                updateMatchStmt.executeUpdate();
             } else {
-                createMatchStmt.setString(1, matchInfo.user1);
-                createMatchStmt.setString(2, matchInfo.user2);
-                createMatchStmt.setFloat(3, matchInfo.compatibility);
-                createMatchStmt.setInt(4, matchInfo.matchStatus);
-                createMatchStmt.execute();
+                PreparedStatement createMatchStmt = createMatchStmt(matchInfo);
+                createMatchStmt.executeUpdate();
             }
             match.close();
             conn.commit();
@@ -554,8 +587,7 @@ public class Query {
             }
 
             // if users' match not in database, return null
-            getMatchStmt.setString(1, username1);
-            getMatchStmt.setString(2, username2);
+            PreparedStatement getMatchStmt = getMatchStmt(username1, username2);
             ResultSet match = getMatchStmt.executeQuery();
             if(!match.next()) {
                 conn.commit();
@@ -600,9 +632,7 @@ public class Query {
             }
 
             // return up to topK matches
-            getTopMatchesStmt.setString(1, username);
-            getTopMatchesStmt.setString(2, username);
-            getTopMatchesStmt.setInt(3, topK);
+            PreparedStatement getTopMatchesStmt = getTopMatchesStmt(username, topK);
             ResultSet currMatch = getTopMatchesStmt.executeQuery();
             while(currMatch.next()) {
                 if(currMatch.getString(1).equals(username)) {
@@ -645,10 +675,9 @@ public class Query {
                 throw new IllegalArgumentException();
             }
 
-            updateCompatibilityStmt.setFloat(1, newCompatibility);
-            updateCompatibilityStmt.setString(2, username1);
-            updateCompatibilityStmt.setString(3, username2);
-            updateCompatibilityStmt.execute();
+            PreparedStatement updateCompatibilityStmt =
+                    updateCompatibilityStmt(username1, username2, newCompatibility);
+            updateCompatibilityStmt.executeUpdate();
             conn.commit();
 
         } catch (SQLException e) {
@@ -688,10 +717,9 @@ public class Query {
                 throw new IllegalArgumentException();
             }
 
-            updateMatchStatusStmt.setFloat(1, newMatchStatus);
-            updateMatchStatusStmt.setString(2, username1);
-            updateMatchStatusStmt.setString(3, username2);
-            updateMatchStatusStmt.execute();
+            PreparedStatement updateMatchStatusStmt =
+                    updateMatchStatusStmt(username1, username2, newMatchStatus);
+            updateMatchStatusStmt.executeUpdate();
             conn.commit();
 
         } catch (SQLException e) {
@@ -718,7 +746,7 @@ public class Query {
     public Set<Survey> getAllSurveys() {
         try {
             Set<Survey> surveys = new HashSet<>();
-            ResultSet currSurvey = getAllSurveysStmt.executeQuery();
+            ResultSet currSurvey = getAllSurveysStmt().executeQuery();
             while(currSurvey.next()) {
                 Survey survey = storeSurvey(currSurvey);
                 surveys.add(survey);
@@ -737,7 +765,7 @@ public class Query {
 
     // check if user with given username exists
     private boolean userExists(String username) throws SQLException {
-        getUserStmt.setString(1, username);
+        PreparedStatement getUserStmt = getUserStmt(username);
         ResultSet user = getUserStmt.executeQuery();
         boolean userExists = user.next();
         user.close();
@@ -747,8 +775,7 @@ public class Query {
     // checks if match with the 2 given users exist
     // assumes username1 < username2
     private boolean matchExists(String username1, String username2) throws SQLException {
-        getMatchStmt.setString(1, username1);
-        getMatchStmt.setString(2, username2);
+        PreparedStatement getMatchStmt = getMatchStmt(username1, username2);
         ResultSet match = getMatchStmt.executeQuery();
         boolean matchExists = match.next();
         match.close();
@@ -757,7 +784,7 @@ public class Query {
 
     // checks if survey with given user exists
     private boolean surveyExists(String username) throws SQLException {
-        getSurveyStmt.setString(1, username);
+        PreparedStatement getSurveyStmt = getSurveyStmt(username);
         ResultSet survey = getSurveyStmt.executeQuery();
         boolean surveyExists = survey.next();
         survey.close();
@@ -766,7 +793,7 @@ public class Query {
 
     // checks if contact info with given user exists
     private boolean contactExists(String username) throws SQLException {
-        getContactStmt.setString(1, username);
+        PreparedStatement getContactStmt = getContactStmt(username);
         ResultSet contact = getContactStmt.executeQuery();
         boolean contactExists = contact.next();
         contact.close();
