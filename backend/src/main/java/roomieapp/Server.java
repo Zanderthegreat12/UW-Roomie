@@ -51,12 +51,12 @@ class Server {
             public Object handle(Request request, Response response) throws Exception {
                 String username = request.queryParams("username");
                 int numMatch = Integer.parseInt(request.queryParams("numMatch"));
-                List<String> matches = q.getTopMatches(username, numMatch);
+
                 Gson g = new Gson();
-                String jsonResponse = g.toJson(matches);
+                String jsonResponse = g.toJson(q.getTopMatches(username, numMatch));
                 return jsonResponse;
             }
-        }); //TALK TO COLBY ABOUT IT POSSIBLY RETURNING COMP SCORE AS WELL??
+        });
 
         /**
          * Runs the algorithm and generates matches to put into the database.
@@ -82,6 +82,7 @@ class Server {
                     }
                 }
 
+                //Returns a jsonList. UNNECESSARY FOR DISPLAY: PURELY FOR TESTING PURPOSES.
                 Gson g = new Gson();
                 String jsonResponse = g.toJson(mList);
                 return jsonResponse;
