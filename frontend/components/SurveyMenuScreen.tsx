@@ -2,18 +2,14 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import {useNavigation} from "@react-navigation/native";
 
-export default function LoginScreen() {
-    const navigation = useNavigation();
+export default function SurveyMenuScreen() {
+    const navigation = useNavigation()
     return (
         <View style={styles.container}>
-            <Text>Signed In</Text>
+            <Text>Survey Menu</Text>
             <Button
-                title="Matching Menu"
-                onPress={() => navigation.navigate('Matching Menu')}
-            />
-            <Button
-                title="Survey Menu"
-                onPress={() => navigation.navigate('Survey Menu')}
+                title="Back to Home"
+                onPress={() => navigation.navigate('Login')}
             />
         </View>
     );
