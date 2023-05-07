@@ -212,14 +212,14 @@ public class ConcurrentMatchesTest {
                     80,
                     0
             );
-            List<String> test = q.getTopMatches("user1", 2);
+            List<Match> test = q.getTopMatches("user1", 2);
             assertTrue(test.size() <= 2);
             if(test.size() == 2) {
-                assertTrue(test.get(0).equals(match1.user2));
-                assertTrue(test.get(1).equals(match2.user2));
+                assertTrue(test.get(0).equals(match1));
+                assertTrue(test.get(1).equals(match2));
             } else if(test.size() == 1) {
-                assertTrue(test.get(0).equals(match1.user2) ||
-                        test.get(0).equals(match2.user2));
+                assertTrue(test.get(0).equals(match1) ||
+                        test.get(0).equals(match2));
             }
         }
 
@@ -243,22 +243,22 @@ public class ConcurrentMatchesTest {
                     88,
                     0
             );
-            List<String> test = q.getTopMatches("user2", 2);
+            List<Match> test = q.getTopMatches("user2", 2);
             assertTrue(test.size() <= 2);
             if(test.size() == 2) {
-                if(test.contains(match1.user1) && test.contains(match2.user2)) {
-                    assertTrue(test.get(0).equals(match1.user1));
-                    assertTrue(test.get(1).equals(match2.user2));
-                } else if(test.contains(match1.user1) && test.contains(match3.user2)) {
-                    assertTrue(test.get(0).equals(match1.user1));
-                    assertTrue(test.get(1).equals(match3.user2));
+                if(test.contains(match1) && test.contains(match2)) {
+                    assertTrue(test.get(0).equals(match1));
+                    assertTrue(test.get(1).equals(match2));
+                } else if(test.contains(match1) && test.contains(match3)) {
+                    assertTrue(test.get(0).equals(match1));
+                    assertTrue(test.get(1).equals(match3));
                 } else {
-                    assertTrue(test.get(0).equals(match2.user2));
-                    assertTrue(test.get(1).equals(match3.user2));
+                    assertTrue(test.get(0).equals(match2));
+                    assertTrue(test.get(1).equals(match3));
                 }
             } else if(test.size() == 1) {
-                assertTrue(test.get(0).equals(match1.user1) ||
-                        test.get(0).equals(match2.user2) || test.get(0).equals(match2.user2));
+                assertTrue(test.get(0).equals(match1) ||
+                        test.get(0).equals(match2) || test.get(0).equals(match2));
             }
 
         }
@@ -277,14 +277,14 @@ public class ConcurrentMatchesTest {
                     88,
                     0
             );
-            List<String> test = q.getTopMatches("user3", 2);
+            List<Match> test = q.getTopMatches("user3", 2);
             assertTrue(test.size() <= 2);
             if(test.size() == 2) {
-                assertTrue(test.get(0).equals(match1.user1));
-                assertTrue(test.get(1).equals(match2.user1));
+                assertTrue(test.get(0).equals(match1));
+                assertTrue(test.get(1).equals(match2));
             } else if(test.size() == 1) {
-                assertTrue(test.get(0).equals(match1.user1) ||
-                        test.get(0).equals(match2.user1));
+                assertTrue(test.get(0).equals(match1) ||
+                        test.get(0).equals(match2));
             }
         }
 
@@ -296,10 +296,10 @@ public class ConcurrentMatchesTest {
                     76,
                     0
             );
-            List<String> test = q.getTopMatches("user4", 2);
+            List<Match> test = q.getTopMatches("user4", 2);
             assertTrue(test.size() <= 1);
             if(test.size() == 1) {
-                assertTrue(test.get(0).equals(match1.user1));
+                assertTrue(test.get(0).equals(match1));
             }
         }
     }

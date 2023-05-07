@@ -39,6 +39,7 @@ class Server {
 
         /**
          * Gets the top k matches associated with the user that is logged in.
+         * http://localhost:4567/getKmatch?username=" + ? + "&numMatch=" + ?
          * @param username a user's identifier
          *
          * @param numMatch the number of matches we want to display
@@ -50,9 +51,9 @@ class Server {
             public Object handle(Request request, Response response) throws Exception {
                 String username = request.queryParams("username");
                 int numMatch = Integer.parseInt(request.queryParams("numMatch"));
-                List<String> matches = q.getTopMatches(username, numMatch);
+
                 Gson g = new Gson();
-                String jsonResponse = g.toJson(matches);
+                String jsonResponse = g.toJson(q.getTopMatches(username, numMatch));
                 return jsonResponse;
             }
         });
@@ -76,16 +77,23 @@ class Server {
 
                 //Puts them back into the database under matches
                 for(Match m: mList) {
-                    q.setMatch(m);
+                    if(m != null) {
+                        q.setMatch(m);
+                    }
                 }
 
-                return "Completed";
+                //Returns a jsonList. UNNECESSARY FOR DISPLAY: PURELY FOR TESTING PURPOSES.
+                Gson g = new Gson();
+                String jsonResponse = g.toJson(mList);
+                return jsonResponse;
             }
         });
 
         /**
          * Checks to make sure the person's account is one within the database
-         * @return true if the login is successful
+         * @param username a String representing the name of the user account
+         * @param password a String representing the password of the account
+         * @return true if the login is successful and false if it is not
          */
         Spark.get("/logIn", new Route() {
             @Override

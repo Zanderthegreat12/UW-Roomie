@@ -249,10 +249,10 @@ public class SQLMatchTest {
         querier.setMatch(overlapMatch2);
         querier.setMatch(overlapMatch3);
 
-        List<String> test = querier.getTopMatches(match.user1, 2);
+        List<Match> test = querier.getTopMatches(match.user1, 2);
         assertTrue(test.size() == 2);
-        assertTrue(test.get(0).equals(match.user2));
-        assertTrue(test.get(1).equals(overlapMatch3.user1));
+        assertTrue(test.get(0).equals(match));
+        assertTrue(test.get(1).equals(overlapMatch3));
 
         querier.clearTables();
     }
@@ -275,11 +275,11 @@ public class SQLMatchTest {
         querier.setMatch(overlapMatch2);
         querier.setMatch(overlapMatch3);
 
-        List<String> test = querier.getTopMatches(match.user1, 10);
+        List<Match> test = querier.getTopMatches(match.user1, 10);
         assertTrue(test.size() == 3);
-        assertTrue(test.get(0).equals(match.user2));
-        assertTrue(test.get(1).equals(overlapMatch3.user1));
-        assertTrue(test.get(2).equals(overlapMatch2.user2));
+        assertTrue(test.get(0).equals(match));
+        assertTrue(test.get(1).equals(overlapMatch3));
+        assertTrue(test.get(2).equals(overlapMatch2));
 
         querier.clearTables();
     }
