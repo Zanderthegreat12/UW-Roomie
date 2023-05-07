@@ -22,6 +22,9 @@ export default function App() {
                 name="Login"
                 component={LoginScreen} />
             <stack.Screen
+                name="Create Account"
+                component={CreateUserScreen} />
+            <stack.Screen
                 name="Matching Menu"
                 component={MatchingMenuScreen} />
             <stack.Screen
