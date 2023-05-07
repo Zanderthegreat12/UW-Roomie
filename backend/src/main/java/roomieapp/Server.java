@@ -39,6 +39,7 @@ class Server {
 
         /**
          * Gets the top k matches associated with the user that is logged in.
+         * http://localhost:4567/getKmatch?username=" + ? + "&numMatch=" + ?
          * @param username a user's identifier
          *
          * @param numMatch the number of matches we want to display
@@ -55,7 +56,7 @@ class Server {
                 String jsonResponse = g.toJson(matches);
                 return jsonResponse;
             }
-        });
+        }); //TALK TO COLBY ABOUT IT POSSIBLY RETURNING COMP SCORE AS WELL??
 
         /**
          * Runs the algorithm and generates matches to put into the database.
@@ -76,16 +77,22 @@ class Server {
 
                 //Puts them back into the database under matches
                 for(Match m: mList) {
-                    q.setMatch(m);
+                    if(m != null) {
+                        q.setMatch(m);
+                    }
                 }
 
-                return "Completed";
+                Gson g = new Gson();
+                String jsonResponse = g.toJson(mList);
+                return jsonResponse;
             }
         });
 
         /**
          * Checks to make sure the person's account is one within the database
-         * @return true if the login is successful
+         * @param username a String representing the name of the user account
+         * @param password a String representing the password of the account
+         * @return true if the login is successful and false if it is not
          */
         Spark.get("/logIn", new Route() {
             @Override
