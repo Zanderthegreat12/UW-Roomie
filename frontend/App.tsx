@@ -7,6 +7,7 @@ import HomeScreen from './components/HomeScreen';
 import LoginScreen from './components/LoginScreen';
 import MatchingMenuScreen from './components/MatchingMenuScreen';
 import SurveyMenuScreen from "./components/SurveyMenuScreen";
+import CreateUserScreen from "./components/CreateUserScreen";
 
 const stack = createStackNavigator();
 

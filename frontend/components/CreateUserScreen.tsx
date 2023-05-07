@@ -11,7 +11,7 @@ createAccount = async() => {
              return;
          }
             alert("Successfully created your new account!");
-
+            navigation.navigate('Login');
     } catch(e) {
          alert("There was an error contacting the server.");
          console.log(e);

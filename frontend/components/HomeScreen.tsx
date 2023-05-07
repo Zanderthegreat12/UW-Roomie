@@ -1,29 +1,39 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-
-var username = "";
-var password = "";
+import {TextInput} from 'react-native';
+import React, {useState} from 'react';
 
 export default function HomeScreen() {
     const navigation = useNavigation();
+    const [username, setUser] = useState('');
+    const [password, setPass] = useState('');
+
     return (
         <View style={styles.container}>
             <Text>UW Roomie</Text>
             <Text>Insert Username:</Text>
             <TextInput
-                onChangeText={text => onChangeUser(text)}
-                value={text}
+                editable
+                style={{padding: 5}}
+                onChangeText={text => setUser(text)}
+                value={username}
             />
+
             <Text>Insert Password:</Text>
             <TextInput
-                onChangeText={text => onChangePass(text)}
-                value={text}
+                editable
+                style={{padding: 5}}
+                onChangeText={text => setPass(text)}
+                value={password}
             />
+
             <Text>{username}</Text>
+            <Text>{password}</Text>
+
             <Button
                 title="Sign In"
-                onPress={() => navigation.navigate('Login')}//logIn()}
+                onPress={() => navigation.navigate('Login')}//logIn()} //Once we have server on AWS
              />
              <Button
                 title="Create Account"
@@ -31,14 +41,6 @@ export default function HomeScreen() {
              />
         </View>
     );
-}
-
-onChangeUser = (event: any) => {
-    username = event.target.value;
-}
-
-onChangePass = (event: any) => {
-    password = event.target.value;
 }
 
 logIn = async() => {
