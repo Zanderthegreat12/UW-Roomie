@@ -11,19 +11,21 @@ export default function HomeScreen() {
 
     return (
         <View style={styles.container}>
-            <Text>UW Roomie</Text>
-            <Text>Insert Username:</Text>
+            <Text style = {styles.title}>UW Roomie</Text>
+            <Text style = {styles.text}>Insert Username:</Text>
             <TextInput
                 editable
-                style={{padding: 5}}
+                style={styles.textBox}
+                maxLength={20}
                 onChangeText={text => setUser(text)}
                 value={username}
             />
 
-            <Text>Insert Password:</Text>
+            <Text style = {styles.text}>Insert Password:</Text>
             <TextInput
                 editable
-                style={{padding: 5}}
+                style={styles.textBox}
+                maxLength={20}
                 onChangeText={text => setPass(text)}
                 value={password}
             />
@@ -70,5 +72,20 @@ const styles = StyleSheet.create({
         backgroundColor: '#A781B5',
         alignItems: 'center',
         justifyContent: 'center',
+    },
+
+    textBox: {
+        backgroundColor: 'white',
+        height: 50,
+        width: 200,
+        borderRadius: 8,
+    },
+
+    text: {
+        margin: 10,
+    },
+
+    title: {
+        fontSize: 30,
     },
 });
