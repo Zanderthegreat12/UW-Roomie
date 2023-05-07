@@ -78,6 +78,7 @@ class Server {
                 for(Match m: mList) {
                     q.setMatch(m);
                 }
+
                 return "Completed";
             }
         });
@@ -89,7 +90,9 @@ class Server {
         Spark.get("/logIn", new Route() {
             @Override
             public Object handle(Request request, Response response) throws Exception {
-                return true;
+                String username = request.queryParams("username");
+                String password = request.queryParams("password");
+                return q.login(username, password);
             }
         });
 
