@@ -37,7 +37,7 @@ export default function HomeScreen() {
                 title="Sign In"
                 onPress={() => navigation.navigate('Login')}//logIn()} //Once we have server on AWS
              />
-             <Button
+             <Button style = {styles.button}
                 title="Create Account"
                 onPress={() => navigation.navigate('Create Account')}
              />
@@ -87,5 +87,11 @@ const styles = StyleSheet.create({
 
     title: {
         fontSize: 30,
+    },
+
+    button: {
+        backgroundColor: 'black',
+        width: 75,
+        color: 'white',
     },
 });
