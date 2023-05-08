@@ -114,7 +114,7 @@ export default function SurveyMenuScreen({route}) {
             <Text>Survey Menu</Text>
             <Button
                 title="Back to Home"
-                onPress={() => navigation.navigate('Login', {user: + '' + username})}
+                onPress={() => navigation.navigate('Login', {user:'' + username})}
             />
             <Text> {'\n'} </Text>
             <Text>What's your first dorm choice?</Text>

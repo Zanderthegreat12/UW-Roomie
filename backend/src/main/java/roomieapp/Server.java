@@ -61,6 +61,7 @@ class Server {
         /**
          * Runs the algorithm and generates matches to put into the database.
          * @param username A String representing the name of the user needing to be matched
+         * @returns a json list representing a list of Matches generated. For testing purposes only. Will be changed.
          */
         Spark.get("/runAlg", new Route() {
             @Override
@@ -108,6 +109,7 @@ class Server {
          * Creates a new user account and updates the database accordingly.
          * @param username a String representing the name of the user
          * @param password a String representing the password of the user
+         * @return true if the user is successfully created.
          */
         Spark.get("/createUser", new Route() {
             @Override
@@ -127,6 +129,7 @@ class Server {
          * @param email a String representing the email of the user.
          * @param pNum a long representing the phone number of the user.
          * @param discord a String representing the discord address of the user.
+         * @return true if the contact was successfully created.
          */
         Spark.get("/createContact", new Route() {
             @Override
@@ -142,6 +145,8 @@ class Server {
 
         /**
          * Gets the contact info and returns it
+         * @param username a String representing the name of the user
+         * @return a json list representing a ContactInfo object.
          */
         Spark.get("/getContact", new Route() {
             @Override
@@ -157,6 +162,7 @@ class Server {
          * Creates a new survey based on the user's answers (or changes) and uploads it to the database. If the user
          * has already created a survey, it updates it instead.
          * @param str A string of every answer to the survey split by one space.
+         * @return true if it successfully created the survey.
          */
         Spark.get("/createSurvey", new Route() {
             @Override
@@ -180,12 +186,19 @@ class Server {
         });
 
         /**
+         * Gets a single instance of a user's survey.
+         * @param username a String that represents the user's name
          *
+         * @returns a json list representing a Survey object.
          */
-        Spark.get("/", new Route() {
+        Spark.get("/getSurvey", new Route() {
             @Override
             public Object handle(Request request, Response response) throws Exception {
-                return true;
+                String username = request.queryParams("username");
+
+                Gson g = new Gson();
+                String jsonResponse = g.toJson(q.getSurvey(username));
+                return jsonResponse;
             }
         });
 
