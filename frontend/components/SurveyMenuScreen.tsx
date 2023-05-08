@@ -47,9 +47,13 @@ export default function SurveyMenuScreen() {
     var roommateNeat = null
     var hobbies = null
 
-    const [open, setOpen] = useState(false);
-    const [value, setValue] = useState(null);
-    const [items, setItems] = useState([
+    const [firstDormOpen, setFirstDormOpen] = useState(false);
+    const [firstDormValue, setFirstDormValue] = useState(null);
+    const [secondDormOpen, setSecondDormOpen] = useState(false);
+    const [secondDormValue, setSecondDormValue] = useState(null);
+    const [thirdDormOpen, setThirdDormOpen] = useState(false);
+    const [thirdDormValue, setThirdDormValue] = useState(null);
+    const [dorms, setDorms] = useState([
         {label: 'Alder Hall', value: 'Alder Hall'},
         {label: 'Elm Hall', value: 'Elm Hall'},
         {label: 'Hansee Hall', value: 'Hansee Hall'},
@@ -65,6 +69,36 @@ export default function SurveyMenuScreen() {
         {label: 'Stevens Court', value: 'Stevens Court'}
     ]);
 
+    const [roomTypeOpen, setRoomTypeOpen] = useState(false);
+    const [roomTypeValue, setRoomTypeValue] = useState(null);
+    const [roomTypes, setRoomTypes] = useState([
+        {label: 'single/studio', value: 1},
+        {label: 'double/2 bedrooms', value: 2},
+        {label: 'triple/3 bedrooms', value: 3},
+        {label: 'quad suite/4 bedrooms', value: 4},
+        {label: '5 bedrooms', value: 5},
+        {label: '6 bedrooms', value: 6},
+    ]);
+
+    const [genderInclusiveOpen, setGenderInclusiveOpen] = useState(false);
+    const [genderInclusiveValue, setGenderInclusiveValue] = useState(null);
+    const [genderInclusivity, setGenderInclusivity] = useState([
+        {label: 'Yes. I want to be in gender inclusive dorming', value: 1},
+        {label: 'No. I don\'t want to be in gender inclusive dorming', value: 0},
+    ]);
+
+    const open = [setFirstDormOpen, setSecondDormOpen, setThirdDormOpen, setRoomTypeOpen,
+    setGenderInclusiveOpen]
+    function onOpen(openedValue: number): void {
+        for(let i = 0; i < open.length; i++) {
+            if(openedValue != i) {
+                open[i](false)
+            } else {
+                open[i](true)
+            }
+        }
+    }
+
     return (
         <ScrollView contentContainerStyle={styles.container} nestedScrollEnabled={true}>
             <Text>Survey Menu</Text>
@@ -72,14 +106,82 @@ export default function SurveyMenuScreen() {
                 title="Back to Home"
                 onPress={() => navigation.navigate('Login')}
             />
+            <Text> {'\n'} </Text>
             <Text>What's your first dorm choice?</Text>
-            <Dropdown
-                open={open}
-                value={value}
-                items={items}
-                setOpen={setOpen}
-                setValue={setValue}
-                setItems={setItems}
+            <Dropdown open={firstDormOpen}
+                value={firstDormValue}
+                items={dorms}
+                setOpen={setFirstDormOpen}
+                setValue={setFirstDormValue}
+                setItems={setDorms}
+                onOpen={() => onOpen(0)}
+                onClose={() => onOpen(-1)}
+                dropDownDirection="TOP"
+            />
+
+            <Text> {'\n'} </Text>
+            <Text>What's your second dorm choice?</Text>
+            <Dropdown open={secondDormOpen}
+                value={secondDormValue}
+                items={dorms}
+                setOpen={setSecondDormOpen}
+                setValue={setSecondDormValue}
+                setItems={setDorms}
+                onOpen={() => onOpen(1)}
+                onClose={() => onOpen(-1)}
+                dropDownDirection="TOP"
+            />
+
+            <Text> {'\n'} </Text>
+            <Text>What's your third dorm choice?</Text>
+            <Dropdown open={thirdDormOpen}
+                value={thirdDormValue}
+                items={dorms}
+                setOpen={setThirdDormOpen}
+                setValue={setThirdDormValue}
+                setItems={setDorms}
+                onOpen={() => onOpen(2)}
+                onClose={() => onOpen(-1)}
+                dropDownDirection="TOP"
+            />
+
+            <Text> {'\n'} </Text>
+            <Text>What type of dorm room do you want?</Text>
+            <Dropdown open={roomTypeOpen}
+                      value={roomTypeValue}
+                      items={roomTypes}
+                      setOpen={setRoomTypeOpen}
+                      setValue={setRoomTypeValue}
+                      setItems={setRoomTypes}
+                      onOpen={() => onOpen(3)}
+                      onClose={() => onOpen(-1)}
+                      dropDownDirection="TOP"
+            />
+
+            <Text> {'\n'} </Text>
+            <Text>Do you want to opt into gender inclusive dorming?</Text>
+            <Dropdown open={genderInclusiveOpen}
+                      value={genderInclusiveValue}
+                      items={genderInclusivity}
+                      setOpen={setGenderInclusiveOpen}
+                      setValue={setGenderInclusiveValue}
+                      setItems={setGenderInclusivity}
+                      onOpen={() => onOpen(3)}
+                      onClose={() => onOpen(-1)}
+                      dropDownDirection="TOP"
+            />
+
+            <Text> {'\n'} </Text>
+            <Text>What type of dorm room do you want?</Text>
+            <Dropdown open={roomTypeOpen}
+                      value={roomTypeValue}
+                      items={roomTypes}
+                      setOpen={setRoomTypeOpen}
+                      setValue={setRoomTypeValue}
+                      setItems={setRoomTypes}
+                      onOpen={() => onOpen(3)}
+                      onClose={() => onOpen(-1)}
+                      dropDownDirection="TOP"
             />
         </ScrollView>
     );
@@ -91,5 +193,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#A781B5',
         alignItems: 'center',
         justifyContent: 'center',
+        zIndex: 4
     },
 });
