@@ -111,13 +111,15 @@ export default function SurveyMenuScreen({route}) {
 
     return (
         <ScrollView contentContainerStyle={styles.container} nestedScrollEnabled={true}>
-            <Text>Survey Menu</Text>
+            <Text style={styles.title}>Roomie Survey</Text>
+            <Text style={styles.text} marginBottom={30}>Answer these survey questions to get the best matches for you!</Text>
             <Button
                 title="Back to Home"
+                color="#7c2bee"
                 onPress={() => navigation.navigate('Login', {user:'' + username})}
             />
             <Text> {'\n'} </Text>
-            <Text>What's your first dorm choice?</Text>
+            <Text style={styles.text}>What's your first dorm choice?</Text>
 
             <Dropdown open={firstDormOpen}
                 value={firstDormValue}
@@ -134,7 +136,7 @@ export default function SurveyMenuScreen({route}) {
             />
 
             <Text> {'\n'} </Text>
-            <Text>What's your second dorm choice?</Text>
+            <Text style={styles.text}>What's your second dorm choice?</Text>
 
             <Dropdown open={secondDormOpen}
                 value={secondDormValue}
@@ -151,7 +153,7 @@ export default function SurveyMenuScreen({route}) {
             />
 
             <Text> {'\n'} </Text>
-            <Text>What's your third dorm choice?</Text>
+            <Text style={styles.text}>What's your third dorm choice?</Text>
             <Dropdown open={thirdDormOpen}
                 value={thirdDormValue}
                 items={dorms}
@@ -167,7 +169,7 @@ export default function SurveyMenuScreen({route}) {
             />
 
             <Text> {'\n'} </Text>
-            <Text>What type of dorm room do you want?</Text>
+            <Text style={styles.text}>What type of dorm room do you want?</Text>
             <Dropdown open={roomTypeOpen}
                       value={roomTypeValue}
                       items={roomTypes}
@@ -183,7 +185,7 @@ export default function SurveyMenuScreen({route}) {
             />
 
             <Text> {'\n'} </Text>
-            <Text>Do you want to opt into gender inclusive dorming?</Text>
+            <Text style={styles.text}>Do you want to opt into gender inclusive dorming?</Text>
             <Dropdown open={genderInclusiveOpen}
                       value={genderInclusiveValue}
                       items={genderInclusivity}
@@ -199,7 +201,7 @@ export default function SurveyMenuScreen({route}) {
             />
 
             <Text> {'\n'} </Text>
-            <Text>What year will you be (1st, 2nd, 3rd, or 4th)?</Text>
+            <Text style={styles.text}>What year will you be (1st, 2nd, 3rd, or 4th)?</Text>
             <Dropdown open={studentYearOpen}
                       value={studentYearValue}
                       items={studentYears}
@@ -211,8 +213,15 @@ export default function SurveyMenuScreen({route}) {
                       onClose={() => onOpen(-1)}
                       listView="SCROLLVIEW"
                       dropDownDirection="BOTTOM"
-                      style={{marginBottom: studentYearOpen ? 175 : 20}}
+                      style={{marginBottom: studentYearOpen ? 175 : 50}}
             />
+
+            <Button
+                title="Submit"
+                color="#7c2bee"
+                onPress={() => navigation.navigate('Matching Menu', {user:'' + username})} >
+            </Button>
+
         </ScrollView>
     );
 }
@@ -241,6 +250,20 @@ const styles = StyleSheet.create({
         backgroundColor: '#A781B5',
         alignItems: 'center',
         justifyContent: 'center',
-        zIndex: 4
+        zIndex: 4,
+        padding: 10,
+        paddingBottom: 30,
+    },
+
+    text: {
+        margin: 10,
+        color: 'white',
+    },
+
+    title: {
+        fontSize: 30,
+        padding: 20,
+        paddingBottom: 0,
+        color: 'white',
     },
 });

@@ -30,15 +30,20 @@ export default function HomeScreen() {
                 onChangeText={text => setPass(text)}
                 value={password}
             />
+            <View style={styles.button}>
+                <Button
+                    title="Sign In"
+                    color="#7c2bee"
+                    onPress={() => navigation.navigate('Login', {user: '' + username,})}//logIn()} //Once we have server on AWS
+                 />
+            </View>
 
+            <Text style={styles.text}>Don't have an account?</Text>
             <Button
-                title="Sign In"
-                onPress={() => navigation.navigate('Login', {user: '' + username,})}//logIn()} //Once we have server on AWS
-             />
-             <Button style = {styles.button}
                 title="Create Account"
+                color="#7c2bee"
                 onPress={() => navigation.navigate('Create Account')}
-             />
+            />
         </View>
     );
 }
@@ -74,7 +79,7 @@ const styles = StyleSheet.create({
 
     textBox: {
         backgroundColor: 'white',
-        height: 50,
+        height: 40,
         width: 200,
         borderRadius: 8,
         padding: 10,
@@ -91,8 +96,6 @@ const styles = StyleSheet.create({
     },
 
     button: {
-        backgroundColor: 'black',
-        width: 75,
-        color: 'white',
+        padding: 20,
     },
 });

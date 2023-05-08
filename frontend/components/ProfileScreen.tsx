@@ -19,15 +19,19 @@ export default function HomeScreen({route}) {
             <Text style = {styles.text}>Discord: {discord}</Text>
             <Text style = {styles.text}>Email: {email}</Text>
 
-             <Button style = {styles.button}
-                title="Retake Survey"
-                onPress={() => navigation.navigate('Survey Menu', {user:'' + username})}
-             />
+            <View style={styles.button}>
+                 <Button
+                    title="Retake Survey"
+                    color="#7c2bee"
+                    onPress={() => navigation.navigate('Survey Menu', {user:'' + username})}
+                 />
+            </View>
 
-             <Button
-                title="Back to Home"
-                onPress={() => navigation.navigate('Login',  {user:'' + username})}
-             />
+            <Button
+               title="Back to Home"
+               color="#7c2bee"
+               onPress={() => navigation.navigate('Login',  {user:'' + username})}
+            />
         </View>
     );
 }
@@ -68,9 +72,15 @@ const styles = StyleSheet.create({
 
     text: {
         margin: 10,
+        color: 'white',
     },
 
     title: {
         fontSize: 30,
+        color: 'white',
+    },
+
+    button: {
+        padding: 20,
     },
 });
