@@ -4,6 +4,7 @@ import {useNavigation} from "@react-navigation/native";
 import Dropdown from 'react-native-dropdown-picker';
 import React, {useState} from 'react'
 import {Image, ScrollView, FlatList, SafeAreaView} from 'react-native';
+Dropdown.setListMode("SCROLLVIEW")
 
 export default function SurveyMenuScreen({route}) {
     const [username, setUser] = useState(route.params.user);
