@@ -118,28 +118,36 @@ export default function SurveyMenuScreen({route}) {
             />
             <Text> {'\n'} </Text>
             <Text>What's your first dorm choice?</Text>
-            <Dropdown open={firstDormOpen}  // wrap with View for AUTO direction to work
+
+            <Dropdown open={firstDormOpen}
                 value={firstDormValue}
                 items={dorms}
+                placeholder={"Select a dorm"}
                 setOpen={setFirstDormOpen}
                 setValue={setFirstDormValue}
                 setItems={setDorms}
                 onOpen={() => onOpen(0)}
                 onClose={() => onOpen(-1)}
-                dropDownDirection="TOP"
+                listView="SCROLLVIEW"
+                dropDownDirection="BOTTOM"
+                style={{marginBottom: firstDormOpen ? 175 : 20}}
             />
 
             <Text> {'\n'} </Text>
             <Text>What's your second dorm choice?</Text>
+
             <Dropdown open={secondDormOpen}
                 value={secondDormValue}
                 items={dorms}
+                placeholder={"Select a dorm"}
                 setOpen={setSecondDormOpen}
                 setValue={setSecondDormValue}
                 setItems={setDorms}
                 onOpen={() => onOpen(1)}
                 onClose={() => onOpen(-1)}
-                dropDownDirection="TOP"
+                listView="SCROLLVIEW"
+                dropDownDirection="BOTTOM"
+                style={{marginBottom: secondDormOpen ? 175 : 20}}
             />
 
             <Text> {'\n'} </Text>
@@ -147,12 +155,15 @@ export default function SurveyMenuScreen({route}) {
             <Dropdown open={thirdDormOpen}
                 value={thirdDormValue}
                 items={dorms}
+                placeholder={"Select a dorm"}
                 setOpen={setThirdDormOpen}
                 setValue={setThirdDormValue}
                 setItems={setDorms}
                 onOpen={() => onOpen(2)}
                 onClose={() => onOpen(-1)}
-                dropDownDirection="TOP"
+                listView="SCROLLVIEW"
+                dropDownDirection="BOTTOM"
+                style={{marginBottom: thirdDormOpen ? 175 : 20}}
             />
 
             <Text> {'\n'} </Text>
@@ -160,12 +171,15 @@ export default function SurveyMenuScreen({route}) {
             <Dropdown open={roomTypeOpen}
                       value={roomTypeValue}
                       items={roomTypes}
+                      placeholder={"Select a room type"}
                       setOpen={setRoomTypeOpen}
                       setValue={setRoomTypeValue}
                       setItems={setRoomTypes}
                       onOpen={() => onOpen(3)}
                       onClose={() => onOpen(-1)}
-                      dropDownDirection="TOP"
+                      listView="SCROLLVIEW"
+                      dropDownDirection="BOTTOM"
+                      style={{marginBottom: roomTypeOpen ? 175 : 20}}
             />
 
             <Text> {'\n'} </Text>
@@ -173,12 +187,15 @@ export default function SurveyMenuScreen({route}) {
             <Dropdown open={genderInclusiveOpen}
                       value={genderInclusiveValue}
                       items={genderInclusivity}
+                      placeholder={"Select yes or no"}
                       setOpen={setGenderInclusiveOpen}
                       setValue={setGenderInclusiveValue}
                       setItems={setGenderInclusivity}
                       onOpen={() => onOpen(4)}
                       onClose={() => onOpen(-1)}
-                      dropDownDirection="TOP"
+                      listView="SCROLLVIEW"
+                      dropDownDirection="BOTTOM"
+                      style={{marginBottom: genderInclusiveOpen ? 175 : 20}}
             />
 
             <Text> {'\n'} </Text>
@@ -186,12 +203,15 @@ export default function SurveyMenuScreen({route}) {
             <Dropdown open={studentYearOpen}
                       value={studentYearValue}
                       items={studentYears}
+                      placeholder={"Select a year"}
                       setOpen={setStudentYearOpen}
                       setValue={setStudentYearValue}
                       setItems={setStudentYears}
                       onOpen={() => onOpen(5)}
                       onClose={() => onOpen(-1)}
-                      dropDownDirection="TOP"
+                      listView="SCROLLVIEW"
+                      dropDownDirection="BOTTOM"
+                      style={{marginBottom: studentYearOpen ? 175 : 20}}
             />
         </ScrollView>
     );
