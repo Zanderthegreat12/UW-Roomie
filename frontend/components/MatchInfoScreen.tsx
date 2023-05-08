@@ -12,9 +12,10 @@ export default function MatchInfoScreen({route}) {
 
     return (
         <View style={styles.container}>
-            <Text> {username + " " + matchname + " " + comp }</Text>
+            <Text style={styles.text}> {username + " " + matchname + " " + comp }</Text>
             <Button
                 title="Back to all Matches"
+                color="#7c2bee"
                 onPress={() => navigation.navigate('Matching Menu', {user: '' + username})}
             />
         </View>
@@ -27,5 +28,10 @@ const styles = StyleSheet.create({
         backgroundColor: '#A781B5',
         alignItems: 'center',
         justifyContent: 'center',
+    },
+
+    text: {
+        margin: 10,
+        color: 'white',
     },
 });

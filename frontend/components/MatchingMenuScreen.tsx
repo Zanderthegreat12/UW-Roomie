@@ -25,24 +25,29 @@ export default function MatchingMenuScreen({route}) {
         if(M.Matches[i].user1 == User) {
             Matchname = M.Matches[i].user2
 
-            ExtraButtons.push(<Button title={Matchname + " " + comp}
-                                      onPress={()=> navigation.navigate('Match Info', {user: '' + username, match: '' + Matchname, comp:'' + comp})}/>);
+            ExtraButtons.push(<View style={styles.button}><Button title={Matchname + " " + comp}
+                                      color={"#7c2bee"}
+                                      onPress={()=> navigation.navigate('Match Info', {user: '' + username, match: '' + Matchname, comp:'' + comp})}/></View>);
         } else {
             Matchname = M.Matches[i].user1
-            ExtraButtons.push(<Button title={Matchname + " " + comp}
-                                      onPress={()=> navigation.navigate('Match Info', {user:'' + username, match:'' + Matchname, comp:'' + comp})}/>);
+            ExtraButtons.push(<View style={styles.button}><Button title={Matchname + " " + comp}
+                                      color={"#7c2bee"}
+                                      onPress={()=> navigation.navigate('Match Info', {user:'' + username, match:'' + Matchname, comp:'' + comp})}/></View>);
         }
         i++;
     }
 
     return (
         <ScrollView contentContainerStyle={styles.container} nestedScrollEnabled={true}>
-            <Text>Matching Menu</Text>
+            <Text style={styles.title}>Matching Menu</Text>
             {ExtraButtons}
-            <Button
-            title="Back to Home"
-            onPress={() => navigation.navigate('Login', {user: '' + username})}
-            />
+            <View style={styles.button}>
+                <Button
+                    title="Back to Home"
+                    color="#7c2bee"
+                    onPress={() => navigation.navigate('Login', {user: '' + username})}
+                />
+            </View>
         </ScrollView>
     );alignItems
 }
@@ -87,5 +92,20 @@ const styles = StyleSheet.create({
         backgroundColor: '#A781B5',
         alignItems: 'center',
         justifyContent: 'center',
+    },
+
+    text: {
+        margin: 10,
+        color: 'white',
+    },
+
+    title: {
+        fontSize: 30,
+        padding: 20,
+        color: 'white',
+    },
+
+    button: {
+        padding: 10,
     },
 });

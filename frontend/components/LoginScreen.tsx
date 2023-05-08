@@ -9,23 +9,35 @@ export default function LoginScreen({route}) {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.text}>Welcome {username}</Text>
-            <Button
-                title="Matching Menu"
-                onPress={() => navigation.navigate('Matching Menu', {user: '' + username,})}
-            />
-            <Button
-                title="Liked Menu"
-                onPress={() => navigation.navigate('Liked Menu', {user: '' + username,})}
-            />
-            <Button
-                title="Survey Menu"
-                onPress={() => navigation.navigate('Survey Menu', {user: '' + username,})}
-            />
-            <Button
-                title="Profile"
-                onPress={() => navigation.navigate('Profile', {user: '' + username,})}
-            />
+            <Text style={styles.title}>Welcome {username}</Text>
+            <View style={styles.button}>
+                <Button
+                    title="Potential matches"
+                    color="#7c2bee"
+                    onPress={() => navigation.navigate('Matching Menu', {user: '' + username,})}
+                />
+            </View>
+            <View style={styles.button}>
+                <Button
+                    title="Your liked roomies"
+                    color="#7c2bee"
+                    onPress={() => navigation.navigate('Liked Menu', {user: '' + username,})}
+                />
+            </View>
+            <View style={styles.button}>
+                <Button
+                    title="Roomie Survey"
+                    color="#7c2bee"
+                    onPress={() => navigation.navigate('Survey Menu', {user: '' + username,})}
+                />
+            </View>
+            <View style={styles.button}>
+                <Button
+                    title="Your profile"
+                    color="#7c2bee"
+                    onPress={() => navigation.navigate('Profile', {user: '' + username,})}
+                />
+            </View>
         </View>
     );
 }
@@ -37,8 +49,19 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+
     text: {
         margin: 10,
         color: 'white',
+    },
+
+    title: {
+        fontSize: 30,
+        padding: 10,
+        color: 'white',
+    },
+
+    button: {
+        padding: 10,
     },
 });

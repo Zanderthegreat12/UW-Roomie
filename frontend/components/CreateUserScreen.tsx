@@ -35,6 +35,7 @@ export default function HomeScreen() {
 
              <Button
                 title="Create"
+                color="#7c2bee"
                 onPress={() => createUser(username, password)}//navigation.navigate('Login', {user: '' + username,})} //createUser(username, password)
              />
         </View>
@@ -69,16 +70,18 @@ const styles = StyleSheet.create({
 
     textBox: {
         backgroundColor: 'white',
-        height: 50,
+        height: 40,
         width: 200,
         borderRadius: 8,
     },
 
     text: {
         margin: 10,
+        color: 'white'
     },
 
     title: {
         fontSize: 30,
+        color: 'white',
     },
 });
