@@ -35,7 +35,7 @@ export default function HomeScreen() {
 
             <Button
                 title="Sign In"
-                onPress={() => navigation.navigate('Login')}//logIn()} //Once we have server on AWS
+                onPress={() => navigation.navigate('Login', {user: '' + username,})}//logIn()} //Once we have server on AWS
              />
              <Button style = {styles.button}
                 title="Create Account"

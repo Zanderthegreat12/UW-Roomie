@@ -4,7 +4,8 @@ import {useNavigation} from "@react-navigation/native";
 
 
 export default function MatchingMenuScreen() {
-    const navigation = useNavigation()
+    const navigation = useNavigation();
+    const [username, setUser] = useState(route.params.user);
 
     const M = require('../Test Data/Matches.json')
     console.log(M)
@@ -33,7 +34,41 @@ export default function MatchingMenuScreen() {
             onPress={() => navigation.navigate('Login')}
             />
         </View>
-    );
+    );alignItems
+}
+
+runAlg = async(user) => {
+    try{
+         let responsePromise = fetch("http://localhost:4567/runAlg?username=" + user);
+         let res = await responsePromise;
+         if(!res.ok){
+             alert("Error! Expected: 200, Was: " + res.status);
+             return;
+         }
+
+    } catch(e) {
+         alert("There was an error contacting the server.");
+         console.log(e);
+    }
+}
+
+getMatches = async(user) => {
+    try{
+         let responsePromise = fetch("http://localhost:4567/getKmatch?username=" + user + "&numMatch=" + 10); //HARD CODE 10 AS A GLOBAL VAR
+         let res = await responsePromise;
+         if(!res.ok){
+             alert("Error! Expected: 200, Was: " + res.status);
+             return;
+         }
+
+         let parse = res.json();
+         let parsed = await parse;
+         //SET A VAR WITH THE MATCHES INFO
+
+    } catch(e) {
+         alert("There was an error contacting the server.");
+         console.log(e);
+    }
 }
 
 const styles = StyleSheet.create({

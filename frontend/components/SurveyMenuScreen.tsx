@@ -6,7 +6,8 @@ import React, {useState} from 'react'
 import {Image, ScrollView, FlatList, SafeAreaView} from 'react-native';
 Dropdown.setListMode("SCROLLVIEW");
 
-export default function SurveyMenuScreen() {
+export default function SurveyMenuScreen({route}) {
+    const [username, setUser] = useState(route.params.user);
     function answerSurveyQ(value) {
         answersOpen = -1
         return value
@@ -185,6 +186,24 @@ export default function SurveyMenuScreen() {
             />
         </ScrollView>
     );
+}
+
+getSurvey = async(infoString) => {
+    try{
+         let responsePromise = fetch("http://localhost:4567/createSurvey?str=" + infoString);
+         let res = await responsePromise;
+         if(!res.ok){
+             alert("Error! Expected: 200, Was: " + res.status);
+             return;
+         }
+
+         //Survey filled out and uploaded! Go to the profile screen!
+         navigation.navigate('Profile', {user: '' + username,})
+
+    } catch(e) {
+         alert("There was an error contacting the server.");
+         console.log(e);
+    }
 }
 
 const styles = StyleSheet.create({
