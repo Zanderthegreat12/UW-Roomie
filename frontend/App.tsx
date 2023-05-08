@@ -9,6 +9,7 @@ import MatchingMenuScreen from './components/MatchingMenuScreen';
 import SurveyMenuScreen from "./components/SurveyMenuScreen";
 import CreateUserScreen from "./components/CreateUserScreen";
 import ProfileScreen from "./components/ProfileScreen";
+import MatchInfoScreen from "./components/MatchInfoScreen";
 
 const stack = createStackNavigator();
 
@@ -35,7 +36,11 @@ export default function App() {
             <stack.Screen
                 name="Profile"
                 component={ProfileScreen} />
+            <stack.Screen
+                name="Match Info"
+                component={MatchInfoScreen} />
         </stack.Navigator>
+
     </NavigationContainer></>
   );
 }

@@ -1,9 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import {useNavigation} from "@react-navigation/native";
+import {useState} from "react";
 
 
-export default function MatchingMenuScreen() {
+export default function MatchingMenuScreen({route}) {
     const navigation = useNavigation();
     const [username, setUser] = useState(route.params.user);
 
@@ -17,10 +18,19 @@ export default function MatchingMenuScreen() {
 
     while(i < M.Matches.length) {
 
+        let Matchname : string;
+        let comp : number;
+        comp = M.Matches[i].compatability
+
         if(M.Matches[i].user1 == User) {
-            ExtraButtons.push(<Text> {M.Matches[i].user2 + " " + M.Matches[i].compatability}</Text>);
+            Matchname = M.Matches[i].user2
+
+            ExtraButtons.push(<Button title={Matchname + " " + comp}
+                                      onPress={()=> navigation.navigate('Match Info', {user:+ '' + username, match: + '' + Matchname, comp: + '' + comp})}/>);
         } else {
-            ExtraButtons.push(<Text> {M.Matches[i].user1 + " " + M.Matches[i].compatability}</Text>);
+            Matchname = M.Matches[i].user1
+            ExtraButtons.push(<Button title={Matchname + " " + comp}
+                                      onPress={()=> navigation.navigate('Match Info', {user:+ '' + username, match: + '' + Matchname, comp: + '' + comp})}/>);
         }
         i++;
     }
@@ -31,7 +41,7 @@ export default function MatchingMenuScreen() {
             {ExtraButtons}
             <Button
             title="Back to Home"
-            onPress={() => navigation.navigate('Login')}
+            onPress={() => navigation.navigate('Login', {user: + '' + username})}
             />
         </View>
     );alignItems
