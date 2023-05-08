@@ -4,7 +4,6 @@ import {useNavigation} from "@react-navigation/native";
 import Dropdown from 'react-native-dropdown-picker';
 import React, {useState} from 'react'
 import {Image, ScrollView, FlatList, SafeAreaView} from 'react-native';
-Dropdown.setListMode("SCROLLVIEW");
 
 export default function SurveyMenuScreen({route}) {
     const [username, setUser] = useState(route.params.user);
@@ -30,23 +29,6 @@ export default function SurveyMenuScreen({route}) {
         "Stevens Court"
     ]
     var answersOpen = -1
-    var firstDorm = null
-    var secondDorm = null
-    var thirdDorm = null
-    var roomType = null
-    var genderInclusive = null
-    var studentYear = null
-    var roommateYear = null
-    var drinkingPref = null
-    var wakeTime = null
-    var sleepTime = null
-    var heavySleep = null
-    var studentVert = null
-    var roommateVert = null
-    var studentFriends = null
-    var studentNeat = null
-    var roommateNeat = null
-    var hobbies = null
 
     const [firstDormOpen, setFirstDormOpen] = useState(false);
     const [firstDormValue, setFirstDormValue] = useState(null);
@@ -97,8 +79,104 @@ export default function SurveyMenuScreen({route}) {
         {label: '4th year', value: 4},
     ]);
 
+    const [roommateYearOpen, setRoommateYearOpen] = useState(false);
+    const [roommateYearValue, setRoommateYearValue] = useState(null);
+    const [roommateYears, setRoommateYears] = useState([
+        {label: '1st year', value: 1},
+        {label: '2nd year', value: 2},
+        {label: '3rd year', value: 3},
+        {label: '4th year', value: 4},
+        {label: 'don\'t care', value: -1}
+    ]);
+
+    const [drinkingPrefOpen, setDrinkingPrefOpen] = useState(false);
+    const [drinkingPrefValue, setDrinkingPrefValue] = useState(null);
+    const [drinkingPref, setDrinkingPref] = useState([
+        {label: 'I don\'t want my roommate to drink', value: 0},
+        {label: 'I\'m cool with roommate drinking', value: 1},
+    ]);
+
+    const [wakeTimeOpen, setWakeTimeOpen] = useState(false);
+    const [wakeTimeValue, setWakeTimeValue] = useState(null);
+    const [wakeTimes, setWakeTimes] = useState([
+        {label: '6:00 am - 7:00 am', value: 6},
+        {label: '7:00 am - 8:00 am', value: 7},
+        {label: '8:00 am - 9:00 am', value: 8},
+        {label: '9:00 am - 10:00 am', value: 9},
+        {label: '10:00 am - 11:00 am', value: 10},
+        {label: '11:00 am - 12:00 pm', value: 11},
+        {label: '12:00 pm - 1:00 pm', value: 12},
+    ]);
+
+    const [sleepTimeOpen, setSleepTimeOpen] = useState(false);
+    const [sleepTimeValue, setSleepTimeValue] = useState(null);
+    const [sleepTimes, setSleepTimes] = useState([
+        {label: '9:00 pm - 10:00 pm', value: 6},
+        {label: '10:00 pm - 11:00 pm', value: 7},
+        {label: '11:00 pm - 12:00 am', value: 8},
+        {label: '12:00 am - 1:00 am', value: 9},
+        {label: '1:00 am - 2:00 am', value: 10},
+        {label: '2:00 am - 3:00 am', value: 11},
+        {label: '3:00 am- 4:00 am', value: 12},
+    ]);
+
+    const [heavySleepOpen, setHeavySleepOpen] = useState(false);
+    const [heavySleepValue, setHeavySleepValue] = useState(null);
+    const [heavySleep, setHeavySleep] = useState([
+        {label: 'I\'m a light sleeper', value: 0},
+        {label: 'I\'m a heavy sleeper', value: 1},
+    ]);
+
+    const [studentVertOpen, setStudentVertOpen] = useState(false);
+    const [studentVertValue, setStudentVertValue] = useState(null);
+    const [studentVerts, setStudentVerts] = useState([
+        {label: 'I\'m an introvert', value: 0},
+        {label: 'I\'m an ambivert', value: 1},
+        {label: 'I\'m an extrovert', value: 2}
+    ]);
+
+    const [roommateVertOpen, setRoommateVertOpen] = useState(false);
+    const [roommateVertValue, setRoommateVertValue] = useState(null);
+    const [roommateVerts, setRoommateVerts] = useState([
+        {label: 'I prefer my roommate be an introvert', value: 0},
+        {label: 'I prefer my roommate be an ambivert', value: 1},
+        {label: 'I prefer myu roommate be an extrovert', value: 2},
+        {label: 'I don\'t care', value: -1}
+    ]);
+
+    const [studentFriendsOpen, setStudentFriendsOpen] = useState(false);
+    const [studentFriendsValue, setStudentFriendsValue] = useState(null);
+    const [studentFriends, setStudentFriends] = useState([
+        {label: 'I won\'t bring friends to the dorm room', value: 0},
+        {label: 'I will want to bring friends to the dorm room', value: 1}
+    ]);
+
+    const [roommateFriendsOpen, setRoommateFriendsOpen] = useState(false);
+    const [roommateFriendsValue, setRoommateFriendsValue] = useState(null);
+    const [roommateFriends, setRoommateFriends] = useState([
+        {label: 'I don\'t want my roommate bringing friends to the dorm', value: 0},
+        {label: 'I\'m cool with my roommate bringing friends to the dorm', value: 1}
+    ]);
+
+    const [studentNeatOpen, setStudentNeatOpen] = useState(false);
+    const [studentNeatValue, setStudentNeatValue] = useState(null);
+    const [studentNeat, setStudentNeat] = useState([
+        {label: 'I\'m messy and disorganized', value: 0},
+        {label: 'I\'m clean, neat, and organized', value: 1}
+    ]);
+
+    const [roommateNeatOpen, setRoommateNeatOpen] = useState(false);
+    const [roommateNeatValue, setRoommateNeatValue] = useState(null);
+    const [roommateNeat, setRoommateNeat] = useState([
+        {label: 'I\'m fine with my roommate being messy and disorganized', value: 0},
+        {label: 'I want my roommate to be clean, neat, and organized', value: 1}
+    ]);
+
     const open = [setFirstDormOpen, setSecondDormOpen, setThirdDormOpen, setRoomTypeOpen,
-    setGenderInclusiveOpen]
+        setGenderInclusiveOpen, setStudentYearOpen, setRoommateYearOpen, setDrinkingPrefOpen,
+        setWakeTimeOpen, setSleepTimeOpen, setHeavySleepOpen, setStudentVertOpen,
+        setRoommateVertOpen, setStudentFriendsOpen, setRoommateFriendsOpen,
+        setStudentNeatOpen, setRoommateNeatOpen]
     function onOpen(openedValue: number): void {
         for(let i = 0; i < open.length; i++) {
             if(openedValue != i) {
@@ -111,65 +189,60 @@ export default function SurveyMenuScreen({route}) {
 
     return (
         <ScrollView contentContainerStyle={styles.container} nestedScrollEnabled={true}>
-            <Text style={styles.title}>Roomie Survey</Text>
-            <Text style={styles.text} marginBottom={30}>Answer these survey questions to get the best matches for you!</Text>
+            <Text>Survey Menu</Text>
             <Button
                 title="Back to Home"
-                color="#7c2bee"
                 onPress={() => navigation.navigate('Login', {user:'' + username})}
             />
             <Text> {'\n'} </Text>
-            <Text style={styles.text}>What's your first dorm choice?</Text>
 
+            <Text> {'\n'} </Text>
+            <Text>What's your first dorm choice?</Text>
             <Dropdown open={firstDormOpen}
-                value={firstDormValue}
-                items={dorms}
-                placeholder={"Select a dorm"}
-                setOpen={setFirstDormOpen}
-                setValue={setFirstDormValue}
-                setItems={setDorms}
-                onOpen={() => onOpen(0)}
-                onClose={() => onOpen(-1)}
-                listView="SCROLLVIEW"
-                dropDownDirection="BOTTOM"
-                style={{marginBottom: firstDormOpen ? 175 : 20}}
+                      value={firstDormValue}
+                      items={dorms}
+                      placeholder={"Select a dorm"}
+                      setOpen={setFirstDormOpen}
+                      setValue={setFirstDormValue}
+                      setItems={setDorms}
+                      onOpen={() => onOpen(0)}
+                      onClose={() => onOpen(-1)}
+                      dropDownDirection="BOTTOM"
+                      style={{marginBottom: firstDormOpen ? 175 : 20}}
             />
 
             <Text> {'\n'} </Text>
-            <Text style={styles.text}>What's your second dorm choice?</Text>
-
+            <Text>What's your second dorm choice?</Text>
             <Dropdown open={secondDormOpen}
-                value={secondDormValue}
-                items={dorms}
-                placeholder={"Select a dorm"}
-                setOpen={setSecondDormOpen}
-                setValue={setSecondDormValue}
-                setItems={setDorms}
-                onOpen={() => onOpen(1)}
-                onClose={() => onOpen(-1)}
-                listView="SCROLLVIEW"
-                dropDownDirection="BOTTOM"
-                style={{marginBottom: secondDormOpen ? 175 : 20}}
+                      value={secondDormValue}
+                      items={dorms}
+                      placeholder={"Select a dorm"}
+                      setOpen={setSecondDormOpen}
+                      setValue={setSecondDormValue}
+                      setItems={setDorms}
+                      onOpen={() => onOpen(1)}
+                      onClose={() => onOpen(-1)}
+                      dropDownDirection="BOTTOM"
+                      style={{marginBottom: secondDormOpen ? 175 : 20}}
             />
 
             <Text> {'\n'} </Text>
-            <Text style={styles.text}>What's your third dorm choice?</Text>
+            <Text>What's your third dorm choice?</Text>
             <Dropdown open={thirdDormOpen}
-                value={thirdDormValue}
-                items={dorms}
-                placeholder={"Select a dorm"}
-                setOpen={setThirdDormOpen}
-                setValue={setThirdDormValue}
-                setItems={setDorms}
-                onOpen={() => onOpen(2)}
-                onClose={() => onOpen(-1)}
-                listView="SCROLLVIEW"
-                dropDownDirection="BOTTOM"
-                style={{marginBottom: thirdDormOpen ? 175 : 20}}
+                      value={thirdDormValue}
+                      items={dorms}
+                      placeholder={"Select a dorm"}
+                      setOpen={setThirdDormOpen}
+                      setValue={setThirdDormValue}
+                      setItems={setDorms}
+                      onOpen={() => onOpen(2)}
+                      onClose={() => onOpen(-1)}
+                      dropDownDirection="BOTTOM"
+                      style={{marginBottom: thirdDormOpen ? 175 : 20}}
             />
 
             <Text> {'\n'} </Text>
-            <Text style={styles.text}>What type of dorm room do you want?</Text>
+            <Text>What type of dorm room do you want?</Text>
             <Dropdown open={roomTypeOpen}
                       value={roomTypeValue}
                       items={roomTypes}
@@ -179,13 +252,12 @@ export default function SurveyMenuScreen({route}) {
                       setItems={setRoomTypes}
                       onOpen={() => onOpen(3)}
                       onClose={() => onOpen(-1)}
-                      listView="SCROLLVIEW"
                       dropDownDirection="BOTTOM"
                       style={{marginBottom: roomTypeOpen ? 175 : 20}}
             />
 
             <Text> {'\n'} </Text>
-            <Text style={styles.text}>Do you want to opt into gender inclusive dorming?</Text>
+            <Text>Do you want to opt into gender inclusive dorming?</Text>
             <Dropdown open={genderInclusiveOpen}
                       value={genderInclusiveValue}
                       items={genderInclusivity}
@@ -195,13 +267,12 @@ export default function SurveyMenuScreen({route}) {
                       setItems={setGenderInclusivity}
                       onOpen={() => onOpen(4)}
                       onClose={() => onOpen(-1)}
-                      listView="SCROLLVIEW"
                       dropDownDirection="BOTTOM"
                       style={{marginBottom: genderInclusiveOpen ? 175 : 20}}
             />
 
             <Text> {'\n'} </Text>
-            <Text style={styles.text}>What year will you be (1st, 2nd, 3rd, or 4th)?</Text>
+            <Text>What year will you be when dorming?</Text>
             <Dropdown open={studentYearOpen}
                       value={studentYearValue}
                       items={studentYears}
@@ -211,17 +282,163 @@ export default function SurveyMenuScreen({route}) {
                       setItems={setStudentYears}
                       onOpen={() => onOpen(5)}
                       onClose={() => onOpen(-1)}
-                      listView="SCROLLVIEW"
                       dropDownDirection="BOTTOM"
-                      style={{marginBottom: studentYearOpen ? 175 : 50}}
+                      style={{marginBottom: studentYearOpen ? 175 : 20}}
             />
 
-            <Button
-                title="Submit"
-                color="#7c2bee"
-                onPress={() => navigation.navigate('Matching Menu', {user:'' + username})} >
-            </Button>
+            <Text> {'\n'} </Text>
+            <Text>What year do you prefer that your roommate be?</Text>
+            <Dropdown open={roommateYearOpen}
+                      value={roommateYearValue}
+                      items={roommateYears}
+                      setOpen={setRoommateYearOpen}
+                      setValue={setRoommateYearValue}
+                      setItems={setRoommateYears}
+                      onOpen={() => onOpen(6)}
+                      onClose={() => onOpen(-1)}
+                      dropDownDirection="BOTTOM"
+                      style={{marginBottom: roommateYearOpen ? 175 : 20}}
+            />
 
+            <Text> {'\n'} </Text>
+            <Text>Do you care if your roommate drinks alcohol?</Text>
+            <Dropdown open={drinkingPrefOpen}
+                      value={drinkingPrefValue}
+                      items={drinkingPref}
+                      setOpen={setDrinkingPrefOpen}
+                      setValue={setDrinkingPrefValue}
+                      setItems={setDrinkingPref}
+                      onOpen={() => onOpen(7)}
+                      onClose={() => onOpen(-1)}
+                      dropDownDirection="BOTTOM"
+                      style={{marginBottom: drinkingPrefOpen ? 175 : 20}}
+            />
+
+            <Text> {'\n'} </Text>
+            <Text>What time do you wake up?</Text>
+            <Dropdown open={wakeTimeOpen}
+                      value={wakeTimeValue}
+                      items={wakeTimes}
+                      setOpen={setWakeTimeOpen}
+                      setValue={setWakeTimeValue}
+                      setItems={setWakeTimes}
+                      onOpen={() => onOpen(8)}
+                      onClose={() => onOpen(-1)}
+                      dropDownDirection="BOTTOM"
+                      style={{marginBottom: wakeTimeOpen ? 175 : 20}}
+            />
+
+            <Text> {'\n'} </Text>
+            <Text>What time do you go to sleep?</Text>
+            <Dropdown open={sleepTimeOpen}
+                      value={sleepTimeValue}
+                      items={sleepTimes}
+                      setOpen={setSleepTimeOpen}
+                      setValue={setSleepTimeValue}
+                      setItems={setSleepTimes}
+                      onOpen={() => onOpen(9)}
+                      onClose={() => onOpen(-1)}
+                      dropDownDirection="BOTTOM"
+                      style={{marginBottom: sleepTimeOpen ? 175 : 20}}
+            />
+
+            <Text> {'\n'} </Text>
+            <Text>Are you a heavy sleeper or a light sleeper?</Text>
+            <Dropdown open={heavySleepOpen}
+                      value={heavySleepValue}
+                      items={heavySleep}
+                      setOpen={setHeavySleepOpen}
+                      setValue={setHeavySleepValue}
+                      setItems={setHeavySleep}
+                      onOpen={() => onOpen(10)}
+                      onClose={() => onOpen(-1)}
+                      dropDownDirection="BOTTOM"
+                      style={{marginBottom: heavySleepOpen ? 175 : 20}}
+            />
+
+            <Text> {'\n'} </Text>
+            <Text>Would you classify yourself as an introvert, ambivert, or extrovert?</Text>
+            <Dropdown open={studentVertOpen}
+                      value={studentVertValue}
+                      items={studentVerts}
+                      setOpen={setStudentVertOpen}
+                      setValue={setStudentVertValue}
+                      setItems={setStudentVerts}
+                      onOpen={() => onOpen(11)}
+                      onClose={() => onOpen(-1)}
+                      dropDownDirection="BOTTOM"
+                      style={{marginBottom: studentVertOpen ? 175 : 20}}
+            />
+
+            <Text> {'\n'} </Text>
+            <Text>Would you prefer your roommate be an introvert, ambivert, or extrovert?</Text>
+            <Dropdown open={roommateVertOpen}
+                      value={roommateVertValue}
+                      items={roommateVerts}
+                      setOpen={setRoommateVertOpen}
+                      setValue={setRoommateVertValue}
+                      setItems={setRoommateVerts}
+                      onOpen={() => onOpen(12)}
+                      onClose={() => onOpen(-1)}
+                      dropDownDirection="BOTTOM"
+                      style={{marginBottom: roommateVertOpen ? 175 : 20}}
+            />
+
+            <Text> {'\n'} </Text>
+            <Text>Will you bring your friends to the dorm?</Text>
+            <Dropdown open={studentFriendsOpen}
+                      value={studentFriendsValue}
+                      items={studentFriends}
+                      setOpen={setStudentFriendsOpen}
+                      setValue={setStudentFriendsValue}
+                      setItems={setStudentFriends}
+                      onOpen={() => onOpen(13)}
+                      onClose={() => onOpen(-1)}
+                      dropDownDirection="BOTTOM"
+                      style={{marginBottom: studentFriendsOpen ? 175 : 20}}
+            />
+
+            <Text> {'\n'} </Text>
+            <Text>How do you feel about your roommate bringing friends the the dorm?</Text>
+            <Dropdown open={roommateFriendsOpen}
+                      value={roommateFriendsValue}
+                      items={roommateFriends}
+                      setOpen={setRoommateFriendsOpen}
+                      setValue={setRoommateFriendsValue}
+                      setItems={setRoommateFriends}
+                      onOpen={() => onOpen(14)}
+                      onClose={() => onOpen(-1)}
+                      dropDownDirection="BOTTOM"
+                      style={{marginBottom: roommateFriendsOpen ? 175 : 20}}
+            />
+
+            <Text> {'\n'} </Text>
+            <Text>Do you consider yourself neat or messy?</Text>
+            <Dropdown open={studentNeatOpen}
+                      value={studentNeatValue}
+                      items={studentNeat}
+                      setOpen={setStudentNeatOpen}
+                      setValue={setStudentNeatValue}
+                      setItems={setStudentNeat}
+                      onOpen={() => onOpen(15)}
+                      onClose={() => onOpen(-1)}
+                      dropDownDirection="BOTTOM"
+                      style={{marginBottom: studentNeatOpen ? 175 : 20}}
+            />
+
+            <Text> {'\n'} </Text>
+            <Text>Do you care if your roommate is neat or messy?</Text>
+            <Dropdown open={roommateNeatOpen}
+                      value={roommateNeatValue}
+                      items={roommateNeat}
+                      setOpen={setRoommateNeatOpen}
+                      setValue={setRoommateNeatValue}
+                      setItems={setRoommateNeat}
+                      onOpen={() => onOpen(16)}
+                      onClose={() => onOpen(-1)}
+                      dropDownDirection="BOTTOM"
+                      style={{marginBottom: roommateNeatOpen ? 175 : 20}}
+            />
         </ScrollView>
     );
 }
@@ -250,20 +467,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#A781B5',
         alignItems: 'center',
         justifyContent: 'center',
-        zIndex: 4,
-        padding: 10,
-        paddingBottom: 30,
-    },
-
-    text: {
-        margin: 10,
-        color: 'white',
-    },
-
-    title: {
-        fontSize: 30,
-        padding: 20,
-        paddingBottom: 0,
-        color: 'white',
+        zIndex: 4
     },
 });
