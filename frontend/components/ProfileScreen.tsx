@@ -21,12 +21,12 @@ export default function HomeScreen({route}) {
 
              <Button style = {styles.button}
                 title="Retake Survey"
-                onPress={() => navigation.navigate('Survey Menu', {user: + '' + username})}
+                onPress={() => navigation.navigate('Survey Menu', {user:'' + username})}
              />
 
              <Button
                 title="Back to Home"
-                onPress={() => navigation.navigate('Login',  {user: + '' + username})}
+                onPress={() => navigation.navigate('Login',  {user:'' + username})}
              />
         </View>
     );

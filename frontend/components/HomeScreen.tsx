@@ -25,13 +25,11 @@ export default function HomeScreen() {
             <TextInput
                 editable
                 style={styles.textBox}
+                secureTextEntry={true}
                 maxLength={20}
                 onChangeText={text => setPass(text)}
                 value={password}
             />
-
-            <Text>{username}</Text>
-            <Text>{password}</Text>
 
             <Button
                 title="Sign In"
@@ -79,6 +77,7 @@ const styles = StyleSheet.create({
         height: 50,
         width: 200,
         borderRadius: 8,
+        padding: 10,
     },
 
     text: {

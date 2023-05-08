@@ -4,7 +4,6 @@ import {useNavigation} from "@react-navigation/native";
 import Dropdown from 'react-native-dropdown-picker';
 import React, {useState} from 'react'
 import {Image, ScrollView, FlatList, SafeAreaView} from 'react-native';
-Dropdown.setListMode("SCROLLVIEW");
 
 export default function SurveyMenuScreen({route}) {
     const [username, setUser] = useState(route.params.user);
@@ -193,100 +192,103 @@ export default function SurveyMenuScreen({route}) {
             <Text>Survey Menu</Text>
             <Button
                 title="Back to Home"
-                onPress={() => navigation.navigate('Login', {user: + '' + username})}
+                onPress={() => navigation.navigate('Login', {user:'' + username})}
             />
-            <Text> {'\n'} </Text>
-            <Text> {'\n'} </Text>
             <Text> {'\n'} </Text>
 
             <Text> {'\n'} </Text>
             <Text>What's your first dorm choice?</Text>
-            <Dropdown style={styles.dropdown}
-                open={firstDormOpen}  // wrap with View for AUTO direction to work
-                value={firstDormValue}
-                items={dorms}
-                setOpen={setFirstDormOpen}
-                setValue={setFirstDormValue}
-                setItems={setDorms}
-                onOpen={() => onOpen(0)}
-                onClose={() => onOpen(-1)}
-                dropDownDirection="TOP"
+            <Dropdown open={firstDormOpen}
+                      value={firstDormValue}
+                      items={dorms}
+                      placeholder={"Select a dorm"}
+                      setOpen={setFirstDormOpen}
+                      setValue={setFirstDormValue}
+                      setItems={setDorms}
+                      onOpen={() => onOpen(0)}
+                      onClose={() => onOpen(-1)}
+                      dropDownDirection="BOTTOM"
+                      style={{marginBottom: firstDormOpen ? 175 : 20}}
             />
 
             <Text> {'\n'} </Text>
             <Text>What's your second dorm choice?</Text>
-            <Dropdown style={styles.dropdown}
-                open={secondDormOpen}
-                value={secondDormValue}
-                items={dorms}
-                setOpen={setSecondDormOpen}
-                setValue={setSecondDormValue}
-                setItems={setDorms}
-                onOpen={() => onOpen(1)}
-                onClose={() => onOpen(-1)}
-                dropDownDirection="TOP"
+            <Dropdown open={secondDormOpen}
+                      value={secondDormValue}
+                      items={dorms}
+                      placeholder={"Select a dorm"}
+                      setOpen={setSecondDormOpen}
+                      setValue={setSecondDormValue}
+                      setItems={setDorms}
+                      onOpen={() => onOpen(1)}
+                      onClose={() => onOpen(-1)}
+                      dropDownDirection="BOTTOM"
+                      style={{marginBottom: secondDormOpen ? 175 : 20}}
             />
 
             <Text> {'\n'} </Text>
             <Text>What's your third dorm choice?</Text>
-            <Dropdown style={styles.dropdown}
-                open={thirdDormOpen}
-                value={thirdDormValue}
-                items={dorms}
-                setOpen={setThirdDormOpen}
-                setValue={setThirdDormValue}
-                setItems={setDorms}
-                onOpen={() => onOpen(2)}
-                onClose={() => onOpen(-1)}
-                dropDownDirection="TOP"
+            <Dropdown open={thirdDormOpen}
+                      value={thirdDormValue}
+                      items={dorms}
+                      placeholder={"Select a dorm"}
+                      setOpen={setThirdDormOpen}
+                      setValue={setThirdDormValue}
+                      setItems={setDorms}
+                      onOpen={() => onOpen(2)}
+                      onClose={() => onOpen(-1)}
+                      dropDownDirection="BOTTOM"
+                      style={{marginBottom: thirdDormOpen ? 175 : 20}}
             />
 
             <Text> {'\n'} </Text>
             <Text>What type of dorm room do you want?</Text>
-            <Dropdown style={styles.dropdown}
-                      open={roomTypeOpen}
+            <Dropdown open={roomTypeOpen}
                       value={roomTypeValue}
                       items={roomTypes}
+                      placeholder={"Select a room type"}
                       setOpen={setRoomTypeOpen}
                       setValue={setRoomTypeValue}
                       setItems={setRoomTypes}
                       onOpen={() => onOpen(3)}
                       onClose={() => onOpen(-1)}
-                      dropDownDirection="TOP"
+                      dropDownDirection="BOTTOM"
+                      style={{marginBottom: roomTypeOpen ? 175 : 20}}
             />
 
             <Text> {'\n'} </Text>
             <Text>Do you want to opt into gender inclusive dorming?</Text>
-            <Dropdown style={styles.dropdown}
-                      open={genderInclusiveOpen}
+            <Dropdown open={genderInclusiveOpen}
                       value={genderInclusiveValue}
                       items={genderInclusivity}
+                      placeholder={"Select yes or no"}
                       setOpen={setGenderInclusiveOpen}
                       setValue={setGenderInclusiveValue}
                       setItems={setGenderInclusivity}
                       onOpen={() => onOpen(4)}
                       onClose={() => onOpen(-1)}
-                      dropDownDirection="TOP"
+                      dropDownDirection="BOTTOM"
+                      style={{marginBottom: genderInclusiveOpen ? 175 : 20}}
             />
 
             <Text> {'\n'} </Text>
             <Text>What year will you be when dorming?</Text>
-            <Dropdown style={styles.dropdown}
-                      open={studentYearOpen}
+            <Dropdown open={studentYearOpen}
                       value={studentYearValue}
                       items={studentYears}
+                      placeholder={"Select a year"}
                       setOpen={setStudentYearOpen}
                       setValue={setStudentYearValue}
                       setItems={setStudentYears}
                       onOpen={() => onOpen(5)}
                       onClose={() => onOpen(-1)}
-                      dropDownDirection="TOP"
+                      dropDownDirection="BOTTOM"
+                      style={{marginBottom: studentYearOpen ? 175 : 20}}
             />
 
             <Text> {'\n'} </Text>
             <Text>What year do you prefer that your roommate be?</Text>
-            <Dropdown style={styles.dropdown}
-                      open={roommateYearOpen}
+            <Dropdown open={roommateYearOpen}
                       value={roommateYearValue}
                       items={roommateYears}
                       setOpen={setRoommateYearOpen}
@@ -294,13 +296,13 @@ export default function SurveyMenuScreen({route}) {
                       setItems={setRoommateYears}
                       onOpen={() => onOpen(6)}
                       onClose={() => onOpen(-1)}
-                      dropDownDirection="TOP"
+                      dropDownDirection="BOTTOM"
+                      style={{marginBottom: roommateYearOpen ? 175 : 20}}
             />
 
             <Text> {'\n'} </Text>
             <Text>Do you care if your roommate drinks alcohol?</Text>
-            <Dropdown style={styles.dropdown}
-                      open={drinkingPrefOpen}
+            <Dropdown open={drinkingPrefOpen}
                       value={drinkingPrefValue}
                       items={drinkingPref}
                       setOpen={setDrinkingPrefOpen}
@@ -308,13 +310,13 @@ export default function SurveyMenuScreen({route}) {
                       setItems={setDrinkingPref}
                       onOpen={() => onOpen(7)}
                       onClose={() => onOpen(-1)}
-                      dropDownDirection="TOP"
+                      dropDownDirection="BOTTOM"
+                      style={{marginBottom: drinkingPrefOpen ? 175 : 20}}
             />
 
             <Text> {'\n'} </Text>
             <Text>What time do you wake up?</Text>
-            <Dropdown style={styles.dropdown}
-                      open={wakeTimeOpen}
+            <Dropdown open={wakeTimeOpen}
                       value={wakeTimeValue}
                       items={wakeTimes}
                       setOpen={setWakeTimeOpen}
@@ -322,13 +324,13 @@ export default function SurveyMenuScreen({route}) {
                       setItems={setWakeTimes}
                       onOpen={() => onOpen(8)}
                       onClose={() => onOpen(-1)}
-                      dropDownDirection="TOP"
+                      dropDownDirection="BOTTOM"
+                      style={{marginBottom: wakeTimeOpen ? 175 : 20}}
             />
 
             <Text> {'\n'} </Text>
             <Text>What time do you go to sleep?</Text>
-            <Dropdown style={styles.dropdown}
-                      open={sleepTimeOpen}
+            <Dropdown open={sleepTimeOpen}
                       value={sleepTimeValue}
                       items={sleepTimes}
                       setOpen={setSleepTimeOpen}
@@ -336,13 +338,13 @@ export default function SurveyMenuScreen({route}) {
                       setItems={setSleepTimes}
                       onOpen={() => onOpen(9)}
                       onClose={() => onOpen(-1)}
-                      dropDownDirection="TOP"
+                      dropDownDirection="BOTTOM"
+                      style={{marginBottom: sleepTimeOpen ? 175 : 20}}
             />
 
             <Text> {'\n'} </Text>
             <Text>Are you a heavy sleeper or a light sleeper?</Text>
-            <Dropdown style={styles.dropdown}
-                      open={heavySleepOpen}
+            <Dropdown open={heavySleepOpen}
                       value={heavySleepValue}
                       items={heavySleep}
                       setOpen={setHeavySleepOpen}
@@ -350,13 +352,13 @@ export default function SurveyMenuScreen({route}) {
                       setItems={setHeavySleep}
                       onOpen={() => onOpen(10)}
                       onClose={() => onOpen(-1)}
-                      dropDownDirection="TOP"
+                      dropDownDirection="BOTTOM"
+                      style={{marginBottom: heavySleepOpen ? 175 : 20}}
             />
 
             <Text> {'\n'} </Text>
             <Text>Would you classify yourself as an introvert, ambivert, or extrovert?</Text>
-            <Dropdown style={styles.dropdown}
-                      open={studentVertOpen}
+            <Dropdown open={studentVertOpen}
                       value={studentVertValue}
                       items={studentVerts}
                       setOpen={setStudentVertOpen}
@@ -364,13 +366,13 @@ export default function SurveyMenuScreen({route}) {
                       setItems={setStudentVerts}
                       onOpen={() => onOpen(11)}
                       onClose={() => onOpen(-1)}
-                      dropDownDirection="TOP"
+                      dropDownDirection="BOTTOM"
+                      style={{marginBottom: studentVertOpen ? 175 : 20}}
             />
 
             <Text> {'\n'} </Text>
             <Text>Would you prefer your roommate be an introvert, ambivert, or extrovert?</Text>
-            <Dropdown style={styles.dropdown}
-                      open={roommateVertOpen}
+            <Dropdown open={roommateVertOpen}
                       value={roommateVertValue}
                       items={roommateVerts}
                       setOpen={setRoommateVertOpen}
@@ -378,13 +380,13 @@ export default function SurveyMenuScreen({route}) {
                       setItems={setRoommateVerts}
                       onOpen={() => onOpen(12)}
                       onClose={() => onOpen(-1)}
-                      dropDownDirection="TOP"
+                      dropDownDirection="BOTTOM"
+                      style={{marginBottom: roommateVertOpen ? 175 : 20}}
             />
 
             <Text> {'\n'} </Text>
             <Text>Will you bring your friends to the dorm?</Text>
-            <Dropdown style={styles.dropdown}
-                      open={studentFriendsOpen}
+            <Dropdown open={studentFriendsOpen}
                       value={studentFriendsValue}
                       items={studentFriends}
                       setOpen={setStudentFriendsOpen}
@@ -392,13 +394,13 @@ export default function SurveyMenuScreen({route}) {
                       setItems={setStudentFriends}
                       onOpen={() => onOpen(13)}
                       onClose={() => onOpen(-1)}
-                      dropDownDirection="TOP"
+                      dropDownDirection="BOTTOM"
+                      style={{marginBottom: studentFriendsOpen ? 175 : 20}}
             />
 
             <Text> {'\n'} </Text>
             <Text>How do you feel about your roommate bringing friends the the dorm?</Text>
-            <Dropdown style={styles.dropdown}
-                      open={roommateFriendsOpen}
+            <Dropdown open={roommateFriendsOpen}
                       value={roommateFriendsValue}
                       items={roommateFriends}
                       setOpen={setRoommateFriendsOpen}
@@ -406,13 +408,13 @@ export default function SurveyMenuScreen({route}) {
                       setItems={setRoommateFriends}
                       onOpen={() => onOpen(14)}
                       onClose={() => onOpen(-1)}
-                      dropDownDirection="TOP"
+                      dropDownDirection="BOTTOM"
+                      style={{marginBottom: roommateFriendsOpen ? 175 : 20}}
             />
 
             <Text> {'\n'} </Text>
             <Text>Do you consider yourself neat or messy?</Text>
-            <Dropdown style={styles.dropdown}
-                      open={studentNeatOpen}
+            <Dropdown open={studentNeatOpen}
                       value={studentNeatValue}
                       items={studentNeat}
                       setOpen={setStudentNeatOpen}
@@ -420,13 +422,13 @@ export default function SurveyMenuScreen({route}) {
                       setItems={setStudentNeat}
                       onOpen={() => onOpen(15)}
                       onClose={() => onOpen(-1)}
-                      dropDownDirection="TOP"
+                      dropDownDirection="BOTTOM"
+                      style={{marginBottom: studentNeatOpen ? 175 : 20}}
             />
 
             <Text> {'\n'} </Text>
             <Text>Do you care if your roommate is neat or messy?</Text>
-            <Dropdown style={styles.dropdown}
-                      open={roommateNeatOpen}
+            <Dropdown open={roommateNeatOpen}
                       value={roommateNeatValue}
                       items={roommateNeat}
                       setOpen={setRoommateNeatOpen}
@@ -434,7 +436,8 @@ export default function SurveyMenuScreen({route}) {
                       setItems={setRoommateNeat}
                       onOpen={() => onOpen(16)}
                       onClose={() => onOpen(-1)}
-                      dropDownDirection="TOP"
+                      dropDownDirection="BOTTOM"
+                      style={{marginBottom: roommateNeatOpen ? 175 : 20}}
             />
         </ScrollView>
     );
@@ -466,7 +469,4 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         zIndex: 4
     },
-    dropdown: {
-        flexGrow: 1
-    }
 });
