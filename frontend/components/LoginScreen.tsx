@@ -12,15 +12,15 @@ export default function LoginScreen({route}) {
             <Text>Welcome {username}</Text>
             <Button
                 title="Matching Menu"
-                onPress={() => navigation.navigate('Matching Menu')}
+                onPress={() => navigation.navigate('Matching Menu', {user: '' + username,})}
             />
             <Button
                 title="Survey Menu"
-                onPress={() => navigation.navigate('Survey Menu')}
+                onPress={() => navigation.navigate('Survey Menu', {user: '' + username,})}
             />
             <Button
                 title="Profile"
-                onPress={() => navigation.navigate('Profile')}
+                onPress={() => navigation.navigate('Profile', {user: '' + username,})}
             />
         </View>
     );

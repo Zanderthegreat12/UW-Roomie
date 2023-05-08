@@ -35,7 +35,7 @@ export default function HomeScreen() {
 
              <Button
                 title="Create"
-                onPress={() => navigation.navigate('Login')}
+                onPress={() => navigation.navigate('Login', {user: '' + username,})}
              />
         </View>
     );

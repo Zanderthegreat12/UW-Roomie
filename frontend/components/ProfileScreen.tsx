@@ -4,9 +4,9 @@ import { useNavigation } from '@react-navigation/native';
 import {TextInput} from 'react-native';
 import React, {useState} from 'react';
 
-export default function HomeScreen() {
+export default function HomeScreen({route}) {
     const navigation = useNavigation();
-    const [username, setUser] = useState('');
+    const [username, setUser] = useState(route.params.user);
     const [phoneNum, setNum] = useState('');
     const [discord, setDiscord] = useState('');
     const [email, setEmail] = useState('');

@@ -7,6 +7,7 @@ import {Image, ScrollView, FlatList, SafeAreaView} from 'react-native';
 Dropdown.setListMode("SCROLLVIEW");
 
 export default function SurveyMenuScreen() {
+    const [username, setUser] = useState(route.params.user);
     function answerSurveyQ(value) {
         answersOpen = -1
         return value

@@ -4,7 +4,8 @@ import {useNavigation} from "@react-navigation/native";
 
 
 export default function MatchingMenuScreen() {
-    const navigation = useNavigation()
+    const navigation = useNavigation();
+    const [username, setUser] = useState(route.params.user);
 
     const M = require('../Test Data/Matches.json')
     console.log(M)
