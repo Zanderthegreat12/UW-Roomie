@@ -88,6 +88,17 @@ export default function SurveyMenuScreen({route}) {
         {label: 'No. I don\'t want to be in gender inclusive dorming', value: 0},
     ]);
 
+    const [studentYearOpen, setStudentYearOpen] = useState(false);
+    const [studentYearValue, setStudentYearValue] = useState(null);
+    const [studentYears, setStudentYears] = useState([
+        {label: 'single/studio', value: 1},
+        {label: 'double/2 bedrooms', value: 2},
+        {label: 'triple/3 bedrooms', value: 3},
+        {label: 'quad suite/4 bedrooms', value: 4},
+        {label: '5 bedrooms', value: 5},
+        {label: '6 bedrooms', value: 6},
+    ]);
+
     const open = [setFirstDormOpen, setSecondDormOpen, setThirdDormOpen, setRoomTypeOpen,
     setGenderInclusiveOpen]
     function onOpen(openedValue: number): void {
@@ -167,20 +178,20 @@ export default function SurveyMenuScreen({route}) {
                       setOpen={setGenderInclusiveOpen}
                       setValue={setGenderInclusiveValue}
                       setItems={setGenderInclusivity}
-                      onOpen={() => onOpen(3)}
+                      onOpen={() => onOpen(4)}
                       onClose={() => onOpen(-1)}
                       dropDownDirection="TOP"
             />
 
             <Text> {'\n'} </Text>
-            <Text>What type of dorm room do you want?</Text>
-            <Dropdown open={roomTypeOpen}
-                      value={roomTypeValue}
-                      items={roomTypes}
-                      setOpen={setRoomTypeOpen}
-                      setValue={setRoomTypeValue}
-                      setItems={setRoomTypes}
-                      onOpen={() => onOpen(3)}
+            <Text>What year will you be (1st, 2nd, 3rd, or 4th)?</Text>
+            <Dropdown open={studentYearOpen}
+                      value={studentYearValue}
+                      items={studentYears}
+                      setOpen={setStudentYearOpen}
+                      setValue={setStudentYearValue}
+                      setItems={setStudentYears}
+                      onOpen={() => onOpen(5)}
                       onClose={() => onOpen(-1)}
                       dropDownDirection="TOP"
             />
