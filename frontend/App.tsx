@@ -8,6 +8,7 @@ import LoginScreen from './components/LoginScreen';
 import MatchingMenuScreen from './components/MatchingMenuScreen';
 import SurveyMenuScreen from "./components/SurveyMenuScreen";
 import CreateUserScreen from "./components/CreateUserScreen";
+import ProfileScreen from "./components/ProfileScreen";
 
 const stack = createStackNavigator();
 
@@ -31,6 +32,9 @@ export default function App() {
             <stack.Screen
                 name="Survey Menu"
                 component={SurveyMenuScreen} />
+            <stack.Screen
+                name="Profile"
+                component={ProfileScreen} />
         </stack.Navigator>
     </NavigationContainer></>
   );
