@@ -1,0 +1,28 @@
+{
+  "Matches": [
+    {
+      "user1":"a",
+      "user2":"b",
+      "compatability": "72",
+      "matchStatus": "0"
+    },
+    {
+      "user1":"b",
+      "user2":"c",
+      "compatability": "78",
+      "matchStatus": "0"
+    },
+    {
+      "user1":"b",
+      "user2":"d",
+      "compatability": "68",
+      "matchStatus": "0"
+    },
+    {
+      "user1":"b",
+      "user2":"e",
+      "compatability": "100",
+      "matchStatus": "0"
+    }
+  ]
+}

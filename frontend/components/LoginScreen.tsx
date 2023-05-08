@@ -15,6 +15,10 @@ export default function LoginScreen() {
                 title="Survey Menu"
                 onPress={() => navigation.navigate('Survey Menu')}
             />
+            <Button
+                title="Profile"
+                onPress={() => navigation.navigate('Profile')}
+            />
         </View>
     );
 }

@@ -11,7 +11,7 @@ export default function HomeScreen() {
 
     return (
         <View style={styles.container}>
-            <Text style = {styles.title}>UW Roomie</Text>
+            <Text style = {styles.title}>Create </Text>
             <Text style = {styles.text}>Insert Username:</Text>
             <TextInput
                 editable
@@ -33,19 +33,15 @@ export default function HomeScreen() {
             <Text>{username}</Text>
             <Text>{password}</Text>
 
-            <Button
-                title="Sign In"
-                onPress={() => navigation.navigate('Login')}//logIn()} //Once we have server on AWS
-             />
-             <Button style = {styles.button}
-                title="Create Account"
-                onPress={() => navigation.navigate('Create Account')}
+             <Button
+                title="Create"
+                onPress={() => navigation.navigate('Login')}
              />
         </View>
     );
 }
 
-logIn = async() => {
+createUser = async() => {
     try{
          let responsePromise = fetch("http://localhost:4567/logIn?username=Test1&password=Test1");
          let res = await responsePromise;
@@ -87,11 +83,5 @@ const styles = StyleSheet.create({
 
     title: {
         fontSize: 30,
-    },
-
-    button: {
-        backgroundColor: 'black',
-        width: 75,
-        color: 'white',
     },
 });
