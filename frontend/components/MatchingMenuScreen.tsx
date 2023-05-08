@@ -26,11 +26,11 @@ export default function MatchingMenuScreen({route}) {
             Matchname = M.Matches[i].user2
 
             ExtraButtons.push(<Button title={Matchname + " " + comp}
-                                      onPress={()=> navigation.navigate('Match Info', {user:+ '' + username, match: + '' + Matchname, comp: + '' + comp})}/>);
+                                      onPress={()=> navigation.navigate('Match Info', {user: '' + username, match: '' + Matchname, comp:'' + comp})}/>);
         } else {
             Matchname = M.Matches[i].user1
             ExtraButtons.push(<Button title={Matchname + " " + comp}
-                                      onPress={()=> navigation.navigate('Match Info', {user:+ '' + username, match: + '' + Matchname, comp: + '' + comp})}/>);
+                                      onPress={()=> navigation.navigate('Match Info', {user:'' + username, match:'' + Matchname, comp:'' + comp})}/>);
         }
         i++;
     }
@@ -41,7 +41,7 @@ export default function MatchingMenuScreen({route}) {
             {ExtraButtons}
             <Button
             title="Back to Home"
-            onPress={() => navigation.navigate('Login', {user: + '' + username})}
+            onPress={() => navigation.navigate('Login', {user: '' + username})}
             />
         </ScrollView>
     );alignItems
