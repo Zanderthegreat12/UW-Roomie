@@ -190,15 +190,16 @@ export default function SurveyMenuScreen({route}) {
 
     return (
         <ScrollView contentContainerStyle={styles.container} nestedScrollEnabled={true}>
-            <Text>Survey Menu</Text>
+            <Text style={styles.title}>Roomie Survey</Text>
+            <Text style={styles.text} paddingBottom={15}>Answer these survey questions to get the best matches for you!</Text>
             <Button
                 title="Back to Home"
+                color="#7c2bee"
                 onPress={() => navigation.navigate('Login', {user:'' + username})}
             />
-            <Text> {'\n'} </Text>
 
             <Text> {'\n'} </Text>
-            <Text>What's your first dorm choice?</Text>
+            <Text style={styles.text}>What's your first dorm choice?</Text>
             <Dropdown open={firstDormOpen}
                       value={firstDormValue}
                       items={dorms}
@@ -213,7 +214,7 @@ export default function SurveyMenuScreen({route}) {
             />
 
             <Text> {'\n'} </Text>
-            <Text>What's your second dorm choice?</Text>
+            <Text style={styles.text}>What's your second dorm choice?</Text>
             <Dropdown open={secondDormOpen}
                       value={secondDormValue}
                       items={dorms}
@@ -228,7 +229,7 @@ export default function SurveyMenuScreen({route}) {
             />
 
             <Text> {'\n'} </Text>
-            <Text>What's your third dorm choice?</Text>
+            <Text style={styles.text}>What's your third dorm choice?</Text>
             <Dropdown open={thirdDormOpen}
                       value={thirdDormValue}
                       items={dorms}
@@ -243,7 +244,7 @@ export default function SurveyMenuScreen({route}) {
             />
 
             <Text> {'\n'} </Text>
-            <Text>What type of dorm room do you want?</Text>
+            <Text style={styles.text}>What type of dorm room do you want?</Text>
             <Dropdown open={roomTypeOpen}
                       value={roomTypeValue}
                       items={roomTypes}
@@ -258,7 +259,7 @@ export default function SurveyMenuScreen({route}) {
             />
 
             <Text> {'\n'} </Text>
-            <Text>Do you want to opt into gender inclusive dorming?</Text>
+            <Text style={styles.text}>Do you want to opt into gender inclusive dorming?</Text>
             <Dropdown open={genderInclusiveOpen}
                       value={genderInclusiveValue}
                       items={genderInclusivity}
@@ -273,7 +274,7 @@ export default function SurveyMenuScreen({route}) {
             />
 
             <Text> {'\n'} </Text>
-            <Text>What year will you be when dorming?</Text>
+            <Text style={styles.text}>What year will you be when dorming?</Text>
             <Dropdown open={studentYearOpen}
                       value={studentYearValue}
                       items={studentYears}
@@ -288,10 +289,11 @@ export default function SurveyMenuScreen({route}) {
             />
 
             <Text> {'\n'} </Text>
-            <Text>What year do you prefer that your roommate be?</Text>
+            <Text style={styles.text}>What year do you prefer that your roommate be?</Text>
             <Dropdown open={roommateYearOpen}
                       value={roommateYearValue}
                       items={roommateYears}
+                      placeholder={"Select a year"}
                       setOpen={setRoommateYearOpen}
                       setValue={setRoommateYearValue}
                       setItems={setRoommateYears}
@@ -302,10 +304,11 @@ export default function SurveyMenuScreen({route}) {
             />
 
             <Text> {'\n'} </Text>
-            <Text>Do you care if your roommate drinks alcohol?</Text>
+            <Text style={styles.text}>Do you care if your roommate drinks alcohol?</Text>
             <Dropdown open={drinkingPrefOpen}
                       value={drinkingPrefValue}
                       items={drinkingPref}
+                      placeholder={"Select yes or no"}
                       setOpen={setDrinkingPrefOpen}
                       setValue={setDrinkingPrefValue}
                       setItems={setDrinkingPref}
@@ -316,10 +319,11 @@ export default function SurveyMenuScreen({route}) {
             />
 
             <Text> {'\n'} </Text>
-            <Text>What time do you wake up?</Text>
+            <Text style={styles.text}>What time do you wake up?</Text>
             <Dropdown open={wakeTimeOpen}
                       value={wakeTimeValue}
                       items={wakeTimes}
+                      placeholder={"Select a time range"}
                       setOpen={setWakeTimeOpen}
                       setValue={setWakeTimeValue}
                       setItems={setWakeTimes}
@@ -330,10 +334,11 @@ export default function SurveyMenuScreen({route}) {
             />
 
             <Text> {'\n'} </Text>
-            <Text>What time do you go to sleep?</Text>
+            <Text style={styles.text}>What time do you go to sleep?</Text>
             <Dropdown open={sleepTimeOpen}
                       value={sleepTimeValue}
                       items={sleepTimes}
+                      placeholder={"Select a time range"}
                       setOpen={setSleepTimeOpen}
                       setValue={setSleepTimeValue}
                       setItems={setSleepTimes}
@@ -344,10 +349,11 @@ export default function SurveyMenuScreen({route}) {
             />
 
             <Text> {'\n'} </Text>
-            <Text>Are you a heavy sleeper or a light sleeper?</Text>
+            <Text style={styles.text}>Are you a heavy sleeper or a light sleeper?</Text>
             <Dropdown open={heavySleepOpen}
                       value={heavySleepValue}
                       items={heavySleep}
+                      placeholder={"Select your sleep style"}
                       setOpen={setHeavySleepOpen}
                       setValue={setHeavySleepValue}
                       setItems={setHeavySleep}
@@ -358,10 +364,11 @@ export default function SurveyMenuScreen({route}) {
             />
 
             <Text> {'\n'} </Text>
-            <Text>Would you classify yourself as an introvert, ambivert, or extrovert?</Text>
+            <Text style={styles.text}>Would you classify yourself as an introvert, ambivert, or extrovert?</Text>
             <Dropdown open={studentVertOpen}
                       value={studentVertValue}
                       items={studentVerts}
+                      placeholder={"Select your personality type"}
                       setOpen={setStudentVertOpen}
                       setValue={setStudentVertValue}
                       setItems={setStudentVerts}
@@ -372,10 +379,11 @@ export default function SurveyMenuScreen({route}) {
             />
 
             <Text> {'\n'} </Text>
-            <Text>Would you prefer your roommate be an introvert, ambivert, or extrovert?</Text>
+            <Text style={styles.text}>Would you prefer your roommate be an introvert, ambivert, or extrovert?</Text>
             <Dropdown open={roommateVertOpen}
                       value={roommateVertValue}
                       items={roommateVerts}
+                      placeholder={"Select a personality type"}
                       setOpen={setRoommateVertOpen}
                       setValue={setRoommateVertValue}
                       setItems={setRoommateVerts}
@@ -386,10 +394,11 @@ export default function SurveyMenuScreen({route}) {
             />
 
             <Text> {'\n'} </Text>
-            <Text>Will you bring your friends to the dorm?</Text>
+            <Text style={styles.text}>Will you bring your friends to the dorm?</Text>
             <Dropdown open={studentFriendsOpen}
                       value={studentFriendsValue}
                       items={studentFriends}
+                      placeholder={"Select yes or no"}
                       setOpen={setStudentFriendsOpen}
                       setValue={setStudentFriendsValue}
                       setItems={setStudentFriends}
@@ -400,10 +409,11 @@ export default function SurveyMenuScreen({route}) {
             />
 
             <Text> {'\n'} </Text>
-            <Text>How do you feel about your roommate bringing friends the the dorm?</Text>
+            <Text style={styles.text}>How do you feel about your roommate bringing friends the the dorm?</Text>
             <Dropdown open={roommateFriendsOpen}
                       value={roommateFriendsValue}
                       items={roommateFriends}
+                      placeholder={"Select your comfortableness"}
                       setOpen={setRoommateFriendsOpen}
                       setValue={setRoommateFriendsValue}
                       setItems={setRoommateFriends}
@@ -414,10 +424,11 @@ export default function SurveyMenuScreen({route}) {
             />
 
             <Text> {'\n'} </Text>
-            <Text>Do you consider yourself neat or messy?</Text>
+            <Text style={styles.text}>Do you consider yourself neat or messy?</Text>
             <Dropdown open={studentNeatOpen}
                       value={studentNeatValue}
                       items={studentNeat}
+                      placeholder={"Select neat or messy"}
                       setOpen={setStudentNeatOpen}
                       setValue={setStudentNeatValue}
                       setItems={setStudentNeat}
@@ -428,10 +439,11 @@ export default function SurveyMenuScreen({route}) {
             />
 
             <Text> {'\n'} </Text>
-            <Text>Do you care if your roommate is neat or messy?</Text>
+            <Text style={styles.text}>Do you care if your roommate is neat or messy?</Text>
             <Dropdown open={roommateNeatOpen}
                       value={roommateNeatValue}
                       items={roommateNeat}
+                      placeholder={"Select yes or no"}
                       setOpen={setRoommateNeatOpen}
                       setValue={setRoommateNeatValue}
                       setItems={setRoommateNeat}
@@ -440,6 +452,14 @@ export default function SurveyMenuScreen({route}) {
                       dropDownDirection="BOTTOM"
                       style={{marginBottom: roommateNeatOpen ? 175 : 20}}
             />
+
+            <View style={styles.button} paddingBottom={50}>
+                <Button
+                    title="Submit"
+                    color="#7c2bee"
+                    onPress={() => navigation.navigate('Matching Menu', {user:'' + username})}
+                />
+            </View>
         </ScrollView>
     );
 }
@@ -469,5 +489,21 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         zIndex: 4
+    },
+
+    text: {
+        margin: 10,
+        color: 'white',
+    },
+
+    title: {
+        fontSize: 30,
+        padding: 20,
+        paddingBottom: 0,
+        color: 'white',
+    },
+
+    button: {
+        padding: 20,
     },
 });
