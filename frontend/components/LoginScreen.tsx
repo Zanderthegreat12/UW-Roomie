@@ -9,10 +9,14 @@ export default function LoginScreen({route}) {
 
     return (
         <View style={styles.container}>
-            <Text>Welcome {username}</Text>
+            <Text style={styles.text}>Welcome {username}</Text>
             <Button
                 title="Matching Menu"
                 onPress={() => navigation.navigate('Matching Menu', {user: '' + username,})}
+            />
+            <Button
+                title="Liked Menu"
+                onPress={() => navigation.navigate('Liked Menu', {user: '' + username,})}
             />
             <Button
                 title="Survey Menu"
@@ -32,5 +36,9 @@ const styles = StyleSheet.create({
         backgroundColor: '#A781B5',
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    text: {
+        margin: 10,
+        color: 'white',
     },
 });

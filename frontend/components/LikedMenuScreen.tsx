@@ -4,31 +4,31 @@ import {useNavigation} from "@react-navigation/native";
 import {useState} from "react";
 
 
-export default function MatchingMenuScreen({route}) {
+export default function LikedMenuScreen({route}) {
     const navigation = useNavigation();
     const [username, setUser] = useState(route.params.user);
 
-    const M = require('../Test Data/Matches.json')
-    console.log(M)
+    const L = require('../Test Data/Likes.json')
+    console.log(L)
 
     let User = "b"
 
     let ExtraButtons: any[] = [];
     let i = 0;
 
-    while(i < M.Matches.length) {
+    while(i < L.Matches.length) {
 
         let Matchname : string;
         let comp : number;
-        comp = M.Matches[i].compatability
+        comp = L.Matches[i].compatability
 
-        if(M.Matches[i].user1 == User) {
-            Matchname = M.Matches[i].user2
+        if(L.Matches[i].user1 == User) {
+            Matchname = L.Matches[i].user2
 
             ExtraButtons.push(<Button title={Matchname + " " + comp}
                                       onPress={()=> navigation.navigate('Match Info', {user:+ '' + username, match: + '' + Matchname, comp: + '' + comp})}/>);
         } else {
-            Matchname = M.Matches[i].user1
+            Matchname = L.Matches[i].user1
             ExtraButtons.push(<Button title={Matchname + " " + comp}
                                       onPress={()=> navigation.navigate('Match Info', {user:+ '' + username, match: + '' + Matchname, comp: + '' + comp})}/>);
         }
@@ -37,7 +37,7 @@ export default function MatchingMenuScreen({route}) {
 
     return (
         <ScrollView contentContainerStyle={styles.container} nestedScrollEnabled={true}>
-            <Text>Matching Menu</Text>
+            <Text>Liked Menu</Text>
             {ExtraButtons}
             <Button
             title="Back to Home"

@@ -83,10 +83,12 @@ const styles = StyleSheet.create({
 
     text: {
         margin: 10,
+        color: 'white',
     },
 
     title: {
         fontSize: 30,
+        color: 'white',
     },
 
     button: {

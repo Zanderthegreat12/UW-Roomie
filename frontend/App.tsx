@@ -7,6 +7,7 @@ import HomeScreen from './components/HomeScreen';
 import LoginScreen from './components/LoginScreen';
 import MatchingMenuScreen from './components/MatchingMenuScreen';
 import SurveyMenuScreen from "./components/SurveyMenuScreen";
+import LikedMenuScreen from "./components/LikedMenuScreen";
 import CreateUserScreen from "./components/CreateUserScreen";
 import ProfileScreen from "./components/ProfileScreen";
 import MatchInfoScreen from "./components/MatchInfoScreen";
@@ -33,6 +34,9 @@ export default function App() {
             <stack.Screen
                 name="Survey Menu"
                 component={SurveyMenuScreen} />
+            <stack.Screen
+                name="Liked Menu"
+                component={LikedMenuScreen} />
             <stack.Screen
                 name="Profile"
                 component={ProfileScreen} />

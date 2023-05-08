@@ -91,12 +91,10 @@ export default function SurveyMenuScreen({route}) {
     const [studentYearOpen, setStudentYearOpen] = useState(false);
     const [studentYearValue, setStudentYearValue] = useState(null);
     const [studentYears, setStudentYears] = useState([
-        {label: 'single/studio', value: 1},
-        {label: 'double/2 bedrooms', value: 2},
-        {label: 'triple/3 bedrooms', value: 3},
-        {label: 'quad suite/4 bedrooms', value: 4},
-        {label: '5 bedrooms', value: 5},
-        {label: '6 bedrooms', value: 6},
+        {label: '1st year', value: 1},
+        {label: '2nd year', value: 2},
+        {label: '3rd year', value: 3},
+        {label: '4th year', value: 4},
     ]);
 
     const open = [setFirstDormOpen, setSecondDormOpen, setThirdDormOpen, setRoomTypeOpen,
@@ -120,7 +118,7 @@ export default function SurveyMenuScreen({route}) {
             />
             <Text> {'\n'} </Text>
             <Text>What's your first dorm choice?</Text>
-            <Dropdown open={firstDormOpen}
+            <Dropdown open={firstDormOpen}  // wrap with View for AUTO direction to work
                 value={firstDormValue}
                 items={dorms}
                 setOpen={setFirstDormOpen}
@@ -219,7 +217,7 @@ getSurvey = async(infoString) => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flexGrow: 1,
         backgroundColor: '#A781B5',
         alignItems: 'center',
         justifyContent: 'center',
