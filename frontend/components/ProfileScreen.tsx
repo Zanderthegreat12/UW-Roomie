@@ -32,6 +32,25 @@ export default function HomeScreen({route}) {
     );
 }
 
+getContactInfo = async(user) => {
+    try{
+         let responsePromise = fetch("http://localhost:4567/getContact?username=" + user);
+         let res = await responsePromise;
+         if(!res.ok){
+             alert("Error! Expected: 200, Was: " + res.status);
+             return;
+         }
+
+         let parse = res.json();
+         let parsed = await parse;
+         //SET A VAR WITH THE CONTACT INFO
+
+    } catch(e) {
+         alert("There was an error contacting the server.");
+         console.log(e);
+    }
+}
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,

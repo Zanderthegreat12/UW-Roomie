@@ -35,26 +35,23 @@ export default function HomeScreen() {
 
              <Button
                 title="Create"
-                onPress={() => navigation.navigate('Login', {user: '' + username,})}
+                onPress={() => createUser(username, password)}//navigation.navigate('Login', {user: '' + username,})} //createUser(username, password)
              />
         </View>
     );
 }
 
-createUser = async() => {
+createUser = async(user, pass) => {
     try{
-         let responsePromise = fetch("http://localhost:4567/logIn?username=Test1&password=Test1");
+         let responsePromise = fetch("http://localhost:4567/createUser?username=" + user + "&password=" + pass);
          let res = await responsePromise;
          if(!res.ok){
              alert("Error! Expected: 200, Was: " + res.status);
              return;
          }
 
-         let parse = res.json();
-         let parsed = await parse;
-         if(parsed = true){
-            navigation.navigate('Login')
-         }
+         //User created! Go to the normal screen!
+         navigation.navigate('Login', {user: '' + username,})
 
     } catch(e) {
          alert("There was an error contacting the server.");

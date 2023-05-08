@@ -86,6 +86,24 @@ export default function SurveyMenuScreen() {
     );
 }
 
+getSurvey = async(infoString) => {
+    try{
+         let responsePromise = fetch("http://localhost:4567/createSurvey?str=" + infoString);
+         let res = await responsePromise;
+         if(!res.ok){
+             alert("Error! Expected: 200, Was: " + res.status);
+             return;
+         }
+
+         //Survey filled out and uploaded! Go to the profile screen!
+         navigation.navigate('Profile', {user: '' + username,})
+
+    } catch(e) {
+         alert("There was an error contacting the server.");
+         console.log(e);
+    }
+}
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
