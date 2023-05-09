@@ -40,7 +40,7 @@ export default function LikedMenuScreen({route}) {
     return (
         <ScrollView contentContainerStyle={styles.container} nestedScrollEnabled={true}>
             <Text style={styles.title}>Liked Menu</Text>
-            {ExtraButtons}
+            <Text>Working in Progress: Come back at a later Version</Text>
             <View style={styles.button}>
                 <Button
                     title="Back to Home"
