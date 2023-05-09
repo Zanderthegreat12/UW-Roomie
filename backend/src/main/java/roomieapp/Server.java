@@ -11,7 +11,7 @@ import java.util.List;
 
 import static spark.Spark.*;
 
-class Server {
+public class Server {
     //http://localhost:4567
     public static void main(String[] args) {
         //Creates access to the query calls
