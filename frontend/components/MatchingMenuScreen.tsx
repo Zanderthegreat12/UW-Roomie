@@ -17,7 +17,7 @@ export default function MatchingMenuScreen({route}) {
 
     let runAlg = async(user) => {
         try{
-            let responsePromise = fetch("http://localhost:4567/runAlg?username=" + user);
+            let responsePromise = fetch("https://3xasbdsrh3.us-west-2.awsapprunner.com/runAlg?username=" + user);
             let res = await responsePromise;
             if(!res.ok){
                 alert("Error! Expected: 200, Was: " + res.status);
@@ -31,7 +31,7 @@ export default function MatchingMenuScreen({route}) {
 
     let getMatches = async (user) => {
         try {
-            let responsePromise = fetch("http://localhost:4567/getKmatch?username=" + user + "&numMatch=" + 10); //HARD CODE 10 AS A GLOBAL VAR
+            let responsePromise = fetch("https://3xasbdsrh3.us-west-2.awsapprunner.com/getKmatch?username=" + user + "&numMatch=" + 10); //HARD CODE 10 AS A GLOBAL VAR
             let res = await responsePromise;
             if (!res.ok) {
                 alert("Error! Expected: 200, Was: " + res.status);
@@ -42,6 +42,39 @@ export default function MatchingMenuScreen({route}) {
             let parsed = await parse;
             //SET A VAR WITH THE MATCHES INFO
 
+            let ExtraButtons: any[] = [];
+            let i = 0;
+
+            while(i < parsed.length) {
+
+                let Matchname: string;
+                let comp: number;
+                comp = parsed[i].compatibility
+
+                if (parsed[i].user1 == user) {
+                    Matchname = parsed[i].user2
+
+                    ExtraButtons.push(<View style={styles.button}><Button title={Matchname + " " + comp}
+                                                                          color={"#7c2bee"}
+                                                                          onPress={() => navigation.navigate('Match Info', {
+                                                                              user: '' + username,
+                                                                              match: '' + Matchname,
+                                                                              comp: '' + comp
+                                                                          })}/></View>);
+                } else {
+                    Matchname = parsed[i].user1
+                    ExtraButtons.push(<View style={styles.button}><Button title={Matchname + " " + comp}
+                                                                          color={"#7c2bee"}
+                                                                          onPress={() => navigation.navigate('Match Info', {
+                                                                              user: '' + username,
+                                                                              match: '' + Matchname,
+                                                                              comp: '' + comp
+                                                                          })}/></View>);
+                }
+                i++;
+            }
+            setData(ExtraButtons);
+
         } catch (e) {
             alert("There was an error contacting the server.");
             console.log(e);
@@ -51,30 +84,6 @@ export default function MatchingMenuScreen({route}) {
 
             let User = "b"
 
-            let ExtraButtons: any[] = [];
-            let i = 0;
-
-            while(i < M.Matches.length) {
-
-                let Matchname : string;
-                let comp : number;
-                comp = M.Matches[i].compatability
-
-                if(M.Matches[i].user1 == User) {
-                    Matchname = M.Matches[i].user2
-
-                    ExtraButtons.push(<View style={styles.button}><Button title={Matchname + " " + comp}
-                                                                          color={"#7c2bee"}
-                                                                          onPress={()=> navigation.navigate('Match Info', {user: '' + username, match: '' + Matchname, comp:'' + comp})}/></View>);
-                } else {
-                    Matchname = M.Matches[i].user1
-                    ExtraButtons.push(<View style={styles.button}><Button title={Matchname + " " + comp}
-                                                                          color={"#7c2bee"}
-                                                                          onPress={()=> navigation.navigate('Match Info', {user:'' + username, match:'' + Matchname, comp:'' + comp})}/></View>);
-                }
-                i++;
-            }
-            setData(ExtraButtons);
         }
     }
 
