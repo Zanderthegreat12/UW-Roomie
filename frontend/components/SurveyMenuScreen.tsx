@@ -14,22 +14,6 @@ export default function SurveyMenuScreen({route}) {
         return value
     }
     const navigation = useNavigation()
-    const dormNames = [
-        "Alder Hall",
-        "Elm Hall",
-        "Hansee Hall",
-        "Lander Hall",
-        "Madrona Hall",
-        "Maple Hall",
-        "McCarty Hall",
-        "McMahon Hall",
-        "Oak Hall",
-        "Poplar Hall",
-        "Terry Hall",
-        "Willow Hall",
-        "Mercer Court",
-        "Stevens Court"
-    ]
     var answersOpen = -1
 
     const [firstDormOpen, setFirstDormOpen] = useState(false);
