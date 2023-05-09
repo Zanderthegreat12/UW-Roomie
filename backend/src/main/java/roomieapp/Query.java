@@ -23,6 +23,7 @@ public class Query {
      * Initializes a connection with SQL database
      * and sets up a Query object to be able to send queries
      * to the SQL database
+     * @param testOff if true, use actual database, else if false, use test database
      */
     public Query(boolean testOff) {
         try {
