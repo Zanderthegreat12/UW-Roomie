@@ -1,7 +1,7 @@
 # Report:
 
-5/03 Meeting Agenda:
-Review Testing, Continuous Integration, and Alpha Build Implementation
+5/10 Meeting Agenda:
+Review Alpha build version
 
 
 ## Team Report:
@@ -46,9 +46,17 @@ Review Testing, Continuous Integration, and Alpha Build Implementation
 - implement encryption for contactInfo.
 
 #### Second subsection: 
+- Made queries work with concurrency
+- Cleaned up Query class with helper methods
+- Created Survey Menu screen
+- set up backend server on AWS
+- set up second database for testing purposes
 
 
 #### Third Subsection:
+- Return error if database/connection isn't working properly
+- implement encryption for contact info
+- allow storage for photos
 
 
 ### Leah:
