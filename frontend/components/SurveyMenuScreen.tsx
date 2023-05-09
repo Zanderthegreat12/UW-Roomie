@@ -404,7 +404,8 @@ export default function SurveyMenuScreen({route}) {
 
             <Text> {'\n'} </Text>
             <Text style={styles.text}>Do you want to opt into gender inclusive dorming?</Text>
-            <RadioGroup radioButtons={genderRadioButtons}
+            <RadioGroup containerStyle={styles.radioGroup}
+                        radioButtons={genderRadioButtons}
                         onPress={genderSetSelectedId}
                         selectedId={genderSelectedId}
             />
@@ -444,6 +445,7 @@ export default function SurveyMenuScreen({route}) {
             <RadioGroup radioButtons={alcRadioButtons}
                         onPress={alcSetSelectedId}
                         selectedId={alcSelectedId}
+                        containerStyle={styles.radioGroup}
             />
 
             <Text> {'\n'} </Text>
@@ -481,6 +483,7 @@ export default function SurveyMenuScreen({route}) {
             <RadioGroup radioButtons={sleepRadioButtons}
                         onPress={sleepSetSelectedId}
                         selectedId={sleepSelectedId}
+                        containerStyle={styles.radioGroup}
             />
 
             <Text> {'\n'} </Text>
@@ -488,6 +491,7 @@ export default function SurveyMenuScreen({route}) {
             <RadioGroup radioButtons={myPersRadioButtons}
                         onPress={myPersSetSelectedId}
                         selectedId={myPersSelectedId}
+                        containerStyle={styles.radioGroup}
             />
 
             <Text> {'\n'} </Text>
@@ -495,6 +499,7 @@ export default function SurveyMenuScreen({route}) {
             <RadioGroup radioButtons={roomiePersRadioButtons}
                         onPress={roomiePersSetSelectedId}
                         selectedId={roomiePersSelectedId}
+                        containerStyle={styles.radioGroup}
             />
 
             <Text> {'\n'} </Text>
@@ -502,6 +507,7 @@ export default function SurveyMenuScreen({route}) {
             <RadioGroup radioButtons={myFriendsRadioButtons}
                         onPress={myFriendsSetSelectedId}
                         selectedId={myFriendsSelectedId}
+                        containerStyle={styles.radioGroup}
             />
 
             <Text> {'\n'} </Text>
@@ -509,6 +515,7 @@ export default function SurveyMenuScreen({route}) {
             <RadioGroup radioButtons={yourFriendsRadioButtons}
                         onPress={yourFriendsSetSelectedId}
                         selectedId={yourFriendsSelectedId}
+                        containerStyle={styles.radioGroup}
             />
 
             <Text> {'\n'} </Text>
@@ -516,6 +523,7 @@ export default function SurveyMenuScreen({route}) {
             <RadioGroup radioButtons={studentNeatRadioButtons}
                         onPress={studentNeatSetSelectedId}
                         selectedId={studentNeatSelectedId}
+                        containerStyle={styles.radioGroup}
             />
 
             <Text> {'\n'} </Text>
@@ -523,6 +531,7 @@ export default function SurveyMenuScreen({route}) {
             <RadioGroup radioButtons={roomieNeatRadioButtons}
                         onPress={roomieNeatSetSelectedId}
                         selectedId={roomieNeatSelectedId}
+                        containerStyle={styles.radioGroup}
             />
 
             <View style={styles.button} paddingBottom={50}>
@@ -560,7 +569,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#A781B5',
         alignItems: 'center',
         justifyContent: 'center',
-        zIndex: 4
+        zIndex: 4,
+        padding: 20,
     },
 
     text: {
@@ -583,5 +593,10 @@ const styles = StyleSheet.create({
     radio: {
         margin: 0,
         color: 'white',
+    },
+
+    radioGroup: {
+        justifyContent: 'flex-start',
+        alignItems: 'flex-start',
     },
 });
