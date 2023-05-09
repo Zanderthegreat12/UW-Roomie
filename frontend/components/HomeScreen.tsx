@@ -59,8 +59,10 @@ logIn = async({userN}, {pass}, {nav}) => {
 
          let parse = res.json();
          let parsed = await parse;
-         if(parsed = true){
-            nav.navigate('Login', {user: '' + username,});
+         if(parsed == true){
+            nav.navigate('Login', {user: '' + userN});
+         } else {
+             alert("Login Failed");
          }
 
     } catch(e) {
