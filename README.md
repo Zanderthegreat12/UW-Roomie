@@ -13,9 +13,15 @@ From there then the users can determine if they want to dorm or not. <br /> <br 
 How to run code in devlopment environment:
 1. Clone UW-Roomie repository on your local machine
 2. Install ExpoGo on phone to test app
-3. Run "npm install expo" in frontend folder from Command Prompt
-4. Run "npx expo start" in frontend folder from Command Prompt
-5. Scan QR code on computer from within ExpoGo app
+3. Nagivate to the frontend folder of this Repo from the Command Prompt
+4. Run "npm install expo"
+5. Run "npx expo start"
+6. Scan QR code on computer from within ExpoGo app
+
+--The current Use Cases that are functional are Filing out the survery and Finding Matches--
+
+This means that you should be able to create an account, fill out the suvery and find people who
+have similar compatibility.
 
 The Structure of this Repo is as follows:
   1. Backend - contains the programming data about the servers, database and the matching algorithms. 
