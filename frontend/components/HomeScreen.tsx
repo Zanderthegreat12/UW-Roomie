@@ -34,7 +34,7 @@ export default function HomeScreen() {
                 <Button
                     title="Sign In"
                     color="#7c2bee"
-                    onPress={() => navigation.navigate('Login', {user: '' + username,})}//logIn()} //Once we have server on AWS
+                    onPress={() => logIn({userN: username}, {pass: password}, {nav: navigation})} //Once we have server on AWS
                  />
             </View>
 
@@ -48,9 +48,9 @@ export default function HomeScreen() {
     );
 }
 
-logIn = async() => {
+logIn = async({userN}, {pass}, {nav}) => {
     try{
-         let responsePromise = fetch("http://localhost:4567/logIn?username=Test1&password=Test1");
+         let responsePromise = fetch("https://3xasbdsrh3.us-west-2.awsapprunner.com/logIn?username=" + userN + "&password=" + pass);
          let res = await responsePromise;
          if(!res.ok){
              alert("Error! Expected: 200, Was: " + res.status);
@@ -60,7 +60,7 @@ logIn = async() => {
          let parse = res.json();
          let parsed = await parse;
          if(parsed = true){
-            navigation.navigate('Login')
+            nav.navigate('Login', {user: '' + username,});
          }
 
     } catch(e) {
