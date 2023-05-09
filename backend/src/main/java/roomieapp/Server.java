@@ -15,7 +15,7 @@ public class Server {
     //http://localhost:4567
     public static void main(String[] args) {
         //Creates access to the query calls
-        final Query q = new Query();
+        final Query q = new Query(true);
 
         //Test to make sure its working
         Spark.get("/hello", new Route() {

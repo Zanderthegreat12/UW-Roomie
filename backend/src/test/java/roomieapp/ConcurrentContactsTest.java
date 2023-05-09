@@ -15,7 +15,7 @@ public class ConcurrentContactsTest {
 
     @BeforeClass
     public static void setUp() {
-        q = new Query();
+        q = new Query(false);
         q.clearTables();
     }
 

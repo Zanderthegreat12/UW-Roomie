@@ -10,7 +10,7 @@ import static org.junit.Assert.assertTrue;
  */
 public class SQLMatchTest {
 
-    private static final Query querier = new Query();
+    private static final Query querier = new Query(false);
 
     private static final Match match = new Match(
         "user1",

@@ -9,7 +9,7 @@ import static org.junit.Assert.assertTrue;
  */
 public class SQLUserTest {
 
-    private static final Query querier = new Query();
+    private static final Query querier = new Query(false);
 
     /**
      * Tests createUser method with only one user

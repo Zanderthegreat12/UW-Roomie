@@ -24,9 +24,13 @@ public class Query {
      * and sets up a Query object to be able to send queries
      * to the SQL database
      */
-    public Query() {
+    public Query(boolean testOff) {
         try {
-            this.conn = DBConnUtils.openConnection();
+            if(testOff) {
+                this.conn = DBConnUtils.openConnection();
+            } else {
+                this.conn = DBConnUtils.openTestConnection();
+            }
         } catch (Exception e){
             e.printStackTrace();
         }

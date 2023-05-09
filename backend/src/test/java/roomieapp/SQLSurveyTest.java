@@ -11,7 +11,7 @@ import static org.junit.Assert.assertTrue;
  */
 public class SQLSurveyTest {
 
-    private static final Query querier = new Query();
+    private static final Query querier = new Query(false);
 
     private static final Survey exampleSurvey = new Survey(
             "user",

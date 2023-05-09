@@ -9,7 +9,7 @@ import static org.junit.Assert.assertTrue;
  */
 public class SQLContactInfoTest {
 
-    private static final Query querier = new Query();
+    private static final Query querier = new Query(false);
 
     private static final ContactInfo userContact = new ContactInfo(
             "user",

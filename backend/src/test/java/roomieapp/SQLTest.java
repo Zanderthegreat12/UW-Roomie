@@ -15,7 +15,7 @@ public class SQLTest
     @Test
     public void testQueryConn()
     {
-        Query querier = new Query();
+        Query querier = new Query(false);
         assertTrue(true);
     }
 
@@ -28,7 +28,7 @@ public class SQLTest
     @Test
     public void testClearTables()
     {
-        Query querier = new Query();
+        Query querier = new Query(false);
         querier.clearTables();
         querier.createUser("user1", "password");
         querier.clearTables();
