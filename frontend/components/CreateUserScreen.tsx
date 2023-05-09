@@ -36,15 +36,15 @@ export default function HomeScreen() {
              <Button
                 title="Create"
                 color="#7c2bee"
-                onPress={() => createUser(username, password)}//navigation.navigate('Login', {user: '' + username,})} //createUser(username, password)
+                onPress={() => createUser({userN: username}, {pass: password}, {nav: navigation})}
              />
         </View>
     );
 }
 
-createUser = async(user, pass) => {
+createUser = async({userN}, {pass}, {nav}) => {
     try{
-         let responsePromise = fetch("http://localhost:4567/createUser?username=" + user + "&password=" + pass);
+         let responsePromise = fetch("https://3xasbdsrh3.us-west-2.awsapprunner.com/createUser?username=" + userN + "&password=" + pass);
          let res = await responsePromise;
          if(!res.ok){
              alert("Error! Expected: 200, Was: " + res.status);
@@ -52,7 +52,7 @@ createUser = async(user, pass) => {
          }
 
          //User created! Go to the normal screen!
-         navigation.navigate('Login', {user: '' + username,})
+         nav.navigate('Login', {user: '' + userN})
 
     } catch(e) {
          alert("There was an error contacting the server.");
