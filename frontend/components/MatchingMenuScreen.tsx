@@ -15,12 +15,12 @@ export default function MatchingMenuScreen({route}) {
         let b = await getMatches(user);
     }
 
+
     let runAlg = async(user) => {
         try{
             let responsePromise = fetch("https://3xasbdsrh3.us-west-2.awsapprunner.com/runAlg?username=" + user);
             let res = await responsePromise;
             if(!res.ok){
-                alert("Error! Expected: 200, Was: " + res.status);
                 return;
             }
         } catch(e) {
@@ -44,6 +44,11 @@ export default function MatchingMenuScreen({route}) {
 
             let ExtraButtons: any[] = [];
             let i = 0;
+
+            if(parsed.length == 0){
+                ExtraButtons.push(<Text style={styles.text}> No Matches at the Moment. Try again later.</Text>);
+                ExtraButtons.push(<Text style={styles.text}>If you haven't filled out Survey please do so </Text>)
+            }
 
             while(i < parsed.length) {
 
@@ -78,12 +83,6 @@ export default function MatchingMenuScreen({route}) {
         } catch (e) {
             alert("There was an error contacting the server.");
             console.log(e);
-
-            const M = require('../Test Data/Matches.json')
-            console.log(M)
-
-            let User = "b"
-
         }
     }
 
@@ -105,19 +104,7 @@ export default function MatchingMenuScreen({route}) {
     );alignItems
 }
 
-runAlg = async(user) => {
-    try{
-         let responsePromise = fetch("http://localhost:4567/runAlg?username=" + user);
-         let res = await responsePromise;
-         if(!res.ok){
-             alert("Error! Expected: 200, Was: " + res.status);
-             return;
-         }
-    } catch(e) {
-        alert("There was an error contacting the server.");
-         console.log(e);
-    }
-}
+
 
 
 const styles = StyleSheet.create({
