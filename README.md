@@ -19,6 +19,7 @@ How to run code in devlopment environment:
 6. Scan QR code on computer from within ExpoGo app
 
 --The current Use Cases that are functional are Filing out the survery and Finding Matches--
+
 This means that you should be able to create an account, fill out the suvery and find people who
 have similar compatibility.
 
