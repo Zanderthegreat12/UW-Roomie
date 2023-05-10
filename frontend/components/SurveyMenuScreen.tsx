@@ -14,6 +14,22 @@ export default function SurveyMenuScreen({route}) {
         return value
     }
     const navigation = useNavigation()
+    const dormNames = [
+        "Alder-Hall",
+        "Elm-Hall",
+        "Hansee-Hall",
+        "Lander-Hall",
+        "Madrona-Hall",
+        "Maple-Hall",
+        "McCarty-Hall",
+        "McMahon-Hall",
+        "Oak-Hall",
+        "Poplar-Hall",
+        "Terry-Hall",
+        "Willow-Hall",
+        "Mercer-Court",
+        "Stevens-Court"
+    ]
     var answersOpen = -1
 
     const [firstDormOpen, setFirstDormOpen] = useState(false);
@@ -23,19 +39,19 @@ export default function SurveyMenuScreen({route}) {
     const [thirdDormOpen, setThirdDormOpen] = useState(false);
     const [thirdDormValue, setThirdDormValue] = useState(null);
     const [dorms, setDorms] = useState([
-        {label: 'Alder Hall', value: 'Alder Hall'},
-        {label: 'Elm Hall', value: 'Elm Hall'},
-        {label: 'Hansee Hall', value: 'Hansee Hall'},
-        {label: 'Madrona Hall', value: 'Madrona Hall'},
-        {label: 'Maple Hall', value: 'Maple Hall'},
-        {label: 'McCarty Hall', value: 'McCarty Hall'},
-        {label: 'McMahon Hall', value: 'McMahon Hall'},
-        {label: 'Oak Hall', value: 'Oak Hall'},
-        {label: 'Poplar Hall', value: 'Poplar Hall'},
-        {label: 'Terry Hall', value: 'Terry Hall'},
-        {label: 'Willow Hall', value: 'Willow Hall'},
-        {label: 'Mercer Court', value: 'Mercer Court'},
-        {label: 'Stevens Court', value: 'Stevens Court'}
+        {label: 'Alder Hall', value: 'Alder-Hall'},
+        {label: 'Elm Hall', value: 'Elm-Hall'},
+        {label: 'Hansee Hall', value: 'Hansee-Hall'},
+        {label: 'Madrona Hall', value: 'Madrona-Hall'},
+        {label: 'Maple Hall', value: 'Maple-Hall'},
+        {label: 'McCarty Hall', value: 'McCarty-Hall'},
+        {label: 'McMahon Hall', value: 'McMahon-Hall'},
+        {label: 'Oak Hall', value: 'Oak-Hall'},
+        {label: 'Poplar Hall', value: 'Poplar-Hall'},
+        {label: 'Terry Hall', value: 'Terry-Hall'},
+        {label: 'Willow Hall', value: 'Willow-Hall'},
+        {label: 'Mercer Court', value: 'Mercer-Court'},
+        {label: 'Stevens Court', value: 'Stevens-Court'}
     ]);
 
     const [roomTypeOpen, setRoomTypeOpen] = useState(false);
@@ -442,16 +458,22 @@ export default function SurveyMenuScreen({route}) {
                 <Button
                     title="Submit"
                     color="#7c2bee"
-                    onPress={() => navigation.navigate('Matching Menu', {user:'' + username})}
+                    onPress={() => getSurvey({infoString: username + "%20" + firstDormValue + "%20" + secondDormValue + "%20"
+                                                + thirdDormValue + "%20" + roomTypeValue + "%20" + genderInclusiveValue + "%20"
+                                                + studentYearValue + "%20" + roommateYearValue + "%20" + drinkingPrefValue
+                                                + "%20" + wakeTimeValue + "%20" + sleepTimeValue + "%20" + heavySleepValue
+                                                + "%20" + studentVertValue + "%20" + roommateVertValue + "%20" + studentFriendsValue
+                                                + "%20" + roommateFriendsValue + "%20" + studentNeatValue + "%20"
+                                                + roommateNeatValue + "%20" + "nohobbies"}, {nav: navigation}, {userN: username})}
                 />
             </View>
         </ScrollView>
     );
 }
 
-getSurvey = async(infoString) => {
+getSurvey = async({infoString}, {nav}, {userN}) => {
     try{
-         let responsePromise = fetch("http://localhost:4567/createSurvey?str=" + infoString);
+         let responsePromise = fetch("https://3xasbdsrh3.us-west-2.awsapprunner.com/createSurvey?str=" + infoString);
          let res = await responsePromise;
          if(!res.ok){
              alert("Error! Expected: 200, Was: " + res.status);
@@ -459,7 +481,7 @@ getSurvey = async(infoString) => {
          }
 
          //Survey filled out and uploaded! Go to the profile screen!
-         navigation.navigate('Profile', {user: '' + username,})
+         nav.navigate('Matching Menu', {user:'' + userN});
 
     } catch(e) {
          alert("There was an error contacting the server.");
