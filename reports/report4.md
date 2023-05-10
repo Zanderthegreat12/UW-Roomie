@@ -33,10 +33,13 @@ Review Alpha build version
 - Implement the Matching Algorithm to work with the database and the frontend
 
 #### Second Subsection:
-
-
+- Made the Matching Algorithm function to calculate all compatability for a person
+- Created the matching pages on frontend. I learned how to properly use Async functions in Javascript which
+  I struggled with for a while. I also learned how to properly code in Javascript.
+- Managed to create a page to display a matches survey results so users can look at them.
 #### Third Subsection:
-
+- Set up the swipe right functionality for the app,=.
+- Start to work on implementing the liked user functionality.
 
 
 ### Colby:
