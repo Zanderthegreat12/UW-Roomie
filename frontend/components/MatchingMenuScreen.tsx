@@ -59,7 +59,7 @@ export default function MatchingMenuScreen({route}) {
                 if (parsed[i].user1 == user) {
                     Matchname = parsed[i].user2
 
-                    ExtraButtons.push(<View style={styles.button}><Button title={Matchname + " " + comp}
+                    ExtraButtons.push(<View key={i} style={styles.button}><Button title={Matchname + " " + comp}
                                                                           color={"#7c2bee"}
                                                                           onPress={() => navigation.navigate('Match Info', {
                                                                               user: '' + username,
@@ -68,7 +68,7 @@ export default function MatchingMenuScreen({route}) {
                                                                           })}/></View>);
                 } else {
                     Matchname = parsed[i].user1
-                    ExtraButtons.push(<View style={styles.button}><Button title={Matchname + " " + comp}
+                    ExtraButtons.push(<View key={i} style={styles.button}><Button title={Matchname + " " + comp}
                                                                           color={"#7c2bee"}
                                                                           onPress={() => navigation.navigate('Match Info', {
                                                                               user: '' + username,
