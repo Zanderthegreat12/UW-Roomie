@@ -46,8 +46,8 @@ export default function MatchingMenuScreen({route}) {
             let i = 0;
 
             if(parsed.length == 0){
-                ExtraButtons.push(<Text style={styles.text}> No Matches at the Moment. Try again later.</Text>);
-                ExtraButtons.push(<Text style={styles.text}>If you haven't filled out Survey please do so </Text>)
+                ExtraButtons.push(<Text key={-1} style={styles.text}> No Matches at the Moment. Try again later.</Text>);
+                ExtraButtons.push(<Text key={-2} style={styles.text}>If you haven't filled out Survey please do so </Text>)
             }
 
             while(i < parsed.length) {
