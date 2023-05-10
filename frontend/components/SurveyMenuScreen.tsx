@@ -51,23 +51,10 @@ export default function SurveyMenuScreen({route}) {
 
     const [genderInclusiveOpen, setGenderInclusiveOpen] = useState(false);
     const [genderInclusiveValue, setGenderInclusiveValue] = useState(null);
-    const genderRadioButtons: RadioButtonProps[] = useMemo(() => ([
-        {
-            id: 'genderYes',
-            label: 'Yes. I want to be in gender inclusive dorming',
-            value: 1,
-            color: 'white',
-            labelStyle: styles.radio
-        },
-        {
-            id: 'genderNo',
-            label: 'No. I don\'t want to be in gender inclusive dorming',
-            value: 0,
-            color: 'white',
-            labelStyle: styles.radio
-        }
-    ]), []);
-    const [genderSelectedId, genderSetSelectedId] = useState<string | undefined>();
+    const [genderInclusivity, setGenderInclusivity] = useState([
+        {label: 'Yes. I want to be in gender inclusive dorming', value: 1},
+        {label: 'No. I don\'t want to be in gender inclusive dorming', value: 0},
+    ]);
 
     const [studentYearOpen, setStudentYearOpen] = useState(false);
     const [studentYearValue, setStudentYearValue] = useState(null);
@@ -94,23 +81,6 @@ export default function SurveyMenuScreen({route}) {
         {label: 'I don\'t want my roommate to drink', value: 0},
         {label: 'I\'m cool with roommate drinking', value: 1},
     ]);
-    const alcRadioButtons: RadioButtonProps[] = useMemo(() => ([
-        {
-            id: 'alcNo',
-            label: 'I don\'t want my roommate to drink',
-            value: 0,
-            color: 'white',
-            labelStyle: styles.radio
-        },
-        {
-            id: 'alcYes',
-            label: 'I\'m cool with roommate drinking',
-            value: 1,
-            color: 'white',
-            labelStyle: styles.radio
-        }
-    ]), []);
-    const [alcSelectedId, alcSetSelectedId] = useState<string | undefined>();
 
     const [wakeTimeOpen, setWakeTimeOpen] = useState(false);
     const [wakeTimeValue, setWakeTimeValue] = useState(null);
@@ -138,144 +108,48 @@ export default function SurveyMenuScreen({route}) {
 
     const [heavySleepOpen, setHeavySleepOpen] = useState(false);
     const [heavySleepValue, setHeavySleepValue] = useState(null);
-    const sleepRadioButtons: RadioButtonProps[] = useMemo(() => ([
-        {
-            id: 'sleepLight',
-            label: 'I\'m a light sleeper',
-            value: 0,
-            color: 'white',
-            labelStyle: styles.radio
-        },
-        {
-            id: 'sleepHeavy',
-            label: 'I\'m a heavy sleeper',
-            value: 1,
-            color: 'white',
-            labelStyle: styles.radio
-        }
-    ]), []);
-    const [sleepSelectedId, sleepSetSelectedId] = useState<string | undefined>();
+    const [heavySleep, setHeavySleep] = useState([
+        {label: 'I\'m a light sleeper', value: 0},
+        {label: 'I\'m a heavy sleeper', value: 1},
+    ]);
 
     const [studentVertOpen, setStudentVertOpen] = useState(false);
     const [studentVertValue, setStudentVertValue] = useState(null);
-    const myPersRadioButtons: RadioButtonProps[] = useMemo(() => ([
-        {
-            id: 'introvert',
-            label: 'I\'m an introvert',
-            value: 0,
-            color: 'white',
-            labelStyle: styles.radio
-        },
-        {
-            id: 'ambivert',
-            label: 'I\'m an ambivert',
-            value: 1,
-            color: 'white',
-            labelStyle: styles.radio
-        },
-        {
-            id: 'extrovert',
-            label: 'I\'m an extrovert',
-            value: 2,
-            color: 'white',
-            labelStyle: styles.radio
-        }
-    ]), []);
-    const [myPersSelectedId, myPersSetSelectedId] = useState<string | undefined>();
+    const [studentVerts, setStudentVerts] = useState([
+        {label: 'I\'m an introvert', value: 0},
+        {label: 'I\'m an ambivert', value: 1},
+        {label: 'I\'m an extrovert', value: 2}
+    ]);
 
     const [roommateVertOpen, setRoommateVertOpen] = useState(false);
     const [roommateVertValue, setRoommateVertValue] = useState(null);
-    const roomiePersRadioButtons: RadioButtonProps[] = useMemo(() => ([
-        {
-            id: 'rIntrovert',
-            label: 'I prefer my roommate be an introvert',
-            value: 0,
-            color: 'white',
-            labelStyle: styles.radio
-        },
-        {
-            id: 'rAmbivert',
-            label: 'I prefer my roommate be an ambivert',
-            value: 1,
-            color: 'white',
-            labelStyle: styles.radio
-        },
-        {
-            id: 'rExtrovert',
-            label: 'I prefer my roommate be an extrovert',
-            value: 2,
-            color: 'white',
-            labelStyle: styles.radio
-        },
-        {
-            id: 'rDontCare',
-            label: 'I don\'t care',
-            value: -1,
-            color: 'white',
-            labelStyle: styles.radio
-        }
-    ]), []);
-    const [roomiePersSelectedId, roomiePersSetSelectedId] = useState<string | undefined>();
+    const [roommateVerts, setRoommateVerts] = useState([
+        {label: 'I prefer my roommate be an introvert', value: 0},
+        {label: 'I prefer my roommate be an ambivert', value: 1},
+        {label: 'I prefer myu roommate be an extrovert', value: 2},
+        {label: 'I don\'t care', value: -1}
+    ]);
 
     const [studentFriendsOpen, setStudentFriendsOpen] = useState(false);
     const [studentFriendsValue, setStudentFriendsValue] = useState(null);
-    const myFriendsRadioButtons: RadioButtonProps[] = useMemo(() => ([
-        {
-            id: 'noFriends',
-            label: 'I won\'t bring friends to the dorm room',
-            value: 0,
-            color: 'white',
-            labelStyle: styles.radio
-        },
-        {
-            id: 'yesFriends',
-            label: 'I will want to bring friends to the dorm room',
-            value: 1,
-            color: 'white',
-            labelStyle: styles.radio
-        }
-    ]), []);
-    const [myFriendsSelectedId, myFriendsSetSelectedId] = useState<string | undefined>();
+    const [studentFriends, setStudentFriends] = useState([
+        {label: 'I won\'t bring friends to the dorm room', value: 0},
+        {label: 'I will want to bring friends to the dorm room', value: 1}
+    ]);
 
     const [roommateFriendsOpen, setRoommateFriendsOpen] = useState(false);
     const [roommateFriendsValue, setRoommateFriendsValue] = useState(null);
-    const yourFriendsRadioButtons: RadioButtonProps[] = useMemo(() => ([
-        {
-            id: 'noYours',
-            label: 'I don\'t want my roommate bringing friends to the dorm',
-            value: 0,
-            color: 'white',
-            labelStyle: styles.radio
-        },
-        {
-            id: 'yesYours',
-            label: 'I\'m cool with my roommate bringing friends to the dorm',
-            value: 1,
-            color: 'white',
-            labelStyle: styles.radio
-        }
-    ]), []);
-    const [yourFriendsSelectedId, yourFriendsSetSelectedId] = useState<string | undefined>();
+    const [roommateFriends, setRoommateFriends] = useState([
+        {label: 'I don\'t want my roommate bringing friends to the dorm', value: 0},
+        {label: 'I\'m cool with my roommate bringing friends to the dorm', value: 1}
+    ]);
 
     const [studentNeatOpen, setStudentNeatOpen] = useState(false);
     const [studentNeatValue, setStudentNeatValue] = useState(null);
-    const studentNeatRadioButtons: RadioButtonProps[] = useMemo(() => ([
-        {
-            id: 'studentMessy',
-            label: 'I\'m messy and disorganized',
-            value: 0,
-            color: 'white',
-            labelStyle: styles.radio
-        },
-        {
-            id: 'studentClean',
-            label: 'I\'m clean, neat, and organized',
-            value: 1,
-            color: 'white',
-            labelStyle: styles.radio
-        }
-    ]), []);
-    const [studentNeatSelectedId, studentNeatSetSelectedId] = useState<string | undefined>();
+    const [studentNeat, setStudentNeat] = useState([
+        {label: 'I\'m messy and disorganized', value: 0},
+        {label: 'I\'m clean, neat, and organized', value: 1}
+    ]);
 
     const [roommateNeatOpen, setRoommateNeatOpen] = useState(false);
     const [roommateNeatValue, setRoommateNeatValue] = useState(null);
@@ -283,23 +157,6 @@ export default function SurveyMenuScreen({route}) {
         {label: 'I\'m fine with my roommate being messy and disorganized', value: 0},
         {label: 'I want my roommate to be clean, neat, and organized', value: 1}
     ]);
-    const roomieNeatRadioButtons: RadioButtonProps[] = useMemo(() => ([
-        {
-            id: 'roomieMessy',
-            label: 'I\'m fine with my roommate being messy and disorganized',
-            value: 0,
-            color: 'white',
-            labelStyle: styles.radio
-        },
-        {
-            id: 'roomieClean',
-            label: 'I want my roommate to be clean, neat, and organized',
-            value: 1,
-            color: 'white',
-            labelStyle: styles.radio
-        }
-    ]), []);
-    const [roomieNeatSelectedId, roomieNeatSetSelectedId] = useState<string | undefined>();
 
     const open = [setFirstDormOpen, setSecondDormOpen, setThirdDormOpen, setRoomTypeOpen,
         setGenderInclusiveOpen, setStudentYearOpen, setRoommateYearOpen, setDrinkingPrefOpen,
@@ -388,10 +245,17 @@ export default function SurveyMenuScreen({route}) {
 
             <Text> {'\n'} </Text>
             <Text style={styles.text}>Do you want to opt into gender inclusive dorming?</Text>
-            <RadioGroup containerStyle={styles.radioGroup}
-                        radioButtons={genderRadioButtons}
-                        onPress={genderSetSelectedId}
-                        selectedId={genderSelectedId}
+            <Dropdown open={genderInclusiveOpen}
+                      value={genderInclusiveValue}
+                      items={genderInclusivity}
+                      placeholder={"Select yes or no"}
+                      setOpen={setGenderInclusiveOpen}
+                      setValue={setGenderInclusiveValue}
+                      setItems={setGenderInclusivity}
+                      onOpen={() => onOpen(4)}
+                      onClose={() => onOpen(-1)}
+                      dropDownDirection="BOTTOM"
+                      style={{marginBottom: genderInclusiveOpen ? 175 : 20}}
             />
 
             <Text> {'\n'} </Text>
@@ -426,10 +290,17 @@ export default function SurveyMenuScreen({route}) {
 
             <Text> {'\n'} </Text>
             <Text style={styles.text}>Do you care if your roommate drinks alcohol?</Text>
-            <RadioGroup radioButtons={alcRadioButtons}
-                        onPress={alcSetSelectedId}
-                        selectedId={alcSelectedId}
-                        containerStyle={styles.radioGroup}
+            <Dropdown open={drinkingPrefOpen}
+                      value={drinkingPrefValue}
+                      items={drinkingPref}
+                      placeholder={"Select yes or no"}
+                      setOpen={setDrinkingPrefOpen}
+                      setValue={setDrinkingPrefValue}
+                      setItems={setDrinkingPref}
+                      onOpen={() => onOpen(7)}
+                      onClose={() => onOpen(-1)}
+                      dropDownDirection="BOTTOM"
+                      style={{marginBottom: drinkingPrefOpen ? 175 : 20}}
             />
 
             <Text> {'\n'} </Text>
@@ -464,58 +335,107 @@ export default function SurveyMenuScreen({route}) {
 
             <Text> {'\n'} </Text>
             <Text style={styles.text}>Are you a heavy sleeper or a light sleeper?</Text>
-            <RadioGroup radioButtons={sleepRadioButtons}
-                        onPress={sleepSetSelectedId}
-                        selectedId={sleepSelectedId}
-                        containerStyle={styles.radioGroup}
+            <Dropdown open={heavySleepOpen}
+                      value={heavySleepValue}
+                      items={heavySleep}
+                      placeholder={"Select your sleep style"}
+                      setOpen={setHeavySleepOpen}
+                      setValue={setHeavySleepValue}
+                      setItems={setHeavySleep}
+                      onOpen={() => onOpen(10)}
+                      onClose={() => onOpen(-1)}
+                      dropDownDirection="BOTTOM"
+                      style={{marginBottom: heavySleepOpen ? 175 : 20}}
             />
 
             <Text> {'\n'} </Text>
             <Text style={styles.text}>Would you classify yourself as an introvert, ambivert, or extrovert?</Text>
-            <RadioGroup radioButtons={myPersRadioButtons}
-                        onPress={myPersSetSelectedId}
-                        selectedId={myPersSelectedId}
-                        containerStyle={styles.radioGroup}
+            <Dropdown open={studentVertOpen}
+                      value={studentVertValue}
+                      items={studentVerts}
+                      placeholder={"Select your personality type"}
+                      setOpen={setStudentVertOpen}
+                      setValue={setStudentVertValue}
+                      setItems={setStudentVerts}
+                      onOpen={() => onOpen(11)}
+                      onClose={() => onOpen(-1)}
+                      dropDownDirection="BOTTOM"
+                      style={{marginBottom: studentVertOpen ? 175 : 20}}
             />
 
             <Text> {'\n'} </Text>
             <Text style={styles.text}>Would you prefer your roommate be an introvert, ambivert, or extrovert?</Text>
-            <RadioGroup radioButtons={roomiePersRadioButtons}
-                        onPress={roomiePersSetSelectedId}
-                        selectedId={roomiePersSelectedId}
-                        containerStyle={styles.radioGroup}
+            <Dropdown open={roommateVertOpen}
+                      value={roommateVertValue}
+                      items={roommateVerts}
+                      placeholder={"Select a personality type"}
+                      setOpen={setRoommateVertOpen}
+                      setValue={setRoommateVertValue}
+                      setItems={setRoommateVerts}
+                      onOpen={() => onOpen(12)}
+                      onClose={() => onOpen(-1)}
+                      dropDownDirection="BOTTOM"
+                      style={{marginBottom: roommateVertOpen ? 175 : 20}}
             />
 
             <Text> {'\n'} </Text>
             <Text style={styles.text}>Will you bring your friends to the dorm?</Text>
-            <RadioGroup radioButtons={myFriendsRadioButtons}
-                        onPress={myFriendsSetSelectedId}
-                        selectedId={myFriendsSelectedId}
-                        containerStyle={styles.radioGroup}
+            <Dropdown open={studentFriendsOpen}
+                      value={studentFriendsValue}
+                      items={studentFriends}
+                      placeholder={"Select yes or no"}
+                      setOpen={setStudentFriendsOpen}
+                      setValue={setStudentFriendsValue}
+                      setItems={setStudentFriends}
+                      onOpen={() => onOpen(13)}
+                      onClose={() => onOpen(-1)}
+                      dropDownDirection="BOTTOM"
+                      style={{marginBottom: studentFriendsOpen ? 175 : 20}}
             />
 
             <Text> {'\n'} </Text>
             <Text style={styles.text}>How do you feel about your roommate bringing friends the the dorm?</Text>
-            <RadioGroup radioButtons={yourFriendsRadioButtons}
-                        onPress={yourFriendsSetSelectedId}
-                        selectedId={yourFriendsSelectedId}
-                        containerStyle={styles.radioGroup}
+            <Dropdown open={roommateFriendsOpen}
+                      value={roommateFriendsValue}
+                      items={roommateFriends}
+                      placeholder={"Select your comfortableness"}
+                      setOpen={setRoommateFriendsOpen}
+                      setValue={setRoommateFriendsValue}
+                      setItems={setRoommateFriends}
+                      onOpen={() => onOpen(14)}
+                      onClose={() => onOpen(-1)}
+                      dropDownDirection="BOTTOM"
+                      style={{marginBottom: roommateFriendsOpen ? 175 : 20}}
             />
 
             <Text> {'\n'} </Text>
             <Text style={styles.text}>Do you consider yourself neat or messy?</Text>
-            <RadioGroup radioButtons={studentNeatRadioButtons}
-                        onPress={studentNeatSetSelectedId}
-                        selectedId={studentNeatSelectedId}
-                        containerStyle={styles.radioGroup}
+            <Dropdown open={studentNeatOpen}
+                      value={studentNeatValue}
+                      items={studentNeat}
+                      placeholder={"Select neat or messy"}
+                      setOpen={setStudentNeatOpen}
+                      setValue={setStudentNeatValue}
+                      setItems={setStudentNeat}
+                      onOpen={() => onOpen(15)}
+                      onClose={() => onOpen(-1)}
+                      dropDownDirection="BOTTOM"
+                      style={{marginBottom: studentNeatOpen ? 175 : 20}}
             />
 
             <Text> {'\n'} </Text>
             <Text style={styles.text}>Do you care if your roommate is neat or messy?</Text>
-            <RadioGroup radioButtons={roomieNeatRadioButtons}
-                        onPress={roomieNeatSetSelectedId}
-                        selectedId={roomieNeatSelectedId}
-                        containerStyle={styles.radioGroup}
+            <Dropdown open={roommateNeatOpen}
+                      value={roommateNeatValue}
+                      items={roommateNeat}
+                      placeholder={"Select yes or no"}
+                      setOpen={setRoommateNeatOpen}
+                      setValue={setRoommateNeatValue}
+                      setItems={setRoommateNeat}
+                      onOpen={() => onOpen(16)}
+                      onClose={() => onOpen(-1)}
+                      dropDownDirection="BOTTOM"
+                      style={{marginBottom: roommateNeatOpen ? 175 : 20}}
             />
 
             <View style={styles.button} paddingBottom={50}>
