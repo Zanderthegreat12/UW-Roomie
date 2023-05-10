@@ -30,9 +30,6 @@ export default function HomeScreen() {
                 value={password}
             />
 
-            <Text>{username}</Text>
-            <Text>{password}</Text>
-
              <Button
                 title="Create"
                 color="#7c2bee"
