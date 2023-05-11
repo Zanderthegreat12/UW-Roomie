@@ -50,7 +50,7 @@ export default function HomeScreen() {
 
 logIn = async({userN}, {pass}, {nav}) => {
     try{
-         let responsePromise = fetch("https://3xasbdsrh3.us-west-2.awsapprunner.com/logIn?username=" + userN + "&password=" + pass);
+         let responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/logIn?username=" + userN + "&password=" + pass);
          let res = await responsePromise;
          if(!res.ok){
              alert("Error! Expected: 200, Was: " + res.status);

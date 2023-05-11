@@ -38,7 +38,7 @@ export default function HomeScreen({route}) {
 
 getContactInfo = async(user) => {
     try{
-         let responsePromise = fetch("http://localhost:4567/getContact?username=" + user);
+         let responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/getContact?username=" + user);
          let res = await responsePromise;
          if(!res.ok){
              alert("Error! Expected: 200, Was: " + res.status);

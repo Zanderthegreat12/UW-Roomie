@@ -54,7 +54,7 @@ export default function LikedMenuScreen({route}) {
 
 runAlg = async(user) => {
     try{
-         let responsePromise = fetch("http://localhost:4567/runAlg?username=" + user);
+         let responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/runAlg?username=" + user);
          let res = await responsePromise;
          if(!res.ok){
              alert("Error! Expected: 200, Was: " + res.status);
