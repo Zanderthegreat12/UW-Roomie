@@ -1,6 +1,8 @@
 package roomieapp;
 
 import org.junit.*;
+
+import java.net.ConnectException;
 import java.util.*;
 
 import static org.junit.Assert.assertTrue;
@@ -80,7 +82,7 @@ public class SQLMatchTest {
             querier.createUser(match.user2, "hitIt");
             querier.setMatch(match);
             querier.clearTables();
-        } catch (Exception e) {
+        } catch (ConnectException e) {
             assertTrue(false);
         }
     }
@@ -104,7 +106,7 @@ public class SQLMatchTest {
             assertTrue(match.equals(test));
 
             querier.clearTables();
-        } catch (Exception e) {
+        } catch (ConnectException e) {
             assertTrue(false);
         }
     }
@@ -133,7 +135,7 @@ public class SQLMatchTest {
             test = querier.getMatch(match.user1, match.user2);
             assertTrue(match.equals(test));
             querier.clearTables();
-        } catch (Exception e) {
+        } catch (ConnectException e) {
             assertTrue(false);
         }
     }
@@ -157,7 +159,7 @@ public class SQLMatchTest {
             test = querier.getMatch(match.user1, match.user2);
             assertTrue(updateMatch.equals(test));
             querier.clearTables();
-        } catch (Exception e) {
+        } catch (ConnectException e) {
             assertTrue(false);
         }
     }
@@ -173,7 +175,7 @@ public class SQLMatchTest {
             querier.createUser(match.user1, "passIt");
             querier.setMatch(match);
             querier.clearTables();
-        } catch (Exception e) {
+        } catch (ConnectException e) {
             assertTrue(false);
         }
     }
@@ -189,7 +191,7 @@ public class SQLMatchTest {
             querier.createUser(match.user2, "hitIt");
             querier.setMatch(match);
             querier.clearTables();
-        } catch (Exception e) {
+        } catch (ConnectException e) {
             assertTrue(false);
         }
     }
@@ -205,7 +207,7 @@ public class SQLMatchTest {
             querier.createUser(match.user1, "passIt");
             Match test = querier.getMatch(match.user1, match.user2);
             querier.clearTables();
-        } catch (Exception e) {
+        } catch (ConnectException e) {
             assertTrue(false);
         }
     }
@@ -221,7 +223,7 @@ public class SQLMatchTest {
             querier.createUser(match.user2, "passIt");
             Match test = querier.getMatch(match.user1, match.user2);
             querier.clearTables();
-        } catch (Exception e) {
+        } catch (ConnectException e) {
             assertTrue(false);
         }
     }
@@ -239,7 +241,7 @@ public class SQLMatchTest {
             Match test = querier.getMatch(match.user1, match.user2);
             assertTrue(test == null);
             querier.clearTables();
-        } catch (Exception e) {
+        } catch (ConnectException e) {
             assertTrue(false);
         }
     }
@@ -266,7 +268,7 @@ public class SQLMatchTest {
             test = querier.getMatch(match.user1, match.user2);
             assertTrue(match.equals(test));
             querier.clearTables();
-        } catch (Exception e) {
+        } catch (ConnectException e) {
             assertTrue(false);
         }
     }
@@ -296,7 +298,7 @@ public class SQLMatchTest {
             assertTrue(test.get(1).equals(overlapMatch3));
 
             querier.clearTables();
-        } catch (Exception e) {
+        } catch (ConnectException e) {
             assertTrue(false);
         }
     }
@@ -327,7 +329,7 @@ public class SQLMatchTest {
             assertTrue(test.get(2).equals(overlapMatch2));
 
             querier.clearTables();
-        } catch (Exception e) {
+        } catch (ConnectException e) {
             assertTrue(false);
         }
     }
@@ -347,7 +349,7 @@ public class SQLMatchTest {
             querier.updateCompatibility(match.user2, match.user1, updatedCompMatch.compatibility);
             test = querier.getMatch(match.user1, match.user2);
             assertTrue(updatedCompMatch.equals(test));
-        } catch (Exception e) {
+        } catch (ConnectException e) {
             assertTrue(false);
         }
     }
@@ -361,7 +363,7 @@ public class SQLMatchTest {
             querier.setMatch(match);
 
             querier.updateCompatibility(match.user1, match.user2, 200);
-        } catch (Exception e) {
+        } catch (ConnectException e) {
             assertTrue(false);
         }
     }
@@ -374,7 +376,7 @@ public class SQLMatchTest {
             querier.setMatch(match);
 
             querier.updateCompatibility(match.user1, match.user2, 50);
-        } catch (Exception e) {
+        } catch (ConnectException e) {
             assertTrue(false);
         }
     }
@@ -394,7 +396,7 @@ public class SQLMatchTest {
             querier.updateMatchStatus(match.user2, match.user1, updatedStatusMatch.matchStatus);
             test = querier.getMatch(match.user1, match.user2);
             assertTrue(updatedStatusMatch.equals(test));
-        } catch (Exception e) {
+        } catch (ConnectException e) {
             assertTrue(false);
         }
     }
@@ -408,7 +410,7 @@ public class SQLMatchTest {
             querier.setMatch(match);
 
             querier.updateMatchStatus(match.user1, match.user2, 5);
-        } catch (Exception e) {
+        } catch (ConnectException e) {
             assertTrue(false);
         }
     }
@@ -421,7 +423,7 @@ public class SQLMatchTest {
             querier.setMatch(match);
 
             querier.updateMatchStatus(match.user1, match.user2, 2);
-        } catch (Exception e) {
+        } catch (ConnectException e) {
             assertTrue(false);
         }
     }

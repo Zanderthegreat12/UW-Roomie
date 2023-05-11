@@ -2,6 +2,8 @@ package roomieapp;
 
 import org.junit.*;
 
+import java.net.ConnectException;
+
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -21,7 +23,7 @@ public class SQLUserTest {
             querier.clearTables();
             assertTrue(querier.createUser("user1", "password"));
             querier.clearTables();
-        } catch (Exception e) {
+        } catch (ConnectException e) {
             assertTrue(false);
         }
     }
@@ -39,7 +41,7 @@ public class SQLUserTest {
             assertTrue(querier.createUser("user2", "password2"));
             assertTrue(querier.createUser("user3", "password1"));
             querier.clearTables();
-        } catch (Exception e) {
+        } catch (ConnectException e) {
             assertTrue(false);
         }
     }
@@ -55,7 +57,7 @@ public class SQLUserTest {
             assertTrue(querier.createUser("user1", "password1"));
             assertTrue(!querier.createUser("user1", "password2"));
             querier.clearTables();
-        } catch (Exception e) {
+        } catch (ConnectException e) {
             assertTrue(false);
         }
     }
@@ -71,7 +73,7 @@ public class SQLUserTest {
             assertTrue(querier.createUser("user", "user"));
             assertTrue(querier.login("user", "user"));
             querier.clearTables();
-        } catch (Exception e) {
+        } catch (ConnectException e) {
             assertTrue(false);
         }
     }
@@ -89,7 +91,7 @@ public class SQLUserTest {
             assertTrue(!querier.login("user", "failThis"));
             assertTrue(!querier.login("wat", "wat"));
             querier.clearTables();
-        } catch (Exception e) {
+        } catch (ConnectException e) {
             assertTrue(false);
         }
     }
@@ -108,7 +110,7 @@ public class SQLUserTest {
             assertTrue(querier.login("testUser2", "password2"));
             assertTrue(!querier.login("testUser1", "password2"));
             querier.clearTables();
-        } catch (Exception e) {
+        } catch (ConnectException e) {
             assertTrue(false);
         }
     }

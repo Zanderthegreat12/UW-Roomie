@@ -2,6 +2,7 @@ package roomieapp;
 
 import org.junit.*;
 
+import java.net.ConnectException;
 import java.util.*;
 
 import static org.junit.Assert.assertTrue;
@@ -115,7 +116,7 @@ public class SQLSurveyTest {
             Survey test = querier.getSurvey(exampleSurvey.username);
             assertTrue(exampleSurvey.equals(test));
             querier.clearTables();
-        } catch (Exception e) {
+        } catch (ConnectException e) {
             assertTrue(false);
         }
     }
@@ -131,7 +132,7 @@ public class SQLSurveyTest {
             querier.createUser(exampleSurvey.username, "wellNow");
             querier.setSurvey(exampleSurvey);
             querier.clearTables();
-        } catch (Exception e) {
+        } catch (ConnectException e) {
             assertTrue(false);
         }
     }
@@ -146,7 +147,7 @@ public class SQLSurveyTest {
             querier.clearTables();
             querier.setSurvey(exampleSurvey);
             querier.clearTables();
-        } catch (Exception e) {
+        } catch (ConnectException e) {
             assertTrue(false);
         }
     }
@@ -161,7 +162,7 @@ public class SQLSurveyTest {
             querier.clearTables();
             Survey test = querier.getSurvey(exampleSurvey.username);
             querier.clearTables();
-        } catch (Exception e) {
+        } catch (ConnectException e) {
             assertTrue(false);
         }
     }
@@ -178,7 +179,7 @@ public class SQLSurveyTest {
             Survey test = querier.getSurvey(exampleSurvey.username);
             assertTrue(test == null);
             querier.clearTables();
-        } catch (Exception e) {
+        } catch (ConnectException e) {
             assertTrue(false);
         }
     }
@@ -200,7 +201,7 @@ public class SQLSurveyTest {
             test = querier.getSurvey(updatedSurvey.username);
             assertTrue(updatedSurvey.equals(test));
             querier.clearTables();
-        } catch (Exception e) {
+        } catch (ConnectException e) {
             assertTrue(false);
         }
     }
@@ -227,7 +228,7 @@ public class SQLSurveyTest {
             test = querier.getSurvey(exampleSurvey.username);
             assertTrue(exampleSurvey.equals(test));
             querier.clearTables();
-        } catch (Exception e) {
+        } catch (ConnectException e) {
             assertTrue(false);
         }
     }
@@ -239,7 +240,7 @@ public class SQLSurveyTest {
             Set<Survey> test = querier.getAllSurveys();
             assertTrue(test.size() == 0);
             querier.clearTables();
-        } catch (Exception e) {
+        } catch (ConnectException e) {
             assertTrue(false);
         }
     }
@@ -257,7 +258,7 @@ public class SQLSurveyTest {
                 assertTrue(exampleSurvey.equals(currSurvey));
             }
             querier.clearTables();
-        } catch (Exception e) {
+        } catch (ConnectException e) {
             assertTrue(false);
         }
     }
@@ -285,7 +286,7 @@ public class SQLSurveyTest {
             }
 
             querier.clearTables();
-        } catch (Exception e) {
+        } catch (ConnectException e) {
             assertTrue(false);
         }
     }

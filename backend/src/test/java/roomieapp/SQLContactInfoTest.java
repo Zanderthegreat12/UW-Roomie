@@ -2,6 +2,8 @@ package roomieapp;
 
 import org.junit.*;
 
+import java.net.ConnectException;
+
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -43,7 +45,7 @@ public class SQLContactInfoTest {
             querier.createUser(userContact.username, "userPass");
             querier.setContactInfo(userContact);
             querier.clearTables();
-        } catch (Exception e) {
+        } catch (ConnectException e) {
             assertTrue(false);
         }
     }
@@ -61,7 +63,7 @@ public class SQLContactInfoTest {
             ContactInfo retrievedData = querier.getContactInfo(userContact.username);
             assertTrue(retrievedData.equals(userContact));
             querier.clearTables();
-        } catch (Exception e) {
+        } catch (ConnectException e) {
             assertTrue(false);
         }
     }
@@ -76,7 +78,7 @@ public class SQLContactInfoTest {
             querier.clearTables();
             querier.setContactInfo(userContact);
             querier.clearTables();
-        } catch (Exception e) {
+        } catch (ConnectException e) {
             assertTrue(false);
         }
     }
@@ -91,7 +93,7 @@ public class SQLContactInfoTest {
             querier.clearTables();
             ContactInfo test = querier.getContactInfo("user");
             querier.clearTables();
-        } catch (Exception e) {
+        } catch (ConnectException e) {
             assertTrue(false);
         }
     }
@@ -108,7 +110,7 @@ public class SQLContactInfoTest {
             ContactInfo retrievedData = querier.getContactInfo("firstUser");
             assertTrue(retrievedData == null);
             querier.clearTables();
-        } catch (Exception e) {
+        } catch (ConnectException e) {
             assertTrue(false);
         }
     }
@@ -129,7 +131,7 @@ public class SQLContactInfoTest {
             retrievedData = querier.getContactInfo(updatedUserContact.username);
             assertTrue(retrievedData.equals(updatedUserContact));
             querier.clearTables();
-        } catch (Exception e) {
+        } catch (ConnectException e) {
             assertTrue(false);
         }
     }
@@ -155,7 +157,7 @@ public class SQLContactInfoTest {
             retrievedData = querier.getContactInfo(userContact.username);
             assertTrue(retrievedData.equals(userContact));
             querier.clearTables();
-        } catch (Exception e) {
+        } catch (ConnectException e) {
             assertTrue(false);
         }
     }

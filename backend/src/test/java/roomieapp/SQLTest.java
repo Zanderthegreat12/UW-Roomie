@@ -2,6 +2,8 @@ package roomieapp;
 
 import org.junit.*;
 
+import java.net.ConnectException;
+
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -35,7 +37,7 @@ public class SQLTest
             querier.clearTables();
             assertTrue(!querier.login("user1", "password"));
             querier.clearTables();
-        } catch (Exception e) {
+        } catch (ConnectException e) {
             assertTrue(false);
         }
     }
