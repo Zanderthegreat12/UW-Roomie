@@ -18,10 +18,35 @@ Review Alpha build version
 - Start editing the user interface with good styles/design (Leah)
 
 #### Second subsection:
-
+- Fully implemented matching algorithm and connected it to the database.
+- Created pages for users to see their matches.
+- Queries work with concurrency
+- Cleaned up query class
+  - Added helper methods
+- Backend server set up on AWS
+  - Connected to front end through async functions.
+- Set up second database for testing purposes
+- Finished implementing basic features for all screens
+  - Servey dropdown menu
+  - Textboxes for entering user info (create user/login)
+  - Matching page
+  - Login Page
+  - Create new user
+- Integrated the server calls with the front end of the app.
 
 #### Third subsection:
-
+- Fix create user so that it won't allow for resetting passwords. (Bella)
+- Making the app display more intuitive/nicer (Mostly Leah)
+  - radio buttons (Leah)
+  - Displaying/inputting contact info (Bella)
+  - Navigation menu bar (Leah)
+- Implement liked user functionality
+  - Front end display feature (Alex)
+  - Server API call to record likes (Bella)
+- Set up the swipe right functionality for the app. (Alex)
+- Return error if database/connection isn't working properly (Colby)
+- implement encryption for contact info (Colby)
+- allow storage for photos (Colby)
 
 ## Individual Reports:
 
@@ -86,7 +111,13 @@ Review Alpha build version
 - Help Leah integrate the server calls with the front end of the app.
 
 #### Second subsection:
-
+- Finished enough fake user profiles and uploaded them to the database.
+- Finished the server calls.
+- Integrated the server calls with the front end of the app.
+- Created the log in screen and home screen of the app.
 
 #### Third subsection:
-
+- Fix create user so that it won't allow for resetting passwords.
+- Create place to input contact data.
+- Display contact info in the profile screen.
+- Create new APIs for setting compatibility scores and user likes.
