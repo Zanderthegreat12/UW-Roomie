@@ -16,6 +16,7 @@ import javax.crypto.spec.PBEKeySpec;
 public class SecurityUtils {
 
   private KeyPair key;
+  private final int CRYPT_KEY_LENGTH = 2048;
 
   /**
    * Initializes the key required for encrypting/decrypting data
@@ -23,10 +24,11 @@ public class SecurityUtils {
   public SecurityUtils() {
     //Creating KeyPair generator object
     try {
-      KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance("DSA");
-      keyPairGen.initialize(KEY_LENGTH);
+      KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance("RSA");
+      keyPairGen.initialize(CRYPT_KEY_LENGTH);
       this.key = keyPairGen.generateKeyPair();
     } catch (Exception e) {
+      e.printStackTrace();
       throw new RuntimeException();
     }
   }
@@ -34,7 +36,8 @@ public class SecurityUtils {
   /**
    * Returns the decrypted version of user input
    * @param encryptedInfo the bytes of the info we want to decrypt
-   * @return the unencrypted version of encryptedInfo as a String
+   * @return the unencrypted version of encryptedInfo as a String.
+   *         It will have a length of 2048
    */
   public String decrypt(byte[] encryptedInfo) {
     try {
@@ -57,7 +60,8 @@ public class SecurityUtils {
   /**
    * Returns the encrypted version of user input
    * @param info the bytes of the info we want to encrypt
-   * @return the encrypted version of info as byte[]
+   * @return the encrypted version of info as byte[].
+   *          It will have a length of 2048
    */
   public byte[] encrypt(String info) {
     try {
