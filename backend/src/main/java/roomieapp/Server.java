@@ -6,6 +6,7 @@ import spark.Route;
 import spark.Spark;
 import com.google.gson.Gson;
 
+import java.net.ConnectException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +15,7 @@ import static spark.Spark.*;
 public class Server {
     //http://localhost:4567
     public static void main(String[] args) {
-        //Creates access to the query calls
+        //Creates access to the query calls\
         final Query q = new Query(true);
 
         //Test to make sure its working

@@ -38,10 +38,14 @@ public class SQLContactInfoTest {
     @Test
     public void testCreateContactInfo()
     {
-        querier.clearTables();
-        querier.createUser(userContact.username, "userPass");
-        querier.setContactInfo(userContact);
-        querier.clearTables();
+        try {
+            querier.clearTables();
+            querier.createUser(userContact.username, "userPass");
+            querier.setContactInfo(userContact);
+            querier.clearTables();
+        } catch (Exception e) {
+            assertTrue(false);
+        }
     }
 
     /**
@@ -50,12 +54,16 @@ public class SQLContactInfoTest {
     @Test
     public void testGetContactInfoSimple()
     {
-        querier.clearTables();
-        querier.createUser(userContact.username, "firstPassword");
-        querier.setContactInfo(userContact);
-        ContactInfo retrievedData = querier.getContactInfo(userContact.username);
-        assertTrue(retrievedData.equals(userContact));
-        querier.clearTables();
+        try {
+            querier.clearTables();
+            querier.createUser(userContact.username, "firstPassword");
+            querier.setContactInfo(userContact);
+            ContactInfo retrievedData = querier.getContactInfo(userContact.username);
+            assertTrue(retrievedData.equals(userContact));
+            querier.clearTables();
+        } catch (Exception e) {
+            assertTrue(false);
+        }
     }
 
     /**
@@ -64,9 +72,13 @@ public class SQLContactInfoTest {
     @Test(expected = IllegalArgumentException.class)
     public void testSetContactInfoNoUser()
     {
-        querier.clearTables();
-        querier.setContactInfo(userContact);
-        querier.clearTables();
+        try {
+            querier.clearTables();
+            querier.setContactInfo(userContact);
+            querier.clearTables();
+        } catch (Exception e) {
+            assertTrue(false);
+        }
     }
 
     /**
@@ -75,9 +87,13 @@ public class SQLContactInfoTest {
     @Test(expected = IllegalArgumentException.class)
     public void testGetContactInfoNoUser()
     {
-        querier.clearTables();
-        ContactInfo test = querier.getContactInfo("user");
-        querier.clearTables();
+        try {
+            querier.clearTables();
+            ContactInfo test = querier.getContactInfo("user");
+            querier.clearTables();
+        } catch (Exception e) {
+            assertTrue(false);
+        }
     }
 
     /**
@@ -86,11 +102,15 @@ public class SQLContactInfoTest {
     @Test
     public void testGetContactInfoNoneExist()
     {
-        querier.clearTables();
-        querier.createUser("firstUser", "firstPassword");
-        ContactInfo retrievedData = querier.getContactInfo("firstUser");
-        assertTrue(retrievedData == null);
-        querier.clearTables();
+        try {
+            querier.clearTables();
+            querier.createUser("firstUser", "firstPassword");
+            ContactInfo retrievedData = querier.getContactInfo("firstUser");
+            assertTrue(retrievedData == null);
+            querier.clearTables();
+        } catch (Exception e) {
+            assertTrue(false);
+        }
     }
 
     /**
@@ -99,15 +119,19 @@ public class SQLContactInfoTest {
     @Test
     public void testUpdateContactInfo()
     {
-        querier.clearTables();
-        querier.createUser(userContact.username, "userPass");
-        querier.setContactInfo(userContact);
-        ContactInfo retrievedData = querier.getContactInfo(userContact.username);
-        assertTrue(retrievedData.equals(userContact));
-        querier.setContactInfo(updatedUserContact);
-        retrievedData = querier.getContactInfo(updatedUserContact.username);
-        assertTrue(retrievedData.equals(updatedUserContact));
-        querier.clearTables();
+        try {
+            querier.clearTables();
+            querier.createUser(userContact.username, "userPass");
+            querier.setContactInfo(userContact);
+            ContactInfo retrievedData = querier.getContactInfo(userContact.username);
+            assertTrue(retrievedData.equals(userContact));
+            querier.setContactInfo(updatedUserContact);
+            retrievedData = querier.getContactInfo(updatedUserContact.username);
+            assertTrue(retrievedData.equals(updatedUserContact));
+            querier.clearTables();
+        } catch (Exception e) {
+            assertTrue(false);
+        }
     }
 
     /**
@@ -116,19 +140,23 @@ public class SQLContactInfoTest {
     @Test
     public void testMultiContactInfo()
     {
-        querier.clearTables();
-        querier.createUser(userContact.username, "userPass");
-        querier.setContactInfo(userContact);
-        ContactInfo retrievedData = querier.getContactInfo(userContact.username);
-        assertTrue(retrievedData.equals(userContact));
+        try {
+            querier.clearTables();
+            querier.createUser(userContact.username, "userPass");
+            querier.setContactInfo(userContact);
+            ContactInfo retrievedData = querier.getContactInfo(userContact.username);
+            assertTrue(retrievedData.equals(userContact));
 
-        querier.createUser(otherUserContact.username, "otherPass");
-        querier.setContactInfo(otherUserContact);
-        retrievedData = querier.getContactInfo(otherUserContact.username);
-        assertTrue(retrievedData.equals(otherUserContact));
+            querier.createUser(otherUserContact.username, "otherPass");
+            querier.setContactInfo(otherUserContact);
+            retrievedData = querier.getContactInfo(otherUserContact.username);
+            assertTrue(retrievedData.equals(otherUserContact));
 
-        retrievedData = querier.getContactInfo(userContact.username);
-        assertTrue(retrievedData.equals(userContact));
-        querier.clearTables();
+            retrievedData = querier.getContactInfo(userContact.username);
+            assertTrue(retrievedData.equals(userContact));
+            querier.clearTables();
+        } catch (Exception e) {
+            assertTrue(false);
+        }
     }
 }

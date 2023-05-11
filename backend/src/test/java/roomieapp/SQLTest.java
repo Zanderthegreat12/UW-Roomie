@@ -28,11 +28,15 @@ public class SQLTest
     @Test
     public void testClearTables()
     {
-        Query querier = new Query(false);
-        querier.clearTables();
-        querier.createUser("user1", "password");
-        querier.clearTables();
-        assertTrue(!querier.login("user1", "password"));
-        querier.clearTables();
+        try {
+            Query querier = new Query(false);
+            querier.clearTables();
+            querier.createUser("user1", "password");
+            querier.clearTables();
+            assertTrue(!querier.login("user1", "password"));
+            querier.clearTables();
+        } catch (Exception e) {
+            assertTrue(false);
+        }
     }
 }

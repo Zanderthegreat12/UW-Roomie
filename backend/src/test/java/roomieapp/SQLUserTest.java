@@ -17,9 +17,13 @@ public class SQLUserTest {
     @Test
     public void testCreateUserSimple()
     {
-        querier.clearTables();
-        assertTrue(querier.createUser("user1", "password"));
-        querier.clearTables();
+        try {
+            querier.clearTables();
+            assertTrue(querier.createUser("user1", "password"));
+            querier.clearTables();
+        } catch (Exception e) {
+            assertTrue(false);
+        }
     }
 
     /**
@@ -28,12 +32,16 @@ public class SQLUserTest {
     @Test
     public void testCreateUsers()
     {
-        querier.clearTables();
-        // matching passwords between users shouldn't matter
-        assertTrue(querier.createUser("user1", "password1"));
-        assertTrue(querier.createUser("user2", "password2"));
-        assertTrue(querier.createUser("user3", "password1"));
-        querier.clearTables();
+        try {
+            querier.clearTables();
+            // matching passwords between users shouldn't matter
+            assertTrue(querier.createUser("user1", "password1"));
+            assertTrue(querier.createUser("user2", "password2"));
+            assertTrue(querier.createUser("user3", "password1"));
+            querier.clearTables();
+        } catch (Exception e) {
+            assertTrue(false);
+        }
     }
 
     /**
@@ -42,10 +50,14 @@ public class SQLUserTest {
     @Test
     public void testCreateSameUsernames()
     {
-        querier.clearTables();
-        assertTrue(querier.createUser("user1", "password1"));
-        assertTrue(!querier.createUser("user1", "password2"));
-        querier.clearTables();
+        try {
+            querier.clearTables();
+            assertTrue(querier.createUser("user1", "password1"));
+            assertTrue(!querier.createUser("user1", "password2"));
+            querier.clearTables();
+        } catch (Exception e) {
+            assertTrue(false);
+        }
     }
 
     /**
@@ -54,10 +66,14 @@ public class SQLUserTest {
     @Test
     public void testLoginSimpleSuccess()
     {
-        querier.clearTables();
-        assertTrue(querier.createUser("user", "user"));
-        assertTrue(querier.login("user", "user"));
-        querier.clearTables();
+        try {
+            querier.clearTables();
+            assertTrue(querier.createUser("user", "user"));
+            assertTrue(querier.login("user", "user"));
+            querier.clearTables();
+        } catch (Exception e) {
+            assertTrue(false);
+        }
     }
 
     /**
@@ -66,12 +82,16 @@ public class SQLUserTest {
     @Test
     public void testLoginSimpleFail()
     {
-        querier.clearTables();
-        assertTrue(querier.createUser("user", "passThis"));
-        assertTrue(!querier.login("userFail", "passThis"));
-        assertTrue(!querier.login("user", "failThis"));
-        assertTrue(!querier.login("wat", "wat"));
-        querier.clearTables();
+        try {
+            querier.clearTables();
+            assertTrue(querier.createUser("user", "passThis"));
+            assertTrue(!querier.login("userFail", "passThis"));
+            assertTrue(!querier.login("user", "failThis"));
+            assertTrue(!querier.login("wat", "wat"));
+            querier.clearTables();
+        } catch (Exception e) {
+            assertTrue(false);
+        }
     }
 
     /**
@@ -80,12 +100,16 @@ public class SQLUserTest {
     @Test
     public void testMultiLogin()
     {
-        querier.clearTables();
-        assertTrue(querier.createUser("testUser1", "password1"));
-        assertTrue(querier.createUser("testUser2", "password2"));
-        assertTrue(querier.login("testUser1", "password1"));
-        assertTrue(querier.login("testUser2", "password2"));
-        assertTrue(!querier.login("testUser1", "password2"));
-        querier.clearTables();
+        try {
+            querier.clearTables();
+            assertTrue(querier.createUser("testUser1", "password1"));
+            assertTrue(querier.createUser("testUser2", "password2"));
+            assertTrue(querier.login("testUser1", "password1"));
+            assertTrue(querier.login("testUser2", "password2"));
+            assertTrue(!querier.login("testUser1", "password2"));
+            querier.clearTables();
+        } catch (Exception e) {
+            assertTrue(false);
+        }
     }
 }

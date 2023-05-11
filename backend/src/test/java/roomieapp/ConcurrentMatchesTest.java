@@ -15,8 +15,12 @@ public class ConcurrentMatchesTest {
 
     @BeforeClass
     public static void setUp() {
-        q = new Query(false);
-        q.clearTables();
+        try {
+            q = new Query(false);
+            q.clearTables();
+        } catch (Exception e) {
+            assertTrue(false);
+        }
     }
 
     @Test
@@ -27,15 +31,19 @@ public class ConcurrentMatchesTest {
 
         // ParallelComputer(true,true) will run all classes and methods
         // in parallel.  (First arg for classes, second arg for methods)
-        Result result1 = JUnitCore.runClasses(new ParallelComputer(false, true), firstSet);
-        Result result2 = JUnitCore.runClasses(new ParallelComputer(false, true), secondSet);
-        Result result3 = JUnitCore.runClasses(new ParallelComputer(true, true), thirdSet);
-        List<Failure> failures1 = result1.getFailures();
-        assertTrue(failures1.size() == 0);
-        List<Failure> failures2 = result2.getFailures();
-        assertTrue(failures2.size() == 0);
-        List<Failure> failures3 = result3.getFailures();
-        assertTrue(failures3.size() == 0);
+        try {
+            Result result1 = JUnitCore.runClasses(new ParallelComputer(false, true), firstSet);
+            Result result2 = JUnitCore.runClasses(new ParallelComputer(false, true), secondSet);
+            Result result3 = JUnitCore.runClasses(new ParallelComputer(true, true), thirdSet);
+            List<Failure> failures1 = result1.getFailures();
+            assertTrue(failures1.size() == 0);
+            List<Failure> failures2 = result2.getFailures();
+            assertTrue(failures2.size() == 0);
+            List<Failure> failures3 = result3.getFailures();
+            assertTrue(failures3.size() == 0);
+        } catch (Exception e) {
+
+        }
     }
 
     @AfterClass
@@ -46,21 +54,21 @@ public class ConcurrentMatchesTest {
     public static class CreateUsers {
 
         @Test
-        public void thread1() {
+        public void thread1() throws Exception {
             assertTrue(q.createUser("user1", "thread1"));
         }
 
         @Test
-        public void thread2() {
+        public void thread2() throws Exception{
             assertTrue(q.createUser("user2", "thread2"));
         }
         @Test
-        public void thread3() {
+        public void thread3() throws Exception{
             assertTrue(q.createUser("user3", "thread3"));
         }
 
         @Test
-        public void thread4() {
+        public void thread4() throws Exception{
             assertTrue(q.createUser("user4", "thread4"));
         }
     }
@@ -88,21 +96,21 @@ public class ConcurrentMatchesTest {
         );
 
         @Test
-        public void thread1() {
+        public void thread1() throws Exception {
             q.setMatch(match1);
             Match test = q.getMatch(match1.user1, match1.user2);
             assertTrue(test.equals(match1));
         }
 
         @Test
-        public void thread2() {
+        public void thread2() throws Exception {
             q.setMatch(match2);
             Match test = q.getMatch(match2.user1, match2.user2);
             assertTrue(test.equals(match2));
         }
 
         @Test
-        public void thread3() {
+        public void thread3() throws Exception {
             q.setMatch(match3);
             Match test = q.getMatch(match3.user1, match3.user2);
             assertTrue(test.equals(match3));
@@ -132,21 +140,21 @@ public class ConcurrentMatchesTest {
         );
 
         @Test
-        public void thread1() {
+        public void thread1() throws Exception {
             q.updateMatchStatus(match1.user1, match1.user2, match1.matchStatus);
             Match test = q.getMatch(match1.user1, match1.user2);
             assertTrue(test.equals(match1));
         }
 
         @Test
-        public void thread2() {
+        public void thread2() throws Exception {
             q.updateCompatibility(match2.user1, match2.user2, match2.compatibility);
             Match test = q.getMatch(match2.user1, match2.user2);
             assertTrue(test.equals(match2));
         }
 
         @Test
-        public void thread3() {
+        public void thread3() throws Exception {
             q.updateCompatibility(match3.user1, match3.user2, match3.compatibility);
             Match test = q.getMatch(match3.user1, match3.user2);
             assertTrue(test.equals(match3));
@@ -176,21 +184,21 @@ public class ConcurrentMatchesTest {
         );
 
         @Test
-        public void thread1() {
+        public void thread1() throws Exception {
             q.setMatch(match1);
             Match test = q.getMatch(match1.user1, match1.user2);
             assertTrue(test.equals(match1));
         }
 
         @Test
-        public void thread2() {
+        public void thread2() throws Exception {
             q.setMatch(match2);
             Match test = q.getMatch(match2.user1, match2.user2);
             assertTrue(test.equals(match2));
         }
 
         @Test
-        public void thread3() {
+        public void thread3() throws Exception {
             q.setMatch(match3);
             Match test = q.getMatch(match3.user1, match3.user2);
             assertTrue(test.equals(match3));
@@ -199,7 +207,7 @@ public class ConcurrentMatchesTest {
 
     public static class GetTopMatches {
         @Test
-        public void thread1() {
+        public void thread1() throws Exception {
             Match match1 = new Match(
                     "user1",
                     "user2",
@@ -224,7 +232,7 @@ public class ConcurrentMatchesTest {
         }
 
         @Test
-        public void thread2() {
+        public void thread2() throws Exception {
             Match match1 = new Match(
                     "user1",
                     "user2",
@@ -264,7 +272,7 @@ public class ConcurrentMatchesTest {
         }
 
         @Test
-        public void thread3() {
+        public void thread3() throws Exception {
             Match match2 = new Match(
                     "user1",
                     "user3",
@@ -289,7 +297,7 @@ public class ConcurrentMatchesTest {
         }
 
         @Test
-        public void thread4() {
+        public void thread4() throws Exception {
             Match match1 = new Match(
                     "user2",
                     "user4",

@@ -15,8 +15,12 @@ public class ConcurrentContactsTest {
 
     @BeforeClass
     public static void setUp() {
-        q = new Query(false);
-        q.clearTables();
+        try {
+            q = new Query(false);
+            q.clearTables();
+        } catch (Exception e) {
+            assertTrue(false);
+        }
     }
 
     @Test
@@ -27,15 +31,19 @@ public class ConcurrentContactsTest {
 
         // ParallelComputer(true,true) will run all classes and methods
         // in parallel.  (First arg for classes, second arg for methods)
-        Result result1 = JUnitCore.runClasses(new ParallelComputer(false, true), firstSet);
-        Result result2 = JUnitCore.runClasses(new ParallelComputer(false, true), secondSet);
-        Result result3 = JUnitCore.runClasses(new ParallelComputer(true, true), secondSet);
-        List<Failure> failures1 = result1.getFailures();
-        assertTrue(failures1.size() == 0);
-        List<Failure> failures2 = result2.getFailures();
-        assertTrue(failures2.size() == 0);
-        List<Failure> failures3 = result3.getFailures();
-        assertTrue(failures3.size() == 0);
+        try {
+            Result result1 = JUnitCore.runClasses(new ParallelComputer(false, true), firstSet);
+            Result result2 = JUnitCore.runClasses(new ParallelComputer(false, true), secondSet);
+            Result result3 = JUnitCore.runClasses(new ParallelComputer(true, true), secondSet);
+            List<Failure> failures1 = result1.getFailures();
+            assertTrue(failures1.size() == 0);
+            List<Failure> failures2 = result2.getFailures();
+            assertTrue(failures2.size() == 0);
+            List<Failure> failures3 = result3.getFailures();
+            assertTrue(failures3.size() == 0);
+        } catch (Exception e){
+            assertTrue(false);
+        }
     }
 
     @AfterClass
@@ -46,21 +54,21 @@ public class ConcurrentContactsTest {
     public static class CreateUsers {
 
         @Test
-        public void thread1() {
+        public void thread1() throws Exception {
             assertTrue(q.createUser("user1", "thread1"));
         }
 
         @Test
-        public void thread2() {
+        public void thread2() throws Exception {
             assertTrue(q.createUser("user2", "thread2"));
         }
         @Test
-        public void thread3() {
+        public void thread3() throws Exception {
             assertTrue(q.createUser("user3", "thread3"));
         }
 
         @Test
-        public void thread4() {
+        public void thread4() throws Exception {
             assertTrue(q.createUser("user4", "thread4"));
         }
     }
@@ -81,14 +89,14 @@ public class ConcurrentContactsTest {
         );
 
         @Test
-        public void thread1() {
+        public void thread1() throws Exception {
             q.setContactInfo(user1Contact);
             ContactInfo test = q.getContactInfo(user1Contact.username);
             assertTrue(test.equals(user1Contact));
         }
 
         @Test
-        public void thread2() {
+        public void thread2() throws Exception {
             q.setContactInfo(user2Contact);
             ContactInfo test = q.getContactInfo(user2Contact.username);
             assertTrue(test.equals(user2Contact));
@@ -111,14 +119,14 @@ public class ConcurrentContactsTest {
         );
 
         @Test
-        public void thread1() {
+        public void thread1() throws Exception{
             q.setContactInfo(user1Contact);
             ContactInfo test = q.getContactInfo(user1Contact.username);
             assertTrue(test.equals(user1Contact));
         }
 
         @Test
-        public void thread2() {
+        public void thread2() throws Exception {
             q.setContactInfo(user2Contact);
             ContactInfo test = q.getContactInfo(user2Contact.username);
             assertTrue(test.equals(user2Contact));
@@ -141,14 +149,14 @@ public class ConcurrentContactsTest {
         );
 
         @Test
-        public void thread1() {
+        public void thread1() throws Exception {
             q.setContactInfo(user3Contact);
             ContactInfo test = q.getContactInfo(user3Contact.username);
             assertTrue(test.equals(user3Contact));
         }
 
         @Test
-        public void thread2() {
+        public void thread2() throws Exception {
             q.setContactInfo(user4Contact);
             ContactInfo test = q.getContactInfo(user4Contact.username);
             assertTrue(test.equals(user4Contact));

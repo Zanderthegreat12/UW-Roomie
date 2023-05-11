@@ -108,12 +108,16 @@ public class SQLSurveyTest {
     @Test
     public void testGetSurveySimple()
     {
-        querier.clearTables();
-        querier.createUser(exampleSurvey.username, "overHere");
-        querier.setSurvey(exampleSurvey);
-        Survey test = querier.getSurvey(exampleSurvey.username);
-        assertTrue(exampleSurvey.equals(test));
-        querier.clearTables();
+        try {
+            querier.clearTables();
+            querier.createUser(exampleSurvey.username, "overHere");
+            querier.setSurvey(exampleSurvey);
+            Survey test = querier.getSurvey(exampleSurvey.username);
+            assertTrue(exampleSurvey.equals(test));
+            querier.clearTables();
+        } catch (Exception e) {
+            assertTrue(false);
+        }
     }
 
     /**
@@ -122,10 +126,14 @@ public class SQLSurveyTest {
     @Test
     public void testCreateSurvey()
     {
-        querier.clearTables();
-        querier.createUser(exampleSurvey.username, "wellNow");
-        querier.setSurvey(exampleSurvey);
-        querier.clearTables();
+        try {
+            querier.clearTables();
+            querier.createUser(exampleSurvey.username, "wellNow");
+            querier.setSurvey(exampleSurvey);
+            querier.clearTables();
+        } catch (Exception e) {
+            assertTrue(false);
+        }
     }
 
     /**
@@ -134,9 +142,13 @@ public class SQLSurveyTest {
     @Test(expected = IllegalArgumentException.class)
     public void testSetSurveyNoUser()
     {
-        querier.clearTables();
-        querier.setSurvey(exampleSurvey);
-        querier.clearTables();
+        try {
+            querier.clearTables();
+            querier.setSurvey(exampleSurvey);
+            querier.clearTables();
+        } catch (Exception e) {
+            assertTrue(false);
+        }
     }
 
     /**
@@ -145,9 +157,13 @@ public class SQLSurveyTest {
     @Test(expected = IllegalArgumentException.class)
     public void testGetSurveyNoUser()
     {
-        querier.clearTables();
-        Survey test = querier.getSurvey(exampleSurvey.username);
-        querier.clearTables();
+        try {
+            querier.clearTables();
+            Survey test = querier.getSurvey(exampleSurvey.username);
+            querier.clearTables();
+        } catch (Exception e) {
+            assertTrue(false);
+        }
     }
 
     /**
@@ -156,11 +172,15 @@ public class SQLSurveyTest {
     @Test
     public void testGetSurveyNoneExists()
     {
-        querier.clearTables();
-        querier.createUser(exampleSurvey.username, "lolololol");
-        Survey test = querier.getSurvey(exampleSurvey.username);
-        assertTrue(test == null);
-        querier.clearTables();
+        try {
+            querier.clearTables();
+            querier.createUser(exampleSurvey.username, "lolololol");
+            Survey test = querier.getSurvey(exampleSurvey.username);
+            assertTrue(test == null);
+            querier.clearTables();
+        } catch (Exception e) {
+            assertTrue(false);
+        }
     }
 
     /**
@@ -169,16 +189,20 @@ public class SQLSurveyTest {
     @Test
     public void testUpdateSurvey()
     {
-        querier.clearTables();
-        querier.createUser(exampleSurvey.username, "lolololol");
-        querier.setSurvey(exampleSurvey);
-        Survey test = querier.getSurvey(exampleSurvey.username);
-        assertTrue(exampleSurvey.equals(test));
+        try {
+            querier.clearTables();
+            querier.createUser(exampleSurvey.username, "lolololol");
+            querier.setSurvey(exampleSurvey);
+            Survey test = querier.getSurvey(exampleSurvey.username);
+            assertTrue(exampleSurvey.equals(test));
 
-        querier.setSurvey(updatedSurvey);
-        test = querier.getSurvey(updatedSurvey.username);
-        assertTrue(updatedSurvey.equals(test));
-        querier.clearTables();
+            querier.setSurvey(updatedSurvey);
+            test = querier.getSurvey(updatedSurvey.username);
+            assertTrue(updatedSurvey.equals(test));
+            querier.clearTables();
+        } catch (Exception e) {
+            assertTrue(false);
+        }
     }
 
     /**
@@ -187,66 +211,82 @@ public class SQLSurveyTest {
     @Test
     public void testSurveyMulti()
     {
-        querier.clearTables();
-        querier.createUser(exampleSurvey.username, "lolololol");
-        querier.createUser(otherSurvey.username, "lolololol");
+        try {
+            querier.clearTables();
+            querier.createUser(exampleSurvey.username, "lolololol");
+            querier.createUser(otherSurvey.username, "lolololol");
 
-        querier.setSurvey(exampleSurvey);
-        Survey test = querier.getSurvey(exampleSurvey.username);
-        assertTrue(exampleSurvey.equals(test));
+            querier.setSurvey(exampleSurvey);
+            Survey test = querier.getSurvey(exampleSurvey.username);
+            assertTrue(exampleSurvey.equals(test));
 
-        querier.setSurvey(otherSurvey);
-        test = querier.getSurvey(otherSurvey.username);
-        assertTrue(otherSurvey.equals(test));
+            querier.setSurvey(otherSurvey);
+            test = querier.getSurvey(otherSurvey.username);
+            assertTrue(otherSurvey.equals(test));
 
-        test = querier.getSurvey(exampleSurvey.username);
-        assertTrue(exampleSurvey.equals(test));
-        querier.clearTables();
+            test = querier.getSurvey(exampleSurvey.username);
+            assertTrue(exampleSurvey.equals(test));
+            querier.clearTables();
+        } catch (Exception e) {
+            assertTrue(false);
+        }
     }
 
     @Test
     public void testGetAllSurveysEmpty() {
-        querier.clearTables();
-        Set<Survey> test = querier.getAllSurveys();
-        assertTrue(test.size() == 0);
-        querier.clearTables();
+        try {
+            querier.clearTables();
+            Set<Survey> test = querier.getAllSurveys();
+            assertTrue(test.size() == 0);
+            querier.clearTables();
+        } catch (Exception e) {
+            assertTrue(false);
+        }
     }
 
     @Test
     public void testGetAllSurveysSingle() {
-        querier.clearTables();
-        querier.createUser(exampleSurvey.username, "hardy har har");
-        querier.setSurvey(exampleSurvey);
+        try {
+            querier.clearTables();
+            querier.createUser(exampleSurvey.username, "hardy har har");
+            querier.setSurvey(exampleSurvey);
 
-        Set<Survey> test = querier.getAllSurveys();
-        assertTrue(test.size() == 1);
-        for(Survey currSurvey : test) {
-            assertTrue(exampleSurvey.equals(currSurvey));
+            Set<Survey> test = querier.getAllSurveys();
+            assertTrue(test.size() == 1);
+            for (Survey currSurvey : test) {
+                assertTrue(exampleSurvey.equals(currSurvey));
+            }
+            querier.clearTables();
+        } catch (Exception e) {
+            assertTrue(false);
         }
-        querier.clearTables();
     }
 
     @Test
     public void testGetAllSurveysMulti() {
-        querier.clearTables();
-        querier.createUser(exampleSurvey.username, "hardy har har");
-        querier.setSurvey(exampleSurvey);
-        querier.createUser(otherSurvey.username, "hee hee hee");
-        querier.setSurvey(otherSurvey);
-        querier.createUser(thirdSurvey.username, "pIp pOckin");
-        querier.setSurvey(thirdSurvey);
-        List<Survey> actual = new ArrayList<>();
-        actual.add(exampleSurvey);
-        actual.add(otherSurvey);
-        actual.add(thirdSurvey);
+        try {
+            querier.clearTables();
+            querier.createUser(exampleSurvey.username, "hardy har har");
+            querier.setSurvey(exampleSurvey);
+            querier.createUser(otherSurvey.username, "hee hee hee");
+            querier.setSurvey(otherSurvey);
+            querier.createUser(thirdSurvey.username, "pIp pOckin");
+            querier.setSurvey(thirdSurvey);
+            List<Survey> actual = new ArrayList<>();
+            actual.add(exampleSurvey);
+            actual.add(otherSurvey);
+            actual.add(thirdSurvey);
 
-        Set<Survey> test = querier.getAllSurveys();
-        assertTrue(test.size() == 3);
-        for(Survey currSurvey : test) {
-            assertTrue(actual.contains(currSurvey));
-            actual.remove(currSurvey);
+            Set<Survey> test = querier.getAllSurveys();
+            assertTrue(test.size() == 3);
+            for (Survey currSurvey : test) {
+                assertTrue(actual.contains(currSurvey));
+                actual.remove(currSurvey);
+            }
+
+            querier.clearTables();
+        } catch (Exception e) {
+            assertTrue(false);
         }
-
-        querier.clearTables();
     }
 }

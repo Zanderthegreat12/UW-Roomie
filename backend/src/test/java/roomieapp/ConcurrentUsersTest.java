@@ -15,8 +15,12 @@ public class ConcurrentUsersTest {
 
     @BeforeClass
     public static void setUp() {
-        q = new Query(false);
-        q.clearTables();
+        try {
+            q = new Query(false);
+            q.clearTables();
+        } catch (Exception e) {
+            assertTrue(false);
+        }
     }
 
     @Test
@@ -26,12 +30,16 @@ public class ConcurrentUsersTest {
 
         // ParallelComputer(true,true) will run all classes and methods
         // in parallel.  (First arg for classes, second arg for methods)
-        Result result1 = JUnitCore.runClasses(new ParallelComputer(false, true), firstClass);
-        Result result2 = JUnitCore.runClasses(new ParallelComputer(false, true), secondClass);
-        List<Failure> failures1 = result1.getFailures();
-        assertTrue(failures1.size() == 0);
-        List<Failure> failures2 = result2.getFailures();
-        assertTrue(failures2.size() == 0);
+        try {
+            Result result1 = JUnitCore.runClasses(new ParallelComputer(false, true), firstClass);
+            Result result2 = JUnitCore.runClasses(new ParallelComputer(false, true), secondClass);
+            List<Failure> failures1 = result1.getFailures();
+            assertTrue(failures1.size() == 0);
+            List<Failure> failures2 = result2.getFailures();
+            assertTrue(failures2.size() == 0);
+        } catch (Exception e) {
+            assertTrue(false);
+        }
     }
 
     @AfterClass
@@ -46,21 +54,21 @@ public class ConcurrentUsersTest {
         private static boolean fourthThread = false;
 
         @Test
-        public void thread1() {
+        public void thread1() throws Exception {
             firstThread = q.createUser("user1", "thread1");
         }
 
         @Test
-        public void thread2() {
+        public void thread2() throws Exception {
             secondThread = q.createUser("user1", "thread2");
         }
         @Test
-        public void thread3() {
+        public void thread3() throws Exception {
             thirdThread = q.createUser("user2", "thread3");
         }
 
         @Test
-        public void thread4() {
+        public void thread4() throws Exception {
             fourthThread = q.createUser("user2", "thread4");
         }
 
@@ -73,14 +81,14 @@ public class ConcurrentUsersTest {
 
     public static class LoginUsers {
         @Test
-        public void thread1(){
+        public void thread1() throws Exception {
             boolean firstTry = q.login("user1", "thread1");
             boolean secondTry = q.login("user1", "thread2");
             assertTrue(firstTry ^ secondTry);
         }
 
         @Test
-        public void thread2() {
+        public void thread2() throws Exception {
             boolean firstTry = q.login("user2", "thread3");
             boolean secondTry = q.login("user2", "thread4");
             assertTrue(firstTry ^ secondTry);

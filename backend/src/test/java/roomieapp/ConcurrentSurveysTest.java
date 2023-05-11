@@ -15,8 +15,12 @@ public class ConcurrentSurveysTest {
 
     @BeforeClass
     public static void setUp() {
-        q = new Query(false);
-        q.clearTables();
+        try {
+            q = new Query(false);
+            q.clearTables();
+        } catch (Exception e) {
+            assertTrue(false);
+        }
     }
 
     @Test
@@ -27,15 +31,19 @@ public class ConcurrentSurveysTest {
 
         // ParallelComputer(true,true) will run all classes and methods
         // in parallel.  (First arg for classes, second arg for methods)
-        Result result1 = JUnitCore.runClasses(new ParallelComputer(false, true), firstSet);
-        Result result2 = JUnitCore.runClasses(new ParallelComputer(false, true), secondSet);
-        Result result3 = JUnitCore.runClasses(new ParallelComputer(true, true), thirdSet);
-        List<Failure> failures1 = result1.getFailures();
-        assertTrue(failures1.size() == 0);
-        List<Failure> failures2 = result2.getFailures();
-        assertTrue(failures2.size() == 0);
-        List<Failure> failures3 = result3.getFailures();
-        assertTrue(failures3.size() == 0);
+        try {
+            Result result1 = JUnitCore.runClasses(new ParallelComputer(false, true), firstSet);
+            Result result2 = JUnitCore.runClasses(new ParallelComputer(false, true), secondSet);
+            Result result3 = JUnitCore.runClasses(new ParallelComputer(true, true), thirdSet);
+            List<Failure> failures1 = result1.getFailures();
+            assertTrue(failures1.size() == 0);
+            List<Failure> failures2 = result2.getFailures();
+            assertTrue(failures2.size() == 0);
+            List<Failure> failures3 = result3.getFailures();
+            assertTrue(failures3.size() == 0);
+        } catch (Exception e) {
+            assertTrue(false);
+        }
     }
 
     @AfterClass
@@ -46,21 +54,21 @@ public class ConcurrentSurveysTest {
     public static class CreateUsers {
 
         @Test
-        public void thread1() {
+        public void thread1() throws Exception{
             assertTrue(q.createUser("user1", "thread1"));
         }
 
         @Test
-        public void thread2() {
+        public void thread2() throws Exception {
             assertTrue(q.createUser("user2", "thread2"));
         }
         @Test
-        public void thread3() {
+        public void thread3() throws Exception{
             assertTrue(q.createUser("user3", "thread3"));
         }
 
         @Test
-        public void thread4() {
+        public void thread4() throws Exception{
             assertTrue(q.createUser("user4", "thread4"));
         }
     }
@@ -111,14 +119,14 @@ public class ConcurrentSurveysTest {
         );
 
         @Test
-        public void thread1(){
+        public void thread1() throws Exception{
             q.setSurvey(user1Survey);
             Survey user1Test = q.getSurvey(user1Survey.username);
             assertTrue(user1Test.equals(user1Survey));
         }
 
         @Test
-        public void thread2() {
+        public void thread2() throws Exception {
             q.setSurvey(user2Survey);
             Survey user2Test = q.getSurvey(user2Survey.username);
             assertTrue(user2Test.equals(user2Survey));
@@ -171,14 +179,14 @@ public class ConcurrentSurveysTest {
         );
 
         @Test
-        public void thread1(){
+        public void thread1() throws Exception {
             q.setSurvey(user1Survey);
             Survey user1Test = q.getSurvey(user1Survey.username);
             assertTrue(user1Test.equals(user1Survey));
         }
 
         @Test
-        public void thread2() {
+        public void thread2() throws Exception {
             q.setSurvey(user2Survey);
             Survey user2Test = q.getSurvey(user2Survey.username);
             assertTrue(user2Test.equals(user2Survey));
@@ -231,14 +239,14 @@ public class ConcurrentSurveysTest {
         );
 
         @Test
-        public void thread1(){
+        public void thread1() throws Exception {
             q.setSurvey(user3Survey);
             Survey user2Test = q.getSurvey(user3Survey.username);
             assertTrue(user2Test.equals(user3Survey));
         }
 
         @Test
-        public void thread2() {
+        public void thread2() throws Exception {
             q.setSurvey(user4Survey);
             Survey user2Test = q.getSurvey(user4Survey.username);
             assertTrue(user2Test.equals(user4Survey));

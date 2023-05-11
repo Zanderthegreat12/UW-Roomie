@@ -4,6 +4,7 @@ import org.apache.commons.lang3.NotImplementedException;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.ConnectException;
 import java.sql.*;
 import java.util.*;
 import java.util.Properties;
@@ -32,7 +33,7 @@ public class Query {
             } else {
                 this.conn = DBConnUtils.openTestConnection();
             }
-        } catch (Exception e){
+        }catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -285,8 +286,8 @@ public class Query {
             clearTable("Contact_Info");
             clearTable("Users");
             conn.commit();
-        } catch (Exception e) {
-            //e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
@@ -301,8 +302,9 @@ public class Query {
      * @param password a string to verify user's identity
      * @return return false if another user already has username, otherwise
      *         return true if login was successful
+     * @throws ConnectException if SQL database fails to commit queries
      */
-    public boolean createUser(String username, String password) {
+    public boolean createUser(String username, String password) throws ConnectException {
         try {
             // check if username already exists
             if(userExists(username)) {
@@ -321,7 +323,9 @@ public class Query {
             //e.printStackTrace();
             try {
                 conn.rollback();
-            } catch (SQLException otherE) {}
+            } catch (SQLException otherE) {
+                throw new ConnectException();
+            }
             return createUser(username, password);
         }
     }
@@ -331,8 +335,9 @@ public class Query {
      * @param username user's identifier
      * @param password a string to verify user's identity
      * @return return true if login was successful, otherwise return false
+     * @throws ConnectException if SQL database fails to commit queries
      */
-    public boolean login(String username, String password) {
+    public boolean login(String username, String password) throws ConnectException {
         try {
             PreparedStatement getUserStmt = getUserStmt(username);
             ResultSet user = getUserStmt.executeQuery();
@@ -354,7 +359,9 @@ public class Query {
             //e.printStackTrace();
             try {
                 conn.rollback();
-            } catch (SQLException otherE) {}
+            } catch (SQLException otherE) {
+                throw new ConnectException();
+            }
             return login(username, password);
         }
     }
@@ -365,8 +372,9 @@ public class Query {
      * @return contact info of given user.
      *         If contact info of given user not found, return null.
      * @throws IllegalArgumentException if user not found in database
+     * @throws ConnectException if SQL database fails to commit queries
      */
-    public ContactInfo getContactInfo(String username) {
+    public ContactInfo getContactInfo(String username) throws ConnectException {
         try {
             // if username not found, throw exception
             if(!userExists(username)) {
@@ -392,7 +400,9 @@ public class Query {
             //e.printStackTrace();
             try {
                 conn.rollback();
-            } catch (SQLException otherE) {}
+            } catch (SQLException otherE) {
+                throw new ConnectException();
+            }
             return getContactInfo(username);
         }
     }
@@ -404,8 +414,9 @@ public class Query {
      * @return survey answers of given user.
      *         If survey answers not found under user, return null.
      * @throws IllegalArgumentException if user not found in database
+     * @throws ConnectException if SQL database fails to commit queries
      */
-    public Survey getSurvey(String username) {
+    public Survey getSurvey(String username) throws ConnectException {
         try {
             // if username not found, throw exception
             if(!userExists(username)) {
@@ -431,7 +442,9 @@ public class Query {
             //e.printStackTrace();
             try {
                 conn.rollback();
-            } catch (SQLException otherE) {}
+            } catch (SQLException otherE) {
+                throw new ConnectException();
+            }
             return getSurvey(username);
         }
     }
@@ -442,8 +455,9 @@ public class Query {
      * @param userContactInfo updates contact information with info
      *                        provided in this
      * @throws IllegalArgumentException if userContactInfo has invalid values
+     * @throws ConnectException if SQL database fails to commit queries
      */
-    public void setContactInfo(ContactInfo userContactInfo) {
+    public void setContactInfo(ContactInfo userContactInfo) throws ConnectException {
         try {
             String username = userContactInfo.username;
 
@@ -470,7 +484,9 @@ public class Query {
         } catch (SQLException e) {
             try {
                 conn.rollback();
-            } catch (SQLException otherE) {}
+            } catch (SQLException otherE) {
+                throw new ConnectException();
+            }
 
             // if value incorrect format, throw exception, else try again
             if(e.getErrorCode() == 3819) {
@@ -487,8 +503,9 @@ public class Query {
      * with the new survey answers provided
      * @param userSurvey updates a survey with the information provided in userSurvey
      * @throws IllegalArgumentException if userSurvey has invalid values
+     * @throws ConnectException if SQL database fails to commit queries
      */
-    public void setSurvey(Survey userSurvey) {
+    public void setSurvey(Survey userSurvey) throws ConnectException {
         try {
             String username = userSurvey.username;
 
@@ -515,7 +532,9 @@ public class Query {
         } catch (SQLException e) {
             try {
                 conn.rollback();
-            } catch (SQLException otherE) {}
+            } catch (SQLException otherE) {
+                throw new ConnectException();
+            }
 
             // if value incorrect format, throw exception, else try again
             if(e.getErrorCode() == 3819) {
@@ -532,8 +551,9 @@ public class Query {
      * with the info provided.
      * @param matchInfo contains match information to be added/updated
      * @throws IllegalArgumentException if matchInfo has invalid values
+     * @throws ConnectException if SQL database fails to commit queries
      */
-    public void setMatch(Match matchInfo) {
+    public void setMatch(Match matchInfo) throws ConnectException {
         try {
             // if users don't exist, throw exception
             if(!userExists(matchInfo.user1) || !userExists(matchInfo.user2)) {
@@ -558,7 +578,9 @@ public class Query {
         } catch (SQLException e) {
             try {
                 conn.rollback();
-            } catch (SQLException otherE) {}
+            } catch (SQLException otherE) {
+                throw new ConnectException();
+            }
 
             // if value incorrect format, throw exception, else try again
             if(e.getErrorCode() == 3819) {
@@ -577,8 +599,9 @@ public class Query {
      * @return match info between user1 and user2.
      *         Return null if match info between user1 and user2 doesn't exist
      * @throws IllegalArgumentException if either user1 or user2 not in database
+     * @throws ConnectException if SQL database fails to commit queries
      */
-    public Match getMatch(String username1, String username2) {
+    public Match getMatch(String username1, String username2) throws ConnectException {
         if(username1.compareTo(username2) >= 0) {
             String temp = username1;
             username1 = username2;
@@ -609,7 +632,9 @@ public class Query {
             //e.printStackTrace();
             try {
                 conn.rollback();
-            } catch (SQLException otherE) {}
+            } catch (SQLException otherE) {
+                throw new ConnectException();
+            }
             return getMatch(username1, username2);
         }
     }
@@ -625,8 +650,9 @@ public class Query {
      *         matches with higher compatibility will be at beginning of list.
      *         matches with lower compatibility will be at the end of the list.
      * @throws IllegalArgumentException if user not in database
+     * @throws ConnectException if SQL database fails to commit queries
      */
-    public List<Match> getTopMatches(String username, int topK) {
+    public List<Match> getTopMatches(String username, int topK) throws ConnectException {
         try {
             List<Match> topMatches = new LinkedList<>();
 
@@ -649,7 +675,9 @@ public class Query {
             //e.printStackTrace();
             try {
                 conn.rollback();
-            } catch (SQLException otherE) {}
+            } catch (SQLException otherE) {
+                throw new ConnectException();
+            }
             return getTopMatches(username, topK);
         }
     }
@@ -661,9 +689,10 @@ public class Query {
      * @param newCompatibility the updated compatibility for the 2 users
      * @throws IllegalArgumentException if users or match not found in database
      *         or if newCompatibility not between 0 and 100
+     * @throws ConnectException if SQL database fails to commit queries
      */
     public void updateCompatibility(String username1, String username2,
-                                    float newCompatibility) {
+                                    float newCompatibility) throws ConnectException {
         if(username1.compareTo(username2) >= 0) {
             String temp = username1;
             username1 = username2;
@@ -684,7 +713,9 @@ public class Query {
         } catch (SQLException e) {
             try {
                 conn.rollback();
-            } catch (SQLException otherE) {}
+            } catch (SQLException otherE) {
+                throw new ConnectException();
+            }
 
             // if value incorrect format, throw exception, else try again
             if(e.getErrorCode() == 3819) {
@@ -703,8 +734,10 @@ public class Query {
      * @param newMatchStatus the updated compatibility for the 2 users
      * @throws IllegalArgumentException if users or match not found in database
      *         or if newMatchStatus not between 0 and 3
+     * @throws ConnectException if SQL database fails to commit queries
      */
-    public void updateMatchStatus(String username1, String username2, int newMatchStatus) {
+    public void updateMatchStatus(String username1, String username2, int newMatchStatus)
+            throws ConnectException{
         if(username1.compareTo(username2) >= 0) {
             String temp = username1;
             username1 = username2;
@@ -726,7 +759,9 @@ public class Query {
         } catch (SQLException e) {
             try {
                 conn.rollback();
-            } catch (SQLException otherE) {}
+            } catch (SQLException otherE) {
+                throw new ConnectException();
+            }
 
             // if value incorrect format, throw exception, else try again
             if(e.getErrorCode() == 3819) {
@@ -743,8 +778,9 @@ public class Query {
      * This is used to determine compatibility scores between users.
      * @return set of survey answers of all users in database.
      *      If there are no surveys, return an empty set
+     * @throws ConnectException if SQL database fails to commit queries
      */
-    public Set<Survey> getAllSurveys() {
+    public Set<Survey> getAllSurveys() throws ConnectException{
         try {
             Set<Survey> surveys = new HashSet<>();
             ResultSet currSurvey = getAllSurveysStmt().executeQuery();
@@ -759,7 +795,9 @@ public class Query {
             //e.printStackTrace();
             try {
                 conn.rollback();
-            } catch (SQLException otherE) {}
+            } catch (SQLException otherE) {
+                throw new ConnectException();
+            }
             return getAllSurveys();
         }
     }
