@@ -69,10 +69,15 @@ Review Alpha build version
 - Start editing the user interface with good styles/design 
 
 #### Second Subsection:
-
+- Finished implementing basic features for all screens
+- Created dropdown button lists for the survey
+- Tried to implement radio buttons for the survey but they didn't work well enough; currently stuck on this
+- Added more styles and padding
 
 #### Third Subsection:
-
+- Figure out how to make the radio buttons work
+- Make a navigation menu bar for most screens
+- Do more editing to make the screens look nicer
 
 ### Bella:
 #### First subsection:
