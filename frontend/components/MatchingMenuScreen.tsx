@@ -18,7 +18,7 @@ export default function MatchingMenuScreen({route}) {
 
     let runAlg = async(user) => {
         try{
-            let responsePromise = fetch("https://3xasbdsrh3.us-west-2.awsapprunner.com/runAlg?username=" + user);
+            let responsePromise = fetch("https://vpwcr48jrb.us-west-2.awsapprunner.com/runAlg?username=" + user);
             let res = await responsePromise;
             if(!res.ok){
                 let ExtraButtons: any[] = [];

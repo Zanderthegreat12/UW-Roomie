@@ -473,7 +473,7 @@ export default function SurveyMenuScreen({route}) {
 
 getSurvey = async({infoString}, {nav}, {userN}) => {
     try{
-         let responsePromise = fetch("https://3xasbdsrh3.us-west-2.awsapprunner.com/createSurvey?str=" + infoString);
+         let responsePromise = fetch("https://vpwcr48jrb.us-west-2.awsapprunner.com/createSurvey?str=" + infoString);
          let res = await responsePromise;
          if(!res.ok){
              alert("Error! Expected: 200, Was: " + res.status);
