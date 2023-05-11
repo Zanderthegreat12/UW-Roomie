@@ -1,14 +1,10 @@
 package roomieapp;
 
-import java.security.NoSuchAlgorithmException;
+import java.security.*;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.util.Arrays;
-import java.util.Properties;
 import java.util.Random;
+import javax.crypto.*;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
@@ -17,7 +13,68 @@ import javax.crypto.spec.PBEKeySpec;
 /**
  * A collection of utility methods to help with managing passwords
  */
-public class PasswordUtils {
+public class SecurityUtils {
+
+  private KeyPair key;
+
+  /**
+   * Initializes the key required for encrypting/decrypting data
+   */
+  public SecurityUtils() {
+    //Creating KeyPair generator object
+    try {
+      KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance("DSA");
+      keyPairGen.initialize(KEY_LENGTH);
+      this.key = keyPairGen.generateKeyPair();
+    } catch (Exception e) {
+      throw new RuntimeException();
+    }
+  }
+
+  /**
+   * Returns the decrypted version of user input
+   * @param encryptedInfo the bytes of the info we want to decrypt
+   * @return the unencrypted version of encryptedInfo as a String
+   */
+  public String decrypt(byte[] encryptedInfo) {
+    try {
+      Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
+      cipher.init(Cipher.DECRYPT_MODE, key.getPrivate());
+
+      //Add data to the cipher
+      cipher.update(encryptedInfo);
+
+      //decrypting the data
+      byte[] decipheredText = cipher.doFinal();
+      String info = new String(decipheredText);
+      return info;
+
+    } catch (Exception e) {
+      throw new RuntimeException();
+    }
+  }
+
+  /**
+   * Returns the encrypted version of user input
+   * @param info the bytes of the info we want to encrypt
+   * @return the encrypted version of info as byte[]
+   */
+  public byte[] encrypt(String info) {
+    try {
+      Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
+      cipher.init(Cipher.ENCRYPT_MODE, key.getPublic());
+
+      //Decrypting the text
+      byte[] input = info.getBytes();
+      cipher.update(input);
+      byte[] cipheredText = cipher.doFinal();
+      return cipheredText;
+
+    } catch (Exception e) {
+      throw new RuntimeException();
+    }
+  }
+
   /**
    * Generates a cryptographically-secure salted password.
    * @param password non-encrypted password.
@@ -61,7 +118,7 @@ public class PasswordUtils {
     }
     return true;
   }
-  
+
   // Password hashing parameter constants.
 
   // The higher the hash_strength, the less likely there's a collision
@@ -75,7 +132,7 @@ public class PasswordUtils {
    * Generate a small bit of randomness to serve as a password "salt"
    * @return a random byte array representing the salt part of the encrypted password
    */
-  static byte[] generateSalt() {
+  private static byte[] generateSalt() {
     byte[] salt = new byte[SALT_LENGTH];
     Random rand = new Random();
     rand.nextBytes(salt);
@@ -89,7 +146,7 @@ public class PasswordUtils {
    * @param salt random btye[] used to generate encrypted password
    * @return byte[] containing the encrypted password generated from password and salt
    */
-  static byte[] generateSaltedPassword(String password, byte[] salt)
+  private static byte[] generateSaltedPassword(String password, byte[] salt)
     throws IllegalStateException {
     // Specify the hash parameters, including the salt
     KeySpec spec = new PBEKeySpec(password.toCharArray(), salt,
@@ -97,7 +154,7 @@ public class PasswordUtils {
 
     // Hash the whole thing
     SecretKeyFactory factory = null;
-    byte[] hash = null; 
+    byte[] hash = null;
     try {
       factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
       hash = factory.generateSecret(spec).getEncoded();

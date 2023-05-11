@@ -19,6 +19,8 @@ public class Query {
     // The connection manager
     // This is how Query will make queries to the SQL database
     private Connection conn;
+    // This encrypts data such as contact information and passwords
+    private SecurityUtils security;
 
     /**
      * Initializes a connection with SQL database
@@ -33,6 +35,7 @@ public class Query {
             } else {
                 this.conn = DBConnUtils.openTestConnection();
             }
+            this.security = new SecurityUtils();
         }catch (Exception e) {
             e.printStackTrace();
         }
@@ -314,7 +317,7 @@ public class Query {
 
             // username doesn't exist, so create the new user and return true
             PreparedStatement createUserStmt = createUserStmt(username,
-                    PasswordUtils.hashPassword(password));
+                    SecurityUtils.hashPassword(password));
             createUserStmt.executeUpdate();
             conn.commit();
             return true;
@@ -349,7 +352,7 @@ public class Query {
             }
 
             // if password matches, return true, otherwise return false
-            boolean correctLogin = PasswordUtils.plaintextMatchesHash(
+            boolean correctLogin = SecurityUtils.plaintextMatchesHash(
                     password, user.getBytes(2));
             user.close();
             conn.commit();
