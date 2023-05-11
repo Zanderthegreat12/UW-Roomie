@@ -18,7 +18,7 @@ export default function MatchingMenuScreen({route}) {
 
     let runAlg = async(user) => {
         try{
-            let responsePromise = fetch("https://vpwcr48jrb.us-west-2.awsapprunner.com/runAlg?username=" + user);
+            let responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/runAlg?username=" + user);
             let res = await responsePromise;
             if(!res.ok){
                 let ExtraButtons: any[] = [];
@@ -34,7 +34,7 @@ export default function MatchingMenuScreen({route}) {
 
     let getMatches = async (user) => {
         try {
-            let responsePromise = fetch("https://vpwcr48jrb.us-west-2.awsapprunner.com/getKmatch?username=" + user + "&numMatch=" + 10); //HARD CODE 10 AS A GLOBAL VAR
+            let responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/getKmatch?username=" + user + "&numMatch=" + 10); //HARD CODE 10 AS A GLOBAL VAR
             let res = await responsePromise;
             if (!res.ok) {
                 alert("Error! Expected: 200, Was: " + res.status);

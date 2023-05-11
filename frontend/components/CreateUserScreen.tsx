@@ -41,7 +41,7 @@ export default function HomeScreen() {
 
 createUser = async({userN}, {pass}, {nav}) => {
     try{
-         let responsePromise = fetch("https://vpwcr48jrb.us-west-2.awsapprunner.com/createUser?username=" + userN + "&password=" + pass);
+         let responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/createUser?username=" + userN + "&password=" + pass);
          let res = await responsePromise;
          if(!res.ok){
              alert("Error! Expected: 200, Was: " + res.status);
