@@ -21,6 +21,9 @@ export default function MatchingMenuScreen({route}) {
             let responsePromise = fetch("https://3xasbdsrh3.us-west-2.awsapprunner.com/runAlg?username=" + user);
             let res = await responsePromise;
             if(!res.ok){
+                let ExtraButtons: any[] = [];
+                ExtraButtons.push(<Text key={-2} style={styles.text}>If you haven't filled out Survey please do so </Text>);
+                setData(ExtraButtons);
                 return;
             }
         } catch(e) {
@@ -45,9 +48,8 @@ export default function MatchingMenuScreen({route}) {
             let ExtraButtons: any[] = [];
             let i = 0;
 
-            if(parsed.length == 0){
+            if(parsed.length == 0 && data[0] == ''){
                 ExtraButtons.push(<Text key={-1} style={styles.text}> No Matches at the Moment. Try again later.</Text>);
-                ExtraButtons.push(<Text key={-2} style={styles.text}>If you haven't filled out Survey please do so </Text>)
             }
 
             while(i < parsed.length) {

@@ -141,6 +141,18 @@ export default function MatchInfoScreen({route}) {
     return (
         <View style={styles.container}>
             {data}
+            <View style={{ flexDirection:"row" }}>
+                <Button
+                    title="Reject Match"
+                    color="#7c2bee"
+                    onPress={() => navigation.navigate('Matching Menu', {user: '' + username})}
+                />
+                <Button
+                    title="Accept Match"
+                    color="#7c2bee"
+                    onPress={() => navigation.navigate('Matching Menu', {user: '' + username})}
+                />
+            </View>
             <Button
                 title="Back to all Matches"
                 color="#7c2bee"
