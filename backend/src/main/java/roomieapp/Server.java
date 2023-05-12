@@ -117,10 +117,10 @@ public class Server {
             public Object handle(Request request, Response response) throws Exception {
                 String username = request.queryParams("username");
                 String password = request.queryParams("password");
-                q.createUser(username, password);
+                boolean creationSuccess = q.createUser(username, password);
 
                 //SHOULD WE BE HANDLING CONTACT INFO HERE TOO??
-                return true;
+                return creationSuccess;
             }
         });
 

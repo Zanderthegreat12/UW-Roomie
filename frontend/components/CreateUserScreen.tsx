@@ -48,8 +48,14 @@ createUser = async({userN}, {pass}, {nav}) => {
              return;
          }
 
-         //User created! Go to the normal screen!
-         nav.navigate('Login', {user: '' + userN})
+        let parse = res.json();
+        let parsed = await parse;
+        if(parsed == true) {
+            //User created! Go to the normal screen!
+            nav.navigate('Login', {user: '' + userN})
+        } else {
+            alert("Username already taken");
+        }
 
     } catch(e) {
          alert("There was an error contacting the server.");
