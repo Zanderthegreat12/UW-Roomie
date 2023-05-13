@@ -9,6 +9,8 @@ import java.sql.*;
 import java.util.*;
 import java.util.Properties;
 
+import static java.lang.Long.parseLong;
+
 /**
  *  A collection of Query functions that can read and write data
  *  from/to the SQL database. This class can retrieve and update
@@ -20,7 +22,7 @@ public class Query {
     // This is how Query will make queries to the SQL database
     private Connection conn;
     // This encrypts data such as contact information and passwords
-    private SecurityUtils security;
+    private SecurityUtils cipher;
 
     /**
      * Initializes a connection with SQL database
@@ -35,7 +37,7 @@ public class Query {
             } else {
                 this.conn = DBConnUtils.openTestConnection();
             }
-            this.security = new SecurityUtils();
+            this.cipher = new SecurityUtils();
         }catch (Exception e) {
             e.printStackTrace();
         }
@@ -132,10 +134,13 @@ public class Query {
             "INSERT INTO Contact_Info " +
                 "VALUES(?, ?, ?, ?);"
         );
+        byte[] email = cipher.encrypt(contact.email);
+        byte[] phoneNum = cipher.encrypt(Long.toString(contact.phoneNumber));
+        byte[] discord = cipher.encrypt(contact.discord);
         stmt.setString(1, contact.username);
-        stmt.setString(2, contact.email);
-        stmt.setLong(3, contact.phoneNumber);
-        stmt.setString(4, contact.discord);
+        stmt.setBytes(2, email);
+        stmt.setBytes(3, phoneNum);
+        stmt.setBytes(4, discord);
         return stmt;
     }
 
@@ -207,9 +212,12 @@ public class Query {
                     "discord = ? " +
                 "WHERE username = ?;"
         );
-        stmt.setString(1, contact.email);
-        stmt.setLong(2, contact.phoneNumber);
-        stmt.setString(3, contact.discord);
+        byte[] email = cipher.encrypt(contact.email);
+        byte[] phoneNum = cipher.encrypt(Long.toString(contact.phoneNumber));
+        byte[] discord = cipher.encrypt(contact.discord);
+        stmt.setBytes(1, email);
+        stmt.setBytes(2, phoneNum);
+        stmt.setBytes(3, discord);
         stmt.setString(4, contact.username);
         return stmt;
     }
@@ -856,9 +864,9 @@ public class Query {
     private ContactInfo storeContactInfo(ResultSet contact) throws SQLException {
         return new ContactInfo(
                 contact.getString(1), // username
-                contact.getString(2), // email
-                contact.getLong(3), // phone number
-                contact.getString(4) // discord
+                cipher.decrypt(contact.getBytes(2)), // email
+                parseLong(cipher.decrypt(contact.getBytes(3))), // phone number
+                cipher.decrypt(contact.getBytes(4)) // discord
         );
     }
 
