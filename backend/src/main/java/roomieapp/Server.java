@@ -22,7 +22,12 @@ public class Server {
         Spark.get("/hello", new Route() {
             @Override
             public Object handle(Request request, Response response) throws Exception {
-                return "Hello World";
+                try {
+                    return "Hello World";
+                } catch (StackOverflowError e) {
+                    stop();
+                    return handle(request, response);
+                }
             }
         });
 
@@ -31,9 +36,14 @@ public class Server {
             @Override
             public Object handle(Request request, Response response) throws Exception {
                 //q.getAllSurveys();
-                Gson g = new Gson();
-                String jsonResponse = g.toJson(q.getAllSurveys());
-                return jsonResponse;
+                try {
+                    Gson g = new Gson();
+                    String jsonResponse = g.toJson(q.getAllSurveys());
+                    return jsonResponse;
+                } catch (StackOverflowError e) {
+                    stop();
+                    return handle(request, response);
+                }
                 //return "Test connect successful!";
             }
         });
@@ -50,12 +60,17 @@ public class Server {
         Spark.get("/getKmatch", new Route() {
             @Override
             public Object handle(Request request, Response response) throws Exception {
-                String username = request.queryParams("username");
-                int numMatch = Integer.parseInt(request.queryParams("numMatch"));
+                try {
+                    String username = request.queryParams("username");
+                    int numMatch = Integer.parseInt(request.queryParams("numMatch"));
 
-                Gson g = new Gson();
-                String jsonResponse = g.toJson(q.getTopMatches(username, numMatch));
-                return jsonResponse;
+                    Gson g = new Gson();
+                    String jsonResponse = g.toJson(q.getTopMatches(username, numMatch));
+                    return jsonResponse;
+                } catch (StackOverflowError e) {
+                    stop();
+                    return handle(request, response);
+                }
             }
         });
 
@@ -67,27 +82,32 @@ public class Server {
         Spark.get("/runAlg", new Route() {
             @Override
             public Object handle(Request request, Response response) throws Exception {
-                String username = request.queryParams("username");
-                Survey user = q.getSurvey(username);
+                try {
+                    String username = request.queryParams("username");
+                    Survey user = q.getSurvey(username);
 
-                //Takes every person who isn't the user from the database
-                List<Survey> sList = new ArrayList<>(q.getAllSurveys());
+                    //Takes every person who isn't the user from the database
+                    List<Survey> sList = new ArrayList<>(q.getAllSurveys());
 
-                //Runs them through the matching algorithm
-                MatchingAlgorithm alg = new MatchingAlgorithm();
-                List<Match> mList = alg.ComputeCompatabilityForAll(user, sList);
+                    //Runs them through the matching algorithm
+                    MatchingAlgorithm alg = new MatchingAlgorithm();
+                    List<Match> mList = alg.ComputeCompatabilityForAll(user, sList);
 
-                //Puts them back into the database under matches
-                for(Match m: mList) {
-                    if(m != null) {
-                        q.setMatch(m);
+                    //Puts them back into the database under matches
+                    for (Match m : mList) {
+                        if (m != null) {
+                            q.setMatch(m);
+                        }
                     }
-                }
 
-                //Returns a jsonList. UNNECESSARY FOR DISPLAY: PURELY FOR TESTING PURPOSES.
-                Gson g = new Gson();
-                String jsonResponse = g.toJson(mList);
-                return jsonResponse;
+                    //Returns a jsonList. UNNECESSARY FOR DISPLAY: PURELY FOR TESTING PURPOSES.
+                    Gson g = new Gson();
+                    String jsonResponse = g.toJson(mList);
+                    return jsonResponse;
+                } catch (StackOverflowError e) {
+                    stop();
+                    return handle(request, response);
+                }
             }
         });
 
@@ -100,9 +120,14 @@ public class Server {
         Spark.get("/logIn", new Route() {
             @Override
             public Object handle(Request request, Response response) throws Exception {
-                String username = request.queryParams("username");
-                String password = request.queryParams("password");
-                return q.login(username, password);
+                try {
+                    String username = request.queryParams("username");
+                    String password = request.queryParams("password");
+                    return q.login(username, password);
+                } catch (StackOverflowError e) {
+                    stop();
+                    return handle(request, response);
+                }
             }
         });
 
@@ -115,12 +140,17 @@ public class Server {
         Spark.get("/createUser", new Route() {
             @Override
             public Object handle(Request request, Response response) throws Exception {
-                String username = request.queryParams("username");
-                String password = request.queryParams("password");
-                boolean creationSuccess = q.createUser(username, password);
+                try {
+                    String username = request.queryParams("username");
+                    String password = request.queryParams("password");
+                    boolean creationSuccess = q.createUser(username, password);
 
-                //SHOULD WE BE HANDLING CONTACT INFO HERE TOO??
-                return creationSuccess;
+                    //SHOULD WE BE HANDLING CONTACT INFO HERE TOO??
+                    return creationSuccess;
+                } catch (StackOverflowError e) {
+                    stop();
+                    return handle(request, response);
+                }
             }
         });
 
@@ -135,12 +165,17 @@ public class Server {
         Spark.get("/createContact", new Route() {
             @Override
             public Object handle(Request request, Response response) throws Exception {
-                String username = request.queryParams("username");
-                String email = request.queryParams("email");
-                long pNum = Long.parseLong(request.queryParams("pNum"));
-                String discord =  request.queryParams("discord");
-                q.setContactInfo(new ContactInfo(username, email, pNum, discord));
-                return true;
+                try {
+                    String username = request.queryParams("username");
+                    String email = request.queryParams("email");
+                    long pNum = Long.parseLong(request.queryParams("pNum"));
+                    String discord = request.queryParams("discord");
+                    q.setContactInfo(new ContactInfo(username, email, pNum, discord));
+                    return true;
+                } catch (StackOverflowError e) {
+                    stop();
+                    return handle(request, response);
+                }
             }
         });
 
@@ -152,10 +187,15 @@ public class Server {
         Spark.get("/getContact", new Route() {
             @Override
             public Object handle(Request request, Response response) throws Exception {
-                String username = request.queryParams("username");
-                Gson g = new Gson();
-                String jsonResponse = g.toJson(q.getContactInfo(username));
-                return jsonResponse;
+                try {
+                    String username = request.queryParams("username");
+                    Gson g = new Gson();
+                    String jsonResponse = g.toJson(q.getContactInfo(username));
+                    return jsonResponse;
+                } catch (StackOverflowError e) {
+                    stop();
+                    return handle(request, response);
+                }
             }
         });
 
@@ -168,21 +208,26 @@ public class Server {
         Spark.get("/createSurvey", new Route() {
             @Override
             public Object handle(Request request, Response response) throws Exception {
-                String toParse = request.queryParams("str");
-                String[] parsed = toParse.split(" ");
-                for(String s : parsed){
-                    s.trim();
+                try {
+                    String toParse = request.queryParams("str");
+                    String[] parsed = toParse.split(" ");
+                    for (String s : parsed) {
+                        s.trim();
+                    }
+
+                    Survey newSurvey = new Survey(parsed[0], parsed[1], parsed[2], parsed[3], Integer.parseInt(parsed[4]),
+                            Integer.parseInt(parsed[5]), Integer.parseInt(parsed[6]), Integer.parseInt(parsed[7]),
+                            Integer.parseInt(parsed[8]), Integer.parseInt(parsed[9]), Integer.parseInt(parsed[10]),
+                            Integer.parseInt(parsed[11]), Integer.parseInt(parsed[12]), Integer.parseInt(parsed[13]),
+                            Integer.parseInt(parsed[14]), Integer.parseInt(parsed[15]), Integer.parseInt(parsed[16]),
+                            Integer.parseInt(parsed[17]), parsed[18]);
+
+                    q.setSurvey(newSurvey);
+                    return true; //returns true if it has successfully connected to the server
+                } catch (StackOverflowError e) {
+                    stop();
+                    return handle(request, response);
                 }
-
-                Survey newSurvey = new Survey(parsed[0], parsed[1], parsed[2], parsed[3], Integer.parseInt(parsed[4]),
-                        Integer.parseInt(parsed[5]), Integer.parseInt(parsed[6]), Integer.parseInt(parsed[7]),
-                        Integer.parseInt(parsed[8]), Integer.parseInt(parsed[9]), Integer.parseInt(parsed[10]),
-                        Integer.parseInt(parsed[11]), Integer.parseInt(parsed[12]), Integer.parseInt(parsed[13]),
-                        Integer.parseInt(parsed[14]), Integer.parseInt(parsed[15]), Integer.parseInt(parsed[16]),
-                        Integer.parseInt(parsed[17]), parsed[18]);
-
-                q.setSurvey(newSurvey);
-                return true; //returns true if it has successfully connected to the server
             }
         });
 
@@ -195,11 +240,16 @@ public class Server {
         Spark.get("/getSurvey", new Route() {
             @Override
             public Object handle(Request request, Response response) throws Exception {
-                String username = request.queryParams("username");
+                try {
+                    String username = request.queryParams("username");
 
-                Gson g = new Gson();
-                String jsonResponse = g.toJson(q.getSurvey(username));
-                return jsonResponse;
+                    Gson g = new Gson();
+                    String jsonResponse = g.toJson(q.getSurvey(username));
+                    return jsonResponse;
+                } catch (StackOverflowError e) {
+                    stop();
+                    return handle(request, response);
+                }
             }
         });
 
