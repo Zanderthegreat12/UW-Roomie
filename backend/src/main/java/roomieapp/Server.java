@@ -26,6 +26,7 @@ public class Server {
                     return "Hello World";
                 } catch (StackOverflowError e) {
                     stop();
+                    init();
                     return handle(request, response);
                 }
             }
@@ -42,6 +43,7 @@ public class Server {
                     return jsonResponse;
                 } catch (StackOverflowError e) {
                     stop();
+                    init();
                     return handle(request, response);
                 }
                 //return "Test connect successful!";
@@ -69,6 +71,7 @@ public class Server {
                     return jsonResponse;
                 } catch (StackOverflowError e) {
                     stop();
+                    init();
                     return handle(request, response);
                 }
             }
@@ -106,6 +109,7 @@ public class Server {
                     return jsonResponse;
                 } catch (StackOverflowError e) {
                     stop();
+                    init();
                     return handle(request, response);
                 }
             }
@@ -126,6 +130,7 @@ public class Server {
                     return q.login(username, password);
                 } catch (StackOverflowError e) {
                     stop();
+                    init();
                     return handle(request, response);
                 }
             }
@@ -149,6 +154,7 @@ public class Server {
                     return creationSuccess;
                 } catch (StackOverflowError e) {
                     stop();
+                    init();
                     return handle(request, response);
                 }
             }
@@ -174,6 +180,7 @@ public class Server {
                     return true;
                 } catch (StackOverflowError e) {
                     stop();
+                    init();
                     return handle(request, response);
                 }
             }
@@ -194,6 +201,7 @@ public class Server {
                     return jsonResponse;
                 } catch (StackOverflowError e) {
                     stop();
+                    init();
                     return handle(request, response);
                 }
             }
@@ -226,6 +234,7 @@ public class Server {
                     return true; //returns true if it has successfully connected to the server
                 } catch (StackOverflowError e) {
                     stop();
+                    init();
                     return handle(request, response);
                 }
             }
@@ -248,6 +257,7 @@ public class Server {
                     return jsonResponse;
                 } catch (StackOverflowError e) {
                     stop();
+                    init();
                     return handle(request, response);
                 }
             }
