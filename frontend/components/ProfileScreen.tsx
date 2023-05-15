@@ -4,6 +4,11 @@ import { useNavigation } from '@react-navigation/native';
 import {TextInput} from 'react-native';
 import React, {useState} from 'react';
 
+/**
+ * 
+ * @param route contains information about the user
+ * @returns 
+ */
 export default function HomeScreen({route}) {
     const navigation = useNavigation();
     const [username, setUser] = useState(route.params.user);

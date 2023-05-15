@@ -47,6 +47,9 @@ export default function LoginScreen({route}) {
     );
 }
 
+/**
+ * style sheet for home screen
+ */
 const styles = StyleSheet.create({
     container: {
         flex: 1,

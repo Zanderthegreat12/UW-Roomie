@@ -3,6 +3,11 @@ import { StyleSheet, Text, View, Button } from 'react-native';
 import {useNavigation} from "@react-navigation/native";
 import React, {useEffect, useState} from 'react';
 
+/**
+ * Function to display the profile screen
+ * @param route contains information about the user
+ * @returns rendering for profile screen
+ */
 export default function MatchInfoScreen({route}) {
     const navigation = useNavigation();
 
@@ -12,6 +17,10 @@ export default function MatchInfoScreen({route}) {
 
     const[data, setData] = useState([]);
 
+    /**
+     * Gets the contact info of desired user
+     * @param user the username of current user
+     */
     let getContact = async(user) => {
         try{
              let responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/getSurvey?username=" + user);
@@ -162,6 +171,9 @@ export default function MatchInfoScreen({route}) {
     );
 }
 
+/**
+ * styles for the profile screen
+ */
 const styles = StyleSheet.create({
     container: {
         flex: 1,

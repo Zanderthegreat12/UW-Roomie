@@ -4,6 +4,10 @@ import { useNavigation } from '@react-navigation/native';
 import {TextInput} from 'react-native';
 import React, {useState} from 'react';
 
+/**
+ * Function that displays create user screen
+ * @returns rendering for creation user screen
+ */
 export default function HomeScreen() {
     const navigation = useNavigation();
     const [username, setUser] = useState('');
@@ -96,6 +100,9 @@ createUser = async({userN}, {pass}, {nav}, {pNum}, {dis}, {email}) => {
     }
 }
 
+/**
+ * style for create user screen
+ */
 const styles = StyleSheet.create({
     container: {
         flex: 1,

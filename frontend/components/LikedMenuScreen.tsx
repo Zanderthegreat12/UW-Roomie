@@ -3,7 +3,11 @@ import { StyleSheet, ScrollView, Text, View, Button } from 'react-native';
 import {useNavigation} from "@react-navigation/native";
 import {useState} from "react";
 
-
+/**
+ * Function that displays the liked menu screen
+ * @param route contains information about the user
+ * @returns rendering of liked menu screen
+ */
 export default function LikedMenuScreen({route}) {
     const navigation = useNavigation();
     const [username, setUser] = useState(route.params.user);
@@ -52,6 +56,10 @@ export default function LikedMenuScreen({route}) {
     );alignItems
 }
 
+/**
+ * runs algorithm to compute compatibility between given user and all other users
+ * @param user the username of the current user
+ */
 runAlg = async(user) => {
     try{
          let responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/runAlg?username=" + user);
@@ -67,6 +75,10 @@ runAlg = async(user) => {
     }
 }
 
+/**
+ * gets top 10 matches for given user (defines as having best compatibility)
+ * @param user username of current user
+ */
 getMatches = async(user) => {
     try{
          let responsePromise = fetch("http://localhost:4567/getKmatch?username=" + user + "&numMatch=" + 10); //HARD CODE 10 AS A GLOBAL VAR
@@ -86,6 +98,9 @@ getMatches = async(user) => {
     }
 }
 
+/**
+ * style used for liked menu screen
+ */
 const styles = StyleSheet.create({
     container: {
         flexGrow: 1,

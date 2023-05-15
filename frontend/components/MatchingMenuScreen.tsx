@@ -16,7 +16,7 @@ export default function MatchingMenuScreen({route}) {
 
     /**
      * Finds top matches for given user
-     * @param user find compatibility between this person and everyone else
+     * @param user username of current user
      */
     let AlgMatch = async(user) => {
         let a = await runAlg(user);
@@ -24,8 +24,8 @@ export default function MatchingMenuScreen({route}) {
     }
 
     /**
-     * 
-     * @param user
+     * calculates the new compatibility with given user will all other users
+     * @param user username of current user
      */
     let runAlg = async(user) => {
         try{
@@ -40,6 +40,10 @@ export default function MatchingMenuScreen({route}) {
         }
     }
 
+    /**
+     * retrives the top matches for the given user (defined as having the best compatibility)
+     * @param user username of current user
+     */
     let getMatches = async (user) => {
         try {
             let responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/getKmatch?username=" + user + "&numMatch=" + 10); //HARD CODE 10 AS A GLOBAL VAR
@@ -115,9 +119,9 @@ export default function MatchingMenuScreen({route}) {
     );alignItems
 }
 
-
-
-
+/**
+ * style for matching screen
+ */
 const styles = StyleSheet.create({
     container: {
         flexGrow: 1,
