@@ -701,31 +701,9 @@ public class Query {
      */
     public List<Match> getTopMatches(String username, int topK) throws ConnectException {
         try {
-            List<Match> topMatches = new LinkedList<>();
-
-            // throw exception if user not in database
-            if(!userExists(username)) {
-                conn.commit();
-                throw new IllegalArgumentException();
-            }
-
-            // return up to topK matches
-            PreparedStatement getTopMatchesStmt = getTopMatchesStmt(username, topK);
-            ResultSet currMatch = getTopMatchesStmt.executeQuery();
-            while(currMatch.next()) {
-                topMatches.add(storeMatch(currMatch));
-            }
-            conn.commit();
-            return topMatches;
-
+            return getMatches(username, getTopMatchesStmt(username, topK));
         } catch (SQLException e) {
-            //e.printStackTrace();
-            try {
-                conn.rollback();
-            } catch (SQLException otherE) {
-                throw new ConnectException();
-            }
-            return getTopMatches(username, topK);
+            throw new ConnectException();
         }
     }
 
@@ -859,27 +837,9 @@ public class Query {
      */
     public List<Match> getIncomingMatches(String username) throws ConnectException {
         try {
-            // throw exception if user not in database
-            if(!userExists(username)) {
-                conn.commit();
-                throw new IllegalArgumentException();
-            }
-
-            List<Match> incomingMatches = new ArrayList<>();
-            ResultSet currMatch = incomingMatchesStmt(username).executeQuery();
-            while(currMatch.next()) {
-                Match match = storeMatch(currMatch);
-                incomingMatches.add(match);
-            }
-            return incomingMatches;
-
+            return getMatches(username, incomingMatchesStmt(username));
         } catch (SQLException e) {
-            try {
-                conn.rollback();
-            } catch (SQLException otherE) {
-                throw new ConnectException();
-            }
-            return getIncomingMatches(username);
+            throw new ConnectException();
         }
     }
 
@@ -893,27 +853,9 @@ public class Query {
      */
     public List<Match> getOutgoingMatches(String username) throws ConnectException {
         try {
-            // throw exception if user not in database
-            if(!userExists(username)) {
-                conn.commit();
-                throw new IllegalArgumentException();
-            }
-
-            List<Match> outgoingMatches = new ArrayList<>();
-            ResultSet currMatch = outgoingMatchesStmt(username).executeQuery();
-            while(currMatch.next()) {
-                Match match = storeMatch(currMatch);
-                outgoingMatches.add(match);
-            }
-            return outgoingMatches;
-
+            return getMatches(username, outgoingMatchesStmt(username));
         } catch (SQLException e) {
-            try {
-                conn.rollback();
-            } catch (SQLException otherE) {
-                throw new ConnectException();
-            }
-            return getOutgoingMatches(username);
+            throw new ConnectException();
         }
     }
 
@@ -928,6 +870,17 @@ public class Query {
      */
     public List<Match> getCompleteMatches(String username) throws ConnectException {
         try {
+            return getMatches(username, completeMatchesStmt(username));
+        } catch (SQLException e) {
+            throw new ConnectException();
+        }
+    }
+
+    // gets matches for given user.
+    // the types of matches returned is specified by matchStmt
+    private List<Match> getMatches(String username, PreparedStatement matchStmt)
+            throws ConnectException{
+        try {
             // throw exception if user not in database
             if(!userExists(username)) {
                 conn.commit();
@@ -935,11 +888,13 @@ public class Query {
             }
 
             List<Match> completeMatches = new ArrayList<>();
-            ResultSet currMatch = completeMatchesStmt(username).executeQuery();
+            ResultSet currMatch = matchStmt.executeQuery();
             while(currMatch.next()) {
                 Match match = storeMatch(currMatch);
                 completeMatches.add(match);
             }
+            currMatch.close();
+            conn.commit();
             return completeMatches;
 
         } catch (SQLException e) {
@@ -948,7 +903,7 @@ public class Query {
             } catch (SQLException otherE) {
                 throw new ConnectException();
             }
-            return getCompleteMatches(username);
+            return getMatches(username, matchStmt);
         }
     }
 
