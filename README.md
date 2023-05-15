@@ -23,8 +23,8 @@ How to host code on independent server (for developers):
   2. Create 2 SQL databases. One for testing and one for main service
   3. Input the needed properties of your databses in dbconn (service database) and dbconntest (test database)
   4. host code in backend folder on a server using the following commands: <br>
-    - to build the code, run "mvn package -Dmaven.test.skip" <br>
-    - to run the code, run "mvn compile exec:java -Dexec.mainClass=roomieapp.Server"
+    - to build the code, run "mvn package -Dmaven.test.skip" in command prompt <br>
+    - to run the code, run "mvn compile exec:java -Dexec.mainClass=roomieapp.Server" in command prompt
   5. Anytime the https://5pfrmumuxf.us-west-2.awsapprunner.com is written in frontend code, change it to your new server's domain <br>
     - This isn't currently centralized in our code
   6. Install ExpoGo on phone to use app
