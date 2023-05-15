@@ -11,6 +11,35 @@ export default function HomeScreen({route}) {
     const [discord, setDiscord] = useState('');
     const [email, setEmail] = useState('');
 
+    getContactInfo = async({user}) => {
+        try{
+             let responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/getContact?username=" + user);
+             let res = await responsePromise;
+             if(!res.ok){
+                 alert("Error! Expected: 200, Was: " + res.status);
+                 return;
+             }
+
+             let parse = res.json();
+             let parsed = await parse;
+             if(parsed != null){
+                setDiscord(parsed.discord);
+                setEmail(parsed.email);
+                setNum(parsed.phoneNumber);
+             } else {
+                setDiscord("No discord given");
+                setEmail("No email given");
+                setNum("No phone number given");
+             }
+
+        } catch(e) {
+             alert("There was an error contacting the server.");
+             console.log(e);
+        }
+    }
+
+    getContactInfo({user: username});
+
     return (
         <View style={styles.container}>
             <Text style = {styles.title}>Profile</Text>
@@ -34,25 +63,6 @@ export default function HomeScreen({route}) {
             />
         </View>
     );
-}
-
-getContactInfo = async(user) => {
-    try{
-         let responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/getContact?username=" + user);
-         let res = await responsePromise;
-         if(!res.ok){
-             alert("Error! Expected: 200, Was: " + res.status);
-             return;
-         }
-
-         let parse = res.json();
-         let parsed = await parse;
-         //SET A VAR WITH THE CONTACT INFO
-
-    } catch(e) {
-         alert("There was an error contacting the server.");
-         console.log(e);
-    }
 }
 
 const styles = StyleSheet.create({

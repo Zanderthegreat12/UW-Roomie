@@ -8,6 +8,9 @@ export default function HomeScreen() {
     const navigation = useNavigation();
     const [username, setUser] = useState('');
     const [password, setPass] = useState('');
+    const [phone, setPhone] = useState('');
+    const [discord, setDis] = useState('');
+    const [email, setEmail] = useState('');
 
     return (
         <View style={styles.container}>
@@ -30,21 +33,51 @@ export default function HomeScreen() {
                 value={password}
             />
 
+            <Text style = {styles.text}>Insert Phone Number:</Text>
+            <TextInput
+                editable
+                style={styles.textBox}
+                maxLength={20}
+                onChangeText={text => setPhone(text)}
+                value={phone}
+            />
+
+            <Text style = {styles.text}>Insert Email:</Text>
+            <TextInput
+                editable
+                style={styles.textBox}
+                maxLength={20}
+                onChangeText={text => setEmail(text)}
+                value={email}
+            />
+
+            <Text style = {styles.text}>Insert Discord:</Text>
+            <TextInput
+                editable
+                style={styles.textBox}
+                maxLength={20}
+                onChangeText={text => setDis(text)}
+                value={discord}
+            />
+
+
              <Button
                 title="Create"
                 color="#7c2bee"
-                onPress={() => createUser({userN: username}, {pass: password}, {nav: navigation})}
+                onPress={() => createUser({userN: username}, {pass: password}, {nav: navigation}, {pNum: phone},
+                    {dis: discord}, {email: email})}
              />
         </View>
     );
 }
 
-createUser = async({userN}, {pass}, {nav}) => {
+createUser = async({userN}, {pass}, {nav}, {pNum}, {dis}, {email}) => {
     try{
-         let responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/createUser?username=" + userN + "&password=" + pass);
+         let responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/createUser?username=" + userN + "&password=" + pass + + "&pNum=" + pNum + "&discord=" + dis + "&email=" + email);
          let res = await responsePromise;
          if(!res.ok){
-             alert("Error! Expected: 200, Was: " + res.status);
+             alert("Some field not filled");
+             //alert("Error! Expected: 200, Was: " + res.status);
              return;
          }
 
