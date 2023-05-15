@@ -7,31 +7,17 @@ import React, {useMemo, useState} from 'react';
 import {Image, ScrollView, FlatList, SafeAreaView} from 'react-native';
 Dropdown.setListMode("SCROLLVIEW")
 
+/**
+ * Function to display survey screen
+ * @param route contains info about user
+ * @returns rendering for the survey screen
+ */
 export default function SurveyMenuScreen({route}) {
     const [username, setUser] = useState(route.params.user);
-    function answerSurveyQ(value) {
-        answersOpen = -1
-        return value
-    }
     const navigation = useNavigation()
-    const dormNames = [
-        "Alder-Hall",
-        "Elm-Hall",
-        "Hansee-Hall",
-        "Lander-Hall",
-        "Madrona-Hall",
-        "Maple-Hall",
-        "McCarty-Hall",
-        "McMahon-Hall",
-        "Oak-Hall",
-        "Poplar-Hall",
-        "Terry-Hall",
-        "Willow-Hall",
-        "Mercer-Court",
-        "Stevens-Court"
-    ]
     var answersOpen = -1
 
+    // Dorm ranking state
     const [firstDormOpen, setFirstDormOpen] = useState(false);
     const [firstDormValue, setFirstDormValue] = useState(null);
     const [secondDormOpen, setSecondDormOpen] = useState(false);
@@ -54,6 +40,7 @@ export default function SurveyMenuScreen({route}) {
         {label: 'Stevens Court', value: 'Stevens-Court'}
     ]);
 
+    // room type question state
     const [roomTypeOpen, setRoomTypeOpen] = useState(false);
     const [roomTypeValue, setRoomTypeValue] = useState(null);
     const [roomTypes, setRoomTypes] = useState([
@@ -65,6 +52,7 @@ export default function SurveyMenuScreen({route}) {
         {label: '6 bedrooms', value: 6},
     ]);
 
+    // gender inclusive state
     const [genderInclusiveOpen, setGenderInclusiveOpen] = useState(false);
     const [genderInclusiveValue, setGenderInclusiveValue] = useState(null);
     const [genderInclusivity, setGenderInclusivity] = useState([
@@ -72,6 +60,7 @@ export default function SurveyMenuScreen({route}) {
         {label: 'No. I don\'t want to be in gender inclusive dorming', value: 0},
     ]);
 
+    // student year state
     const [studentYearOpen, setStudentYearOpen] = useState(false);
     const [studentYearValue, setStudentYearValue] = useState(null);
     const [studentYears, setStudentYears] = useState([
@@ -81,6 +70,7 @@ export default function SurveyMenuScreen({route}) {
         {label: '4th year', value: 4},
     ]);
 
+    // roommate year state
     const [roommateYearOpen, setRoommateYearOpen] = useState(false);
     const [roommateYearValue, setRoommateYearValue] = useState(null);
     const [roommateYears, setRoommateYears] = useState([
@@ -91,6 +81,7 @@ export default function SurveyMenuScreen({route}) {
         {label: 'don\'t care', value: -1}
     ]);
 
+    // drinking preference state
     const [drinkingPrefOpen, setDrinkingPrefOpen] = useState(false);
     const [drinkingPrefValue, setDrinkingPrefValue] = useState(null);
     const [drinkingPref, setDrinkingPref] = useState([
@@ -98,6 +89,7 @@ export default function SurveyMenuScreen({route}) {
         {label: 'I\'m cool with roommate drinking', value: 1},
     ]);
 
+    // wake time state
     const [wakeTimeOpen, setWakeTimeOpen] = useState(false);
     const [wakeTimeValue, setWakeTimeValue] = useState(null);
     const [wakeTimes, setWakeTimes] = useState([
@@ -110,6 +102,7 @@ export default function SurveyMenuScreen({route}) {
         {label: '12:00 pm - 1:00 pm', value: 12},
     ]);
 
+    // sleep time state
     const [sleepTimeOpen, setSleepTimeOpen] = useState(false);
     const [sleepTimeValue, setSleepTimeValue] = useState(null);
     const [sleepTimes, setSleepTimes] = useState([
@@ -122,6 +115,7 @@ export default function SurveyMenuScreen({route}) {
         {label: '3:00 am- 4:00 am', value: 12},
     ]);
 
+    // light/heavy sleeper state
     const [heavySleepOpen, setHeavySleepOpen] = useState(false);
     const [heavySleepValue, setHeavySleepValue] = useState(null);
     const [heavySleep, setHeavySleep] = useState([
@@ -129,6 +123,7 @@ export default function SurveyMenuScreen({route}) {
         {label: 'I\'m a heavy sleeper', value: 1},
     ]);
 
+    // student vertness state
     const [studentVertOpen, setStudentVertOpen] = useState(false);
     const [studentVertValue, setStudentVertValue] = useState(null);
     const [studentVerts, setStudentVerts] = useState([
@@ -137,6 +132,7 @@ export default function SurveyMenuScreen({route}) {
         {label: 'I\'m an extrovert', value: 2}
     ]);
 
+    // roommate vertness state
     const [roommateVertOpen, setRoommateVertOpen] = useState(false);
     const [roommateVertValue, setRoommateVertValue] = useState(null);
     const [roommateVerts, setRoommateVerts] = useState([
@@ -146,6 +142,7 @@ export default function SurveyMenuScreen({route}) {
         {label: 'I don\'t care', value: -1}
     ]);
 
+    // student friends state
     const [studentFriendsOpen, setStudentFriendsOpen] = useState(false);
     const [studentFriendsValue, setStudentFriendsValue] = useState(null);
     const [studentFriends, setStudentFriends] = useState([
@@ -153,6 +150,7 @@ export default function SurveyMenuScreen({route}) {
         {label: 'I will want to bring friends to the dorm room', value: 1}
     ]);
 
+    // roommate friends state
     const [roommateFriendsOpen, setRoommateFriendsOpen] = useState(false);
     const [roommateFriendsValue, setRoommateFriendsValue] = useState(null);
     const [roommateFriends, setRoommateFriends] = useState([
@@ -160,6 +158,7 @@ export default function SurveyMenuScreen({route}) {
         {label: 'I\'m cool with my roommate bringing friends to the dorm', value: 1}
     ]);
 
+    // student neat state
     const [studentNeatOpen, setStudentNeatOpen] = useState(false);
     const [studentNeatValue, setStudentNeatValue] = useState(null);
     const [studentNeat, setStudentNeat] = useState([
@@ -167,6 +166,7 @@ export default function SurveyMenuScreen({route}) {
         {label: 'I\'m clean, neat, and organized', value: 1}
     ]);
 
+    // roommate neat state
     const [roommateNeatOpen, setRoommateNeatOpen] = useState(false);
     const [roommateNeatValue, setRoommateNeatValue] = useState(null);
     const [roommateNeat, setRoommateNeat] = useState([
@@ -174,6 +174,7 @@ export default function SurveyMenuScreen({route}) {
         {label: 'I want my roommate to be clean, neat, and organized', value: 1}
     ]);
 
+    // function to ensure only 1 dropdown is open
     const open = [setFirstDormOpen, setSecondDormOpen, setThirdDormOpen, setRoomTypeOpen,
         setGenderInclusiveOpen, setStudentYearOpen, setRoommateYearOpen, setDrinkingPrefOpen,
         setWakeTimeOpen, setSleepTimeOpen, setHeavySleepOpen, setStudentVertOpen,
@@ -189,6 +190,7 @@ export default function SurveyMenuScreen({route}) {
         }
     }
 
+    // returns the components that make up the survey menu
     return (
         <ScrollView contentContainerStyle={styles.container} nestedScrollEnabled={true}>
             <Text style={styles.title}>Roomie Survey</Text>
