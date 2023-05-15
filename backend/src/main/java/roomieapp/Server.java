@@ -149,7 +149,12 @@ public class Server {
                     String username = request.queryParams("username");
                     String password = request.queryParams("password");
                     boolean creationSuccess = q.createUser(username, password);
-
+                    if(creationSuccess){
+                        Long phoneNum = Long.parseLong(request.queryParams("pNum"));
+                        String discord = request.queryParams("discord");
+                        String email = request.queryParams("email");
+                        q.setContactInfo(new ContactInfo(username, email, phoneNum, discord));
+                    }
                     //SHOULD WE BE HANDLING CONTACT INFO HERE TOO??
                     return creationSuccess;
                 } catch (StackOverflowError e) {
