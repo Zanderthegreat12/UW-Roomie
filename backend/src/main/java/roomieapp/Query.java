@@ -287,6 +287,42 @@ public class Query {
         return stmt;
     }
 
+    // query to find all incoming match requests
+    private PreparedStatement incomingMatchesStmt(String user) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement(
+            "SELECT * FROM Matches " +
+                "WHERE (user1 = ? and matchStatus = 2) " +
+                    "or (user2 = ? and matchStatus = 1)"
+        );
+        stmt.setString(1, user);
+        stmt.setString(2, user);
+        return stmt;
+    }
+
+    // query to find all outgoing match requests
+    private PreparedStatement outgoingMatchesStmt(String user) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement(
+                "SELECT * FROM Matches " +
+                    "WHERE (user1 = ? and matchStatus = 1) " +
+                        "or (user2 = ? and matchStatus = 2)"
+        );
+        stmt.setString(1, user);
+        stmt.setString(2, user);
+        return stmt;
+    }
+
+    // query to find everyone whom you already matched with
+    private PreparedStatement completeMatchesStmt(String user) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement(
+                "SELECT * FROM Matches " +
+                    "WHERE (user1 = ? or user2 = ?) " +
+                        "and matchStatus = 3"
+        );
+        stmt.setString(1, user);
+        stmt.setString(2, user);
+        return stmt;
+    }
+
     /**
      * Clears all tables from SQL database
      */
@@ -810,6 +846,109 @@ public class Query {
                 throw new ConnectException();
             }
             return getAllSurveys();
+        }
+    }
+
+    /**
+     * Returns all incoming match requests for given user.
+     * Matches aren't returned in any given order
+     * @param username identifier for user
+     * @return list of incoming match requests
+     * @throws IllegalArgumentException if user not in database
+     * @throws ConnectException if SQL database fails to commit queries
+     */
+    public List<Match> getIncomingMatches(String username) throws ConnectException {
+        try {
+            // throw exception if user not in database
+            if(!userExists(username)) {
+                conn.commit();
+                throw new IllegalArgumentException();
+            }
+
+            List<Match> incomingMatches = new ArrayList<>();
+            ResultSet currMatch = incomingMatchesStmt(username).executeQuery();
+            while(currMatch.next()) {
+                Match match = storeMatch(currMatch);
+                incomingMatches.add(match);
+            }
+            return incomingMatches;
+
+        } catch (SQLException e) {
+            try {
+                conn.rollback();
+            } catch (SQLException otherE) {
+                throw new ConnectException();
+            }
+            return getIncomingMatches(username);
+        }
+    }
+
+    /**
+     * Returns all outgoing match requests for given user.
+     * Matches aren't returned in any given order
+     * @param username identifier for user
+     * @return list of outgoing match requests
+     * @throws IllegalArgumentException if user not in database
+     * @throws ConnectException if SQL database fails to commit queries
+     */
+    public List<Match> getOutgoingMatches(String username) throws ConnectException {
+        try {
+            // throw exception if user not in database
+            if(!userExists(username)) {
+                conn.commit();
+                throw new IllegalArgumentException();
+            }
+
+            List<Match> outgoingMatches = new ArrayList<>();
+            ResultSet currMatch = outgoingMatchesStmt(username).executeQuery();
+            while(currMatch.next()) {
+                Match match = storeMatch(currMatch);
+                outgoingMatches.add(match);
+            }
+            return outgoingMatches;
+
+        } catch (SQLException e) {
+            try {
+                conn.rollback();
+            } catch (SQLException otherE) {
+                throw new ConnectException();
+            }
+            return getOutgoingMatches(username);
+        }
+    }
+
+    /**
+     * Returns all completed match requests for given user
+     * where both users matched with each other.
+     * Matches aren't returned in any given order.
+     * @param username identifier for user
+     * @return list of matches of where user and other user both matched each other
+     * @throws IllegalArgumentException if user not in database
+     * @throws ConnectException if SQL database fails to commit queries
+     */
+    public List<Match> getCompleteMatches(String username) throws ConnectException {
+        try {
+            // throw exception if user not in database
+            if(!userExists(username)) {
+                conn.commit();
+                throw new IllegalArgumentException();
+            }
+
+            List<Match> completeMatches = new ArrayList<>();
+            ResultSet currMatch = completeMatchesStmt(username).executeQuery();
+            while(currMatch.next()) {
+                Match match = storeMatch(currMatch);
+                completeMatches.add(match);
+            }
+            return completeMatches;
+
+        } catch (SQLException e) {
+            try {
+                conn.rollback();
+            } catch (SQLException otherE) {
+                throw new ConnectException();
+            }
+            return getCompleteMatches(username);
         }
     }
 

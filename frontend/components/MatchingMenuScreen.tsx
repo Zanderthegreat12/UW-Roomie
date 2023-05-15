@@ -14,12 +14,19 @@ export default function MatchingMenuScreen({route}) {
 
     const[data, setData] = useState([]);
 
+    /**
+     * Finds top matches for given user
+     * @param user find compatibility between this person and everyone else
+     */
     let AlgMatch = async(user) => {
         let a = await runAlg(user);
         let b = await getMatches(user);
     }
 
-
+    /**
+     * 
+     * @param user
+     */
     let runAlg = async(user) => {
         try{
             let responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/runAlg?username=" + user);

@@ -54,10 +54,11 @@ export default function HomeScreen() {
 
 /**
  * checks if log in of user is successful.
- * I login successful
- * @param userN
- * @param pass
- * @param nav
+ * If login successful, identify user as 'userN'
+ * Else notify user that login failed
+ * @param userN username that the user is logging in with
+ * @param pass password that the user is logging in with
+ * @param nav navigates to desired screen
  */
 logIn = async({userN}, {pass}, {nav}) => {
     try{

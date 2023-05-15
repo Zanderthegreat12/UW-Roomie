@@ -70,6 +70,62 @@ public class SQLMatchTest {
             2
     );
 
+    private static final Match incomingMatch1 = new Match(
+            "aUser1",
+            "incomingUser1",
+            10,
+            2
+    );
+
+    private static final Match incomingMatch2 = new Match(
+            "aUser1",
+            "incomingUser2",
+            64,
+            2
+    );
+
+    private static final Match outgoingMatch1 = new Match(
+            "aUser1",
+            "outgoingUser1",
+            28,
+            1
+    );
+
+    private static final Match outgoingMatch2 = new Match(
+            "aUser1",
+            "outgoingUser2",
+            98,
+            1
+    );
+
+    private static final Match completeMatch1 = new Match(
+            "aUser1",
+            "completeUser1",
+            49,
+            3
+    );
+
+    private static final Match completeMatch2 = new Match(
+            "aUser1",
+            "completeUser2",
+            81,
+            3
+    );
+
+    private static final Match nonMatch1 = new Match(
+            "aUser1",
+            "nonUser1",
+            3,
+            0
+    );
+
+    private static final Match nonMatch2 = new Match(
+            "aUser1",
+            "nonUser2",
+            56,
+            0
+    );
+
     /**
      * test creating match for single pair of users
      */
@@ -423,6 +479,171 @@ public class SQLMatchTest {
             querier.setMatch(match);
 
             querier.updateMatchStatus(match.user1, match.user2, 2);
+        } catch (ConnectException e) {
+            assertTrue(false);
+        }
+    }
+
+    @Test
+    public void testGetIncomingMatchesSingle() {
+        try {
+            querier.clearTables();
+            querier.createUser(incomingMatch1.user1, "lal");
+            querier.createUser(incomingMatch1.user2, "lil");
+            querier.setMatch(incomingMatch1);
+            List<Match> test = querier.getIncomingMatches(incomingMatch1.user1);
+            assertTrue(test.size() == 1);
+            assertTrue(test.get(0).equals(incomingMatch1));
+        } catch (ConnectException e) {
+            assertTrue(false);
+        }
+    }
+
+    @Test
+    public void testGetIncomingMatchesMulti() {
+        try {
+            querier.clearTables();
+            querier.createUser(nonMatch1.user1, "lal");
+            querier.createUser(nonMatch1.user2, "lul");
+            querier.setMatch(nonMatch1);
+
+            querier.createUser(nonMatch2.user2, "lel");
+            querier.setMatch(nonMatch2);
+
+            querier.createUser(incomingMatch1.user2, "lil");
+            querier.setMatch(incomingMatch1);
+
+            querier.createUser(incomingMatch2.user2, "lil");
+            querier.setMatch(incomingMatch2);
+
+            querier.createUser(outgoingMatch1.user2, "lil");
+            querier.setMatch(outgoingMatch1);
+
+            querier.createUser(outgoingMatch2.user2, "lil");
+            querier.setMatch(outgoingMatch2);
+
+            querier.createUser(completeMatch1.user2, "lil");
+            querier.setMatch(completeMatch1);
+
+            querier.createUser(completeMatch2.user2, "lil");
+            querier.setMatch(completeMatch2);
+
+            List<Match> test = querier.getIncomingMatches(nonMatch1.user1);
+            List<Match> actual = new ArrayList<>();
+            actual.add(incomingMatch1);
+            actual.add(incomingMatch2);
+            assertTrue(actual.size() == test.size());
+            assertTrue(actual.containsAll(test));
+        } catch (ConnectException e) {
+            assertTrue(false);
+        }
+    }
+
+    @Test
+    public void testGetOutgoingMatchesSingle() {
+        try {
+            querier.clearTables();
+            querier.createUser(outgoingMatch1.user1, "lal");
+            querier.createUser(outgoingMatch1.user2, "lil");
+            querier.setMatch(outgoingMatch1);
+            List<Match> test = querier.getOutgoingMatches(outgoingMatch1.user1);
+            assertTrue(test.size() == 1);
+            assertTrue(test.get(0).equals(outgoingMatch1));
+        } catch (ConnectException e) {
+            assertTrue(false);
+        }
+    }
+
+    @Test
+    public void testGetOutgoingMatchesMulti() {
+        try {
+            querier.clearTables();
+            querier.createUser(nonMatch1.user1, "lal");
+            querier.createUser(nonMatch1.user2, "lul");
+            querier.setMatch(nonMatch1);
+
+            querier.createUser(nonMatch2.user2, "lel");
+            querier.setMatch(nonMatch2);
+
+            querier.createUser(incomingMatch1.user2, "lil");
+            querier.setMatch(incomingMatch1);
+
+            querier.createUser(incomingMatch2.user2, "lil");
+            querier.setMatch(incomingMatch2);
+
+            querier.createUser(outgoingMatch1.user2, "lil");
+            querier.setMatch(outgoingMatch1);
+
+            querier.createUser(outgoingMatch2.user2, "lil");
+            querier.setMatch(outgoingMatch2);
+
+            querier.createUser(completeMatch1.user2, "lil");
+            querier.setMatch(completeMatch1);
+
+            querier.createUser(completeMatch2.user2, "lil");
+            querier.setMatch(completeMatch2);
+
+            List<Match> test = querier.getOutgoingMatches(nonMatch1.user1);
+            List<Match> actual = new ArrayList<>();
+            actual.add(outgoingMatch1);
+            actual.add(outgoingMatch2);
+            assertTrue(actual.size() == test.size());
+            assertTrue(actual.containsAll(test));
+        } catch (ConnectException e) {
+            assertTrue(false);
+        }
+    }
+
+    @Test
+    public void testGetCompleteMatchesSingle() {
+        try {
+            querier.clearTables();
+            querier.createUser(completeMatch1.user1, "lal");
+            querier.createUser(completeMatch1.user2, "lil");
+            querier.setMatch(completeMatch1);
+            List<Match> test = querier.getCompleteMatches(completeMatch1.user1);
+            assertTrue(test.size() == 1);
+            assertTrue(test.get(0).equals(completeMatch1));
+        } catch (ConnectException e) {
+            assertTrue(false);
+        }
+    }
+
+    @Test
+    public void testGetCompleteMatchesMulti() {
+        try {
+            querier.clearTables();
+            querier.createUser(nonMatch1.user1, "lal");
+            querier.createUser(nonMatch1.user2, "lul");
+            querier.setMatch(nonMatch1);
+
+            querier.createUser(nonMatch2.user2, "lel");
+            querier.setMatch(nonMatch2);
+
+            querier.createUser(incomingMatch1.user2, "lil");
+            querier.setMatch(incomingMatch1);
+
+            querier.createUser(incomingMatch2.user2, "lil");
+            querier.setMatch(incomingMatch2);
+
+            querier.createUser(outgoingMatch1.user2, "lil");
+            querier.setMatch(outgoingMatch1);
+
+            querier.createUser(outgoingMatch2.user2, "lil");
+            querier.setMatch(outgoingMatch2);
+
+            querier.createUser(completeMatch1.user2, "lil");
+            querier.setMatch(completeMatch1);
+
+            querier.createUser(completeMatch2.user2, "lil");
+            querier.setMatch(completeMatch2);
+
+            List<Match> test = querier.getCompleteMatches(nonMatch1.user1);
+            List<Match> actual = new ArrayList<>();
+            actual.add(completeMatch1);
+            actual.add(completeMatch2);
+            assertTrue(actual.size() == test.size());
+            assertTrue(actual.containsAll(test));
         } catch (ConnectException e) {
             assertTrue(false);
         }
