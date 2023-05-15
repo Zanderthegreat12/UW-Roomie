@@ -23,23 +23,7 @@ public class DBConnUtils {
     Properties configProps = new Properties();
     configProps.load(new FileInputStream("dbconn.properties"));
 
-    String hostname = configProps.getProperty("roomieapp.server_url");
-    String port = configProps.getProperty("roomieapp.port");
-    String dbName = configProps.getProperty("roomieapp.database_name");
-    String adminName = configProps.getProperty("roomieapp.username");
-    String password = configProps.getProperty("roomieapp.password");
-
-    String connectionUrl = "jdbc:mysql://" + hostname + ":" + port +
-            "/" + dbName + "?user=" + adminName + "&password=" + password;
-    Connection conn = DriverManager.getConnection(connectionUrl);
-
-    // By default, automatically commit after each statement
-    conn.setAutoCommit(false);
-
-    // By default, set the transaction isolation level to serializable
-    conn.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
-
-    return conn;
+    return getConn(configProps);
   }
 
   public static Connection openTestConnection() throws SQLException, IOException {
@@ -47,6 +31,10 @@ public class DBConnUtils {
     Properties configProps = new Properties();
     configProps.load(new FileInputStream("dbconntest.properties"));
 
+    return getConn(configProps);
+  }
+
+  private static Connection getConn(Properties configProps) throws SQLException, IOException {
     String hostname = configProps.getProperty("roomieapp.server_url");
     String port = configProps.getProperty("roomieapp.port");
     String dbName = configProps.getProperty("roomieapp.database_name");
