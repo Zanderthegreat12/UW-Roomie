@@ -3,7 +3,11 @@ import { StyleSheet, ScrollView, Text, View, Button } from 'react-native';
 import {getFocusedRouteNameFromRoute, useNavigation} from "@react-navigation/native";
 import {useState, useEffect} from "react";
 
-
+/**
+ * Function to dispplay matching screen
+ * @param route contains info about user
+ * @returns rendering a screen to view possible matches
+ */
 export default function MatchingMenuScreen({route}) {
     const navigation = useNavigation();
     const [username, setUser] = useState(route.params.user);

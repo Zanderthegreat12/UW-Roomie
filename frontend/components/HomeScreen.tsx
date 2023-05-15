@@ -4,6 +4,10 @@ import { useNavigation } from '@react-navigation/native';
 import {TextInput} from 'react-native';
 import React, {useState} from 'react';
 
+/**
+ * Function that displays log in screen
+ * @returns rendering of screen that allows user to log in
+ */
 export default function HomeScreen() {
     const navigation = useNavigation();
     const [username, setUser] = useState('');
@@ -48,6 +52,13 @@ export default function HomeScreen() {
     );
 }
 
+/**
+ * checks if log in of user is successful.
+ * I login successful
+ * @param userN
+ * @param pass
+ * @param nav
+ */
 logIn = async({userN}, {pass}, {nav}) => {
     try{
          let responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/logIn?username=" + userN + "&password=" + pass);
@@ -71,6 +82,9 @@ logIn = async({userN}, {pass}, {nav}) => {
     }
 }
 
+/**
+ * style for home screen components
+ */
 const styles = StyleSheet.create({
     container: {
         flex: 1,

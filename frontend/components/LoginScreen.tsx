@@ -3,6 +3,11 @@ import { StyleSheet, Text, View, Button } from 'react-native';
 import {useNavigation} from "@react-navigation/native";
 import React, {useState} from 'react';
 
+/**
+ * Function to display the user's home screen
+ * @param route contains information about the user
+ * @returns rendering for the home screen
+ */
 export default function LoginScreen({route}) {
     const navigation = useNavigation();
     const [username, setUser] = useState(route.params.user);
