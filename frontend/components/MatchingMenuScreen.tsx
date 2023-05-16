@@ -70,26 +70,29 @@ export default function MatchingMenuScreen({route}) {
                 let Matchname: string;
                 let comp: number;
                 comp = parsed[i].compatibility
+                let status = parsed[i].matchStatus
 
                 if (parsed[i].user1 == user) {
                     Matchname = parsed[i].user2
 
                     ExtraButtons.push(<View key={i} style={styles.button}><Button title={Matchname + " " + comp}
-                                                                          color={"#7c2bee"}
-                                                                          onPress={() => navigation.navigate('Match Info', {
-                                                                              user: '' + username,
-                                                                              match: '' + Matchname,
-                                                                              comp: '' + comp
-                                                                          })}/></View>);
+                                                                                  color={"#7c2bee"}
+                                                                                  onPress={() => navigation.navigate('Match Info', {
+                                                                                      user: '' + username,
+                                                                                      match: '' + Matchname,
+                                                                                      comp: '' + comp,
+                                                                                      status: ''+ status
+                                                                                  })}/></View>);
                 } else {
                     Matchname = parsed[i].user1
                     ExtraButtons.push(<View key={i} style={styles.button}><Button title={Matchname + " " + comp}
-                                                                          color={"#7c2bee"}
-                                                                          onPress={() => navigation.navigate('Match Info', {
-                                                                              user: '' + username,
-                                                                              match: '' + Matchname,
-                                                                              comp: '' + comp
-                                                                          })}/></View>);
+                                                                                  color={"#7c2bee"}
+                                                                                  onPress={() => navigation.navigate('Match Info', {
+                                                                                      user: '' + username,
+                                                                                      match: '' + Matchname,
+                                                                                      comp: '' + comp,
+                                                                                      status: '' + status
+                                                                                  })}/></View>);
                 }
                 i++;
             }

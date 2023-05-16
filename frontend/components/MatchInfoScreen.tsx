@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Button, Alert } from 'react-native';
 import {useNavigation} from "@react-navigation/native";
 import React, {useEffect, useState} from 'react';
 
@@ -14,8 +14,17 @@ export default function MatchInfoScreen({route}) {
     const [username, setUser] = useState(route.params.user);
     const [matchname, setMatchName] = useState(route.params.match);
     const [comp, setComp] = useState(route.params.comp);
+    const [status, setStatus] = useState(route.params.status);
 
     const[data, setData] = useState([]);
+
+    let matchvalue = 0;
+
+    if (username < matchname) {
+        matchvalue = 1;
+    } else {
+        matchvalue = 2;
+    }
 
     /**
      * Gets the contact info of desired user
@@ -23,75 +32,75 @@ export default function MatchInfoScreen({route}) {
      */
     let getContact = async(user) => {
         try{
-             let responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/getSurvey?username=" + user);
-             let res = await responsePromise;
-             if(!res.ok){
+            let responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/getSurvey?username=" + user);
+            let res = await responsePromise;
+            if(!res.ok){
                 alert("Error! Expected: 200, Was: " + res.status);
-               return;
-             }
+                return;
+            }
 
-             let parse = res.json();
-             let parsed = await parse;
+            let parse = res.json();
+            let parsed = await parse;
 
-             let TextInfo: any[];
-             TextInfo = [];
+            let TextInfo: any[];
+            TextInfo = [];
 
-             TextInfo.push(<Text key={0} style={styles.text}>Match Name:  {parsed.username}</Text>);
-             TextInfo.push(<Text key={1} style={styles.text}>Top Dorm:    {parsed.firstDorm}</Text>);
-             TextInfo.push(<Text key={2} style={styles.text}>Second Dorm:    {parsed.secondDorm}</Text>);
-             TextInfo.push(<Text key={3} style={styles.text}>Third Dorm:    {parsed.thirdDorm}</Text>);
+            TextInfo.push(<Text key={0} style={styles.text}>Match Name:  {parsed.username}</Text>);
+            TextInfo.push(<Text key={1} style={styles.text}>Top Dorm:    {parsed.firstDorm}</Text>);
+            TextInfo.push(<Text key={2} style={styles.text}>Second Dorm:    {parsed.secondDorm}</Text>);
+            TextInfo.push(<Text key={3} style={styles.text}>Third Dorm:    {parsed.thirdDorm}</Text>);
 
-             if (parsed.roomType == 1){
-                 TextInfo.push(<Text key={4} style={styles.text}>Room Type:   Single/Studio</Text>);
-             } else if (parsed.roomType == 2) {
-                 TextInfo.push(<Text key={4} style={styles.text}>Room Type:   Double/2 Bedrooms</Text>);
-             } else if (parsed.roomType == 3) {
-                 TextInfo.push(<Text key={4} style={styles.text}>Room Type:   Triple/3 Bedrooms</Text>);
-             } else if (parsed.roomType == 4) {
-                 TextInfo.push(<Text key={4} style={styles.text}>Room Type:   Quad-Suite/4 Bedrooms</Text>);
-             } else if (parsed.roomType == 5) {
-                 TextInfo.push(<Text key={4} style={styles.text}>Room Type:   5 Bedrooms</Text>);
-             } else if (parsed.roomType == 6) {
-                 TextInfo.push(<Text key={4} style={styles.text}>Room Type:   6 Bedrooms</Text>);
-             }
+            if (parsed.roomType == 1){
+                TextInfo.push(<Text key={4} style={styles.text}>Room Type:   Single/Studio</Text>);
+            } else if (parsed.roomType == 2) {
+                TextInfo.push(<Text key={4} style={styles.text}>Room Type:   Double/2 Bedrooms</Text>);
+            } else if (parsed.roomType == 3) {
+                TextInfo.push(<Text key={4} style={styles.text}>Room Type:   Triple/3 Bedrooms</Text>);
+            } else if (parsed.roomType == 4) {
+                TextInfo.push(<Text key={4} style={styles.text}>Room Type:   Quad-Suite/4 Bedrooms</Text>);
+            } else if (parsed.roomType == 5) {
+                TextInfo.push(<Text key={4} style={styles.text}>Room Type:   5 Bedrooms</Text>);
+            } else if (parsed.roomType == 6) {
+                TextInfo.push(<Text key={4} style={styles.text}>Room Type:   6 Bedrooms</Text>);
+            }
 
-             if (parsed.genderInclusive == 0){
-                 TextInfo.push(<Text key={5} style={styles.text}>Gender Inclusive:   Not Interested</Text>);
-             } else {
-                 TextInfo.push(<Text key={5} style={styles.text}>Gender Inclusive:   Yes, Interested</Text>);
-             }
+            if (parsed.genderInclusive == 0){
+                TextInfo.push(<Text key={5} style={styles.text}>Gender Inclusive:   Not Interested</Text>);
+            } else {
+                TextInfo.push(<Text key={5} style={styles.text}>Gender Inclusive:   Yes, Interested</Text>);
+            }
 
-             if (parsed.studentYear == 1) {
-                 TextInfo.push(<Text key={6} style={styles.text}>Student Year:   1st Year</Text>);
-             } else if (parsed.studentYear == 2) {
-                 TextInfo.push(<Text key={6} style={styles.text}>Student Year:   2nd Year</Text>);
-             } else if (parsed.studentYear == 3) {
-                 TextInfo.push(<Text key={6} style={styles.text}>Student Year:   3rd Year</Text>);
-             } else if (parsed.studentYear == 4) {
-                 TextInfo.push(<Text key={6} style={styles.text}>Student Year:   4th Year</Text>);
-             }
+            if (parsed.studentYear == 1) {
+                TextInfo.push(<Text key={6} style={styles.text}>Student Year:   1st Year</Text>);
+            } else if (parsed.studentYear == 2) {
+                TextInfo.push(<Text key={6} style={styles.text}>Student Year:   2nd Year</Text>);
+            } else if (parsed.studentYear == 3) {
+                TextInfo.push(<Text key={6} style={styles.text}>Student Year:   3rd Year</Text>);
+            } else if (parsed.studentYear == 4) {
+                TextInfo.push(<Text key={6} style={styles.text}>Student Year:   4th Year</Text>);
+            }
 
-             if (parsed.drinkingPref == 0) {
-                 TextInfo.push(<Text key={7} style={styles.text}>Drinking/Smoking Preference:   No Drinking/Smoking</Text>);
-             } else {
-                 TextInfo.push(<Text key={7} style={styles.text}>Drinking/Smoking Preference:   Can Drinking/Smoking</Text>);
-             }
+            if (parsed.drinkingPref == 0) {
+                TextInfo.push(<Text key={7} style={styles.text}>Drinking/Smoking Preference:   No Drinking/Smoking</Text>);
+            } else {
+                TextInfo.push(<Text key={7} style={styles.text}>Drinking/Smoking Preference:   Can Drinking/Smoking</Text>);
+            }
 
-             if (parsed.wakeTime == 6) {
-                 TextInfo.push(<Text key={8} style={styles.text}>Wake up Time:   6:00 am - 7:00 am</Text>);
-             } else if (parsed.wakeTime == 7){
-                 TextInfo.push(<Text key={8} style={styles.text}>Wake up Time:   7:00 am - 8:00 am</Text>);
-             } else if (parsed.wakeTime == 8){
-                 TextInfo.push(<Text style={styles.text}>Wake up Time:   8:00 am - 9:00 am</Text>);
-             } else if (parsed.wakeTime == 9){
-                 TextInfo.push(<Text key={8} style={styles.text}>Wake up Time:   9:00 am - 10:00 am</Text>);
-             } else if (parsed.wakeTime == 10){
-                 TextInfo.push(<Text key={8} style={styles.text}>Wake up Time:   10:00 am - 11:00 am</Text>);
-             } else if (parsed.wakeTime == 11){
-                 TextInfo.push(<Text key={8} style={styles.text}>Wake up Time:   11:00 am - 12:00 pm</Text>);
-             } else if (parsed.wakeTime == 12){
-                 TextInfo.push(<Text key={8} style={styles.text}>Wake up Time:   12:00 pm - 1:00 pm</Text>);
-             }
+            if (parsed.wakeTime == 6) {
+                TextInfo.push(<Text key={8} style={styles.text}>Wake up Time:   6:00 am - 7:00 am</Text>);
+            } else if (parsed.wakeTime == 7){
+                TextInfo.push(<Text key={8} style={styles.text}>Wake up Time:   7:00 am - 8:00 am</Text>);
+            } else if (parsed.wakeTime == 8){
+                TextInfo.push(<Text style={styles.text}>Wake up Time:   8:00 am - 9:00 am</Text>);
+            } else if (parsed.wakeTime == 9){
+                TextInfo.push(<Text key={8} style={styles.text}>Wake up Time:   9:00 am - 10:00 am</Text>);
+            } else if (parsed.wakeTime == 10){
+                TextInfo.push(<Text key={8} style={styles.text}>Wake up Time:   10:00 am - 11:00 am</Text>);
+            } else if (parsed.wakeTime == 11){
+                TextInfo.push(<Text key={8} style={styles.text}>Wake up Time:   11:00 am - 12:00 pm</Text>);
+            } else if (parsed.wakeTime == 12){
+                TextInfo.push(<Text key={8} style={styles.text}>Wake up Time:   12:00 pm - 1:00 pm</Text>);
+            }
 
             if (parsed.sleepTime == 6) {
                 TextInfo.push(<Text key={9} style={styles.text}>Sleep Time:   9:00 pm - 10:00 pm</Text>);
@@ -136,11 +145,11 @@ export default function MatchInfoScreen({route}) {
             }
 
 
-             setData(TextInfo);
+            setData(TextInfo);
 
-           } catch(e) {
-             alert("There was an error contacting the server.");
-             console.log(e);
+        } catch(e) {
+            alert("There was an error contacting the server.");
+            console.log(e);
         }
     }
 
@@ -159,16 +168,78 @@ export default function MatchInfoScreen({route}) {
                 <Button
                     title="Accept Match"
                     color="#7c2bee"
-                    onPress={() => navigation.navigate('Matching Menu', {user: '' + username})}
+                    onPress={() => AcceptMatch({username, matchname, comp, status})}
                 />
             </View>
             <Button
                 title="Back to all Matches"
                 color="#7c2bee"
-                onPress={() => navigation.navigate('Matching Menu', {user: '' + username})}
+                onPress={() => RejectMatch({username, matchname, comp})}
             />
         </View>
     );
+}
+
+AcceptMatch = async(user, matchname, comp, num) => {
+    try{
+        let responsePromise;
+        let res;
+        if (num == 0) {
+            if (user < matchname) {
+                responsePromise = fetch("http://localhost:4567/updateMatch?user1=" + user + "&user2=" + matchname + "&comp=" + comp + "&matchstatus=1");
+                res = await responsePromise;
+            } else {
+                responsePromise = fetch("http://localhost:4567/updateMatch?user1=" + matchname + "&user2=" + user + "&comp=" + comp + "&matchstatus=2");
+                res = await responsePromise;
+            }
+        } else {
+            if (user < matchname) {
+                responsePromise = fetch("http://localhost:4567/updateMatch?user1=" + user + "&user2=" + matchname + "&comp=" + comp + "&matchstatus=3");
+                res = await responsePromise;
+            } else {
+                responsePromise = fetch("http://localhost:4567/updateMatch?user1=" + matchname + "&user2=" + user + "&comp=" + comp + "&matchstatus=3");
+                res = await responsePromise;
+            }
+        }
+        if(!res.ok) {
+            alert("Error! Expected: 200, Was: " + res.status);
+            return;
+        }
+
+        if(num == 0) {
+            Alert.alert("Match Request was succesfully sent");
+        } else {
+            Alert.alert("Match was Mutual Accepted", "Check View Matches on the Home menu to get their information");
+        }
+
+    } catch(e) {
+        alert("There was an error contacting the server.");
+        console.log(e);
+    }
+}
+
+RejectMatch = async(user, matchname, comp) => {
+    try{
+        let responsePromise;
+        let res;
+        if (user < matchname) {
+            responsePromise = fetch("http://localhost:4567/setMatchStatus?username=" + user + "&otherName=" + matchname + "&matchstatus=-1" );
+            res = await responsePromise;
+        }  else {
+            responsePromise = fetch("http://localhost:4567//setMatchStatus?user1=" + matchname + "&user2=" + user + "&comp=" + comp + "&matchstatus=-1");
+            res = await responsePromise;
+        }
+        if(!res.ok) {
+            alert("Error! Expected: 200, Was: " + res.status);
+            return;
+        }
+
+        Alert.alert("Match Request was succesfully rejected");
+
+    } catch(e) {
+        alert("There was an error contacting the server.");
+        console.log(e);
+    }
 }
 
 /**

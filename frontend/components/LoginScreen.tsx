@@ -24,6 +24,20 @@ export default function LoginScreen({route}) {
             </View>
             <View style={styles.button}>
                 <Button
+                    title="Accept/Reject Oncoming Matches"
+                    color="#7c2bee"
+                    onPress={() => navigation.navigate('Oncoming Matches', {user: '' + username,})}
+                />
+            </View>
+            <View style={styles.button}>
+                <Button
+                    title="View Matches"
+                    color="#7c2bee"
+                    onPress={() => navigation.navigate('View Matches', {user: '' + username,})}
+                />
+            </View>
+            <View style={styles.button}>
+                <Button
                     title="Your liked roomies"
                     color="#7c2bee"
                     onPress={() => navigation.navigate('Liked Menu', {user: '' + username,})}
