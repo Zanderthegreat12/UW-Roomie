@@ -19,6 +19,13 @@ How to run code in devlopment environment (for users):
   6. Scan QR code on computer from within ExpoGo app
   7. Note: backend server will be down during the following times, {12:00 - 12:10 am, 6:00-6:10 am, 12:00-12:10 pm, 6:00-6:10 pm}
 
+Bug Reporting:
+  1. Report bugs here: https://github.com/Zanderthegreat12/UW-Roomie/issues
+  2. Bug Reports should include the following information: <br>
+    - The screen(s) where the bug occurs <br>
+    - What event triggered the bug (if applicable)
+    - What the bug actually is
+
 How to host code on independent server (for developers):
   1. Clone UW-Roomie repository on your local machine
   2. Create 2 SQL databases. One for testing and one for main service
@@ -55,9 +62,7 @@ How to test frontend:
   2. Run "npm install expo" in frontend folder from Command Prompt
   3. Run "npm test" in frontend folder from Command Prompt
 
-Bug Reporting:
-  1. Report bugs here: https://github.com/Zanderthegreat12/UW-Roomie/issues
-  2. Bug Reports should include the following information: <br>
-    - The screen(s) where the bug occurs <br>
-    - What event triggered the bug (if applicable)
-    - What the bug actually is
+Adding Tests:
+  1. Create Java class in backend/src/test/java/roomieapp
+  2. Make sure newly created Java class name ends in "Test"
+  3. Import Junit, and create tests using Junit framework in newly created class
