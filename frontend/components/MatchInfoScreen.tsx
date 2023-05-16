@@ -163,12 +163,12 @@ export default function MatchInfoScreen({route}) {
                 <Button
                     title="Reject Match"
                     color="#7c2bee"
-                    onPress={() => RejectMatch({username, matchname, comp})}
+                    onPress={() => RejectMatch({user:username}, {matchname:matchname})}
                 />
                 <Button
                     title="Accept Match"
                     color="#7c2bee"
-                    onPress={() => AcceptMatch({username, matchname, comp, status})}
+                    onPress={() => AcceptMatch({user: username},  {matchname: matchname}, {num:status})}
                 />
             </View>
             <Button
@@ -180,12 +180,12 @@ export default function MatchInfoScreen({route}) {
     );
 }
 
-AcceptMatch = async(user, matchname, comp, num) => {
+AcceptMatch = async({user},{matchname}, {num}) => {
     try{
         let responsePromise;
         let res;
         if (num == 0) {
-            if (user < matchname) {
+            if (user.localeCompare(matchname) == -1) {
                 responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/setMatchStatus?username=" + user + "&otherName=" + matchname + "&newStatus=1");
                 res = await responsePromise;
             } else {
@@ -193,7 +193,7 @@ AcceptMatch = async(user, matchname, comp, num) => {
                 res = await responsePromise;
             }
         } else {
-            if (user < matchname) {
+            if (user.localeCompare(matchname) == -1) {
                 responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/setMatchStatus?username=" + user + "&otherName=" + matchname + "&newStatus=3");
                 res = await responsePromise;
             } else {
@@ -218,15 +218,15 @@ AcceptMatch = async(user, matchname, comp, num) => {
     }
 }
 
-RejectMatch = async(user, matchname, comp) => {
+RejectMatch = async({user}, {matchname}) => {
     try{
         let responsePromise;
         let res;
-        if (user < matchname) {
-            responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/setMatchStatus?username=" + user + "&otherName=" + matchname + "&matchstatus=-1" );
+        if (user.localeCompare(matchname) == -1) {
+            responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/setMatchStatus?username=" + user + "&otherName=" + matchname + "&newStatus=-1" );
             res = await responsePromise;
         }  else {
-            responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/setMatchStatus?user1=" + matchname + "&user2=" + user + "&comp=" + comp + "&matchstatus=-1");
+            responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/setMatchStatus?username=" + matchname + "&otherName=" + user + "&newStatus=-1");
             res = await responsePromise;
         }
         if(!res.ok) {
