@@ -38,7 +38,8 @@ Bug Reporting:
     - What the bug actually is
 
 Known Bugs:
-- 
+- Not all matches show up after creating survey.
+- Loading match menu resets match status.
 
 ## DEVELOPER GUIDE
 How to host code on independent server (for developers):
