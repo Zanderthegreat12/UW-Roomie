@@ -163,7 +163,7 @@ export default function MatchInfoScreen({route}) {
                 <Button
                     title="Reject Match"
                     color="#7c2bee"
-                    onPress={() => navigation.navigate('Matching Menu', {user: '' + username})}
+                    onPress={() => RejectMatch({username, matchname, comp})}
                 />
                 <Button
                     title="Accept Match"
@@ -174,7 +174,7 @@ export default function MatchInfoScreen({route}) {
             <Button
                 title="Back to all Matches"
                 color="#7c2bee"
-                onPress={() => RejectMatch({username, matchname, comp})}
+                onPress={() => navigation.navigate('Matching Menu', {user: '' + username})}
             />
         </View>
     );
@@ -186,18 +186,18 @@ AcceptMatch = async(user, matchname, comp, num) => {
         let res;
         if (num == 0) {
             if (user < matchname) {
-                responsePromise = fetch("http://localhost:4567/updateMatch?user1=" + user + "&user2=" + matchname + "&comp=" + comp + "&matchstatus=1");
+                responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/setMatchStatus?username=" + user + "&otherName=" + matchname + "&newStatus=1");
                 res = await responsePromise;
             } else {
-                responsePromise = fetch("http://localhost:4567/updateMatch?user1=" + matchname + "&user2=" + user + "&comp=" + comp + "&matchstatus=2");
+                responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/setMatchStatus?username=" + matchname + "&otherName=" + user + "&newStatus=2");
                 res = await responsePromise;
             }
         } else {
             if (user < matchname) {
-                responsePromise = fetch("http://localhost:4567/updateMatch?user1=" + user + "&user2=" + matchname + "&comp=" + comp + "&matchstatus=3");
+                responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/setMatchStatus?username=" + user + "&otherName=" + matchname + "&newStatus=3");
                 res = await responsePromise;
             } else {
-                responsePromise = fetch("http://localhost:4567/updateMatch?user1=" + matchname + "&user2=" + user + "&comp=" + comp + "&matchstatus=3");
+                responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/setMatchStatus?username=" + matchname + "&otherName2=" + user +"&newStatus=3");
                 res = await responsePromise;
             }
         }
@@ -223,10 +223,10 @@ RejectMatch = async(user, matchname, comp) => {
         let responsePromise;
         let res;
         if (user < matchname) {
-            responsePromise = fetch("http://localhost:4567/setMatchStatus?username=" + user + "&otherName=" + matchname + "&matchstatus=-1" );
+            responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/setMatchStatus?username=" + user + "&otherName=" + matchname + "&matchstatus=-1" );
             res = await responsePromise;
         }  else {
-            responsePromise = fetch("http://localhost:4567//setMatchStatus?user1=" + matchname + "&user2=" + user + "&comp=" + comp + "&matchstatus=-1");
+            responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/setMatchStatus?user1=" + matchname + "&user2=" + user + "&comp=" + comp + "&matchstatus=-1");
             res = await responsePromise;
         }
         if(!res.ok) {
