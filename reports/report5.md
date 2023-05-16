@@ -78,4 +78,5 @@ Review Beta build version
 - Fix runAlg so that it doesn't reset match status.
 - Fix log out so that it clears old log in data.
 - Front end documentation
-- 
+- Add something to edit contact info in profile
+- Make front end look nice

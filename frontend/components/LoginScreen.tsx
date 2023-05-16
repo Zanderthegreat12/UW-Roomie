@@ -45,13 +45,6 @@ export default function LoginScreen({route}) {
             </View>
             <View style={styles.button}>
                 <Button
-                    title="Roomie Survey"
-                    color="#7c2bee"
-                    onPress={() => navigation.navigate('Survey Menu', {user: '' + username,})}
-                />
-            </View>
-            <View style={styles.button}>
-                <Button
                     title="Your profile"
                     color="#7c2bee"
                     onPress={() => navigation.navigate('Profile', {user: '' + username,})}
