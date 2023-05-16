@@ -44,10 +44,17 @@ Review Beta build version
 - allow storage for photos
 
 #### Second subsection:
-- 
+- Queries return error if connection fails
+- contact info is encrypted
+- created queries to get incoming/outgoing/complete matches
+- added documentation for alpha build screen
+- fixed run algorithm so it doesn't clear match status
+- fixed create user so it throws errors if query fails
 
 #### Third Subsection:
-- 
+- allow storage for photos
+- be able to view already taken survey
+- add frontend documentation for new screens
 
 ### Leah:
 #### First subsection:
