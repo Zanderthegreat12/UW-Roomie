@@ -57,6 +57,13 @@ export default function LoginScreen({route}) {
                     onPress={() => navigation.navigate('Profile', {user: '' + username,})}
                 />
             </View>
+            <View style={styles.button}>
+                <Button
+                    title="Log Out"
+                    color="#7c2bee"
+                    onPress={() => navigation.navigate('Home', {user: ''})}
+                />
+            </View>
         </View>
     );
 }
