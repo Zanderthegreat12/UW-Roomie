@@ -89,7 +89,7 @@ createUser = async({userN}, {pass}, {nav}, {pNum}, {dis}, {email}) => {
         let parsed = await parse;
         if(parsed == true) {
             //User created! Go to the normal screen!
-            nav.navigate('Login', {user: '' + userN})
+            nav.navigate('Survey Menu', {user: '' + userN})
         } else {
             alert("Username already taken");
         }
