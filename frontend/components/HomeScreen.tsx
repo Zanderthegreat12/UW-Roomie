@@ -8,7 +8,7 @@ import React, {useState} from 'react';
  * Function that displays log in screen
  * @returns rendering of screen that allows user to log in
  */
-export default function HomeScreen() {
+export default function HomeScreen({route}) {
     const navigation = useNavigation();
     const [username, setUser] = useState('');
     const [password, setPass] = useState('');
