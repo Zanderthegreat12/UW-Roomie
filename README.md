@@ -10,6 +10,7 @@ then they can attempt to get in contact with that user
 and if the other user agrees then it will display their contact information. 
 From there then the users can determine if they want to dorm or not. <br /> <br />
 
+## USER GUIDE
 How to run code in devlopment environment (for users):
   1. Clone UW-Roomie repository on your local machine
   2. Install ExpoGo on phone to use app
@@ -19,6 +20,16 @@ How to run code in devlopment environment (for users):
   6. Scan QR code on computer from within ExpoGo app
   7. Note: backend server will be down during the following times, {12:00 - 12:10 am, 6:00-6:10 am, 12:00-12:10 pm, 6:00-6:10 pm}
 
+How to use App:
+1. Create new profile. Include username, password, and contact info.
+    - Username should not include a space
+    - If specific contact info does not apply, write n/a
+2. Take the survey. Make sure that every field is filled out.
+3. Go to the match menu. There will be a list of top matches.
+4. Click on a match that looks interesting. If you want to talk to them, click the send match request button.
+5. To check incoming match requests, click on the incoming matches buttons in the home screen. From here you can either accept or reject the match.
+6. Finally, go to the liked match screen where you can see information about the people that you matched with, such as contact info.
+
 Bug Reporting:
   1. Report bugs here: https://github.com/Zanderthegreat12/UW-Roomie/issues
   2. Bug Reports should include the following information: <br>
@@ -26,6 +37,11 @@ Bug Reporting:
     - What event triggered the bug (if applicable)
     - What the bug actually is
 
+Known Bugs:
+- Not all matches show up after creating survey.
+- Loading match menu resets match status.
+
+## DEVELOPER GUIDE
 How to host code on independent server (for developers):
   1. Clone UW-Roomie repository on your local machine
   2. Create 2 SQL databases. One for testing and one for main service
