@@ -179,7 +179,11 @@ public class Server {
                 //Puts them back into the database under matches
                 for (Match m : mList) {
                     if (m != null) {
-                        q.setMatch(m);
+                        try {
+                            q.updateCompatibility(m.user1, m.user2, m.compatibility);
+                        } catch (IllegalArgumentException e) {
+                            q.setMatch(m);
+                        }
                     }
                 }
 
