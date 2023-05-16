@@ -69,7 +69,13 @@ Review Beta build version
 - Create new APIs for setting compatibility scores and user likes.
 
 #### Second subsection:
-
+- Added a button to log out
+  - Stuck on this: needs to clear old log in data
+- Added contact info to profile screen. Created template for Alex to use for match info.
+- Created new APIs for setting match status and viewing matches based on status.
 
 #### Third subsection:
-
+- Fix runAlg so that it doesn't reset match status.
+- Fix log out so that it clears old log in data.
+- Front end documentation
+- 
