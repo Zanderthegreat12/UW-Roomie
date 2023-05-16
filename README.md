@@ -54,3 +54,10 @@ How to test frontend:
   1. Run "npm install" in frontend folder from Command Prompt
   2. Run "npm install expo" in frontend folder from Command Prompt
   3. Run "npm test" in frontend folder from Command Prompt
+
+Bug Reporting:
+  1. Report bugs here: https://github.com/Zanderthegreat12/UW-Roomie/issues
+  2. Bug Reports should include the following information: <br>
+    - The screen(s) where the bug occurs <br>
+    - What event triggered the bug (if applicable)
+    - What the bug actually is
