@@ -17,7 +17,7 @@ How to run code in devlopment environment (for users):
   4. Run "npm install expo"
   5. Run "npx expo start"
   6. Scan QR code on computer from within ExpoGo app
-  7. Note: backend server will be down the following times, {12:00 - 12:10 am, 6:00-6:10 am, 12:00-12:10 pm, 6:00-6:10 pm}
+  7. Note: backend server will be down during the following times, {12:00 - 12:10 am, 6:00-6:10 am, 12:00-12:10 pm, 6:00-6:10 pm}
 
 How to host code on independent server (for developers):
   1. Clone UW-Roomie repository on your local machine
