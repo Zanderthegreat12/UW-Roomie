@@ -77,11 +77,11 @@ export default function HomeScreen() {
 
 createUser = async({userN}, {pass}, {nav}, {pNum}, {dis}, {email}) => {
     try{
-         let responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/createUser?username=" + userN + "&password=" + pass + + "&pNum=" + pNum + "&discord=" + dis + "&email=" + email);
+         let responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/createUser?username=" + userN + "&password=" + pass + "&pNum=" + pNum + "&discord=" + dis + "&email=" + email);
          let res = await responsePromise;
          if(!res.ok){
-             alert("Some field not filled");
-             //alert("Error! Expected: 200, Was: " + res.status);
+             //alert("Some field not filled");
+             alert("Error! Expected: 200, Was: " + res.status);
              return;
          }
 

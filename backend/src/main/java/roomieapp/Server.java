@@ -209,6 +209,9 @@ public class Server {
          * Creates a new user account and updates the database accordingly.
          * @param username a String representing the name of the user
          * @param password a String representing the password of the user
+         * @param pNum a String
+         * @param
+         * @param
          * @return true if the user is successfully created.
          */
         Spark.get("/createUser", new Route() {
