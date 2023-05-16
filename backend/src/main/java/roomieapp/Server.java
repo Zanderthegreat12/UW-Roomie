@@ -134,6 +134,29 @@ public class Server {
             }
         });
 
+        /**
+         * Gets match info associated with the user that is logged in and a specific match.
+         *
+         * @param username a user's identifier
+         *
+         * @param otherName the name of the user we're matched with
+         *
+         * @param newStatus the new status of the match
+         *
+         * @return true if successfully updated.
+         */
+        Spark.get("/setMatchStatus", new Route() {
+            @Override
+            public Object handle(Request request, Response response) throws Exception {
+                String username = request.queryParams("username");
+                String otherName = request.queryParams("otherName");
+                int newStatus = Integer.parseInt(request.queryParams("newStatus"));
+
+                q.updateMatchStatus(username, otherName, newStatus);
+                return true;
+            }
+        });
+
 
         /**
          * Runs the algorithm and generates matches to put into the database.
