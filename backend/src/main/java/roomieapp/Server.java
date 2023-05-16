@@ -60,6 +60,82 @@ public class Server {
         });
 
         /**
+         * Gets match info associated with the user that is logged in and a specific match.
+         * http://localhost:4567/getKmatch?username=" + ? + "&otherName=" + ?
+         * @param username a user's identifier
+         *
+         * @param otherName the name of the user we're matched with
+         *
+         * @return a json list of usernames that the current user has matched with.
+         */
+        Spark.get("/getMatch", new Route() {
+            @Override
+            public Object handle(Request request, Response response) throws Exception {
+                String username = request.queryParams("username");
+                String otherName = request.queryParams("otherName");
+
+                Gson g = new Gson();
+                String jsonResponse = g.toJson(q.getMatch(username, otherName));
+                return jsonResponse;
+            }
+        });
+
+        /**
+         * Gets matches that have sent the user a "match request"
+         *
+         * @param username a user's identifier
+         *
+         * @return a json list of usernames that has sent match requests to the user
+         */
+        Spark.get("/getIncoming", new Route() {
+            @Override
+            public Object handle(Request request, Response response) throws Exception {
+                String username = request.queryParams("username");
+
+                Gson g = new Gson();
+                String jsonResponse = g.toJson(q.getIncomingMatches(username));
+                return jsonResponse;
+            }
+        });
+
+        /**
+         * Gets matches that the user has sent a "match request"
+         *
+         * @param username a user's identifier
+         *
+         * @return a json list of usernames that the user has sent match requests to
+         */
+        Spark.get("/getOutgoing", new Route() {
+            @Override
+            public Object handle(Request request, Response response) throws Exception {
+                String username = request.queryParams("username");
+
+                Gson g = new Gson();
+                String jsonResponse = g.toJson(q.getOutgoingMatches(username));
+                return jsonResponse;
+            }
+        });
+
+        /**
+         * Gets matches that have matched from both sides
+         *
+         * @param username a user's identifier
+         *
+         * @return a json list of usernames that both users have sent requests to.
+         */
+        Spark.get("/getComplete", new Route() {
+            @Override
+            public Object handle(Request request, Response response) throws Exception {
+                String username = request.queryParams("username");
+
+                Gson g = new Gson();
+                String jsonResponse = g.toJson(q.getCompleteMatches(username));
+                return jsonResponse;
+            }
+        });
+
+
+        /**
          * Runs the algorithm and generates matches to put into the database.
          * @param username A String representing the name of the user needing to be matched
          * @returns a json list representing a list of Matches generated. For testing purposes only. Will be changed.
@@ -124,7 +200,7 @@ public class Server {
                     String email = request.queryParams("email");
                     q.setContactInfo(new ContactInfo(username, email, phoneNum, discord));
                 }
-                //SHOULD WE BE HANDLING CONTACT INFO HERE TOO??
+                //SHOULD WE BE HANDLING CONTACT INFO HERE TOO?? YES
                 return creationSuccess;
             }
         });
