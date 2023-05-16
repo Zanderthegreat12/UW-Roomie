@@ -180,7 +180,7 @@ export default function MatchInfoScreen({route}) {
     );
 }
 
-AcceptMatch = async({user},{matchname}, {num}) => {
+let AcceptMatch = async({user},{matchname}, {num}) => {
     try{
         let responsePromise;
         let res;
@@ -218,7 +218,7 @@ AcceptMatch = async({user},{matchname}, {num}) => {
     }
 }
 
-RejectMatch = async({user}, {matchname}) => {
+let RejectMatch = async({user}, {matchname}) => {
     try{
         let responsePromise;
         let res;

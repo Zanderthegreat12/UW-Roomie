@@ -13,7 +13,7 @@ export default function ViewMatchesScreen({route}) {
 
     let getMatches = async (user) => {
         try {
-            let responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/ViewMatches?username=" + user); //HARD CODE 10 AS A GLOBAL VAR
+            let responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/getComplete?username=" + user); //HARD CODE 10 AS A GLOBAL VAR
             let res = await responsePromise;
             if (!res.ok) {
                 alert("Error! Expected: 200, Was: " + res.status);
@@ -35,18 +35,15 @@ export default function ViewMatchesScreen({route}) {
                 let Matchname: string;
                 let comp: number;
                 comp = parsed[i].compatibility
-                let Status = parsed[i].matchStatus
 
                 if (parsed[i].user1 == user) {
                     Matchname = parsed[i].user2
                     if(parsed[i].matchStatus == 3) {
                         ExtraButtons.push(<View key={i} style={styles.button}><Button title={Matchname + " " + comp}
                                                                                       color={"#7c2bee"}
-                                                                                      onPress={() => navigation.navigate('Match Info', {
+                                                                                      onPress={() => navigation.navigate('Match Profile', {
                                                                                           user: '' + username,
-                                                                                          match: '' + Matchname,
-                                                                                          comp: '' + comp,
-                                                                                          status:''+ Status
+                                                                                          match: '' + Matchname
                                                                                       })}/></View>);
                     }
                 } else {
@@ -54,11 +51,9 @@ export default function ViewMatchesScreen({route}) {
                         Matchname = parsed[i].user1
                         ExtraButtons.push(<View key={i} style={styles.button}><Button title={Matchname + " " + comp}
                                                                                       color={"#7c2bee"}
-                                                                                      onPress={() => navigation.navigate('Match Info', {
+                                                                                      onPress={() => navigation.navigate('Match Profile', {
                                                                                           user: '' + username,
-                                                                                          match: '' + Matchname,
-                                                                                          comp: '' + comp,
-                                                                                          status:''+ Status
+                                                                                          match: '' + Matchname
                                                                                       })}/></View>);
                     }
                 }

@@ -26,14 +26,14 @@ export default function LoginScreen({route}) {
                 <Button
                     title="Accept/Reject Oncoming Matches"
                     color="#7c2bee"
-                    onPress={() => navigation.navigate('Oncoming Matches', {user: '' + username,})}
+                    onPress={() => navigation.navigate('Incoming Matches Screen', {user: '' + username,})}
                 />
             </View>
             <View style={styles.button}>
                 <Button
                     title="View Matches"
                     color="#7c2bee"
-                    onPress={() => navigation.navigate('View Matches', {user: '' + username,})}
+                    onPress={() => navigation.navigate('View Matches Screen', {user: '' + username,})}
                 />
             </View>
             <View style={styles.button}>
