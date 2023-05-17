@@ -185,6 +185,11 @@ public class SecurityUtils {
     // Store Public Key.
     X509EncodedKeySpec x509EncodedKeySpec = new X509EncodedKeySpec(
             publicKey.getEncoded());
+    File publicKeyFile = new File(keyPath + "/public.key");
+    publicKeyFile.createNewFile();
+    File privateKeyFile = new File(keyPath + "/private.key");
+    privateKeyFile.createNewFile();
+
     FileOutputStream fos = new FileOutputStream(keyPath + "/public.key");
     fos.write(x509EncodedKeySpec.getEncoded());
     fos.close();
