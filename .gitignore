@@ -2,5 +2,4 @@
 .idea/
 backend/target
 backend/.idea
-backend/tmpKey
 frontend/package-lock.json
