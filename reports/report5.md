@@ -69,10 +69,13 @@ Review Beta build version
 - Do more editing to make the screens look nicer
 
 #### Second Subsection:
--
+- Looked into other implementations of radio buttons
+- Working on implementing a menu bar 
 
 #### Third Subsection:
--
+- Implement working radio buttons
+- Finish the menu bar
+- Add design formatting to match information screens
 
 ### Bella:
 #### First subsection:
