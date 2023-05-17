@@ -32,10 +32,16 @@ Review Beta build version
 - Start to work on implementing the liked user functionality.
 
 #### Second Subsection:
-- 
+- Implemented page for viewing Incoming matches
+- Implemented page for viewing mutual matches
+- Set up the accepting and rejecting a match
+- Implmeneted a page to look at a Match's profile
 
 #### Third Subsection:
--
+- Fine tune the matching algrothim so it gives a better value
+- Fix accepting match so a user can't force a mutual
+  match by clicking the accept button
+- Make the buttons look uniform for all users
 
 ### Colby:
 #### First subsection:
