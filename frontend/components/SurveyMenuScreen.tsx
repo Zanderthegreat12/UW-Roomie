@@ -47,6 +47,7 @@ export default function SurveyMenuScreen({route}) {
         {label: 'Alder Hall', value: 'Alder-Hall'},
         {label: 'Elm Hall', value: 'Elm-Hall'},
         {label: 'Hansee Hall', value: 'Hansee-Hall'},
+        {label: 'Lander Hall', value: 'Lander-Hall'},
         {label: 'Madrona Hall', value: 'Madrona-Hall'},
         {label: 'Maple Hall', value: 'Maple-Hall'},
         {label: 'McCarty Hall', value: 'McCarty-Hall'},
