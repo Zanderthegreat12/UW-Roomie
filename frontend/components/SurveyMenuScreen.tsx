@@ -157,7 +157,7 @@ export default function SurveyMenuScreen({route}) {
     const [roommateVerts, setRoommateVerts] = useState([
         {label: 'I prefer my roommate be an introvert', value: 0},
         {label: 'I prefer my roommate be an ambivert', value: 1},
-        {label: 'I prefer myu roommate be an extrovert', value: 2},
+        {label: 'I prefer my roommate be an extrovert', value: 2},
         {label: 'I don\'t care', value: -1}
     ]);
 
