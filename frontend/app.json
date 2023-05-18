@@ -1,0 +1,17 @@
+{
+  "expo": {
+    "name": "UW Roomie",
+    "slug": "uw_roomie",
+    "extra": {
+      "eas": {
+        "projectId": "da5af79b-f903-459b-a27c-73c8a6ef1699"
+      }
+    },
+    "android": {
+      "package": "com.ccolbyssmith.uw_roomie"
+    },
+    "ios": {
+      "bundleIdentifier": "com.ccolbyssmith.uw-roomie"
+    }
+  }
+}
