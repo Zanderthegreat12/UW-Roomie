@@ -47,6 +47,7 @@ export default function SurveyMenuScreen({route}) {
         {label: 'Alder Hall', value: 'Alder-Hall'},
         {label: 'Elm Hall', value: 'Elm-Hall'},
         {label: 'Hansee Hall', value: 'Hansee-Hall'},
+        {label: 'Lander Hall', value: 'Lander-Hall'},
         {label: 'Madrona Hall', value: 'Madrona-Hall'},
         {label: 'Maple Hall', value: 'Maple-Hall'},
         {label: 'McCarty Hall', value: 'McCarty-Hall'},
@@ -157,7 +158,7 @@ export default function SurveyMenuScreen({route}) {
     const [roommateVerts, setRoommateVerts] = useState([
         {label: 'I prefer my roommate be an introvert', value: 0},
         {label: 'I prefer my roommate be an ambivert', value: 1},
-        {label: 'I prefer myu roommate be an extrovert', value: 2},
+        {label: 'I prefer my roommate be an extrovert', value: 2},
         {label: 'I don\'t care', value: -1}
     ]);
 

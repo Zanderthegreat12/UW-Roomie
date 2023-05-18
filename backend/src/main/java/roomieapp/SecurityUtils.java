@@ -1,8 +1,11 @@
 package roomieapp;
 
+import java.io.*;
 import java.security.*;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
+import java.security.spec.PKCS8EncodedKeySpec;
+import java.security.spec.X509EncodedKeySpec;
 import java.util.Random;
 import javax.crypto.*;
 
@@ -17,6 +20,8 @@ public class SecurityUtils {
 
   private KeyPair key;
   private final int CRYPT_KEY_LENGTH = 2048;
+  private final String keyPath = "tmpKey";
+  private final String algorithm = "RSA";
 
   /**
    * Initializes the key required for encrypting/decrypting data
@@ -24,9 +29,14 @@ public class SecurityUtils {
   public SecurityUtils() {
     //Creating KeyPair generator object
     try {
-      KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance("RSA");
-      keyPairGen.initialize(CRYPT_KEY_LENGTH);
-      this.key = keyPairGen.generateKeyPair();
+      try {
+        this.key = this.loadKeyPair(algorithm);
+      } catch (FileNotFoundException e) {
+        KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance(algorithm);
+        keyPairGen.initialize(CRYPT_KEY_LENGTH);
+        this.key = keyPairGen.generateKeyPair();
+        this.saveKeyPair(this.key);
+      }
     } catch (Exception e) {
       e.printStackTrace();
       throw new RuntimeException();
@@ -168,4 +178,57 @@ public class SecurityUtils {
     }
   }
 
+  private void saveKeyPair(KeyPair keyPair) throws IOException {
+    PrivateKey privateKey = keyPair.getPrivate();
+    PublicKey publicKey = keyPair.getPublic();
+
+    // Store Public Key.
+    X509EncodedKeySpec x509EncodedKeySpec = new X509EncodedKeySpec(
+            publicKey.getEncoded());
+    File publicKeyFile = new File(keyPath + "/public.key");
+    publicKeyFile.createNewFile();
+    File privateKeyFile = new File(keyPath + "/private.key");
+    privateKeyFile.createNewFile();
+
+    FileOutputStream fos = new FileOutputStream(keyPath + "/public.key");
+    fos.write(x509EncodedKeySpec.getEncoded());
+    fos.close();
+
+    // Store Private Key.
+    PKCS8EncodedKeySpec pkcs8EncodedKeySpec = new PKCS8EncodedKeySpec(
+            privateKey.getEncoded());
+    fos = new FileOutputStream(keyPath + "/private.key");
+    fos.write(pkcs8EncodedKeySpec.getEncoded());
+    fos.close();
+  }
+
+  private KeyPair loadKeyPair(String algorithm)
+          throws IOException, NoSuchAlgorithmException,
+          InvalidKeySpecException {
+    // Read Public Key.
+    File filePublicKey = new File(keyPath + "/public.key");
+    FileInputStream fis = new FileInputStream(keyPath + "/public.key");
+    byte[] encodedPublicKey = new byte[(int) filePublicKey.length()];
+    fis.read(encodedPublicKey);
+    fis.close();
+
+    // Read Private Key.
+    File filePrivateKey = new File(keyPath + "/private.key");
+    fis = new FileInputStream(keyPath + "/private.key");
+    byte[] encodedPrivateKey = new byte[(int) filePrivateKey.length()];
+    fis.read(encodedPrivateKey);
+    fis.close();
+
+    // Generate KeyPair.
+    KeyFactory keyFactory = KeyFactory.getInstance(algorithm);
+    X509EncodedKeySpec publicKeySpec = new X509EncodedKeySpec(
+            encodedPublicKey);
+    PublicKey publicKey = keyFactory.generatePublic(publicKeySpec);
+
+    PKCS8EncodedKeySpec privateKeySpec = new PKCS8EncodedKeySpec(
+            encodedPrivateKey);
+    PrivateKey privateKey = keyFactory.generatePrivate(privateKeySpec);
+
+    return new KeyPair(publicKey, privateKey);
+  }
 }
