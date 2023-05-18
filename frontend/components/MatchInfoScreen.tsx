@@ -197,7 +197,7 @@ let AcceptMatch = async({user},{matchname}, {num}) => {
                 responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/setMatchStatus?username=" + user + "&otherName=" + matchname + "&newStatus=3");
                 res = await responsePromise;
             } else {
-                responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/setMatchStatus?username=" + matchname + "&otherName2=" + user +"&newStatus=3");
+                responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/setMatchStatus?username=" + matchname + "&otherName=" + user +"&newStatus=3");
                 res = await responsePromise;
             }
         }
