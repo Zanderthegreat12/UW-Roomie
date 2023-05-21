@@ -11,6 +11,11 @@ and if the other user agrees then it will display their contact information.
 From there then the users can determine if they want to dorm or not. <br /> <br />
 
 ## USER GUIDE
+How to Install and Run App:
+  1. Install code here - https://expo.dev/artifacts/eas/5sW4JNPdUQDGiCkJqUK5ac.apk
+  2. Run app using adroid device or android emulator
+  3. Note: This app is currently only available for android 
+
 How to run code in devlopment environment (for users):
   1. Clone UW-Roomie repository on your local machine
   2. Install ExpoGo on phone to use app
