@@ -14,35 +14,59 @@ Dropdown.setListMode("SCROLLVIEW")
  */
 export default function SurveyMenuScreen({route}) {
 
-    getSurvey = async({userN}) => {
-        try{
-            let responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/getSurvey?username=" + userN);
-            let res = await responsePromise;
-            if(!res.ok){
-                alert("Error! Expected: 200, Was: " + res.status);
-                return;
-            }
-            let parse = res.json();
-            let parsed = await parse;
-
-
-        } catch(e) {
-            alert("There was an error contacting the server.");
-            console.log(e);
-        }
-    }
-
     const [username, setUser] = useState(route.params.user);
     const navigation = useNavigation()
     var answersOpen = -1
 
+    var firstDormInit = null
+    var secondDormInit = null
+    var thirdDormInit = null
+    var roomTypeInit = null
+    var genderInclusiveInit = null
+    var studentYearInit = null
+    var roommateYearInit = null
+    var drinkingPrefInit = null
+    var wakeTimeInit = null
+    var sleepTimeInit = null
+    var heavySleepInit = null
+    var studentVertInit = null
+    var roommateVertInit = null
+    var studentFriendsInit = null
+    var roommateFriendsInit = null
+    var studentNeatInit = null
+    var roommateNeatInit = null
+
+    let setValues = async(user) => {
+        var survey = await getSurvey({userN: user})
+        if (survey !== null) {
+            setFirstDormValue(survey.firstDorm)
+            setSecondDormValue(survey.secondDorm)
+            setThirdDormValue(survey.thirdDorm)
+            setRoomTypeValue(survey.roomType)
+            setGenderInclusiveValue(survey.genderInclusive)
+            setStudentYearValue(survey.studentYear)
+            setRoommateYearValue(survey.roommateYear)
+            setDrinkingPrefValue(survey.drinkingPref)
+            setWakeTimeValue(survey.wakeTime)
+            setSleepTimeValue(survey.sleepTime)
+            setHeavySleepValue(survey.heavySleep)
+            setStudentVertValue(survey.studentVert)
+            setRoommateVertValue(survey.roommateVert)
+            setStudentFriendsValue(survey.roommateFriends)
+            setRoommateFriendsValue(survey.roommateFriends)
+            setStudentNeatValue(survey.studentNeat)
+            setRoommateNeatValue(survey.roommateNeat)
+        }
+    }
+    setValues(username)
+
     // Dorm ranking state
     const [firstDormOpen, setFirstDormOpen] = useState(false);
-    const [firstDormValue, setFirstDormValue] = useState(null);
+    const [firstDormValue, setFirstDormValue] = useState(firstDormInit);
     const [secondDormOpen, setSecondDormOpen] = useState(false);
-    const [secondDormValue, setSecondDormValue] = useState(null);
+    const [secondDormValue, setSecondDormValue] = useState(secondDormInit);
     const [thirdDormOpen, setThirdDormOpen] = useState(false);
-    const [thirdDormValue, setThirdDormValue] = useState(null);
+    const [thirdDormValue, setThirdDormValue] = useState(thirdDormInit);
     const [dorms, setDorms] = useState([
         {label: 'Alder Hall', value: 'Alder-Hall'},
         {label: 'Elm Hall', value: 'Elm-Hall'},
@@ -61,7 +85,7 @@ export default function SurveyMenuScreen({route}) {
     ]);
 
     // room type question state
-    const [roomTypeOpen, setRoomTypeOpen] = useState(false);
+    const [roomTypeOpen, setRoomTypeOpen] = useState(roomTypeInit);
     const [roomTypeValue, setRoomTypeValue] = useState(null);
     const [roomTypes, setRoomTypes] = useState([
         {label: 'single/studio', value: 1},
@@ -73,7 +97,7 @@ export default function SurveyMenuScreen({route}) {
     ]);
 
     // gender inclusive state
-    const [genderInclusiveOpen, setGenderInclusiveOpen] = useState(false);
+    const [genderInclusiveOpen, setGenderInclusiveOpen] = useState(genderInclusiveInit);
     const [genderInclusiveValue, setGenderInclusiveValue] = useState(null);
     const [genderInclusivity, setGenderInclusivity] = useState([
         {label: 'Yes. I want to be in gender inclusive dorming', value: 1},
@@ -81,7 +105,7 @@ export default function SurveyMenuScreen({route}) {
     ]);
 
     // student year state
-    const [studentYearOpen, setStudentYearOpen] = useState(false);
+    const [studentYearOpen, setStudentYearOpen] = useState(studentYearInit);
     const [studentYearValue, setStudentYearValue] = useState(null);
     const [studentYears, setStudentYears] = useState([
         {label: '1st year', value: 1},
@@ -91,7 +115,7 @@ export default function SurveyMenuScreen({route}) {
     ]);
 
     // roommate year state
-    const [roommateYearOpen, setRoommateYearOpen] = useState(false);
+    const [roommateYearOpen, setRoommateYearOpen] = useState(roommateYearInit);
     const [roommateYearValue, setRoommateYearValue] = useState(null);
     const [roommateYears, setRoommateYears] = useState([
         {label: '1st year', value: 1},
@@ -102,7 +126,7 @@ export default function SurveyMenuScreen({route}) {
     ]);
 
     // drinking preference state
-    const [drinkingPrefOpen, setDrinkingPrefOpen] = useState(false);
+    const [drinkingPrefOpen, setDrinkingPrefOpen] = useState(drinkingPrefInit);
     const [drinkingPrefValue, setDrinkingPrefValue] = useState(null);
     const [drinkingPref, setDrinkingPref] = useState([
         {label: 'I don\'t want my roommate to drink', value: 0},
@@ -110,7 +134,7 @@ export default function SurveyMenuScreen({route}) {
     ]);
 
     // wake time state
-    const [wakeTimeOpen, setWakeTimeOpen] = useState(false);
+    const [wakeTimeOpen, setWakeTimeOpen] = useState(wakeTimeInit);
     const [wakeTimeValue, setWakeTimeValue] = useState(null);
     const [wakeTimes, setWakeTimes] = useState([
         {label: '6:00 am - 7:00 am', value: 6},
@@ -123,7 +147,7 @@ export default function SurveyMenuScreen({route}) {
     ]);
 
     // sleep time state
-    const [sleepTimeOpen, setSleepTimeOpen] = useState(false);
+    const [sleepTimeOpen, setSleepTimeOpen] = useState(sleepTimeInit);
     const [sleepTimeValue, setSleepTimeValue] = useState(null);
     const [sleepTimes, setSleepTimes] = useState([
         {label: '9:00 pm - 10:00 pm', value: 6},
@@ -136,7 +160,7 @@ export default function SurveyMenuScreen({route}) {
     ]);
 
     // light/heavy sleeper state
-    const [heavySleepOpen, setHeavySleepOpen] = useState(false);
+    const [heavySleepOpen, setHeavySleepOpen] = useState(heavySleepInit);
     const [heavySleepValue, setHeavySleepValue] = useState(null);
     const [heavySleep, setHeavySleep] = useState([
         {label: 'I\'m a light sleeper', value: 0},
@@ -144,7 +168,7 @@ export default function SurveyMenuScreen({route}) {
     ]);
 
     // student vertness state
-    const [studentVertOpen, setStudentVertOpen] = useState(false);
+    const [studentVertOpen, setStudentVertOpen] = useState(studentVertInit);
     const [studentVertValue, setStudentVertValue] = useState(null);
     const [studentVerts, setStudentVerts] = useState([
         {label: 'I\'m an introvert', value: 0},
@@ -153,7 +177,7 @@ export default function SurveyMenuScreen({route}) {
     ]);
 
     // roommate vertness state
-    const [roommateVertOpen, setRoommateVertOpen] = useState(false);
+    const [roommateVertOpen, setRoommateVertOpen] = useState(roommateVertInit);
     const [roommateVertValue, setRoommateVertValue] = useState(null);
     const [roommateVerts, setRoommateVerts] = useState([
         {label: 'I prefer my roommate be an introvert', value: 0},
@@ -163,7 +187,7 @@ export default function SurveyMenuScreen({route}) {
     ]);
 
     // student friends state
-    const [studentFriendsOpen, setStudentFriendsOpen] = useState(false);
+    const [studentFriendsOpen, setStudentFriendsOpen] = useState(studentFriendsInit);
     const [studentFriendsValue, setStudentFriendsValue] = useState(null);
     const [studentFriends, setStudentFriends] = useState([
         {label: 'I won\'t bring friends to the dorm room', value: 0},
@@ -171,7 +195,7 @@ export default function SurveyMenuScreen({route}) {
     ]);
 
     // roommate friends state
-    const [roommateFriendsOpen, setRoommateFriendsOpen] = useState(false);
+    const [roommateFriendsOpen, setRoommateFriendsOpen] = useState(roommateFriendsInit);
     const [roommateFriendsValue, setRoommateFriendsValue] = useState(null);
     const [roommateFriends, setRoommateFriends] = useState([
         {label: 'I don\'t want my roommate bringing friends to the dorm', value: 0},
@@ -179,7 +203,7 @@ export default function SurveyMenuScreen({route}) {
     ]);
 
     // student neat state
-    const [studentNeatOpen, setStudentNeatOpen] = useState(false);
+    const [studentNeatOpen, setStudentNeatOpen] = useState(studentNeatInit);
     const [studentNeatValue, setStudentNeatValue] = useState(null);
     const [studentNeat, setStudentNeat] = useState([
         {label: 'I\'m messy and disorganized', value: 0},
@@ -187,7 +211,7 @@ export default function SurveyMenuScreen({route}) {
     ]);
 
     // roommate neat state
-    const [roommateNeatOpen, setRoommateNeatOpen] = useState(false);
+    const [roommateNeatOpen, setRoommateNeatOpen] = useState(roommateNeatInit);
     const [roommateNeatValue, setRoommateNeatValue] = useState(null);
     const [roommateNeat, setRoommateNeat] = useState([
         {label: 'I\'m fine with my roommate being messy and disorganized', value: 0},
@@ -493,13 +517,13 @@ export default function SurveyMenuScreen({route}) {
     );
 }
 
-setSurvey = async({infoString}, {nav}, {userN}) => {
+let setSurvey = async({infoString}, {nav}, {userN}) => {
     try{
          let responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/createSurvey?str=" + infoString);
          let res = await responsePromise;
          if(!res.ok){
              alert("Error! Expected: 200, Was: " + res.status);
-             return;
+             return null;
          }
 
          //Survey filled out and uploaded! Go to the profile screen!
@@ -508,6 +532,23 @@ setSurvey = async({infoString}, {nav}, {userN}) => {
     } catch(e) {
          alert("There was an error contacting the server.");
          console.log(e);
+    }
+}
+
+let getSurvey = async({userN}) => {
+    try{
+        let responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/getSurvey?username=" + userN);
+        let res = await responsePromise;
+        if(!res.ok){
+            return null;
+        }
+        let parse = res.json();
+        let parsed = await parse;
+        return parsed
+
+    } catch(e) {
+        alert("There was an error contacting the server.");
+        console.log(e);
     }
 }
 
