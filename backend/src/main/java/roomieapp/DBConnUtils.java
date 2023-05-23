@@ -48,6 +48,8 @@ public class DBConnUtils {
     // By default, set the transaction isolation level to serializable
     conn.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
 
+    conn.setAutoCommit(false);
+
     return conn;
   }
 }

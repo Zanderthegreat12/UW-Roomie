@@ -241,15 +241,14 @@ public class Query {
     private PreparedStatement getTopMatchesStmt(
             String username, int topK) throws SQLException {
         PreparedStatement stmt = conn.prepareStatement(
-            "SELECT * " +
+            "SELECT TOP(?) * " +
                 "FROM Matches " +
                 "WHERE (user1 = ? or user2 = ?) and matchStatus = 0 " +
-                "ORDER BY compatibility DESC " +
-                "LIMIT ?;"
+                "ORDER BY compatibility DESC;"
         );
-        stmt.setString(1, username);
         stmt.setString(2, username);
-        stmt.setInt(3, topK);
+        stmt.setString(3, username);
+        stmt.setInt(1, topK);
         return stmt;
     }
 
@@ -536,7 +535,7 @@ public class Query {
             }
 
             // if value incorrect format, throw exception, else try again
-            if(e.getErrorCode() == 3819) {
+            if(e.getErrorCode() == 547) {
                 throw new IllegalArgumentException();
             } else {
                 //e.printStackTrace();
@@ -584,7 +583,7 @@ public class Query {
             }
 
             // if value incorrect format, throw exception, else try again
-            if(e.getErrorCode() == 3819) {
+            if(e.getErrorCode() == 547) {
                 throw new IllegalArgumentException();
             } else {
                 //e.printStackTrace();
@@ -630,7 +629,7 @@ public class Query {
             }
 
             // if value incorrect format, throw exception, else try again
-            if(e.getErrorCode() == 3819) {
+            if(e.getErrorCode() == 547) {
                 throw new IllegalArgumentException();
             } else {
                 //e.printStackTrace();
@@ -742,8 +741,9 @@ public class Query {
                 throw new ConnectException();
             }
 
+            int value = e.getErrorCode();
             // if value incorrect format, throw exception, else try again
-            if(e.getErrorCode() == 3819) {
+            if(e.getErrorCode() == 547) {
                 throw new IllegalArgumentException();
             } else {
                 //e.printStackTrace();
@@ -789,7 +789,7 @@ public class Query {
             }
 
             // if value incorrect format, throw exception, else try again
-            if(e.getErrorCode() == 3819) {
+            if(e.getErrorCode() == 547) {
                 throw new IllegalArgumentException();
             } else {
                 //e.printStackTrace();
