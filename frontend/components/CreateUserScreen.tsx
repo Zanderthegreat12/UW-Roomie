@@ -86,8 +86,13 @@ export default function HomeScreen() {
  */
 createUser = async({userN}, {pass}, {nav}, {pNum}, {dis}, {email}) => {
     try{
-         let cord = dis.replace("#", '%23');
-         let responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/createUser?username=" + userN + "&password=" + pass + "&pNum=" + pNum + "&discord=" + cord + "&email=" + email);
+         //let cord = dis.replace("#", '%23');
+         let userNew = encodeURIComponent(userN);
+         let passNew = encodeURIComponent(pass);
+         let emailNew = encodeURIComponent(email);
+         let cord = encodeURIComponent(dis);
+
+         let responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/createUser?username=" + userNew + "&password=" + passNew + "&pNum=" + pNum + "&discord=" + cord + "&email=" + emailNew);
          let res = await responsePromise;
          if(!res.ok){
              //alert("Some field not filled");

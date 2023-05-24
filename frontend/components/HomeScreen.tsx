@@ -61,8 +61,11 @@ export default function HomeScreen({route}) {
  * @param nav navigates to desired screen
  */
 logIn = async({userN}, {pass}, {nav}) => {
+    let userNew = encodeURIComponent(userN);
+    let passNew = encodeURIComponent(pass);
+
     try{
-         let responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/logIn?username=" + userN + "&password=" + pass);
+         let responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/logIn?username=" + userNew + "&password=" + passNew);
          let res = await responsePromise;
          if(!res.ok){
              alert("Error! Expected: 200, Was: " + res.status);
