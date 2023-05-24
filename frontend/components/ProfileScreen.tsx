@@ -57,7 +57,7 @@ export default function HomeScreen({route}) {
                  <Button
                     title="Retake Survey"
                     color="#7c2bee"
-                    onPress={() => navigation.navigate('Survey Menu', {user:'' + username})}
+                    onPress={() => surveyRedirect(username, navigation)}
                  />
             </View>
 
@@ -68,6 +68,29 @@ export default function HomeScreen({route}) {
             />
         </View>
     );
+}
+
+let surveyRedirect = async(user, navigation) => {
+    var surveyInfo = await getSurvey({userN: user})
+    navigation.navigate('Survey Menu', {user:'' + user, survey: surveyInfo})
+}
+
+let getSurvey = async({userN}) => {
+    try{
+        let responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/getSurvey?username=" + userN);
+        let res = await responsePromise;
+        if(!res.ok){
+            alert("um")
+            return null;
+        }
+        let parse = res.json();
+        let parsed = await parse;
+        return parsed
+
+    } catch(e) {
+        alert("There was an error contacting the server.");
+        console.log(e);
+    }
 }
 
 const styles = StyleSheet.create({

@@ -15,6 +15,7 @@ Dropdown.setListMode("SCROLLVIEW")
 export default function SurveyMenuScreen({route}) {
 
     const [username, setUser] = useState(route.params.user);
+    const [survey, setSurvey] = useState(route.params.survey)
     const navigation = useNavigation()
     var answersOpen = -1
 
@@ -36,29 +37,25 @@ export default function SurveyMenuScreen({route}) {
     var studentNeatInit = null
     var roommateNeatInit = null
 
-    let setValues = async(user) => {
-        var survey = await getSurvey({userN: user})
-        if (survey !== null) {
-            setFirstDormValue(survey.firstDorm)
-            setSecondDormValue(survey.secondDorm)
-            setThirdDormValue(survey.thirdDorm)
-            setRoomTypeValue(survey.roomType)
-            setGenderInclusiveValue(survey.genderInclusive)
-            setStudentYearValue(survey.studentYear)
-            setRoommateYearValue(survey.roommateYear)
-            setDrinkingPrefValue(survey.drinkingPref)
-            setWakeTimeValue(survey.wakeTime)
-            setSleepTimeValue(survey.sleepTime)
-            setHeavySleepValue(survey.heavySleep)
-            setStudentVertValue(survey.studentVert)
-            setRoommateVertValue(survey.roommateVert)
-            setStudentFriendsValue(survey.roommateFriends)
-            setRoommateFriendsValue(survey.roommateFriends)
-            setStudentNeatValue(survey.studentNeat)
-            setRoommateNeatValue(survey.roommateNeat)
-        }
+    if (survey !== null) {
+        firstDormInit = survey.firstDorm
+        secondDormInit = survey.secondDorm
+        thirdDormInit = survey.thirdDorm
+        roomTypeInit = survey.roomType
+        genderInclusiveInit = survey.genderInclusive
+        studentYearInit = survey.studentYear
+        roommateYearInit = survey.roommateYear
+        drinkingPrefInit = survey.drinkingPref
+        wakeTimeInit = survey.wakeTime
+        sleepTimeInit = survey.wakeTime
+        heavySleepInit = survey.heavySleep
+        studentVertInit = survey.studentVert
+        roommateVertInit = survey.roommateVert
+        studentFriendsInit = survey.studentFriends
+        roommateFriendsInit = survey.roommateFriends
+        studentNeatInit = survey.studentNeat
+        roommateNeatInit = survey.roommateNeat
     }
-    setValues(username)
 
     // Dorm ranking state
     const [firstDormOpen, setFirstDormOpen] = useState(false);
@@ -85,8 +82,8 @@ export default function SurveyMenuScreen({route}) {
     ]);
 
     // room type question state
-    const [roomTypeOpen, setRoomTypeOpen] = useState(roomTypeInit);
-    const [roomTypeValue, setRoomTypeValue] = useState(null);
+    const [roomTypeOpen, setRoomTypeOpen] = useState(false);
+    const [roomTypeValue, setRoomTypeValue] = useState(roomTypeInit);
     const [roomTypes, setRoomTypes] = useState([
         {label: 'single/studio', value: 1},
         {label: 'double/2 bedrooms', value: 2},
@@ -97,16 +94,16 @@ export default function SurveyMenuScreen({route}) {
     ]);
 
     // gender inclusive state
-    const [genderInclusiveOpen, setGenderInclusiveOpen] = useState(genderInclusiveInit);
-    const [genderInclusiveValue, setGenderInclusiveValue] = useState(null);
+    const [genderInclusiveOpen, setGenderInclusiveOpen] = useState(false);
+    const [genderInclusiveValue, setGenderInclusiveValue] = useState(genderInclusiveInit);
     const [genderInclusivity, setGenderInclusivity] = useState([
         {label: 'Yes. I want to be in gender inclusive dorming', value: 1},
         {label: 'No. I don\'t want to be in gender inclusive dorming', value: 0},
     ]);
 
     // student year state
-    const [studentYearOpen, setStudentYearOpen] = useState(studentYearInit);
-    const [studentYearValue, setStudentYearValue] = useState(null);
+    const [studentYearOpen, setStudentYearOpen] = useState(false);
+    const [studentYearValue, setStudentYearValue] = useState(studentYearInit);
     const [studentYears, setStudentYears] = useState([
         {label: '1st year', value: 1},
         {label: '2nd year', value: 2},
@@ -115,8 +112,8 @@ export default function SurveyMenuScreen({route}) {
     ]);
 
     // roommate year state
-    const [roommateYearOpen, setRoommateYearOpen] = useState(roommateYearInit);
-    const [roommateYearValue, setRoommateYearValue] = useState(null);
+    const [roommateYearOpen, setRoommateYearOpen] = useState(false);
+    const [roommateYearValue, setRoommateYearValue] = useState(roommateYearInit);
     const [roommateYears, setRoommateYears] = useState([
         {label: '1st year', value: 1},
         {label: '2nd year', value: 2},
@@ -126,16 +123,16 @@ export default function SurveyMenuScreen({route}) {
     ]);
 
     // drinking preference state
-    const [drinkingPrefOpen, setDrinkingPrefOpen] = useState(drinkingPrefInit);
-    const [drinkingPrefValue, setDrinkingPrefValue] = useState(null);
+    const [drinkingPrefOpen, setDrinkingPrefOpen] = useState(false);
+    const [drinkingPrefValue, setDrinkingPrefValue] = useState(drinkingPrefInit);
     const [drinkingPref, setDrinkingPref] = useState([
         {label: 'I don\'t want my roommate to drink', value: 0},
         {label: 'I\'m cool with roommate drinking', value: 1},
     ]);
 
     // wake time state
-    const [wakeTimeOpen, setWakeTimeOpen] = useState(wakeTimeInit);
-    const [wakeTimeValue, setWakeTimeValue] = useState(null);
+    const [wakeTimeOpen, setWakeTimeOpen] = useState(false);
+    const [wakeTimeValue, setWakeTimeValue] = useState(wakeTimeInit);
     const [wakeTimes, setWakeTimes] = useState([
         {label: '6:00 am - 7:00 am', value: 6},
         {label: '7:00 am - 8:00 am', value: 7},
@@ -147,8 +144,8 @@ export default function SurveyMenuScreen({route}) {
     ]);
 
     // sleep time state
-    const [sleepTimeOpen, setSleepTimeOpen] = useState(sleepTimeInit);
-    const [sleepTimeValue, setSleepTimeValue] = useState(null);
+    const [sleepTimeOpen, setSleepTimeOpen] = useState(false);
+    const [sleepTimeValue, setSleepTimeValue] = useState(sleepTimeInit);
     const [sleepTimes, setSleepTimes] = useState([
         {label: '9:00 pm - 10:00 pm', value: 6},
         {label: '10:00 pm - 11:00 pm', value: 7},
@@ -160,16 +157,16 @@ export default function SurveyMenuScreen({route}) {
     ]);
 
     // light/heavy sleeper state
-    const [heavySleepOpen, setHeavySleepOpen] = useState(heavySleepInit);
-    const [heavySleepValue, setHeavySleepValue] = useState(null);
+    const [heavySleepOpen, setHeavySleepOpen] = useState(false);
+    const [heavySleepValue, setHeavySleepValue] = useState(heavySleepInit);
     const [heavySleep, setHeavySleep] = useState([
         {label: 'I\'m a light sleeper', value: 0},
         {label: 'I\'m a heavy sleeper', value: 1},
     ]);
 
     // student vertness state
-    const [studentVertOpen, setStudentVertOpen] = useState(studentVertInit);
-    const [studentVertValue, setStudentVertValue] = useState(null);
+    const [studentVertOpen, setStudentVertOpen] = useState(false);
+    const [studentVertValue, setStudentVertValue] = useState(studentVertInit);
     const [studentVerts, setStudentVerts] = useState([
         {label: 'I\'m an introvert', value: 0},
         {label: 'I\'m an ambivert', value: 1},
@@ -177,8 +174,8 @@ export default function SurveyMenuScreen({route}) {
     ]);
 
     // roommate vertness state
-    const [roommateVertOpen, setRoommateVertOpen] = useState(roommateVertInit);
-    const [roommateVertValue, setRoommateVertValue] = useState(null);
+    const [roommateVertOpen, setRoommateVertOpen] = useState(false);
+    const [roommateVertValue, setRoommateVertValue] = useState(roommateVertInit);
     const [roommateVerts, setRoommateVerts] = useState([
         {label: 'I prefer my roommate be an introvert', value: 0},
         {label: 'I prefer my roommate be an ambivert', value: 1},
@@ -187,32 +184,32 @@ export default function SurveyMenuScreen({route}) {
     ]);
 
     // student friends state
-    const [studentFriendsOpen, setStudentFriendsOpen] = useState(studentFriendsInit);
-    const [studentFriendsValue, setStudentFriendsValue] = useState(null);
+    const [studentFriendsOpen, setStudentFriendsOpen] = useState(false);
+    const [studentFriendsValue, setStudentFriendsValue] = useState(studentFriendsInit);
     const [studentFriends, setStudentFriends] = useState([
         {label: 'I won\'t bring friends to the dorm room', value: 0},
         {label: 'I will want to bring friends to the dorm room', value: 1}
     ]);
 
     // roommate friends state
-    const [roommateFriendsOpen, setRoommateFriendsOpen] = useState(roommateFriendsInit);
-    const [roommateFriendsValue, setRoommateFriendsValue] = useState(null);
+    const [roommateFriendsOpen, setRoommateFriendsOpen] = useState(false);
+    const [roommateFriendsValue, setRoommateFriendsValue] = useState(studentFriendsInit);
     const [roommateFriends, setRoommateFriends] = useState([
         {label: 'I don\'t want my roommate bringing friends to the dorm', value: 0},
         {label: 'I\'m cool with my roommate bringing friends to the dorm', value: 1}
     ]);
 
     // student neat state
-    const [studentNeatOpen, setStudentNeatOpen] = useState(studentNeatInit);
-    const [studentNeatValue, setStudentNeatValue] = useState(null);
+    const [studentNeatOpen, setStudentNeatOpen] = useState(false);
+    const [studentNeatValue, setStudentNeatValue] = useState(studentNeatInit);
     const [studentNeat, setStudentNeat] = useState([
         {label: 'I\'m messy and disorganized', value: 0},
         {label: 'I\'m clean, neat, and organized', value: 1}
     ]);
 
     // roommate neat state
-    const [roommateNeatOpen, setRoommateNeatOpen] = useState(roommateNeatInit);
-    const [roommateNeatValue, setRoommateNeatValue] = useState(null);
+    const [roommateNeatOpen, setRoommateNeatOpen] = useState(false);
+    const [roommateNeatValue, setRoommateNeatValue] = useState(roommateNeatInit);
     const [roommateNeat, setRoommateNeat] = useState([
         {label: 'I\'m fine with my roommate being messy and disorganized', value: 0},
         {label: 'I want my roommate to be clean, neat, and organized', value: 1}
@@ -532,23 +529,6 @@ let setSurvey = async({infoString}, {nav}, {userN}) => {
     } catch(e) {
          alert("There was an error contacting the server.");
          console.log(e);
-    }
-}
-
-let getSurvey = async({userN}) => {
-    try{
-        let responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/getSurvey?username=" + userN);
-        let res = await responsePromise;
-        if(!res.ok){
-            return null;
-        }
-        let parse = res.json();
-        let parsed = await parse;
-        return parsed
-
-    } catch(e) {
-        alert("There was an error contacting the server.");
-        console.log(e);
     }
 }
 
