@@ -370,7 +370,12 @@ public class Query {
             try {
                 conn.rollback();
             } catch (SQLException otherE) {
-                throw new ConnectException();
+                try {
+                    this.conn = DBConnUtils.openConnection();
+                    return createUser(username, password);
+                } catch (Exception again) {
+                    throw new ConnectException();
+                }
             }
             return createUser(username, password);
         }
@@ -406,7 +411,12 @@ public class Query {
             try {
                 conn.rollback();
             } catch (SQLException otherE) {
-                throw new ConnectException();
+                try {
+                    this.conn = DBConnUtils.openConnection();
+                    return login(username, password);
+                } catch (Exception again) {
+                    throw new ConnectException();
+                }
             }
             return login(username, password);
         }
@@ -447,7 +457,12 @@ public class Query {
             try {
                 conn.rollback();
             } catch (SQLException otherE) {
-                throw new ConnectException();
+                try {
+                    this.conn = DBConnUtils.openConnection();
+                    return getContactInfo(username);
+                } catch (Exception again) {
+                    throw new ConnectException();
+                }
             }
             return getContactInfo(username);
         }
@@ -489,7 +504,12 @@ public class Query {
             try {
                 conn.rollback();
             } catch (SQLException otherE) {
-                throw new ConnectException();
+                try {
+                    this.conn = DBConnUtils.openConnection();
+                    return getSurvey(username);
+                } catch (Exception again) {
+                    throw new ConnectException();
+                }
             }
             return getSurvey(username);
         }
@@ -531,7 +551,13 @@ public class Query {
             try {
                 conn.rollback();
             } catch (SQLException otherE) {
-                throw new ConnectException();
+                try {
+                    this.conn = DBConnUtils.openConnection();
+                    setContactInfo(userContactInfo);
+                    return;
+                } catch (Exception again) {
+                    throw new ConnectException();
+                }
             }
 
             // if value incorrect format, throw exception, else try again
@@ -579,7 +605,13 @@ public class Query {
             try {
                 conn.rollback();
             } catch (SQLException otherE) {
-                throw new ConnectException();
+                try {
+                    this.conn = DBConnUtils.openConnection();
+                    setSurvey(userSurvey);
+                    return;
+                } catch (Exception again) {
+                    throw new ConnectException();
+                }
             }
 
             // if value incorrect format, throw exception, else try again
@@ -625,7 +657,13 @@ public class Query {
             try {
                 conn.rollback();
             } catch (SQLException otherE) {
-                throw new ConnectException();
+                try {
+                    this.conn = DBConnUtils.openConnection();
+                    setMatch(matchInfo);
+                    return;
+                } catch (Exception again) {
+                    throw new ConnectException();
+                }
             }
 
             // if value incorrect format, throw exception, else try again
@@ -679,7 +717,12 @@ public class Query {
             try {
                 conn.rollback();
             } catch (SQLException otherE) {
-                throw new ConnectException();
+                try {
+                    this.conn = DBConnUtils.openConnection();
+                    return getMatch(username1, username2);
+                } catch (Exception again) {
+                    throw new ConnectException();
+                }
             }
             return getMatch(username1, username2);
         }
@@ -738,7 +781,13 @@ public class Query {
             try {
                 conn.rollback();
             } catch (SQLException otherE) {
-                throw new ConnectException();
+                try {
+                    this.conn = DBConnUtils.openConnection();
+                    updateCompatibility(username1, username2, newCompatibility);
+                    return;
+                } catch (Exception again) {
+                    throw new ConnectException();
+                }
             }
 
             int value = e.getErrorCode();
@@ -785,7 +834,13 @@ public class Query {
             try {
                 conn.rollback();
             } catch (SQLException otherE) {
-                throw new ConnectException();
+                try {
+                    this.conn = DBConnUtils.openConnection();
+                    updateMatchStatus(username1, username2, newMatchStatus);
+                    return;
+                } catch (Exception again) {
+                    throw new ConnectException();
+                }
             }
 
             // if value incorrect format, throw exception, else try again
@@ -821,7 +876,12 @@ public class Query {
             try {
                 conn.rollback();
             } catch (SQLException otherE) {
-                throw new ConnectException();
+                try {
+                    this.conn = DBConnUtils.openConnection();
+                    return getAllSurveys();
+                } catch (Exception again) {
+                    throw new ConnectException();
+                }
             }
             return getAllSurveys();
         }
@@ -901,7 +961,12 @@ public class Query {
             try {
                 conn.rollback();
             } catch (SQLException otherE) {
-                throw new ConnectException();
+                try {
+                    this.conn = DBConnUtils.openConnection();
+                    return getMatches(username, matchStmt);
+                } catch (Exception again) {
+                    throw new ConnectException();
+                }
             }
             return getMatches(username, matchStmt);
         }
