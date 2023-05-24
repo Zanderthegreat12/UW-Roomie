@@ -70,6 +70,11 @@ export default function HomeScreen({route}) {
     );
 }
 
+/**
+ *
+ * @param user 
+ * @param navigation
+ */
 let surveyRedirect = async(user, navigation) => {
     var surveyInfo = await getSurvey({userN: user})
     navigation.navigate('Survey Menu', {user:'' + user, survey: surveyInfo})

@@ -75,6 +75,15 @@ export default function HomeScreen() {
     );
 }
 
+/**
+ *
+ * @param userN identifier for the user
+ * @param pass user's password to sign in
+ * @param nav object that can switch screen shown to user
+ * @param pNum user's phone number
+ * @param dis user's discord
+ * @param email user's email
+ */
 createUser = async({userN}, {pass}, {nav}, {pNum}, {dis}, {email}) => {
     try{
          let responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/createUser?username=" + userN + "&password=" + pass + "&pNum=" + pNum + "&discord=" + dis + "&email=" + email);
