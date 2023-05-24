@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button, Alert } from 'react-native';
+import {StyleSheet, Text, View, Button, Alert, TouchableOpacity} from 'react-native';
 import {useNavigation} from "@react-navigation/native";
 import React, {useEffect, useState} from 'react';
 
@@ -15,8 +15,10 @@ export default function MatchInfoScreen({route}) {
     const [matchname, setMatchName] = useState(route.params.match);
     const [comp, setComp] = useState(route.params.comp);
     const [status, setStatus] = useState(route.params.status);
+    const [buttonStatus, setButtonStatus] = useState(false);
 
     const[data, setData] = useState([]);
+
 
     let matchvalue = 0;
 
@@ -32,7 +34,8 @@ export default function MatchInfoScreen({route}) {
      */
     let getContact = async(user) => {
         try{
-            let responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/getSurvey?username=" + user);
+            let userNew = encodeURIComponent(user);
+            let responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/getSurvey?username=" + userNew);
             let res = await responsePromise;
             if(!res.ok){
                 alert("Error! Expected: 200, Was: " + res.status);
@@ -153,7 +156,116 @@ export default function MatchInfoScreen({route}) {
         }
     }
 
-    useEffect(()=>{getContact(matchname);},[]);
+    let AcceptMatch = async({user},{matchname}, {num}) => {
+        try{
+            let userNew = encodeURIComponent(user);
+            let matchNew = encodeURIComponent(matchname);
+
+            let responsePromise;
+            let res;
+            if (num == 0) {
+                if (userNew.localeCompare(matchNew) == -1) {
+                    responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/setMatchStatus?username=" + userNew + "&otherName=" + matchNew + "&newStatus=1");
+                    res = await responsePromise;
+                } else {
+                    responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/setMatchStatus?username=" + matchNew+ "&otherName=" + userNew + "&newStatus=2");
+                    res = await responsePromise;
+                }
+            } else {
+                if (userNew.localeCompare(matchNew) == -1) {
+                    responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/setMatchStatus?username=" + userNew + "&otherName=" + matchNew + "&newStatus=3");
+                    res = await responsePromise;
+                } else {
+                    responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/setMatchStatus?username=" + matchNew + "&otherName=" + userNew +"&newStatus=3");
+                    res = await responsePromise;
+                }
+            }
+            if(!res.ok) {
+                alert("Error! Expected: 200, Was: " + res.status);
+                return;
+            }
+
+            if(num == 0) {
+                setButtonStatus(true)
+                Alert.alert("Match Request was succesfully sent");
+            } else {
+                setButtonStatus(true)
+                Alert.alert("Match was Mutual Accepted", "Check View Matches on the Home menu to get their information");
+            }
+
+        } catch(e) {
+            alert("There was an error contacting the server.");
+            console.log(e);
+        }
+    }
+
+    let RejectMatch = async({user}, {matchname}) => {
+        try{
+            let userNew = encodeURIComponent(user);
+            let matchNew = encodeURIComponent(matchname);
+
+            let responsePromise;
+            let res;
+
+            if (userNew.localeCompare(matchNew) == -1) {
+                responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/setMatchStatus?username=" + userNew + "&otherName=" + matchNew + "&newStatus=-1" );
+                res = await responsePromise;
+            }  else {
+                responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/setMatchStatus?username=" + matchNew + "&otherName=" + userNew + "&newStatus=-1");
+                res = await responsePromise;
+            }
+            if(!res.ok) {
+                alert("Error! Expected: 200, Was: " + res.status);
+                return;
+            }
+
+            setButtonStatus(true)
+            Alert.alert("Match Request was succesfully rejected");
+
+        } catch(e) {
+            alert("There was an error contacting the server.");
+            console.log(e);
+        }
+    }
+
+    let CheckMatch = async(user, matchname) => {
+        console.log(user);
+        console.log(matchname);
+        try{
+
+            let userNew = encodeURIComponent(user);
+            let matchNew = encodeURIComponent(matchname);
+
+
+            let responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/getMatch?username=" + userNew + "&otherName=" + matchNew);
+            let res = await responsePromise;
+            if(!res.ok) {
+                alert("Error! Expected: 200, Was: " + res.status);
+                return;
+            }
+
+            let parse = res.json();
+            let parsed = await parse;
+
+            console.log(parsed);
+
+
+            if (userNew.localeCompare(matchNew) == -1 && (parsed.matchStatus == 1 || parsed.matchStatus == 3 || parsed.matchStatus == -1)){
+                setButtonStatus(true)
+            }
+            else if (userNew.localeCompare(matchNew) == 1 && (parsed.matchStatus == 2 || parsed.matchStatus == 3 || parsed.matchStatus == -1)){
+                setButtonStatus(true)
+            }
+
+        } catch(e) {
+            alert("There was an error contacting the server.");
+            console.log(e);
+        }
+    }
+
+
+    useEffect(()=>{getContact(matchname)},[]);
+    useEffect(() =>{CheckMatch(username,matchname)}, []);
 
 
     return (
@@ -163,11 +275,13 @@ export default function MatchInfoScreen({route}) {
                 <Button
                     title="Reject Match"
                     color="#7c2bee"
+                    disabled={buttonStatus}
                     onPress={() => RejectMatch({user:username}, {matchname:matchname})}
                 />
                 <Button
                     title="Accept Match"
                     color="#7c2bee"
+                    disabled={buttonStatus}
                     onPress={() => AcceptMatch({user: username},  {matchname: matchname}, {num:status})}
                 />
             </View>
@@ -180,67 +294,6 @@ export default function MatchInfoScreen({route}) {
     );
 }
 
-let AcceptMatch = async({user},{matchname}, {num}) => {
-    try{
-        let responsePromise;
-        let res;
-        if (num == 0) {
-            if (user.localeCompare(matchname) == -1) {
-                responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/setMatchStatus?username=" + user + "&otherName=" + matchname + "&newStatus=1");
-                res = await responsePromise;
-            } else {
-                responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/setMatchStatus?username=" + matchname + "&otherName=" + user + "&newStatus=2");
-                res = await responsePromise;
-            }
-        } else {
-            if (user.localeCompare(matchname) == -1) {
-                responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/setMatchStatus?username=" + user + "&otherName=" + matchname + "&newStatus=3");
-                res = await responsePromise;
-            } else {
-                responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/setMatchStatus?username=" + matchname + "&otherName=" + user +"&newStatus=3");
-                res = await responsePromise;
-            }
-        }
-        if(!res.ok) {
-            alert("Error! Expected: 200, Was: " + res.status);
-            return;
-        }
-
-        if(num == 0) {
-            Alert.alert("Match Request was succesfully sent");
-        } else {
-            Alert.alert("Match was Mutual Accepted", "Check View Matches on the Home menu to get their information");
-        }
-
-    } catch(e) {
-        alert("There was an error contacting the server.");
-        console.log(e);
-    }
-}
-
-let RejectMatch = async({user}, {matchname}) => {
-    try{
-        let responsePromise;
-        let res;
-        if (user.localeCompare(matchname) == -1) {
-            responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/setMatchStatus?username=" + user + "&otherName=" + matchname + "&newStatus=-1" );
-            res = await responsePromise;
-        }  else {
-            responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/setMatchStatus?username=" + matchname + "&otherName=" + user + "&newStatus=-1");
-            res = await responsePromise;
-        }
-        if(!res.ok) {
-            alert("Error! Expected: 200, Was: " + res.status);
-            return;
-        }
-
-        Alert.alert("Match Request was succesfully rejected");
-
-    } catch(e) {
-        alert("There was an error contacting the server.");
-        console.log(e);
-    }
-}
 
 /**
  * styles for the profile screen

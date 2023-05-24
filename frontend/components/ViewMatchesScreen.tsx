@@ -21,7 +21,8 @@ export default function ViewMatchesScreen({route}) {
      */
     let getMatches = async (user) => {
         try {
-            let responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/getComplete?username=" + user); //HARD CODE 10 AS A GLOBAL VAR
+            let userNew = encodeURIComponent(user);
+            let responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/getComplete?username=" + userNew); //HARD CODE 10 AS A GLOBAL VAR
             let res = await responsePromise;
             if (!res.ok) {
                 alert("Error! Expected: 200, Was: " + res.status);
