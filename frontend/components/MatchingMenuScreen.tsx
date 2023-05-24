@@ -11,6 +11,7 @@ import {useState, useEffect} from "react";
 export default function MatchingMenuScreen({route}) {
     const navigation = useNavigation();
     const [username, setUser] = useState(route.params.user);
+    const [loading, setLoading] = useState(true);
 
     const[data, setData] = useState([]);
 
@@ -21,6 +22,7 @@ export default function MatchingMenuScreen({route}) {
     let AlgMatch = async(user) => {
         let a = await runAlg(user);
         let b = await getMatches(user);
+        setLoading(false);
     }
 
     /**
@@ -112,6 +114,7 @@ export default function MatchingMenuScreen({route}) {
     return (
         <ScrollView contentContainerStyle={styles.container} nestedScrollEnabled={true}>
             <Text style={styles.title}>Matching Menu</Text>
+            {loading && <Text style={styles.text}> Loading...</Text>}
             {data}
             <View style={styles.button}>
                 <Button

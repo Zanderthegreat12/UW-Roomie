@@ -16,6 +16,7 @@ export default function MatchInfoScreen({route}) {
     const [comp, setComp] = useState(route.params.comp);
     const [status, setStatus] = useState(route.params.status);
     const [buttonStatus, setButtonStatus] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     const[data, setData] = useState([]);
 
@@ -149,6 +150,7 @@ export default function MatchInfoScreen({route}) {
 
 
             setData(TextInfo);
+            setLoading(false);
 
         } catch(e) {
             alert("There was an error contacting the server.");
@@ -270,6 +272,7 @@ export default function MatchInfoScreen({route}) {
 
     return (
         <View style={styles.container}>
+            {loading && <Text style={styles.text}> Loading...</Text>}
             {data}
             <View style={{ flexDirection:"row" }}>
                 <Button
