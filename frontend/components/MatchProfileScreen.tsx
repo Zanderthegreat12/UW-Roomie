@@ -5,9 +5,9 @@ import {TextInput} from 'react-native';
 import React, {useState} from 'react';
 
 /**
- *
+ * Displays a screen that shows another specified user's profile
  * @param route contains information about the user
- * @returns
+ * @returns rendering showing the profile of speicifed user
  */
 export default function MatchProfileScreen({route}) {
     const navigation = useNavigation();
@@ -17,6 +17,10 @@ export default function MatchProfileScreen({route}) {
     const [discord, setDiscord] = useState('');
     const [email, setEmail] = useState('');
 
+    /**
+     * get contact info of specified user
+     * @param user the user whom we want the contact info of
+     */
     let getContactInfo = async({user}) => {
         try{
             let responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/getContact?username=" + user);
@@ -63,6 +67,10 @@ export default function MatchProfileScreen({route}) {
     );
 }
 
+/**
+ * purple and white style with centered text for
+ * this screen.
+ */
 const styles = StyleSheet.create({
     container: {
         flex: 1,

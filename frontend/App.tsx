@@ -61,6 +61,9 @@ export default function App() {
   );
 }
 
+/**
+ * purple and white style with centering for home page
+ */
 const styles = StyleSheet.create({
     container: {
         flex: 1,
