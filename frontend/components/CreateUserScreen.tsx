@@ -75,6 +75,15 @@ export default function HomeScreen() {
     );
 }
 
+/**
+ * stores user's username, password, and contact info on server side
+ * @param userN identifier for the user
+ * @param pass user's password to sign in
+ * @param nav object that can switch screen shown to user
+ * @param pNum user's phone number
+ * @param dis user's discord
+ * @param email user's email
+ */
 createUser = async({userN}, {pass}, {nav}, {pNum}, {dis}, {email}) => {
     try{
          let cord = dis.replace("#", '%23');

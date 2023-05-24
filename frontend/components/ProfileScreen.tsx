@@ -70,11 +70,20 @@ export default function HomeScreen({route}) {
     );
 }
 
+/**
+ * get survey info for current user, then redirect to survye screen
+ * @param user the identifier for the user
+ * @param navigation object that can switch screen the user is currently on
+ */
 let surveyRedirect = async(user, navigation) => {
     var surveyInfo = await getSurvey({userN: user})
     navigation.navigate('Survey Menu', {user:'' + user, survey: surveyInfo})
 }
 
+/**
+ * get survey info of userN
+ * @param userN the identifier for the user
+ */
 let getSurvey = async({userN}) => {
     try{
         let responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/getSurvey?username=" + userN);
@@ -93,6 +102,9 @@ let getSurvey = async({userN}) => {
     }
 }
 
+/**
+ * standard purple and white style for screen for profile screen
+ */
 const styles = StyleSheet.create({
     container: {
         flex: 1,
