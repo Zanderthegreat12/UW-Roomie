@@ -19,6 +19,7 @@ export default function SurveyMenuScreen({route}) {
     const navigation = useNavigation()
     var answersOpen = -1
 
+    // initialize dropdown values
     var firstDormInit = null
     var secondDormInit = null
     var thirdDormInit = null

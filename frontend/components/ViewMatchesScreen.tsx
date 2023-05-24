@@ -3,14 +3,22 @@ import { StyleSheet, ScrollView, Text, View, Button } from 'react-native';
 import {getFocusedRouteNameFromRoute, useNavigation} from "@react-navigation/native";
 import {useState, useEffect} from "react";
 
-
+/**
+ * functions that displays the screen to view mutual matches
+ * (i.e. both users have matched with each other)
+ * @param route cotains user information
+ * @returns rendering of screen to see complete/mutual matches
+ */
 export default function ViewMatchesScreen({route}) {
     const navigation = useNavigation();
     const [username, setUser] = useState(route.params.user);
 
     const[data, setData] = useState([]);
 
-
+    /**
+     * get all complete matches between this user and all other users
+     * @param user identifier for user
+     */
     let getMatches = async (user) => {
         try {
             let userNew = encodeURIComponent(user);
@@ -31,6 +39,7 @@ export default function ViewMatchesScreen({route}) {
                 ExtraButtons.push(<Text key={-1} style={styles.text}> No Mutual  Matches at the Moment. Try again later.</Text>);
             }
 
+            // adds all needed buttons to showing matches to screen
             while(i < parsed.length) {
 
                 let Matchname: string;
@@ -86,9 +95,9 @@ export default function ViewMatchesScreen({route}) {
     );alignItems
 }
 
-
-
-
+/**
+ * standard purple and white style for screen to veiw possible matches
+ */
 const styles = StyleSheet.create({
     container: {
         flexGrow: 1,
