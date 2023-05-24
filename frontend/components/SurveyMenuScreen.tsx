@@ -501,7 +501,7 @@ export default function SurveyMenuScreen({route}) {
                 <Button
                     title="Submit"
                     color="#7c2bee"
-                    onPress={() => setSurvey({infoString: username + "%20" + firstDormValue + "%20" + secondDormValue + "%20"
+                    onPress={() => updateSurvey({infoString: username + "%20" + firstDormValue + "%20" + secondDormValue + "%20"
                                                 + thirdDormValue + "%20" + roomTypeValue + "%20" + genderInclusiveValue + "%20"
                                                 + studentYearValue + "%20" + roommateYearValue + "%20" + drinkingPrefValue
                                                 + "%20" + wakeTimeValue + "%20" + sleepTimeValue + "%20" + heavySleepValue
@@ -514,7 +514,7 @@ export default function SurveyMenuScreen({route}) {
     );
 }
 
-let setSurvey = async({infoString}, {nav}, {userN}) => {
+let updateSurvey = async({infoString}, {nav}, {userN}) => {
     try{
          let responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/createSurvey?str=" + infoString);
          let res = await responsePromise;
