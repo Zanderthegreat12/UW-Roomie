@@ -32,7 +32,8 @@ export default function MatchInfoScreen({route}) {
      */
     let getContact = async(user) => {
         try{
-            let responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/getSurvey?username=" + user);
+            let userNew = encodeURIComponent(user);
+            let responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/getSurvey?username=" + userNew);
             let res = await responsePromise;
             if(!res.ok){
                 alert("Error! Expected: 200, Was: " + res.status);
@@ -182,22 +183,25 @@ export default function MatchInfoScreen({route}) {
 
 let AcceptMatch = async({user},{matchname}, {num}) => {
     try{
+        let userNew = encodeURIComponent(user);
+        let matchNew = encodeURIComponent(matchname);
+
         let responsePromise;
         let res;
         if (num == 0) {
             if (user.localeCompare(matchname) == -1) {
-                responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/setMatchStatus?username=" + user + "&otherName=" + matchname + "&newStatus=1");
+                responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/setMatchStatus?username=" + userNew + "&otherName=" + matchNew + "&newStatus=1");
                 res = await responsePromise;
             } else {
-                responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/setMatchStatus?username=" + matchname + "&otherName=" + user + "&newStatus=2");
+                responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/setMatchStatus?username=" + matchNew + "&otherName=" + userNew + "&newStatus=2");
                 res = await responsePromise;
             }
         } else {
             if (user.localeCompare(matchname) == -1) {
-                responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/setMatchStatus?username=" + user + "&otherName=" + matchname + "&newStatus=3");
+                responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/setMatchStatus?username=" + userNew + "&otherName=" + matchNew + "&newStatus=3");
                 res = await responsePromise;
             } else {
-                responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/setMatchStatus?username=" + matchname + "&otherName=" + user +"&newStatus=3");
+                responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/setMatchStatus?username=" + matchNew + "&otherName=" + userNew +"&newStatus=3");
                 res = await responsePromise;
             }
         }
@@ -220,13 +224,16 @@ let AcceptMatch = async({user},{matchname}, {num}) => {
 
 let RejectMatch = async({user}, {matchname}) => {
     try{
+        let userNew = encodeURIComponent(user);
+        let matchNew = encodeURIComponent(matchname);
+
         let responsePromise;
         let res;
         if (user.localeCompare(matchname) == -1) {
-            responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/setMatchStatus?username=" + user + "&otherName=" + matchname + "&newStatus=-1" );
+            responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/setMatchStatus?username=" + userNew + "&otherName=" + matchNew + "&newStatus=-1" );
             res = await responsePromise;
         }  else {
-            responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/setMatchStatus?username=" + matchname + "&otherName=" + user + "&newStatus=-1");
+            responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/setMatchStatus?username=" + matchNew + "&otherName=" + userNew + "&newStatus=-1");
             res = await responsePromise;
         }
         if(!res.ok) {
