@@ -23,7 +23,6 @@ How to run code in devlopment environment (for users):
   4. Run "npm install expo"
   5. Run "npx expo start"
   6. Scan QR code on computer from within ExpoGo app
-  7. Note: backend server will be down during the following times, {12:00 - 12:10 am, 6:00-6:10 am, 12:00-12:10 pm, 6:00-6:10 pm}
 
 How to use App:
 1. Create new profile. Include username, password, and contact info.
@@ -39,8 +38,9 @@ Bug Reporting:
   1. Report bugs here: https://github.com/Zanderthegreat12/UW-Roomie/issues
   2. Bug Reports should include the following information: <br>
     - The screen(s) where the bug occurs <br>
-    - What event triggered the bug (if applicable)
-    - What the bug actually is
+    - What event triggered the bug (if applicable) <br>
+    - What the expected value/screen is supposed to be <br>
+    - What the actual value/screen is
 
 Known Bugs:
 - Not all matches show up after creating survey.
