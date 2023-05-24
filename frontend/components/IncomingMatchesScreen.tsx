@@ -3,7 +3,11 @@ import { StyleSheet, ScrollView, Text, View, Button } from 'react-native';
 import {getFocusedRouteNameFromRoute, useNavigation} from "@react-navigation/native";
 import {useState, useEffect} from "react";
 
-
+/**
+ * Displays a screen that shows incoming matches
+ * @param route
+ * @constructor
+ */
 export default function IncomingMatchesScreen({route}) {
     const navigation = useNavigation();
     const [username, setUser] = useState(route.params.user);
