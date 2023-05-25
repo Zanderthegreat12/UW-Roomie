@@ -58,9 +58,9 @@ How to host code on independent server (for developers):
     - This isn't currently centralized in our code
   6. Install ExpoGo on phone to use app
   7. Nagivate to the frontend folder of this Repo from the Command Prompt (on local machine)
-  8. Run "npm install expo"
-  9. Run "npx expo start"
-  10. Scan QR code on computer from within ExpoGo app
+  9. Run "npm install expo"
+  10. Run "npx expo start"
+  11. Scan QR code on computer from within ExpoGo app
 
 --The current Use Cases that are functional are Filing out the survery and Finding Matches--
 

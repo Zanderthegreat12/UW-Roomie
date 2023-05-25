@@ -72,7 +72,14 @@ Review Peer Review build version
 - Make front end look nice
 
 #### Second subsection:
-- 
+- Fixed bug where special characters would break http requests for discord
+  - Needed to encode all user-input strings before any http requests.
+- Fixed a server error where if the contact info threw an error, it would create an account without contact info.
 
 #### Third subsection:
--
+- Fix log out so that it clears old log in data.
+- Fix textbox limit for email.
+- Add something to edit contact info in profile
+- Add create user form authentication (make sure its a valid discord/email)
+  - At this point in time no way to truly verify.
+- Disable back to home button when taking the survey for the first time.
