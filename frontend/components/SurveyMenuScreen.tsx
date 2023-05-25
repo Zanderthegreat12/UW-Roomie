@@ -13,7 +13,6 @@ Dropdown.setListMode("SCROLLVIEW")
  * @returns rendering for the survey screen
  */
 export default function SurveyMenuScreen({route}) {
-
     const [username, setUser] = useState(route.params.user);
     const [survey, setSurvey] = useState(route.params.survey)
     const navigation = useNavigation()
@@ -37,6 +36,7 @@ export default function SurveyMenuScreen({route}) {
     var roommateFriendsInit = null
     var studentNeatInit = null
     var roommateNeatInit = null
+    var buttonStatus = true;
 
     if (survey !== null) {
         firstDormInit = survey.firstDorm
@@ -56,7 +56,9 @@ export default function SurveyMenuScreen({route}) {
         roommateFriendsInit = survey.roommateFriends
         studentNeatInit = survey.studentNeat
         roommateNeatInit = survey.roommateNeat
+        buttonStatus = false;
     }
+
 
     // Dorm ranking state
     const [firstDormOpen, setFirstDormOpen] = useState(false);
@@ -240,6 +242,7 @@ export default function SurveyMenuScreen({route}) {
             <Button
                 title="Back to Home"
                 color="#7c2bee"
+                disabled={buttonStatus}
                 onPress={() => navigation.navigate('Login', {user:'' + username})}
             />
 
