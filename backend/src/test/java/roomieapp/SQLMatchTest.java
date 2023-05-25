@@ -126,6 +126,20 @@ public class SQLMatchTest {
             0
     );
 
+    private static final Match rejectMatch1 = new Match(
+            "aUser1",
+            "rejectUser1",
+            3,
+            -1
+    );
+
+    private static final Match rejectMatch2 = new Match(
+            "aUser1",
+            "rejectUser2",
+            56,
+            -1
+    );
+
     /**
      * test creating match for single pair of users
      */
@@ -653,12 +667,12 @@ public class SQLMatchTest {
     public void testGetRejectedMatchesSingle() {
         try {
             querier.clearTables();
-            querier.createUser(completeMatch1.user1, "lal");
-            querier.createUser(completeMatch1.user2, "lil");
-            querier.setMatch(completeMatch1);
-            List<Match> test = querier.getCompleteMatches(completeMatch1.user1);
+            querier.createUser(rejectMatch1.user1, "lal");
+            querier.createUser(rejectMatch1.user2, "lil");
+            querier.setMatch(rejectMatch1);
+            List<Match> test = querier.getRejectedMatches(rejectMatch1.user1);
             assertTrue(test.size() == 1);
-            assertTrue(test.get(0).equals(completeMatch1));
+            assertTrue(test.get(0).equals(rejectMatch1));
         } catch (ConnectException e) {
             assertTrue(false);
         }
@@ -693,10 +707,16 @@ public class SQLMatchTest {
             querier.createUser(completeMatch2.user2, "lil");
             querier.setMatch(completeMatch2);
 
-            List<Match> test = querier.getCompleteMatches(nonMatch1.user1);
+            querier.createUser(rejectMatch1.user2, "lil");
+            querier.setMatch(rejectMatch1);
+
+            querier.createUser(rejectMatch2.user2, "lil");
+            querier.setMatch(rejectMatch2);
+
+            List<Match> test = querier.getRejectedMatches(nonMatch1.user1);
             List<Match> actual = new ArrayList<>();
-            actual.add(completeMatch1);
-            actual.add(completeMatch2);
+            actual.add(rejectMatch1);
+            actual.add(rejectMatch2);
             assertTrue(actual.size() == test.size());
             assertTrue(actual.containsAll(test));
         } catch (ConnectException e) {
