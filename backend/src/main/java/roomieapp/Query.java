@@ -322,6 +322,18 @@ public class Query {
         return stmt;
     }
 
+    // query to find matches where one user rejected the other
+    private PreparedStatement rejectedMatchesStmt(String user) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement(
+                "SELECT * FROM Matches " +
+                        "WHERE (user1 = ? or user2 = ?) " +
+                        "and matchStatus = -1"
+        );
+        stmt.setString(1, user);
+        stmt.setString(2, user);
+        return stmt;
+    }
+
     /**
      * Clears all tables from SQL database
      */
@@ -931,6 +943,23 @@ public class Query {
     public List<Match> getCompleteMatches(String username) throws ConnectException {
         try {
             return getMatches(username, completeMatchesStmt(username));
+        } catch (SQLException e) {
+            throw new ConnectException();
+        }
+    }
+
+    /**
+     * Returns all rejected matches with given user
+     * where one user rejected the other.
+     * Matches aren't returned in any given order.
+     * @param username identifier for user
+     * @return list of matches of where one user rejected the other
+     * @throws IllegalArgumentException if user not in database
+     * @throws ConnectException if SQL database fails to commit queries
+     */
+    public List<Match> getRejectedMatches(String username) throws ConnectException {
+        try {
+            return getMatches(username, rejectedMatchesStmt(username));
         } catch (SQLException e) {
             throw new ConnectException();
         }
