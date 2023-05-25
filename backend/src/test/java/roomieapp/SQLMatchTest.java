@@ -650,7 +650,7 @@ public class SQLMatchTest {
     }
 
     @Test
-    public void testGetCompleteMatchesSingle() {
+    public void testGetRejectedMatchesSingle() {
         try {
             querier.clearTables();
             querier.createUser(completeMatch1.user1, "lal");
