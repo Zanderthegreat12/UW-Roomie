@@ -38,13 +38,6 @@ export default function LoginScreen({route}) {
             </View>
             <View style={styles.button}>
                 <Button
-                    title="Your liked roomies"
-                    color="#7c2bee"
-                    onPress={() => navigation.navigate('Liked Menu', {user: '' + username,})}
-                />
-            </View>
-            <View style={styles.button}>
-                <Button
                     title="Your profile"
                     color="#7c2bee"
                     onPress={() => navigation.navigate('Profile', {user: '' + username,})}
