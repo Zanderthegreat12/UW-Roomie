@@ -114,6 +114,13 @@ export default function MatchingMenuScreen({route}) {
     return (
         <ScrollView contentContainerStyle={styles.container} nestedScrollEnabled={true}>
             <Text style={styles.title}>Matching Menu</Text>
+            <View style={styles.button}>
+                <Button
+                    title="Refresh"
+                    color="#7c2bee"
+                    onPress={() => getMatches(username)}
+                />
+            </View>
             {loading && <Text style={styles.text}> Loading...</Text>}
             {data}
             <View style={styles.button}>

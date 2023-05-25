@@ -144,7 +144,7 @@ class MatchingAlgorithm {
 
         for(int i = 0; i < others.size(); i++){
 
-           if (user1.username != others.get(i).username){
+           if (!user1.username.equals(others.get(i).username)){
                Match pair = ComputeCompatability(user1, others.get(i));
                matches.add(pair);
            }
