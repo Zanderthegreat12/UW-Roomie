@@ -16,17 +16,10 @@ export default function MatchInfoScreen({route}) {
     const [comp, setComp] = useState(route.params.comp);
     const [status, setStatus] = useState(route.params.status);
     const [buttonStatus, setButtonStatus] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     const[data, setData] = useState([]);
 
-
-    let matchvalue = 0;
-
-    if (username < matchname) {
-        matchvalue = 1;
-    } else {
-        matchvalue = 2;
-    }
 
     /**
      * Gets the contact info of desired user
@@ -149,6 +142,7 @@ export default function MatchInfoScreen({route}) {
 
 
             setData(TextInfo);
+            setLoading(false);
 
         } catch(e) {
             alert("There was an error contacting the server.");
@@ -156,6 +150,15 @@ export default function MatchInfoScreen({route}) {
         }
     }
 
+    /**
+     * Changes the matchStatus to Accepted and sends that to
+     * the database
+     * @param user the username of current user
+     * @param matchname the name of the match
+     * @param  num 0 if this is the first time a person from this
+     *             match pair accepts the match, 1 or 2 if the other
+     *             user then accepts.
+     */
     let AcceptMatch = async({user},{matchname}, {num}) => {
         try{
             let userNew = encodeURIComponent(user);
@@ -199,6 +202,12 @@ export default function MatchInfoScreen({route}) {
         }
     }
 
+    /**
+     * Changes the matchStatus to Rejected and sends that to
+     * the database
+     * @param user the username of current user
+     * @param matchname the name of the match
+     */
     let RejectMatch = async({user}, {matchname}) => {
         try{
             let userNew = encodeURIComponent(user);
@@ -228,6 +237,11 @@ export default function MatchInfoScreen({route}) {
         }
     }
 
+    /**
+     * Checks the matchStatus to Accepted
+     * @param user the username of current user
+     * @param matchname the name of the match
+     */
     let CheckMatch = async(user, matchname) => {
         console.log(user);
         console.log(matchname);
@@ -270,6 +284,7 @@ export default function MatchInfoScreen({route}) {
 
     return (
         <View style={styles.container}>
+            {loading && <Text style={styles.text}> Loading...</Text>}
             {data}
             <View style={{ flexDirection:"row" }}>
                 <Button

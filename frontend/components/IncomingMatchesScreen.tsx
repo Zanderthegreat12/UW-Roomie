@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, ScrollView, Text, View, Button } from 'react-native';
 import {getFocusedRouteNameFromRoute, useNavigation} from "@react-navigation/native";
-import {useState, useEffect} from "react";
+import React, {useState, useEffect} from "react";
 
 /**
  * Displays a screen that shows incoming matches
@@ -13,6 +13,7 @@ export default function IncomingMatchesScreen({route}) {
     const [username, setUser] = useState(route.params.user);
 
     const[data, setData] = useState([]);
+    const [loading, setLoading] = useState(true);
 
 
     let getIncomingMatches = async (user) => {
@@ -70,6 +71,7 @@ export default function IncomingMatchesScreen({route}) {
                 i++;
             }
             setData(ExtraButtons);
+            setLoading(false);
 
         } catch (e) {
             alert("There was an error contacting the server.");
@@ -83,6 +85,7 @@ export default function IncomingMatchesScreen({route}) {
     return (
         <ScrollView contentContainerStyle={styles.container} nestedScrollEnabled={true}>
             <Text style={styles.title}>Matching Menu</Text>
+            {loading && <Text style={styles.text}> Loading...</Text>}
             {data}
             <View style={styles.button}>
                 <Button
