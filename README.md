@@ -49,7 +49,7 @@ Known Bugs:
 ## DEVELOPER GUIDE
 How to host code on independent server (for developers):
   1. Clone UW-Roomie repository on your local machine
-  2. Create 2 SQL databases. One for testing and one for main service
+  2. Create 2 MySQL databases. One for testing and one for main service
   3. Input the needed properties of your databses in dbconn (service database) and dbconntest (test database)
   4. host code in backend folder on a server using the following commands: <br>
     - to build the code, run "mvn package -Dmaven.test.skip" as a command line <br>
@@ -58,9 +58,9 @@ How to host code on independent server (for developers):
     - This isn't currently centralized in our code
   6. Install ExpoGo on phone to use app
   7. Nagivate to the frontend folder of this Repo from the Command Prompt (on local machine)
-  8. Run "npm install expo"
-  9. Run "npx expo start"
-  10. Scan QR code on computer from within ExpoGo app
+  9. Run "npm install expo"
+  10. Run "npx expo start"
+  11. Scan QR code on computer from within ExpoGo app
 
 --The current Use Cases that are functional are Filing out the survery and Finding Matches--
 

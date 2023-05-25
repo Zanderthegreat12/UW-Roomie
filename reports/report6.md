@@ -41,10 +41,15 @@ Review Peer Review build version
 - add frontend documentation for new screens
 
 #### Second subsection:
--
+- can view old survey answers when retaking survey
+- fixed bug that crashed server after no usage for an hour
+- added frontend documentation
+- retaking survey doesn't erase match requests and mutual matches anymore
 
 #### Third Subsection:
--
+- add loading screen for survey screen
+- ability to undo rejected matches
+- add query to view all rejected matches
 
 ### Leah:
 #### First subsection:

@@ -648,4 +648,59 @@ public class SQLMatchTest {
             assertTrue(false);
         }
     }
+
+    @Test
+    public void testGetCompleteMatchesSingle() {
+        try {
+            querier.clearTables();
+            querier.createUser(completeMatch1.user1, "lal");
+            querier.createUser(completeMatch1.user2, "lil");
+            querier.setMatch(completeMatch1);
+            List<Match> test = querier.getCompleteMatches(completeMatch1.user1);
+            assertTrue(test.size() == 1);
+            assertTrue(test.get(0).equals(completeMatch1));
+        } catch (ConnectException e) {
+            assertTrue(false);
+        }
+    }
+
+    @Test
+    public void testGetRejectedMatchesMulti() {
+        try {
+            querier.clearTables();
+            querier.createUser(nonMatch1.user1, "lal");
+            querier.createUser(nonMatch1.user2, "lul");
+            querier.setMatch(nonMatch1);
+
+            querier.createUser(nonMatch2.user2, "lel");
+            querier.setMatch(nonMatch2);
+
+            querier.createUser(incomingMatch1.user2, "lil");
+            querier.setMatch(incomingMatch1);
+
+            querier.createUser(incomingMatch2.user2, "lil");
+            querier.setMatch(incomingMatch2);
+
+            querier.createUser(outgoingMatch1.user2, "lil");
+            querier.setMatch(outgoingMatch1);
+
+            querier.createUser(outgoingMatch2.user2, "lil");
+            querier.setMatch(outgoingMatch2);
+
+            querier.createUser(completeMatch1.user2, "lil");
+            querier.setMatch(completeMatch1);
+
+            querier.createUser(completeMatch2.user2, "lil");
+            querier.setMatch(completeMatch2);
+
+            List<Match> test = querier.getCompleteMatches(nonMatch1.user1);
+            List<Match> actual = new ArrayList<>();
+            actual.add(completeMatch1);
+            actual.add(completeMatch2);
+            assertTrue(actual.size() == test.size());
+            assertTrue(actual.containsAll(test));
+        } catch (ConnectException e) {
+            assertTrue(false);
+        }
+    }
 }
