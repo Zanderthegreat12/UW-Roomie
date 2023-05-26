@@ -85,7 +85,8 @@ export default function MatchingMenuScreen({route}) {
                                                                                       user: '' + username,
                                                                                       match: '' + Matchname,
                                                                                       comp: '' + comp,
-                                                                                      status: ''+ status
+                                                                                      status: ''+ status,
+                                                                                      screen: ''+1
                                                                                   })}/></View>);
                 } else {
                     Matchname = parsed[i].user1
@@ -95,7 +96,8 @@ export default function MatchingMenuScreen({route}) {
                                                                                       user: '' + username,
                                                                                       match: '' + Matchname,
                                                                                       comp: '' + comp,
-                                                                                      status: '' + status
+                                                                                      status: '' + status,
+                                                                                      screen: ''+1
                                                                                   })}/></View>);
                 }
                 i++;

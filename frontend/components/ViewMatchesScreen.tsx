@@ -84,7 +84,7 @@ export default function ViewMatchesScreen({route}) {
 
     return (
         <ScrollView contentContainerStyle={styles.container} nestedScrollEnabled={true}>
-            <Text style={styles.title}>Matching Menu</Text>
+            <Text style={styles.title}>View Mutal Matches</Text>
             {loading && <Text style={styles.text}> Loading...</Text>}
             {data}
             <View style={styles.button}>

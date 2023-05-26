@@ -18,6 +18,23 @@ export default function MatchInfoScreen({route}) {
     const [buttonStatus, setButtonStatus] = useState(false);
     const [loading, setLoading] = useState(true);
 
+    let ReturnButton: any[];
+    ReturnButton = []
+
+    if(route.params.screen == 1){
+        ReturnButton.push(<Button
+            title="Back to all Matches"
+            color="#7c2bee"
+            onPress={() => navigation.navigate('Matching Menu', {user: '' + username})}
+        />)
+    } else {
+        ReturnButton.push(<Button
+            title="Back to Incomming Matches"
+            color="#7c2bee"
+            onPress={() => navigation.navigate('Incoming Matches Screen', {user: '' + username})}
+        />)
+    }
+
     const[data, setData] = useState([]);
 
 
@@ -300,11 +317,7 @@ export default function MatchInfoScreen({route}) {
                     onPress={() => AcceptMatch({user: username},  {matchname: matchname}, {num:status})}
                 />
             </View>
-            <Button
-                title="Back to all Matches"
-                color="#7c2bee"
-                onPress={() => navigation.navigate('Matching Menu', {user: '' + username})}
-            />
+            {ReturnButton}
         </View>
     );
 }

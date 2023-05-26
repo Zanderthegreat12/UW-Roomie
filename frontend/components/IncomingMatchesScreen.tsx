@@ -52,7 +52,8 @@ export default function IncomingMatchesScreen({route}) {
                                                                                           user: '' + username,
                                                                                           match: '' + Matchname,
                                                                                           comp: '' + comp,
-                                                                                          status: '' + status
+                                                                                          status: '' + status,
+                                                                                          screen:''+2
                                                                                       })}/></View>);
                     }
                 } else {
@@ -64,7 +65,8 @@ export default function IncomingMatchesScreen({route}) {
                                                                                           user: '' + username,
                                                                                           match: '' + Matchname,
                                                                                           comp: '' + comp,
-                                                                                          status: '' + status
+                                                                                          status: '' + status,
+                                                                                          screen:''+2
                                                                                       })}/></View>);
                     }
                 }
@@ -84,7 +86,7 @@ export default function IncomingMatchesScreen({route}) {
 
     return (
         <ScrollView contentContainerStyle={styles.container} nestedScrollEnabled={true}>
-            <Text style={styles.title}>Matching Menu</Text>
+            <Text style={styles.title}>Incoming Matches</Text>
             {loading && <Text style={styles.text}> Loading...</Text>}
             {data}
             <View style={styles.button}>
