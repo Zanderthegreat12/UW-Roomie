@@ -76,8 +76,9 @@ The Structure of this Repo is as follows:
   3. reports - stores the progress reports for the TA for each week we have worked on.
   
 How to test backend:
-  1. Set up JDK on computer
-  2. Run "mvn -B package --file pom.xml" in backend folder from Command Prompt
+  1. Set up JDK on computer <br>
+      - For more information, visit https://docs.oracle.com/cd/E19182-01/820-7851/inst_cli_jdk_javahome_t/
+  3. Run "mvn -B package --file pom.xml" in backend folder from Command Prompt
   
 How to test frontend:
   1. Run "npm install" in frontend folder from Command Prompt
