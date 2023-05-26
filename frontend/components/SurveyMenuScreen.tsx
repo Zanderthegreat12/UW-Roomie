@@ -59,6 +59,8 @@ export default function SurveyMenuScreen({route}) {
         buttonStatus = false;
     }
 
+    console.log(buttonStatus);
+
 
     // Dorm ranking state
     const [firstDormOpen, setFirstDormOpen] = useState(false);

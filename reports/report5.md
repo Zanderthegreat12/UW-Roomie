@@ -19,10 +19,32 @@ Review Beta build version
 - allow storage for photos (Colby)
 
 #### Second subsection:
-- 
+- Implemented page for viewing Incoming matches
+- Implemented page for viewing mutual matches
+- Set up the accepting and rejecting a match
+- Implmeneted a page to look at a Match's profile
+- Queries return error if connection fails
+- contact info is encrypted
+- created queries to get incoming/outgoing/complete matches
+- added documentation for alpha build screen
+- fixed run algorithm so it doesn't clear match status
+- fixed create user so it throws errors if query fails
+- Added a button to log out
+- Added contact info to profile screen.
+- Created new APIs for setting match status and viewing matches based on status.
 
 #### Third subsection:
-- 
+- Fine tune the matching algrothim so it gives a better value (Alex)
+- Fix accepting match so a user can't force a mutual match by clicking the accept button (Alex)
+- Make the buttons look uniform for all users 
+- allow storage for photos (Colby)
+- be able to view already taken survey (Colby)
+- Frontend documentation (colby)
+- Fix log out so that it clears old log in data. (Bella)
+- Add something to edit contact info in profile (Bella)
+- Implement working radio buttons (Leah)
+- Finish the menu bar (Leah)
+- Add design formatting to match information screens (Leah)
 
 ## Individual Reports:
 

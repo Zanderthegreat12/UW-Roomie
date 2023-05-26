@@ -7,7 +7,7 @@ import React, {useState} from 'react';
 /**
  * Displays a screen that shows another specified user's profile
  * @param route contains information about the user
- * @returns rendering showing the profile of speicifed user
+ * @returns rendering showing the profile of specified user
  */
 export default function MatchProfileScreen({route}) {
     const navigation = useNavigation();

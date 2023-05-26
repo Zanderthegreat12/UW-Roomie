@@ -5,13 +5,40 @@ Review Peer Review build version
 
 ## Team Report:
 #### First subsection:
--
+- Fine tune the matching algrothim so it gives a better value (Alex)
+- Fix accepting match so a user can't force a mutual match by clicking the accept button (Alex)
+- Make the buttons look uniform for all users
+- allow storage for photos (Colby)
+- be able to view already taken survey (Colby)
+- Frontend documentation (colby)
+- Fix log out so that it clears old log in data. (Bella)
+- Add something to edit contact info in profile (Bella)
+- Implement working radio buttons (Leah)
+- Finish the menu bar (Leah)
+- Add design formatting to match information screens (Leah)
 
 #### Second subsection:
-- 
+- Accept/reject buttons disabled after accepting/rejecting a match
+- Loading displayed when the algorithm is running.
+- can view old survey answers when retaking survey
+- fixed bug that crashed server after no usage for an hour
+- added frontend documentation
+- retaking survey doesn't erase match requests and mutual matches anymore
+- Fixed bug where special characters would break http requests for discord
+- Needed to encode all user-input strings before any http requests.
+- Fixed a server error where if the contact info threw an error, it would create an account without contact info.
 
 #### Third subsection:
-- 
+- Fix log out so that it clears old log in data. (Bella)
+- Fix textbox limit for email. (Bella)
+- Add something to edit contact info in profile (Bella)
+- Add create user form authentication (make sure its a valid discord/email) (Bella)
+- Disable back to home button when taking the survey for the first time. (Bella)
+- Fine tune the matching algrothim (Alex)
+- Make the front end look more uniform and presentable. (All of us)
+- add loading screen for survey screen
+- ability to undo rejected matches
+- add query to view all rejected matches
 
 ## Individual Reports:
 
