@@ -49,9 +49,10 @@ Known Bugs:
 ## DEVELOPER GUIDE
 How to host code on independent server (for developers):
   1. Clone UW-Roomie repository on your local machine
-  2. Create 2 MySQL databases. One for testing and one for main service
+  2. Create 2 SQL databases. One for testing and one for main service
   3. Input the needed properties of your databses in dbconn (service database) and dbconntest (test database)
   4. host code in backend folder on a server using the following commands: <br>
+    - Run the code using JDK of your choice
     - to build the code, run "mvn package -Dmaven.test.skip" as a command line <br>
     - to run the code, run "mvn compile exec:java -Dexec.mainClass=roomieapp.Server" as a command line
   5. Anytime the https://5pfrmumuxf.us-west-2.awsapprunner.com is written in frontend code, change it to your new server's domain <br>
