@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import {useNavigation} from "@react-navigation/native";
 import Dropdown from 'react-native-dropdown-picker';
-import RadioGroup, {RadioButtonProps} from 'react-native-radio-buttons-group';
+import { RadioButton, Divider } from 'react-native-paper';
 import React, {useMemo, useState} from 'react';
 import {Image, ScrollView, FlatList, SafeAreaView} from 'react-native';
 Dropdown.setListMode("SCROLLVIEW")
@@ -99,12 +99,7 @@ export default function SurveyMenuScreen({route}) {
     ]);
 
     // gender inclusive state
-    const [genderInclusiveOpen, setGenderInclusiveOpen] = useState(false);
     const [genderInclusiveValue, setGenderInclusiveValue] = useState(genderInclusiveInit);
-    const [genderInclusivity, setGenderInclusivity] = useState([
-        {label: 'Yes. I want to be in gender inclusive dorming', value: 1},
-        {label: 'No. I don\'t want to be in gender inclusive dorming', value: 0},
-    ]);
 
     // student year state
     const [studentYearOpen, setStudentYearOpen] = useState(false);
@@ -128,12 +123,7 @@ export default function SurveyMenuScreen({route}) {
     ]);
 
     // drinking preference state
-    const [drinkingPrefOpen, setDrinkingPrefOpen] = useState(false);
     const [drinkingPrefValue, setDrinkingPrefValue] = useState(drinkingPrefInit);
-    const [drinkingPref, setDrinkingPref] = useState([
-        {label: 'I don\'t want my roommate to drink', value: 0},
-        {label: 'I\'m cool with roommate drinking', value: 1},
-    ]);
 
     // wake time state
     const [wakeTimeOpen, setWakeTimeOpen] = useState(false);
@@ -162,12 +152,7 @@ export default function SurveyMenuScreen({route}) {
     ]);
 
     // light/heavy sleeper state
-    const [heavySleepOpen, setHeavySleepOpen] = useState(false);
     const [heavySleepValue, setHeavySleepValue] = useState(heavySleepInit);
-    const [heavySleep, setHeavySleep] = useState([
-        {label: 'I\'m a light sleeper', value: 0},
-        {label: 'I\'m a heavy sleeper', value: 1},
-    ]);
 
     // student vertness state
     const [studentVertOpen, setStudentVertOpen] = useState(false);
@@ -189,43 +174,21 @@ export default function SurveyMenuScreen({route}) {
     ]);
 
     // student friends state
-    const [studentFriendsOpen, setStudentFriendsOpen] = useState(false);
     const [studentFriendsValue, setStudentFriendsValue] = useState(studentFriendsInit);
-    const [studentFriends, setStudentFriends] = useState([
-        {label: 'I won\'t bring friends to the dorm room', value: 0},
-        {label: 'I will want to bring friends to the dorm room', value: 1}
-    ]);
 
     // roommate friends state
-    const [roommateFriendsOpen, setRoommateFriendsOpen] = useState(false);
     const [roommateFriendsValue, setRoommateFriendsValue] = useState(studentFriendsInit);
-    const [roommateFriends, setRoommateFriends] = useState([
-        {label: 'I don\'t want my roommate bringing friends to the dorm', value: 0},
-        {label: 'I\'m cool with my roommate bringing friends to the dorm', value: 1}
-    ]);
 
     // student neat state
-    const [studentNeatOpen, setStudentNeatOpen] = useState(false);
     const [studentNeatValue, setStudentNeatValue] = useState(studentNeatInit);
-    const [studentNeat, setStudentNeat] = useState([
-        {label: 'I\'m messy and disorganized', value: 0},
-        {label: 'I\'m clean, neat, and organized', value: 1}
-    ]);
 
     // roommate neat state
-    const [roommateNeatOpen, setRoommateNeatOpen] = useState(false);
     const [roommateNeatValue, setRoommateNeatValue] = useState(roommateNeatInit);
-    const [roommateNeat, setRoommateNeat] = useState([
-        {label: 'I\'m fine with my roommate being messy and disorganized', value: 0},
-        {label: 'I want my roommate to be clean, neat, and organized', value: 1}
-    ]);
 
     // function to ensure only 1 dropdown is open
     const open = [setFirstDormOpen, setSecondDormOpen, setThirdDormOpen, setRoomTypeOpen,
-        setGenderInclusiveOpen, setStudentYearOpen, setRoommateYearOpen, setDrinkingPrefOpen,
-        setWakeTimeOpen, setSleepTimeOpen, setHeavySleepOpen, setStudentVertOpen,
-        setRoommateVertOpen, setStudentFriendsOpen, setRoommateFriendsOpen,
-        setStudentNeatOpen, setRoommateNeatOpen]
+        setStudentYearOpen, setRoommateYearOpen, setWakeTimeOpen, setSleepTimeOpen,
+        setStudentVertOpen, setRoommateVertOpen]
     function onOpen(openedValue: number): void {
         for(let i = 0; i < open.length; i++) {
             if(openedValue != i) {
@@ -249,6 +212,7 @@ export default function SurveyMenuScreen({route}) {
             />
 
             <Text> {'\n'} </Text>
+            <Text> {'\n'} </Text>
             <Text style={styles.text}>What's your first dorm choice?</Text>
             <Dropdown open={firstDormOpen}
                       value={firstDormValue}
@@ -263,6 +227,9 @@ export default function SurveyMenuScreen({route}) {
                       style={{marginBottom: firstDormOpen ? 175 : 20}}
             />
 
+
+            <Text> {'\n'} </Text>
+            <Divider style={{width:'100%'}} bold="true"/>
             <Text> {'\n'} </Text>
             <Text style={styles.text}>What's your second dorm choice?</Text>
             <Dropdown open={secondDormOpen}
@@ -279,6 +246,8 @@ export default function SurveyMenuScreen({route}) {
             />
 
             <Text> {'\n'} </Text>
+            <Divider style={{width:'100%'}} bold="true"/>
+            <Text> {'\n'} </Text>
             <Text style={styles.text}>What's your third dorm choice?</Text>
             <Dropdown open={thirdDormOpen}
                       value={thirdDormValue}
@@ -293,6 +262,8 @@ export default function SurveyMenuScreen({route}) {
                       style={{marginBottom: thirdDormOpen ? 175 : 20}}
             />
 
+            <Text> {'\n'} </Text>
+            <Divider style={{width:'100%'}} bold="true"/>
             <Text> {'\n'} </Text>
             <Text style={styles.text}>What type of dorm room do you want?</Text>
             <Dropdown open={roomTypeOpen}
@@ -309,20 +280,26 @@ export default function SurveyMenuScreen({route}) {
             />
 
             <Text> {'\n'} </Text>
+            <Divider style={{width:'100%'}} bold="true"/>
+            <Text> {'\n'} </Text>
             <Text style={styles.text}>Do you want to opt into gender inclusive dorming?</Text>
-            <Dropdown open={genderInclusiveOpen}
-                      value={genderInclusiveValue}
-                      items={genderInclusivity}
-                      placeholder={"Select yes or no"}
-                      setOpen={setGenderInclusiveOpen}
-                      setValue={setGenderInclusiveValue}
-                      setItems={setGenderInclusivity}
-                      onOpen={() => onOpen(4)}
-                      onClose={() => onOpen(-1)}
-                      dropDownDirection="BOTTOM"
-                      style={{marginBottom: genderInclusiveOpen ? 175 : 20}}
-            />
+            <RadioButton.Group onValueChange={newValue => setGenderInclusiveValue(newValue)} value={genderInclusiveValue}>
+                <RadioButton.Item label="Yes, I want to be in gender inclusive dorming"
+                                  value={1}
+                                  position="leading"
+                                  labelStyle={styles.radio}
+                                  color="white"
+                                  uncheckedColor="white"/>
+                <RadioButton.Item label="No, I don't want to be in gender inclusive dorming"
+                                  value={0}
+                                  position="leading"
+                                  labelStyle={styles.radio}
+                                  color="white"
+                                  uncheckedColor="white"/>
+            </RadioButton.Group>
 
+            <Text> {'\n'} </Text>
+            <Divider style={{width:'100%'}} bold="true"/>
             <Text> {'\n'} </Text>
             <Text style={styles.text}>What year will you be when dorming?</Text>
             <Dropdown open={studentYearOpen}
@@ -332,12 +309,14 @@ export default function SurveyMenuScreen({route}) {
                       setOpen={setStudentYearOpen}
                       setValue={setStudentYearValue}
                       setItems={setStudentYears}
-                      onOpen={() => onOpen(5)}
+                      onOpen={() => onOpen(4)}
                       onClose={() => onOpen(-1)}
                       dropDownDirection="BOTTOM"
                       style={{marginBottom: studentYearOpen ? 175 : 20}}
             />
 
+            <Text> {'\n'} </Text>
+            <Divider style={{width:'100%'}} bold="true"/>
             <Text> {'\n'} </Text>
             <Text style={styles.text}>What year do you prefer that your roommate be?</Text>
             <Dropdown open={roommateYearOpen}
@@ -347,27 +326,33 @@ export default function SurveyMenuScreen({route}) {
                       setOpen={setRoommateYearOpen}
                       setValue={setRoommateYearValue}
                       setItems={setRoommateYears}
-                      onOpen={() => onOpen(6)}
+                      onOpen={() => onOpen(5)}
                       onClose={() => onOpen(-1)}
                       dropDownDirection="BOTTOM"
                       style={{marginBottom: roommateYearOpen ? 175 : 20}}
             />
 
             <Text> {'\n'} </Text>
+            <Divider style={{width:'100%'}} bold="true"/>
+            <Text> {'\n'} </Text>
             <Text style={styles.text}>Do you care if your roommate drinks alcohol?</Text>
-            <Dropdown open={drinkingPrefOpen}
-                      value={drinkingPrefValue}
-                      items={drinkingPref}
-                      placeholder={"Select yes or no"}
-                      setOpen={setDrinkingPrefOpen}
-                      setValue={setDrinkingPrefValue}
-                      setItems={setDrinkingPref}
-                      onOpen={() => onOpen(7)}
-                      onClose={() => onOpen(-1)}
-                      dropDownDirection="BOTTOM"
-                      style={{marginBottom: drinkingPrefOpen ? 175 : 20}}
-            />
+            <RadioButton.Group onValueChange={newValue => setDrinkingPrefValue(newValue)} value={drinkingPrefValue}>
+                <RadioButton.Item label="I'm cool with my roommate drinking"
+                                  value={1}
+                                  position="leading"
+                                  labelStyle={styles.radio}
+                                  color="white"
+                                  uncheckedColor="white"/>
+                <RadioButton.Item label="I don't want my roommate to drink"
+                                  value={0}
+                                  position="leading"
+                                  labelStyle={styles.radio}
+                                  color="white"
+                                  uncheckedColor="white"/>
+            </RadioButton.Group>
 
+            <Text> {'\n'} </Text>
+            <Divider style={{width:'100%'}} bold="true"/>
             <Text> {'\n'} </Text>
             <Text style={styles.text}>What time do you wake up?</Text>
             <Dropdown open={wakeTimeOpen}
@@ -377,12 +362,14 @@ export default function SurveyMenuScreen({route}) {
                       setOpen={setWakeTimeOpen}
                       setValue={setWakeTimeValue}
                       setItems={setWakeTimes}
-                      onOpen={() => onOpen(8)}
+                      onOpen={() => onOpen(6)}
                       onClose={() => onOpen(-1)}
                       dropDownDirection="BOTTOM"
                       style={{marginBottom: wakeTimeOpen ? 175 : 20}}
             />
 
+            <Text> {'\n'} </Text>
+            <Divider style={{width:'100%'}} bold="true"/>
             <Text> {'\n'} </Text>
             <Text style={styles.text}>What time do you go to sleep?</Text>
             <Dropdown open={sleepTimeOpen}
@@ -392,27 +379,33 @@ export default function SurveyMenuScreen({route}) {
                       setOpen={setSleepTimeOpen}
                       setValue={setSleepTimeValue}
                       setItems={setSleepTimes}
-                      onOpen={() => onOpen(9)}
+                      onOpen={() => onOpen(7)}
                       onClose={() => onOpen(-1)}
                       dropDownDirection="BOTTOM"
                       style={{marginBottom: sleepTimeOpen ? 175 : 20}}
             />
 
             <Text> {'\n'} </Text>
+            <Divider style={{width:'100%'}} bold="true"/>
+            <Text> {'\n'} </Text>
             <Text style={styles.text}>Are you a heavy sleeper or a light sleeper?</Text>
-            <Dropdown open={heavySleepOpen}
-                      value={heavySleepValue}
-                      items={heavySleep}
-                      placeholder={"Select your sleep style"}
-                      setOpen={setHeavySleepOpen}
-                      setValue={setHeavySleepValue}
-                      setItems={setHeavySleep}
-                      onOpen={() => onOpen(10)}
-                      onClose={() => onOpen(-1)}
-                      dropDownDirection="BOTTOM"
-                      style={{marginBottom: heavySleepOpen ? 175 : 20}}
-            />
+            <RadioButton.Group onValueChange={newValue => setHeavySleepValue(newValue)} value={heavySleepValue}>
+                <RadioButton.Item label="I'm a light sleeper"
+                                  value={0}
+                                  position="leading"
+                                  labelStyle={styles.radio}
+                                  color="white"
+                                  uncheckedColor="white"/>
+                <RadioButton.Item label="I'm a heavy sleeper"
+                                  value={1}
+                                  position="leading"
+                                  labelStyle={styles.radio}
+                                  color="white"
+                                  uncheckedColor="white"/>
+            </RadioButton.Group>
 
+            <Text> {'\n'} </Text>
+            <Divider style={{width:'100%'}} bold="true"/>
             <Text> {'\n'} </Text>
             <Text style={styles.text}>Would you classify yourself as an introvert, ambivert, or extrovert?</Text>
             <Dropdown open={studentVertOpen}
@@ -422,12 +415,14 @@ export default function SurveyMenuScreen({route}) {
                       setOpen={setStudentVertOpen}
                       setValue={setStudentVertValue}
                       setItems={setStudentVerts}
-                      onOpen={() => onOpen(11)}
+                      onOpen={() => onOpen(8)}
                       onClose={() => onOpen(-1)}
                       dropDownDirection="BOTTOM"
                       style={{marginBottom: studentVertOpen ? 175 : 20}}
             />
 
+            <Text> {'\n'} </Text>
+            <Divider style={{width:'100%'}} bold="true"/>
             <Text> {'\n'} </Text>
             <Text style={styles.text}>Would you prefer your roommate be an introvert, ambivert, or extrovert?</Text>
             <Dropdown open={roommateVertOpen}
@@ -437,75 +432,92 @@ export default function SurveyMenuScreen({route}) {
                       setOpen={setRoommateVertOpen}
                       setValue={setRoommateVertValue}
                       setItems={setRoommateVerts}
-                      onOpen={() => onOpen(12)}
+                      onOpen={() => onOpen(9)}
                       onClose={() => onOpen(-1)}
                       dropDownDirection="BOTTOM"
                       style={{marginBottom: roommateVertOpen ? 175 : 20}}
             />
 
             <Text> {'\n'} </Text>
+            <Divider style={{width:'100%'}} bold="true"/>
+            <Text> {'\n'} </Text>
             <Text style={styles.text}>Will you bring your friends to the dorm?</Text>
-            <Dropdown open={studentFriendsOpen}
-                      value={studentFriendsValue}
-                      items={studentFriends}
-                      placeholder={"Select yes or no"}
-                      setOpen={setStudentFriendsOpen}
-                      setValue={setStudentFriendsValue}
-                      setItems={setStudentFriends}
-                      onOpen={() => onOpen(13)}
-                      onClose={() => onOpen(-1)}
-                      dropDownDirection="BOTTOM"
-                      style={{marginBottom: studentFriendsOpen ? 175 : 20}}
-            />
+            <RadioButton.Group onValueChange={newValue => setStudentFriendsValue(newValue)} value={studentFriendsValue}>
+                <RadioButton.Item label="Yes, I will want to bring my friends"
+                                  value={1}
+                                  position="leading"
+                                  labelStyle={styles.radio}
+                                  color="white"
+                                  uncheckedColor="white"/>
+                <RadioButton.Item label="No, I will not bring friends"
+                                  value={0}
+                                  position="leading"
+                                  labelStyle={styles.radio}
+                                  color="white"
+                                  uncheckedColor="white"/>
+            </RadioButton.Group>
 
             <Text> {'\n'} </Text>
-            <Text style={styles.text}>How do you feel about your roommate bringing friends the the dorm?</Text>
-            <Dropdown open={roommateFriendsOpen}
-                      value={roommateFriendsValue}
-                      items={roommateFriends}
-                      placeholder={"Select your comfortableness"}
-                      setOpen={setRoommateFriendsOpen}
-                      setValue={setRoommateFriendsValue}
-                      setItems={setRoommateFriends}
-                      onOpen={() => onOpen(14)}
-                      onClose={() => onOpen(-1)}
-                      dropDownDirection="BOTTOM"
-                      style={{marginBottom: roommateFriendsOpen ? 175 : 20}}
-            />
+            <Divider style={{width:'100%'}} bold="true"/>
+            <Text> {'\n'} </Text>
+            <Text style={styles.text}>How do you feel about your roommate bringing friends to the dorm?</Text>
+            <RadioButton.Group onValueChange={newValue => setRoommateFriendsValue(newValue)} value={roommateFriendsValue}>
+                <RadioButton.Item label="I'm cool with my roommate bringing friends"
+                                  value={1}
+                                  position="leading"
+                                  labelStyle={styles.radio}
+                                  color="white"
+                                  uncheckedColor="white"/>
+                <RadioButton.Item label="I don't want my roommate bringing friends"
+                                  value={0}
+                                  position="leading"
+                                  labelStyle={styles.radio}
+                                  color="white"
+                                  uncheckedColor="white"/>
+            </RadioButton.Group>
 
+            <Text> {'\n'} </Text>
+            <Divider style={{width:'100%'}} bold="true"/>
             <Text> {'\n'} </Text>
             <Text style={styles.text}>Do you consider yourself neat or messy?</Text>
-            <Dropdown open={studentNeatOpen}
-                      value={studentNeatValue}
-                      items={studentNeat}
-                      placeholder={"Select neat or messy"}
-                      setOpen={setStudentNeatOpen}
-                      setValue={setStudentNeatValue}
-                      setItems={setStudentNeat}
-                      onOpen={() => onOpen(15)}
-                      onClose={() => onOpen(-1)}
-                      dropDownDirection="BOTTOM"
-                      style={{marginBottom: studentNeatOpen ? 175 : 20}}
-            />
+            <RadioButton.Group onValueChange={newValue => setStudentNeatValue(newValue)} value={studentNeatValue}>
+                <RadioButton.Item label="I'm clean, neat, and organized"
+                                  value={1}
+                                  position="leading"
+                                  labelStyle={styles.radio}
+                                  color="white"
+                                  uncheckedColor="white"/>
+                <RadioButton.Item label="I'm messy and disorganized"
+                                  value={0}
+                                  position="leading"
+                                  labelStyle={styles.radio}
+                                  color="white"
+                                  uncheckedColor="white"/>
+            </RadioButton.Group>
 
             <Text> {'\n'} </Text>
+            <Divider style={{width:'100%'}} bold="true"/>
+            <Text> {'\n'} </Text>
             <Text style={styles.text}>Do you care if your roommate is neat or messy?</Text>
-            <Dropdown open={roommateNeatOpen}
-                      value={roommateNeatValue}
-                      items={roommateNeat}
-                      placeholder={"Select yes or no"}
-                      setOpen={setRoommateNeatOpen}
-                      setValue={setRoommateNeatValue}
-                      setItems={setRoommateNeat}
-                      onOpen={() => onOpen(16)}
-                      onClose={() => onOpen(-1)}
-                      dropDownDirection="BOTTOM"
-                      style={{marginBottom: roommateNeatOpen ? 175 : 20}}
-            />
+            <RadioButton.Group onValueChange={newValue => setRoommateNeatValue(newValue)} value={roommateNeatValue}>
+                <RadioButton.Item label="I'm fine with my roommate being messy and disorganized"
+                                  value={0}
+                                  position="leading"
+                                  labelStyle={styles.radio}
+                                  color="white"
+                                  uncheckedColor="white"/>
+                <RadioButton.Item label="I want my roommate to be clean, neat, and organized"
+                                  value={1}
+                                  position="leading"
+                                  labelStyle={styles.radio}
+                                  color="white"
+                                  uncheckedColor="white"/>
+            </RadioButton.Group>
+            <Text> {'\n'} </Text>
 
-            <View style={styles.button} paddingBottom={50}>
+            <View style={styles.button} paddingBottom={40}>
                 <Button
-                    title="Submit"
+                    title="Find my Roomie"
                     color="#7c2bee"
                     onPress={() => updateSurvey({infoString: firstDormValue + "%20" + secondDormValue + "%20"
                                                 + thirdDormValue + "%20" + roomTypeValue + "%20" + genderInclusiveValue + "%20"
@@ -569,10 +581,6 @@ const styles = StyleSheet.create({
     radio: {
         margin: 0,
         color: 'white',
-    },
-
-    radioGroup: {
-        justifyContent: 'flex-start',
-        alignItems: 'flex-start',
+        textAlign: 'left',
     },
 });

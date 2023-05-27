@@ -85,10 +85,15 @@ Review Peer Review build version
 - Add design formatting to match information screens
 
 #### Second Subsection:
--
+- Spent a lot of time trying to get the radio buttons to work but don't have a good implementation yet
+  - Learned the hard way that Material UI doesn't work with React Native
+  - Might have a lead with React Native Paper
+- Changed the bottom navigation menu bar idea to a grid menu to better fit our app
 
 #### Third Subsection:
--
+- Try Paper radio buttons 
+- Implement grid menu
+- Add more design formatting throughout the app
 
 ### Bella:
 #### First subsection:
