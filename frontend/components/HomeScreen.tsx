@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Button, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import {TextInput} from 'react-native';
 import React, {useState} from 'react';
@@ -15,6 +15,9 @@ export default function HomeScreen({route}) {
 
     return (
         <View style={styles.container}>
+            <Image style = {styles.logo}
+                   source = {require('../assets/happy.png')}>
+            </Image>
             <Text style = {styles.title}>UW Roomie</Text>
             <Text style = {styles.text}>Insert Username:</Text>
             <TextInput
@@ -112,10 +115,17 @@ const styles = StyleSheet.create({
 
     title: {
         fontSize: 30,
-        color: 'white',
+        color: '#FFDA8F',
+        fontWeight: 'bold',
+        padding: 10,
     },
 
     button: {
         padding: 20,
+    },
+
+    logo: {
+        width: 75,
+        height: 75,
     },
 });
