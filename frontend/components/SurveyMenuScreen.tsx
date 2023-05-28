@@ -543,7 +543,7 @@ let updateSurvey = async({infoString}, {nav}, {userN}) => {
          }
 
          //Survey filled out and uploaded! Go to the profile screen!
-         nav.navigate('Matching Menu', {user:'' + userN});
+         nav.navigate('Buffer Screen', {user:'' + userN});
 
     } catch(e) {
          alert("There was an error contacting the server.");

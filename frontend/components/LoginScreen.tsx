@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Button, Image } from 'react-native';
 import {useNavigation} from "@react-navigation/native";
 import React, {useState} from 'react';
 
@@ -15,47 +15,65 @@ export default function LoginScreen({route}) {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Welcome {username}</Text>
-            <View style={styles.button}>
-                <Button
-                    title="Potential matches"
-                    color="#7c2bee"
-                    onPress={() => navigation.navigate('Matching Menu', {user: '' + username,})}
-                />
+            <View style={{flexDirection:'row', height:'20%'}}>
+                <View style={[styles.button, {flex:1,},]}>
+                    <View>
+                        <Image style = {styles.logo}
+                            source = {require('../assets/roommate.png')}>
+                        </Image>
+                        <Button
+                            title="Potential matches"
+                            color="#7c2bee"
+                            onPress={() => navigation.navigate('Matching Menu', {user: '' + username,})}
+                        />
+                    </View>
+                </View>
+                <View style={[styles.button, {flex:1,},]}>
+                    <View>
+                        <Image style = {styles.logo}
+                            source = {require('../assets/match.png')}>
+                        </Image>
+                        <Button
+                            title="View Matches"
+                            color="#7c2bee"
+                            onPress={() => navigation.navigate('View Matches Screen', {user: '' + username,})}
+                        />
+                    </View>
+                </View>
             </View>
-            <View style={styles.button}>
-                <Button
-                    title="Accept/Reject Oncoming Matches"
-                    color="#7c2bee"
-                    onPress={() => navigation.navigate('Incoming Matches Screen', {user: '' + username,})}
-                />
+            <View style={{flexDirection:'row', height:'20%'}}>
+                <View style={[styles.button, {flex:1,},]}>
+                    <Button
+                        title="View Outgoing Matches"
+                        color="#7c2bee"
+                        onPress={() => navigation.navigate('Outgoing Matches Screen', {user: '' + username,})}
+                    />
+                </View>
+                <View style={[styles.button, {flex:1,},]}>
+                    <View>
+                        <Button
+                            title="Accept/Reject Oncoming Matches"
+                            color="#7c2bee"
+                            onPress={() => navigation.navigate('Incoming Matches Screen', {user: '' + username,})}
+                        />
+                    </View>
+                </View>
             </View>
-            <View style={styles.button}>
-                <Button
-                    title="View Outgoing Matches"
-                    color="#7c2bee"
-                    onPress={() => navigation.navigate('Outgoing Matches Screen', {user: '' + username,})}
-                />
-            </View>
-            <View style={styles.button}>
-                <Button
-                    title="View Matches"
-                    color="#7c2bee"
-                    onPress={() => navigation.navigate('View Matches Screen', {user: '' + username,})}
-                />
-            </View>
-            <View style={styles.button}>
-                <Button
-                    title="Your profile"
-                    color="#7c2bee"
-                    onPress={() => navigation.navigate('Profile', {user: '' + username,})}
-                />
-            </View>
-            <View style={styles.button}>
-                <Button
-                    title="Log Out"
-                    color="#7c2bee"
-                    onPress={() => navigation.replace('Home')}//navigation.navigate('Home', {user: ''})}
-                />
+            <View style={{flexDirection:'row', height:'20%'}}>
+                <View style={[styles.button, {flex:1,},]}>
+                    <Button
+                        title="Your profile"
+                        color="#7c2bee"
+                        onPress={() => navigation.navigate('Profile', {user: '' + username,})}
+                    />
+                </View>
+                <View style={[styles.button, {flex:1,},]}>
+                    <Button
+                        title="Log Out"
+                        color="#7c2bee"
+                        onPress={() => navigation.replace('Home')}//navigation.navigate('Home', {user: ''})}
+                    />
+                </View>
             </View>
         </View>
     );
@@ -85,5 +103,14 @@ const styles = StyleSheet.create({
 
     button: {
         padding: 10,
+        justifyContent: 'center',
+        flexGrow: 1,
+    },
+
+    logo: {
+        width: 50,
+        height: 50,
+        margin: 10,
+        alignSelf: 'center',
     },
 });

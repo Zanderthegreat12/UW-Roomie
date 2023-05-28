@@ -16,6 +16,7 @@ import IncomingMatchesScreen from "./components/IncomingMatchesScreen";
 import OutgoingMatchesScreen from "./components/OutgoingMatchesScreen";
 import MatchProfileScreen from "./components/MatchProfileScreen";
 import EditContactInfo from "./components/EditContactInfo";
+import AlgBufferScreen from "./components/AlgBufferScreen";
 
 const stack = createStackNavigator();
 
@@ -63,7 +64,11 @@ export default function App() {
             <stack.Screen
                 name="Edit Contact"
                 component={EditContactInfo} />
+            <stack.Screen
+                name="Buffer Screen"
+                component={AlgBufferScreen}/>
         </stack.Navigator>
+
 
     </NavigationContainer></>
   );
