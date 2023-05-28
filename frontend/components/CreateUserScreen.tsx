@@ -86,27 +86,40 @@ export default function HomeScreen() {
  */
 createUser = async({userN}, {pass}, {nav}, {pNum}, {dis}, {email}) => {
     try{
-         //let cord = dis.replace("#", '%23');
-         let userNew = encodeURIComponent(userN);
-         let passNew = encodeURIComponent(pass);
-         let emailNew = encodeURIComponent(email);
-         let cord = encodeURIComponent(dis);
+         //Check to make sure that input is valid
+         const testDis = dis.split("#");
+         if(isNaN(pNum) || pNum.length != 10){
+            alert("Error! Phone number is not valid");
 
-         let responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/createUser?username=" + userNew + "&password=" + passNew + "&pNum=" + pNum + "&discord=" + cord + "&email=" + emailNew);
-         let res = await responsePromise;
-         if(!res.ok){
-             //alert("Some field not filled");
-             alert("Error! Expected: 200, Was: " + res.status);
-             return;
-         }
+         } else if(!email.includes("@uw.edu")){
+            alert("Error! Email is not a valid uw email");
 
-        let parse = res.json();
-        let parsed = await parse;
-        if(parsed == true) {
-            //User created! Go to the normal screen!
-            nav.navigate('Survey Menu', {user: '' + userN, survey: null})
-        } else {
-            alert("Username already taken");
+         } else if(testDis.length != 2 || isNaN(testDis[1])){
+            alert("Error! Invalid discord");
+
+         } else { //Everything is valid. Encode and submit.
+             //let cord = dis.replace("#", '%23');
+             let userNew = encodeURIComponent(userN);
+             let passNew = encodeURIComponent(pass);
+             let emailNew = encodeURIComponent(email);
+             let cord = encodeURIComponent(dis);
+
+             let responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/createUser?username=" + userNew + "&password=" + passNew + "&pNum=" + pNum + "&discord=" + cord + "&email=" + emailNew);
+             let res = await responsePromise;
+             if(!res.ok){
+                 //alert("Some field not filled");
+                 alert("Error! Expected: 200, Was: " + res.status);
+                 return;
+             }
+
+            let parse = res.json();
+            let parsed = await parse;
+            if(parsed == true) {
+                //User created! Go to the normal screen!
+                nav.navigate('Survey Menu', {user: '' + userN, survey: null})
+            } else {
+                alert("Username already taken");
+            }
         }
 
     } catch(e) {

@@ -32,7 +32,7 @@ export default function EditContactInfo({route}) {
             <TextInput
                 editable
                 style={styles.textBox}
-                maxLength={20}
+                maxLength={40}
                 onChangeText={text => setEmail(text)}
                 value={email}
             />
@@ -67,27 +67,40 @@ export default function EditContactInfo({route}) {
  */
 contactInfo = async({userN}, {nav}, {pNum}, {dis}, {email}) => {
     try{
-         //Encoding user input
-         let userNew = encodeURIComponent(userN);
-         let pNumNew = encodeURIComponent(pNum);
-         let emailNew = encodeURIComponent(email);
-         let cord = encodeURIComponent(dis);
+         //Check to make sure that input is valid
+         const testDis = dis.split("#");
+         if(isNaN(pNum) || pNum.length != 10){
+            alert("Error! Phone number is not valid");
 
-         //Making server call
-         let responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/createContact?username="+userNew+"&email="+emailNew+"&pNum="+pNumNew+"&discord="+cord);
-         let res = await responsePromise;
-         if(!res.ok){
-             //alert("Some field not filled");
-             alert("Error! Expected: 200, Was: " + res.status);
-             return;
-         }
+         } else if(!email.includes("@uw.edu")){
+            alert("Error! Email is not a valid uw email");
 
-        //Parse returning info.
-        let parse = res.json();
-        let parsed = await parse;
-        if(parsed == true) {
-            //Contact info updated! Go back to profile screen
-            nav.navigate('Profile', {user: '' + userN,})
+         } else if(testDis.length != 2 || isNaN(testDis[1])){
+            alert("Error! Invalid discord");
+
+         } else { //Everything is valid. Encode and submit.
+             //Encoding user input
+             let userNew = encodeURIComponent(userN);
+             let pNumNew = encodeURIComponent(pNum);
+             let emailNew = encodeURIComponent(email);
+             let cord = encodeURIComponent(dis);
+
+             //Making server call
+             let responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/createContact?username="+userNew+"&email="+emailNew+"&pNum="+pNumNew+"&discord="+cord);
+             let res = await responsePromise;
+             if(!res.ok){
+                 //alert("Some field not filled");
+                 alert("Error! Expected: 200, Was: " + res.status);
+                 return;
+             }
+
+            //Parse returning info.
+            let parse = res.json();
+            let parsed = await parse;
+            if(parsed == true) {
+                //Contact info updated! Go back to profile screen
+                nav.navigate('Profile', {user: '' + userN,})
+            }
         }
 
     } catch(e) {
