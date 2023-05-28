@@ -79,7 +79,7 @@ export default function MatchingMenuScreen({route}) {
                 if (parsed[i].user1 == user) {
                     Matchname = parsed[i].user2
 
-                    ExtraButtons.push(<View key={i} style={styles.button}><Button title={Matchname + " " + comp}
+                    ExtraButtons.push(<View style={{ flexDirection:"row" }}><View key={i} style={styles.button2}><Button title={Matchname}
                                                                                   color={"#7c2bee"}
                                                                                   onPress={() => navigation.navigate('Match Info', {
                                                                                       user: '' + username,
@@ -87,18 +87,18 @@ export default function MatchingMenuScreen({route}) {
                                                                                       comp: '' + comp,
                                                                                       status: ''+ status,
                                                                                       screen: ''+1
-                                                                                  })}/></View>);
+                                                                                  })}/></View><Text style={styles.text2}>{" " + comp}</Text></View>);
                 } else {
                     Matchname = parsed[i].user1
-                    ExtraButtons.push(<View key={i} style={styles.button}><Button title={Matchname + " " + comp}
-                                                                                  color={"#7c2bee"}
-                                                                                  onPress={() => navigation.navigate('Match Info', {
-                                                                                      user: '' + username,
-                                                                                      match: '' + Matchname,
-                                                                                      comp: '' + comp,
-                                                                                      status: '' + status,
-                                                                                      screen: ''+1
-                                                                                  })}/></View>);
+                    ExtraButtons.push(<View style={{ flexDirection:"row" }}><View key={i} style={styles.button2}><Button title={Matchname}
+                                                                                                                         color={"#7c2bee"}
+                                                                                                                         onPress={() => navigation.navigate('Match Info', {
+                                                                                                                             user: '' + username,
+                                                                                                                             match: '' + Matchname,
+                                                                                                                             comp: '' + comp,
+                                                                                                                             status: ''+ status,
+                                                                                                                             screen: ''+1
+                                                                                                                         })}/></View><Text style={styles.text2}>{" " + comp}</Text></View>);
                 }
                 i++;
             }
@@ -152,6 +152,13 @@ const styles = StyleSheet.create({
         color: 'white',
     },
 
+    text2: {
+        margin: 10,
+        color: 'white',
+        paddingTop: 10,
+        fontWeight: "bold"
+    },
+
     title: {
         fontSize: 30,
         padding: 20,
@@ -160,5 +167,10 @@ const styles = StyleSheet.create({
 
     button: {
         padding: 10,
+    },
+
+    button2: {
+        padding: 10,
+        width: 250
     },
 });

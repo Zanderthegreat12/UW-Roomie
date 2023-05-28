@@ -106,4 +106,26 @@ public class MatchingAlgorithmTest {
 
         assertTrue(matches.equals(check));
     }
+
+    @Test
+    public void testCaseInsenstivity(){
+        Survey user1 = new Survey("a","a","b","c",2,1,2,2,0,8,11,0,0,0,0,1,0,0, "Hello");
+        Survey user2 = new Survey("B","a","b","c",2,1,2,2,0,8,11,0,0,0,0,1,0,0, "Hello");
+        Survey user3 = new Survey("c", "B", "c", "D", 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, "Sup");
+
+        List<Survey> surveys = new ArrayList<>();
+        surveys.add(user1);
+        surveys.add(user2);
+        surveys.add(user3);
+
+        MatchingAlgorithm M = new MatchingAlgorithm();
+
+        List<Match> matches =  M.ComputeCompatabilityForAll(user1, surveys);
+
+        List<Match> check = new ArrayList<>();
+        check.add(new Match("a","B",100,0));
+        check.add(new Match("a","c",0,0));
+
+        assertTrue(matches.equals(check));
+    }
 }

@@ -38,7 +38,7 @@ public class Match {
      * @throws IllegalArgumentException if user1 >= user2;
      */
     public Match(String user1, String user2, float compatibility, int matchStatus) {
-        if(user1.compareTo(user2) >= 0) {
+        if(user1.compareToIgnoreCase(user2) >= 0) {
             throw new IllegalArgumentException();
         }
         this.user1 = user1;
