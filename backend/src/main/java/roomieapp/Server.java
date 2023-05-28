@@ -174,7 +174,7 @@ public class Server {
 
                 //Runs them through the matching algorithm
                 MatchingAlgorithm alg = new MatchingAlgorithm();
-                List<Match> mList = alg.ComputeCompatabilityForAll(user, sList);
+                List<Match> mList = alg.ComputeCompatabilityForAll(user, sList);;
 
                 //Puts them back into the database under matches
                 for (Match m : mList) {
@@ -182,13 +182,7 @@ public class Server {
                         try {
                             q.updateCompatibility(m.user1, m.user2, m.compatibility);
                         } catch (IllegalArgumentException e) {
-                            try {
-                                q.setMatch(m);
-                            } catch (Exception otherE) {
-                                return otherE;
-                            }
-                        } catch (Exception wat) {
-                            return wat;
+                            q.setMatch(m);
                         }
                     }
                 }

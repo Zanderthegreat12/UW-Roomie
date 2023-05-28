@@ -125,7 +125,7 @@ class MatchingAlgorithm {
             }
         }
 
-        if (user1.username.compareTo(user2.username) > 0){
+        if (user1.username.compareToIgnoreCase(user2.username) > 0){
             return new Match(user2.username, user1.username, comp,0 );
         } else {
             return new Match(user1.username, user2.username, comp,0 );
