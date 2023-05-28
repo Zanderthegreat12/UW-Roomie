@@ -43,11 +43,16 @@ export default function LoginScreen({route}) {
             </View>
             <View style={{flexDirection:'row', height:'20%'}}>
                 <View style={[styles.button, {flex:1,},]}>
-                    <Button
-                        title="View Outgoing Matches"
-                        color="#7c2bee"
-                        onPress={() => navigation.navigate('Outgoing Matches Screen', {user: '' + username,})}
-                    />
+                    <View>
+                        <Image style = {styles.logo}
+                            source = {require('../assets/package.png')}>
+                        </Image>
+                        <Button
+                            title="View Outgoing Matches"
+                            color="#7c2bee"
+                            onPress={() => navigation.navigate('Outgoing Matches Screen', {user: '' + username,})}
+                        />
+                    </View>
                 </View>
                 <View style={[styles.button, {flex:1,},]}>
                     <View>
@@ -71,7 +76,7 @@ export default function LoginScreen({route}) {
                     <Button
                         title="Log Out"
                         color="#7c2bee"
-                        onPress={() => navigation.navigate('Home', {user: ''})}//navigation.replace('Home')}
+                        onPress={() => navigation.reset({index: 0,routes: [{name: 'Home'}],})}
                     />
                 </View>
             </View>
