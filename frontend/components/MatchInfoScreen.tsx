@@ -285,8 +285,6 @@ export default function MatchInfoScreen({route}) {
 
 
     useEffect(()=>{getContact(matchname)},[]);
-    console.log("status " + status)
-    console.log("name compare " + username.localeCompare(matchname))
     let matchBtns: any[] = []
     if(status == 0) {
         matchBtns.push(<Button
