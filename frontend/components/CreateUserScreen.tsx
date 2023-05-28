@@ -102,13 +102,16 @@ createUser = async({userN}, {pass}, {nav}, {pNum}, {dis}, {email}) => {
          //Check to make sure that input is valid
          const testDis = dis.split("#");
          if((isNaN(pNum) || pNum.length != 10) && pNum != 0){
-            alert("Error! Phone number is not valid");
+            alert("Error! Phone number is not valid.");
 
          } else if(!email.includes("@uw.edu") && email != "N/a"){
-            alert("Error! Email is not a valid uw email");
+            alert("Error! Email is not a valid uw email.");
 
          } else if((testDis.length != 2 || isNaN(testDis[1])) && dis != "N/a"){
-            alert("Error! Invalid discord");
+            alert("Error! Invalid discord.");
+
+         } else if(userN.includes(" ")) {
+            alert("Error! Username can not contain spaces.");
 
          } else { //Everything is valid. Encode and submit.
              //let cord = dis.replace("#", '%23');
