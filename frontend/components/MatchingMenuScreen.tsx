@@ -20,7 +20,7 @@ export default function MatchingMenuScreen({route}) {
      * @param user username of current user
      */
     let AlgMatch = async(user) => {
-        let a = await runAlg(user);
+        //let a = await runAlg(user);
         let b = await getMatches(user);
         setLoading(false);
     }
