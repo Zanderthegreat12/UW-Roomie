@@ -56,6 +56,9 @@ export default function LoginScreen({route}) {
                 </View>
                 <View style={[styles.button, {flex:1,},]}>
                     <View>
+                        <Image style = {styles.logo}
+                            source = {require('../assets/send.png')}>
+                        </Image>
                         <Button
                             title="Accept/Reject Oncoming Matches"
                             color="#7c2bee"
@@ -66,18 +69,28 @@ export default function LoginScreen({route}) {
             </View>
             <View style={{flexDirection:'row', height:'20%'}}>
                 <View style={[styles.button, {flex:1,},]}>
-                    <Button
-                        title="Your profile"
-                        color="#7c2bee"
-                        onPress={() => navigation.navigate('Profile', {user: '' + username,})}
-                    />
+                    <View>
+                        <Image style = {styles.logo}
+                            source = {require('../assets/user.png')}>
+                        </Image>
+                        <Button
+                            title="Your profile"
+                            color="#7c2bee"
+                            onPress={() => navigation.navigate('Profile', {user: '' + username,})}
+                        />
+                    </View>
                 </View>
                 <View style={[styles.button, {flex:1,},]}>
-                    <Button
-                        title="Log Out"
-                        color="#7c2bee"
-                        onPress={() => navigation.reset({index: 0,routes: [{name: 'Home'}],})}
-                    />
+                    <View>
+                        <Image style = {styles.logo}
+                            source = {require('../assets/log-out.png')}>
+                        </Image>
+                        <Button
+                            title="Log Out"
+                            color="#7c2bee"
+                            onPress={() => navigation.reset({index: 0,routes: [{name: 'Home'}],})}
+                        />
+                    </View>
                 </View>
             </View>
         </View>
@@ -107,9 +120,9 @@ const styles = StyleSheet.create({
     },
 
     button: {
-        padding: 10,
         justifyContent: 'center',
         flexGrow: 1,
+        padding: 15,
     },
 
     logo: {
