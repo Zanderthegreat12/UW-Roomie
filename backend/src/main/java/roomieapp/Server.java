@@ -174,7 +174,7 @@ public class Server {
 
                 //Runs them through the matching algorithm
                 MatchingAlgorithm alg = new MatchingAlgorithm();
-                List<Match> mList = alg.ComputeCompatabilityForAll(user, sList);
+                List<Match> mList = alg.ComputeCompatabilityForAll(user, sList);;
 
                 //Puts them back into the database under matches
                 for (Match m : mList) {
