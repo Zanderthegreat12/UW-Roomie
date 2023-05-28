@@ -76,7 +76,7 @@ export default function LoginScreen({route}) {
                     <Button
                         title="Log Out"
                         color="#7c2bee"
-                        onPress={() => navigation.navigate('Home', {user: ''})}//navigation.replace('Home')}
+                        onPress={() => navigation.reset({index: 0,routes: [{name: 'Home'}],})}
                     />
                 </View>
             </View>
