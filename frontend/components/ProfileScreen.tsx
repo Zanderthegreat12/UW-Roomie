@@ -62,6 +62,15 @@ export default function HomeScreen({route}) {
                  />
             </View>
 
+            <View style={styles.button}>
+                <Button
+                    title="Edit Contact Info"
+                    color="#7c2bee"
+                    onPress={() => navigation.navigate('Edit Contact', {user:'' + username, givenPhone: '' + phoneNum,
+                        givenDiscord: '' + discord, givenEmail: '' + email})}
+                />
+            </View>
+
             <Button
                title="Back to Home"
                color="#7c2bee"

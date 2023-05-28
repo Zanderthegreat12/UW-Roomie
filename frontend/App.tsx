@@ -15,6 +15,7 @@ import ViewMatchesScreen from "./components/ViewMatchesScreen";
 import IncomingMatchesScreen from "./components/IncomingMatchesScreen";
 import OutgoingMatchesScreen from "./components/OutgoingMatchesScreen";
 import MatchProfileScreen from "./components/MatchProfileScreen";
+import EditContactInfo from "./components/EditContactInfo";
 
 const stack = createStackNavigator();
 
@@ -59,6 +60,9 @@ export default function App() {
             <stack.Screen
                 name="Match Profile"
                 component={MatchProfileScreen} />
+            <stack.Screen
+                name="Edit Contact"
+                component={EditContactInfo} />
         </stack.Navigator>
 
     </NavigationContainer></>
