@@ -205,11 +205,10 @@ export default function MatchInfoScreen({route}) {
                 return;
             }
 
+            setButtonStatus(true)
             if(num == 0) {
-                setButtonStatus(true)
                 Alert.alert("Match Request was succesfully sent");
             } else {
-                setButtonStatus(true)
                 Alert.alert("Match was Mutual Accepted", "Check View Matches on the Home menu to get their information");
             }
 
@@ -255,38 +254,28 @@ export default function MatchInfoScreen({route}) {
     }
 
     /**
-     * Checks the matchStatus to Accepted
+     * Changes the matchStatus to none and sends that to
+     * the database
      * @param user the username of current user
      * @param matchname the name of the match
      */
-    let CheckMatch = async(user, matchname) => {
-        console.log(user);
-        console.log(matchname);
+    let UndoMatch = async({user}, {matchname}) => {
         try{
-
             let userNew = encodeURIComponent(user);
             let matchNew = encodeURIComponent(matchname);
 
+            let responsePromise;
+            let res;
 
-            let responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/getMatch?username=" + userNew + "&otherName=" + matchNew);
-            let res = await responsePromise;
+            responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/setMatchStatus?username=" + userNew + "&otherName=" + matchNew + "&newStatus=0" );
+            res = await responsePromise;
             if(!res.ok) {
                 alert("Error! Expected: 200, Was: " + res.status);
                 return;
             }
 
-            let parse = res.json();
-            let parsed = await parse;
-
-            console.log(parsed);
-
-
-            if (userNew.localeCompare(matchNew) == -1 && (parsed.matchStatus == 1 || parsed.matchStatus == 3 || parsed.matchStatus == -1)){
-                setButtonStatus(true)
-            }
-            else if (userNew.localeCompare(matchNew) == 1 && (parsed.matchStatus == 2 || parsed.matchStatus == 3 || parsed.matchStatus == -1)){
-                setButtonStatus(true)
-            }
+            setButtonStatus(true)
+            Alert.alert("Match Request was successfuly rescinded");
 
         } catch(e) {
             alert("There was an error contacting the server.");
@@ -296,7 +285,45 @@ export default function MatchInfoScreen({route}) {
 
 
     useEffect(()=>{getContact(matchname)},[]);
-    useEffect(() =>{CheckMatch(username,matchname)}, []);
+    console.log("status " + status)
+    console.log("name compare " + username.localeCompare(matchname))
+    let matchBtns: any[] = []
+    if(status == 0) {
+        matchBtns.push(<Button
+            title="Reject Match"
+            color="#7c2bee"
+            disabled={buttonStatus}
+            onPress={() => RejectMatch({user:username}, {matchname:matchname})}
+        />)
+        matchBtns.push(<Button
+            title="Send Match Request"
+            color="#7c2bee"
+            disabled={buttonStatus}
+            onPress={() => AcceptMatch({user: username},  {matchname: matchname}, {num:status})}
+        />)
+    } else if((status == 1 && username.localeCompare(matchname) == 1) ||
+            (status == 2 && username.localeCompare(matchname) == -1)) {
+        matchBtns.push(<Button
+            title="Reject Match"
+            color="#7c2bee"
+            disabled={buttonStatus}
+            onPress={() => RejectMatch({user:username}, {matchname:matchname})}
+        />)
+        matchBtns.push(<Button
+            title="Accept Match"
+            color="#7c2bee"
+            disabled={buttonStatus}
+            onPress={() => AcceptMatch({user: username},  {matchname: matchname}, {num:status})}
+        />)
+    } else if((status == 2 && username.localeCompare(matchname) == 1) ||
+            (status == 1 && username.localeCompare(matchname) == -1)) {
+        matchBtns.push(<Button
+            title="Undo Match Request"
+            color="#7c2bee"
+            disabled={buttonStatus}
+            onPress={() => UndoMatch({user:username}, {matchname:matchname})}
+        />)
+    }
 
 
     return (
@@ -304,18 +331,7 @@ export default function MatchInfoScreen({route}) {
             {loading && <Text style={styles.text}> Loading...</Text>}
             {data}
             <View style={{ flexDirection:"row" }}>
-                <Button
-                    title="Reject Match"
-                    color="#7c2bee"
-                    disabled={buttonStatus}
-                    onPress={() => RejectMatch({user:username}, {matchname:matchname})}
-                />
-                <Button
-                    title="Accept Match"
-                    color="#7c2bee"
-                    disabled={buttonStatus}
-                    onPress={() => AcceptMatch({user: username},  {matchname: matchname}, {num:status})}
-                />
+                {matchBtns}
             </View>
             {ReturnButton}
         </View>

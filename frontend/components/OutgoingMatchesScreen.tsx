@@ -4,9 +4,9 @@ import {getFocusedRouteNameFromRoute, useNavigation} from "@react-navigation/nat
 import React, {useState, useEffect} from "react";
 
 /**
- * Displays a screen that shows incoming matches
+ * Displays a screen that shows outgoing matches
  * @param route
- * @constructor
+ * @returns
  */
 export default function OutgoingMatchesScreen({route}) {
     const navigation = useNavigation();
