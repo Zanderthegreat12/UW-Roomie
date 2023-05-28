@@ -772,7 +772,7 @@ public class Query {
      */
     public void updateCompatibility(String username1, String username2,
                                     float newCompatibility) throws ConnectException {
-        if(username1.compareTo(username2) >= 0) {
+        if(username1.compareToIgnoreCase(username2) >= 0) {
             String temp = username1;
             username1 = username2;
             username2 = temp;
@@ -824,7 +824,7 @@ public class Query {
      */
     public void updateMatchStatus(String username1, String username2, int newMatchStatus)
             throws ConnectException{
-        if(username1.compareTo(username2) >= 0) {
+        if(username1.compareToIgnoreCase(username2) >= 0) {
             String temp = username1;
             username1 = username2;
             username2 = temp;

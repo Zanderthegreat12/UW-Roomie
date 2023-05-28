@@ -140,6 +140,13 @@ public class SQLMatchTest {
             -1
     );
 
+    private static final Match caseMatch = new Match(
+            "aa",
+            "PP",
+            20,
+            0
+    );
+
     /**
      * test creating match for single pair of users
      */
@@ -719,6 +726,30 @@ public class SQLMatchTest {
             actual.add(rejectMatch2);
             assertTrue(actual.size() == test.size());
             assertTrue(actual.containsAll(test));
+        } catch (ConnectException e) {
+            assertTrue(false);
+        }
+    }
+
+    @Test
+    public void caseSupportUpdateComp() {
+        try {
+            querier.createUser(caseMatch.user1, ":P");
+            querier.createUser(caseMatch.user2, ":P");
+            querier.setMatch(caseMatch);
+            querier.updateCompatibility(caseMatch.user2, caseMatch.user1, 2);
+        } catch (ConnectException e) {
+            assertTrue(false);
+        }
+    }
+
+    @Test
+    public void caseSupportUpdateStat() {
+        try {
+            querier.createUser(caseMatch.user1, ":P");
+            querier.createUser(caseMatch.user2, ":P");
+            querier.setMatch(caseMatch);
+            querier.updateMatchStatus(caseMatch.user2, caseMatch.user1, 2);
         } catch (ConnectException e) {
             assertTrue(false);
         }
