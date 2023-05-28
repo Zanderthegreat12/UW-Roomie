@@ -345,7 +345,12 @@ public class Query {
             clearTable("Users");
             conn.commit();
         } catch (SQLException e) {
-            e.printStackTrace();
+            try {
+                conn.rollback();
+            } catch (SQLException fail) {
+                fail.printStackTrace();
+            }
+            clearTables();
         }
     }
 
@@ -378,7 +383,7 @@ public class Query {
             return true;
 
         } catch (SQLException e) {
-            //e.printStackTrace();
+            e.printStackTrace();
             try {
                 conn.rollback();
             } catch (SQLException otherE) {
