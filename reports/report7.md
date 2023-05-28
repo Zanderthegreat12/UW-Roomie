@@ -69,7 +69,10 @@ Final build version
 - Disable back to home button when taking the survey for the first time.
 
 #### Second subsection:
-
+- Fixed textbox limit for email
+- Added way to edit contact info
+- Added form authentication so that user can't use invalid input
+- 
 
 #### Third subsection:
 
