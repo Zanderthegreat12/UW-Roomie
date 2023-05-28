@@ -64,7 +64,7 @@ Final build version
 - Fix log out so that it clears old log in data.
 - Fix textbox limit for email.
 - Add something to edit contact info in profile
-- Add create user form authentication (make sure its a valid discord/email)
+- Add create user form authentication (make sure it's a valid discord/email)
     - At this point in time no way to truly verify.
 - Disable back to home button when taking the survey for the first time.
 
@@ -72,7 +72,11 @@ Final build version
 - Fixed textbox limit for email
 - Added way to edit contact info
 - Added form authentication so that user can't use invalid input
-- 
+  - Invalid input:
+    - Phone numbers that are not 10 digits long or are not numbers
+    - Email addresses that are not uw addresses
+    - Discord usernames that don't follow discord naming conventions.
+- Fixed log out so that it clears old log in data.
 
 #### Third subsection:
 
