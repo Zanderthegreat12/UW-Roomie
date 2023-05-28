@@ -67,15 +67,28 @@ export default function EditContactInfo({route}) {
  */
 contactInfo = async({userN}, {nav}, {pNum}, {dis}, {email}) => {
     try{
+         //If something is left blank, autofills is with n/a for strings, 0 for phone number
+         if(pNum.trim() == ""){
+            pNum = "0";
+         }
+
+         if(dis.trim() == ""){
+            dis = "N/a"
+         }
+
+         if(email.trim() == ""){
+            email = "N/a"
+         }
+
          //Check to make sure that input is valid
          const testDis = dis.split("#");
-         if(isNaN(pNum) || pNum.length != 10){
+         if((isNaN(pNum) || pNum.length != 10) && pNum != 0){
             alert("Error! Phone number is not valid");
 
-         } else if(!email.includes("@uw.edu")){
+         } else if(!email.includes("@uw.edu") && email != "N/a"){
             alert("Error! Email is not a valid uw email");
 
-         } else if(testDis.length != 2 || isNaN(testDis[1])){
+         } else if((testDis.length != 2 || isNaN(testDis[1])) && dis != "N/a"){
             alert("Error! Invalid discord");
 
          } else { //Everything is valid. Encode and submit.
