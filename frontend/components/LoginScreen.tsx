@@ -31,6 +31,13 @@ export default function LoginScreen({route}) {
             </View>
             <View style={styles.button}>
                 <Button
+                    title="View Outgoing Matches"
+                    color="#7c2bee"
+                    onPress={() => navigation.navigate('Outgoing Matches Screen', {user: '' + username,})}
+                />
+            </View>
+            <View style={styles.button}>
+                <Button
                     title="View Matches"
                     color="#7c2bee"
                     onPress={() => navigation.navigate('View Matches Screen', {user: '' + username,})}

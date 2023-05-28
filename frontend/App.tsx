@@ -13,6 +13,7 @@ import ProfileScreen from "./components/ProfileScreen";
 import MatchInfoScreen from "./components/MatchInfoScreen";
 import ViewMatchesScreen from "./components/ViewMatchesScreen";
 import IncomingMatchesScreen from "./components/IncomingMatchesScreen";
+import OutgoingMatchesScreen from "./components/OutgoingMatchesScreen";
 import MatchProfileScreen from "./components/MatchProfileScreen";
 
 const stack = createStackNavigator();
@@ -52,6 +53,9 @@ export default function App() {
             <stack.Screen
                 name="Incoming Matches Screen"
                 component={IncomingMatchesScreen} />
+            <stack.Screen
+                name="Outgoing Matches Screen"
+                component={OutgoingMatchesScreen} />
             <stack.Screen
                 name="Match Profile"
                 component={MatchProfileScreen} />
