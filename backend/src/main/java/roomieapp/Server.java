@@ -182,7 +182,13 @@ public class Server {
                         try {
                             q.updateCompatibility(m.user1, m.user2, m.compatibility);
                         } catch (IllegalArgumentException e) {
-                            q.setMatch(m);
+                            try {
+                                q.setMatch(m);
+                            } catch (Exception otherE) {
+                                return otherE;
+                            }
+                        } catch (Exception wat) {
+                            return wat;
                         }
                     }
                 }
