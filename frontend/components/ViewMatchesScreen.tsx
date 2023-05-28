@@ -53,12 +53,9 @@ export default function ViewMatchesScreen({route}) {
                     if(parsed[i].matchStatus == 3) {
                         ExtraButtons.push(<View style={{ flexDirection:"row" }}><View key={i} style={styles.button2}><Button title={Matchname}
                                                                                                                              color={"#7c2bee"}
-                                                                                                                             onPress={() => navigation.navigate('Match Info', {
+                                                                                                                             onPress={() => navigation.navigate('Match Profile', {
                                                                                                                                  user: '' + username,
                                                                                                                                  match: '' + Matchname,
-                                                                                                                                 comp: '' + comp,
-                                                                                                                                 status: ''+ status,
-                                                                                                                                 screen: ''+1
                                                                                                                              })}/></View><Text style={styles.text2}>{" " + comp}</Text></View>);
 
                     }
@@ -67,12 +64,9 @@ export default function ViewMatchesScreen({route}) {
                         Matchname = parsed[i].user1
                         ExtraButtons.push(<View style={{ flexDirection:"row" }}><View key={i} style={styles.button2}><Button title={Matchname}
                                                                                                                              color={"#7c2bee"}
-                                                                                                                             onPress={() => navigation.navigate('Match Info', {
+                                                                                                                             onPress={() => navigation.navigate('Match Profile', {
                                                                                                                                  user: '' + username,
                                                                                                                                  match: '' + Matchname,
-                                                                                                                                 comp: '' + comp,
-                                                                                                                                 status: ''+ status,
-                                                                                                                                 screen: ''+1
                                                                                                                              })}/></View><Text style={styles.text2}>{" " + comp}</Text></View>);
 
                     }
