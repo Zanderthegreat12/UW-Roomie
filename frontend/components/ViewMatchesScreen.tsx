@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, ScrollView, Text, View, Button } from 'react-native';
 import {getFocusedRouteNameFromRoute, useNavigation} from "@react-navigation/native";
 import React, {useState, useEffect} from "react";
+import {Divider} from "react-native-paper";
 
 /**
  * functions that displays the screen to view mutual matches
@@ -50,22 +51,24 @@ export default function ViewMatchesScreen({route}) {
                 if (parsed[i].user1 == user) {
                     Matchname = parsed[i].user2
                     if(parsed[i].matchStatus == 3) {
-                        ExtraButtons.push(<View key={i} style={styles.button}><Button title={Matchname + " " + comp}
-                                                                                      color={"#7c2bee"}
-                                                                                      onPress={() => navigation.navigate('Match Profile', {
-                                                                                          user: '' + username,
-                                                                                          match: '' + Matchname
-                                                                                      })}/></View>);
+                        ExtraButtons.push(<View style={{ flexDirection:"row" }}><View key={i} style={styles.button2}><Button title={Matchname}
+                                                                                                                             color={"#7c2bee"}
+                                                                                                                             onPress={() => navigation.navigate('Match Profile', {
+                                                                                                                                 user: '' + username,
+                                                                                                                                 match: '' + Matchname,
+                                                                                                                             })}/></View><Text style={styles.text2}>{" " + comp}</Text></View>);
+
                     }
                 } else {
                     if(parsed[i].matchStatus == 3) {
                         Matchname = parsed[i].user1
-                        ExtraButtons.push(<View key={i} style={styles.button}><Button title={Matchname + " " + comp}
-                                                                                      color={"#7c2bee"}
-                                                                                      onPress={() => navigation.navigate('Match Profile', {
-                                                                                          user: '' + username,
-                                                                                          match: '' + Matchname
-                                                                                      })}/></View>);
+                        ExtraButtons.push(<View style={{ flexDirection:"row" }}><View key={i} style={styles.button2}><Button title={Matchname}
+                                                                                                                             color={"#7c2bee"}
+                                                                                                                             onPress={() => navigation.navigate('Match Profile', {
+                                                                                                                                 user: '' + username,
+                                                                                                                                 match: '' + Matchname,
+                                                                                                                             })}/></View><Text style={styles.text2}>{" " + comp}</Text></View>);
+
                     }
                 }
                 i++;
@@ -84,9 +87,12 @@ export default function ViewMatchesScreen({route}) {
 
     return (
         <ScrollView contentContainerStyle={styles.container} nestedScrollEnabled={true}>
-            <Text style={styles.title}>View Mutal Matches</Text>
+            <Text style={styles.title}>View Mutual Matches</Text>
+            {!loading &&  <Text style={styles.text}> Match Name            Compatability Percent</Text>}
+            <Divider style={{width:'75%'}} bold="true"/>
             {loading && <Text style={styles.text}> Loading...</Text>}
             {data}
+            <Divider style={{width:'75%'}} bold="true"/>
             <View style={styles.button}>
                 <Button
                     title="Back to Home"
@@ -123,4 +129,17 @@ const styles = StyleSheet.create({
     button: {
         padding: 10,
     },
+
+    text2: {
+        margin: 10,
+        color: 'white',
+        paddingTop: 10,
+        fontWeight: "bold"
+    },
+
+    button2: {
+        padding: 10,
+        width: 250,
+    },
+
 });

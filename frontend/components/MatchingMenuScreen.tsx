@@ -1,7 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, ScrollView, Text, View, Button } from 'react-native';
 import {getFocusedRouteNameFromRoute, useNavigation} from "@react-navigation/native";
-import {useState, useEffect} from "react";
+import React, {useState, useEffect} from "react";
+import {Divider} from "react-native-paper";
 
 /**
  * Function to dispplay matching screen
@@ -128,8 +129,11 @@ export default function MatchingMenuScreen({route}) {
                     onPress={() => getMatches(username)}
                 />
             </View>
+            {!loading &&  <Text style={styles.text}> Match Name            Compatability Percent</Text>}
+            <Divider style={{width:'75%'}} bold="true"/>
             {loading && <Text style={styles.text}> Loading...</Text>}
             {data}
+            <Divider style={{width:'75%'}} bold="true"/>
             <View style={styles.button}>
                 <Button
                     title="Back to Home"
@@ -176,6 +180,6 @@ const styles = StyleSheet.create({
 
     button2: {
         padding: 10,
-        width: 250
+        width: 250,
     },
 });

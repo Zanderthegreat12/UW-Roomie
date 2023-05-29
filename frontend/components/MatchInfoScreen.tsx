@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import {StyleSheet, Text, View, Button, Alert, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, View, Button, Alert, TouchableOpacity, ScrollView} from 'react-native';
 import {useNavigation} from "@react-navigation/native";
 import React, {useEffect, useState} from 'react';
 
@@ -325,14 +325,16 @@ export default function MatchInfoScreen({route}) {
 
 
     return (
-        <View style={styles.container}>
-            {loading && <Text style={styles.text}> Loading...</Text>}
-            {data}
-            <View style={{ flexDirection:"row" }}>
-                {matchBtns}
+        <ScrollView contentContainerStyle={styles.container} nestedScrollEnabled={true}>
+            <View style={styles.container}>
+                {loading && <Text style={styles.text}> Loading...</Text>}
+                {data}
+                <View style={{ flexDirection:"row", padding:10}}>
+                    {matchBtns}
+                </View>
+                {ReturnButton}
             </View>
-            {ReturnButton}
-        </View>
+        </ScrollView>
     );
 }
 
@@ -342,7 +344,7 @@ export default function MatchInfoScreen({route}) {
  */
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flexGrow: 1,
         backgroundColor: '#A781B5',
         alignItems: 'center',
         justifyContent: 'center',
