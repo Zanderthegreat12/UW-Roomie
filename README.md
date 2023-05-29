@@ -10,11 +10,11 @@ then they can attempt to get in contact with that user
 and if the other user agrees then it will display their contact information. 
 From there then the users can determine if they want to dorm or not. <br /> <br />
 
-Icons created by Freepick - Flaticon:
-Shared housing icons - https://www.flaticon.com/free-icons/shared-housing
-Package icons - https://www.flaticon.com/free-icons/package
-Gift box icons - https://www.flaticon.com/free-icons/gift-box
-Profile icons - https://www.flaticon.com/free-icons/profile
+Icons created by Freepick - Flaticon: <br />
+Shared housing icons - https://www.flaticon.com/free-icons/shared-housing <br />
+Package icons - https://www.flaticon.com/free-icons/package <br />
+Gift box icons - https://www.flaticon.com/free-icons/gift-box <br />
+Profile icons - https://www.flaticon.com/free-icons/profile <br />
 Export icons - https://www.flaticon.com/free-icons/export <br /> <br />
 
 ## USER GUIDE
