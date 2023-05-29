@@ -82,6 +82,12 @@ export default function IncomingMatchesScreen({route}) {
     }
 
     useEffect(()=>{getIncomingMatches(username);},[]);
+    useEffect(() => {
+        const focusHandler = navigation.addListener('focus', () => {
+            getIncomingMatches(username);
+        });
+        return focusHandler;
+    }, [navigation]);
 
 
     return (

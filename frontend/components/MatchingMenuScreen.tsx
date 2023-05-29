@@ -111,7 +111,12 @@ export default function MatchingMenuScreen({route}) {
     }
 
     useEffect(()=>{AlgMatch(username);},[]);
-
+    useEffect(() => {
+        const focusHandler = navigation.addListener('focus', () => {
+            AlgMatch(username)
+        });
+        return focusHandler;
+    }, [navigation]);
 
     return (
         <ScrollView contentContainerStyle={styles.container} nestedScrollEnabled={true}>

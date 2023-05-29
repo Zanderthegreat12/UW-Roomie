@@ -82,6 +82,12 @@ export default function OutgoingMatchesScreen({route}) {
     }
 
     useEffect(()=>{getOutgoingMatches(username);},[]);
+    useEffect(() => {
+        const focusHandler = navigation.addListener('focus', () => {
+            getOutgoingMatches(username);
+        });
+        return focusHandler;
+    }, [navigation]);
 
 
     return (
