@@ -54,7 +54,7 @@ export default function IncomingMatchesScreen({route}) {
                                                                                                                                  match: '' + Matchname,
                                                                                                                                  comp: '' + comp,
                                                                                                                                  status: ''+ status,
-                                                                                                                                 screen: ''+1
+                                                                                                                                 screen: ''+2
                                                                                                                              })}/></View><Text style={styles.text2}>{" " + comp}</Text></View>);
                     }
                 } else {
@@ -67,7 +67,7 @@ export default function IncomingMatchesScreen({route}) {
                                                                                                                                  match: '' + Matchname,
                                                                                                                                  comp: '' + comp,
                                                                                                                                  status: ''+ status,
-                                                                                                                                 screen: ''+1
+                                                                                                                                 screen: ''+2
                                                                                                                              })}/></View><Text style={styles.text2}>{" " + comp}</Text></View>);
                     }
                 }

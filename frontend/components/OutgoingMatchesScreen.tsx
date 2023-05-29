@@ -54,7 +54,7 @@ export default function OutgoingMatchesScreen({route}) {
                                                                                                                                  match: '' + Matchname,
                                                                                                                                  comp: '' + comp,
                                                                                                                                  status: ''+ status,
-                                                                                                                                 screen: ''+1
+                                                                                                                                 screen: ''+3
                                                                                                                              })}/></View><Text style={styles.text2}>{" " + comp}</Text></View>);
 
                     }
@@ -68,7 +68,7 @@ export default function OutgoingMatchesScreen({route}) {
                                                                                                                                  match: '' + Matchname,
                                                                                                                                  comp: '' + comp,
                                                                                                                                  status: ''+ status,
-                                                                                                                                 screen: ''+1
+                                                                                                                                 screen: ''+3
                                                                                                                              })}/></View><Text style={styles.text2}>{" " + comp}</Text></View>);
 
                     }

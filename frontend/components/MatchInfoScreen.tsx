@@ -27,12 +27,17 @@ export default function MatchInfoScreen({route}) {
             color="#7c2bee"
             onPress={() => navigation.navigate('Matching Menu', {user: '' + username})}
         />)
-    } else {
+    } else if (route.params.screen == 2){
         ReturnButton.push(<Button
-            title="Back to Incomming Matches"
+            title="Back to Oncomming Matches"
             color="#7c2bee"
             onPress={() => navigation.navigate('Incoming Matches Screen', {user: '' + username})}
         />)
+    } else {
+        ReturnButton.push(<Button
+            title="Back to Outgoing Matches"
+            color="#7c2bee"
+            onPress={() => navigation.navigate('Outgoing Matches Screen', {user: '' + username})} />)
     }
 
     const[data, setData] = useState([]);
