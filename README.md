@@ -56,16 +56,18 @@ Known Bugs:
 ## DEVELOPER GUIDE
 How to host code on independent server (for developers):
   1. Clone UW-Roomie repository on your local machine
-  2. Create 2 SQL databases. One for testing and one for main service
-  3. Input the needed properties of your databses in dbconn (service database) and dbconntest (test database)
-  4. host code in backend folder on a server using the following commands: <br>
+  2. Create 2 SQL databases. One for testing and one for main service <br>
+    - After creating the databases, connect to said databases <br>
+    - Then execute CreateTables.sql in root directory on both databases
+  4. Input the needed properties of your databses in dbconn (service database) and dbconntest (test database)
+  5. host code in backend folder on a server using the following commands: <br>
     - Run the code using JDK of your choice <br>
     - to build the code, run "mvn package -Dmaven.test.skip" as a command line <br>
     - to run the code, run "mvn compile exec:java -Dexec.mainClass=roomieapp.Server" as a command line
-  5. Anytime the https://5pfrmumuxf.us-west-2.awsapprunner.com is written in frontend code, change it to your new server's domain <br>
+  6. Anytime the https://5pfrmumuxf.us-west-2.awsapprunner.com is written in frontend code, change it to your new server's domain <br>
     - This isn't currently centralized in our code
-  6. Install ExpoGo on phone to use app
-  7. Nagivate to the frontend folder of this Repo from the Command Prompt (on local machine)
+  7. Install ExpoGo on phone to use app
+  8. Nagivate to the frontend folder of this Repo from the Command Prompt (on local machine)
   9. Run "npm install expo"
   10. Run "npx expo start"
   11. Scan QR code on computer from within ExpoGo app
