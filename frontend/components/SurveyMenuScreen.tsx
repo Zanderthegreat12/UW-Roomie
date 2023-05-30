@@ -206,7 +206,7 @@ export default function SurveyMenuScreen({route}) {
                 title="Back to Home"
                 color="#7c2bee"
                 disabled={buttonStatus}
-                onPress={() => navigation.navigate('Login', {user:'' + username})}
+                onPress={() => navigation.navigate('Home', {user:'' + username})}
             />
 
             <Text> {'\n'} </Text>

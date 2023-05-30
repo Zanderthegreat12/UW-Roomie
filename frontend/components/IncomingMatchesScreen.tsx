@@ -103,7 +103,7 @@ export default function IncomingMatchesScreen({route}) {
                 <Button
                     title="Back to Home"
                     color="#7c2bee"
-                    onPress={() => navigation.navigate('Login', {user: '' + username})}
+                    onPress={() => navigation.navigate('Home', {user: '' + username})}
                 />
             </View>
         </ScrollView>
