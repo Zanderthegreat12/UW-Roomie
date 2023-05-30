@@ -2,6 +2,7 @@
   "expo": {
     "name": "UW Roomie",
     "slug": "uw_roomie",
+    "icon": "./assets/happy.png",
     "extra": {
       "eas": {
         "projectId": "da5af79b-f903-459b-a27c-73c8a6ef1699"
