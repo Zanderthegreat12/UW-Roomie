@@ -55,20 +55,20 @@ export default function HomeScreen({route}) {
             <Text style = {styles.text}>Email: {email}</Text>
 
             <View style={styles.button}>
-                 <Button
-                    title="Retake Survey"
-                    color="#7c2bee"
-                    onPress={() => surveyRedirect(username, navigation)}
-                 />
-            </View>
-
-            <View style={styles.button}>
                 <Button
                     title="Edit Contact Info"
                     color="#7c2bee"
                     onPress={() => navigation.navigate('Edit Contact', {user:'' + username, givenPhone: '' + phoneNum,
                         givenDiscord: '' + discord, givenEmail: '' + email})}
                 />
+            </View>
+
+            <View style={styles.button}>
+                 <Button
+                    title="Retake Survey"
+                    color="#7c2bee"
+                    onPress={() => surveyRedirect(username, navigation)}
+                 />
             </View>
 
             <Button

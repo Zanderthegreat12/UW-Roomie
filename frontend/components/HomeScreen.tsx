@@ -1,96 +1,104 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Button, Image } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import {TextInput} from 'react-native';
+import {useNavigation} from "@react-navigation/native";
 import React, {useState} from 'react';
 
 /**
- * Function that displays log in screen
- * @returns rendering of screen that allows user to log in
+ * Function to display the user's home screen
+ * @param route contains information about the user
+ * @returns rendering for the home screen
  */
-export default function HomeScreen({route}) {
+export default function LoginScreen({route}) {
     const navigation = useNavigation();
-    const [username, setUser] = useState('');
-    const [password, setPass] = useState('');
+    const [username, setUser] = useState(route.params.user);
 
     return (
         <View style={styles.container}>
-            <Image style = {styles.logo}
-                   source = {require('../assets/happy.png')}>
-            </Image>
-            <Text style = {styles.title}>UW Roomie</Text>
-            <Text style = {styles.text}>Insert Username:</Text>
-            <TextInput
-                editable
-                style={styles.textBox}
-                maxLength={20}
-                onChangeText={text => setUser(text)}
-                value={username}
-            />
-
-            <Text style = {styles.text}>Insert Password:</Text>
-            <TextInput
-                editable
-                style={styles.textBox}
-                secureTextEntry={true}
-                maxLength={20}
-                onChangeText={text => setPass(text)}
-                value={password}
-            />
-            <View style={styles.button}>
-                <Button
-                    title="Sign In"
-                    color="#7c2bee"
-                    onPress={() => logIn({userN: username}, {pass: password}, {nav: navigation})} //Once we have server on AWS
-                 />
+            <Text style={styles.title}>Welcome {username}</Text>
+            <View style={{flexDirection:'row', height:'20%'}}>
+                <View style={[styles.button, {flex:1,},]}>
+                    <View>
+                        <Image style = {styles.logo}
+                            source = {require('../assets/roommate.png')}>
+                        </Image>
+                        <Button
+                            title="Potential matches"
+                            color="#7c2bee"
+                            onPress={() => navigation.navigate('Matching Menu', {user: '' + username,})}
+                        />
+                    </View>
+                </View>
+                <View style={[styles.button, {flex:1,},]}>
+                    <View>
+                        <Image style = {styles.logo}
+                            source = {require('../assets/match.png')}>
+                        </Image>
+                        <Button
+                            title="View Successful Matches"
+                            color="#7c2bee"
+                            onPress={() => navigation.navigate('View Matches Screen', {user: '' + username,})}
+                        />
+                    </View>
+                </View>
             </View>
-
-            <Text style={styles.text}>Don't have an account?</Text>
-            <Button
-                title="Create Account"
-                color="#7c2bee"
-                onPress={() => navigation.navigate('Create Account')}
-            />
+            <View style={{flexDirection:'row', height:'20%'}}>
+                <View style={[styles.button, {flex:1,},]}>
+                    <View>
+                        <Image style = {styles.logo}
+                            source = {require('../assets/package.png')}>
+                        </Image>
+                        <Button
+                            title="View Outgoing Matches"
+                            color="#7c2bee"
+                            onPress={() => navigation.navigate('Outgoing Matches Screen', {user: '' + username,})}
+                        />
+                    </View>
+                </View>
+                <View style={[styles.button, {flex:1,},]}>
+                    <View>
+                        <Image style = {styles.logo}
+                            source = {require('../assets/send.png')}>
+                        </Image>
+                        <Button
+                            title="Accept/Reject Oncoming Matches"
+                            color="#7c2bee"
+                            onPress={() => navigation.navigate('Incoming Matches Screen', {user: '' + username,})}
+                        />
+                    </View>
+                </View>
+            </View>
+            <View style={{flexDirection:'row', height:'20%'}}>
+                <View style={[styles.button, {flex:1,},]}>
+                    <View>
+                        <Image style = {styles.logo}
+                            source = {require('../assets/user.png')}>
+                        </Image>
+                        <Button
+                            title="Your profile"
+                            color="#7c2bee"
+                            onPress={() => navigation.navigate('Profile', {user: '' + username,})}
+                        />
+                    </View>
+                </View>
+                <View style={[styles.button, {flex:1,},]}>
+                    <View>
+                        <Image style = {styles.logo}
+                            source = {require('../assets/log-out.png')}>
+                        </Image>
+                        <Button
+                            title="Log Out"
+                            color="#7c2bee"
+                            onPress={() => navigation.reset({index: 0,routes: [{name: 'Login'}],})}
+                        />
+                    </View>
+                </View>
+            </View>
         </View>
     );
 }
 
 /**
- * checks if log in of user is successful.
- * If login successful, identify user as 'userN'
- * Else notify user that login failed
- * @param userN username that the user is logging in with
- * @param pass password that the user is logging in with
- * @param nav navigates to desired screen
- */
-logIn = async({userN}, {pass}, {nav}) => {
-
-    try{
-         let userNew = encodeURIComponent(userN);
-         let passNew = encodeURIComponent(pass);
-         let responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/logIn?username=" + userNew + "&password=" + passNew);
-         let res = await responsePromise;
-         if(!res.ok){
-             alert("Error! Expected: 200, Was: " + res.status);
-             return;
-         }
-
-         let parse = res.json();
-         let parsed = await parse;
-         if(parsed == true){
-            nav.navigate('Login', {user: '' + userN});
-         } else {
-             alert("Login Failed");
-         }
-
-    } catch(e) {
-         alert("There was an error contacting the server.");
-         console.log(e);
-    }
-}
-
-/**
- * style for home screen components
+ * style sheet for home screen
  */
 const styles = StyleSheet.create({
     container: {
@@ -100,14 +108,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
 
-    textBox: {
-        backgroundColor: 'white',
-        height: 40,
-        width: 200,
-        borderRadius: 8,
-        padding: 10,
-    },
-
     text: {
         margin: 10,
         color: 'white',
@@ -115,17 +115,20 @@ const styles = StyleSheet.create({
 
     title: {
         fontSize: 30,
-        color: '#FFDA8F',
-        fontWeight: 'bold',
         padding: 10,
+        color: 'white',
     },
 
     button: {
-        padding: 20,
+        justifyContent: 'center',
+        flexGrow: 1,
+        padding: 15,
     },
 
     logo: {
-        width: 75,
-        height: 75,
+        width: 50,
+        height: 50,
+        margin: 10,
+        alignSelf: 'center',
     },
 });

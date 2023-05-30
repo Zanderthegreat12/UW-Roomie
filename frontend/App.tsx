@@ -5,13 +5,13 @@ import { NavigationContainer } from '@react-navigation/native';
 
 import HomeScreen from './components/HomeScreen';
 import LoginScreen from './components/LoginScreen';
-import MatchingMenuScreen from './components/MatchingMenuScreen';
+import MatchingMenuScreen from './components/PotentialMatchesScreen';
 import SurveyMenuScreen from "./components/SurveyMenuScreen";
 import LikedMenuScreen from "./components/LikedMenuScreen";
 import CreateUserScreen from "./components/CreateUserScreen";
 import ProfileScreen from "./components/ProfileScreen";
-import MatchInfoScreen from "./components/MatchInfoScreen";
-import ViewMatchesScreen from "./components/ViewMatchesScreen";
+import MatchInfoScreen from "./components/MatchSurveyScreen";
+import ViewMatchesScreen from "./components/CompleteMatchesScreen";
 import IncomingMatchesScreen from "./components/IncomingMatchesScreen";
 import OutgoingMatchesScreen from "./components/OutgoingMatchesScreen";
 import MatchProfileScreen from "./components/MatchProfileScreen";
@@ -26,11 +26,11 @@ export default function App() {
     <NavigationContainer>
         <stack.Navigator>
             <stack.Screen
-                name="Home"
-                component={HomeScreen} />
-            <stack.Screen
                 name="Login"
                 component={LoginScreen} />
+            <stack.Screen
+                name="Home"
+                component={HomeScreen} />
             <stack.Screen
                 name="Create Account"
                 component={CreateUserScreen} />
