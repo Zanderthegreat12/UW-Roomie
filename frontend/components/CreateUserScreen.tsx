@@ -123,8 +123,8 @@ createUser = async({userN}, {pass}, {nav}, {pNum}, {dis}, {email}) => {
              let responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/createUser?username=" + userNew + "&password=" + passNew + "&pNum=" + pNum + "&discord=" + cord + "&email=" + emailNew);
              let res = await responsePromise;
              if(!res.ok){
-                 //alert("Some field not filled");
-                 alert("Error! Expected: 200, Was: " + res.status);
+                 alert("Some field not filled");
+                 //alert("Error! Expected: 200, Was: " + res.status);
                  return;
              }
 
