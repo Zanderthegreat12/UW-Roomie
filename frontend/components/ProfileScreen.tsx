@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
 
     title: {
         fontSize: 30,
-        color: 'white',
+        color: '#FFDA8F',
     },
 
     button: {

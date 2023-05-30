@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 30,
         padding: 20,
-        color: 'white',
+        color: '#FFDA8F',
     },
 
     button: {
