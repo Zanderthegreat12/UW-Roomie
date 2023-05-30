@@ -272,8 +272,7 @@ public class Query {
         PreparedStatement stmt = conn.prepareStatement(
             "UPDATE Matches " +
                 "SET matchStatus = ? " +
-                "WHERE user1 = ? and user2 = ? " +
-                "ORDER BY compatibility DESC;"
+                "WHERE user1 = ? and user2 = ?;"
         );
         stmt.setFloat(1, matchStatus);
         stmt.setString(2, user1);
