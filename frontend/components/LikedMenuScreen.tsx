@@ -13,7 +13,6 @@ export default function LikedMenuScreen({route}) {
     const [username, setUser] = useState(route.params.user);
 
     const L = require('../Test Data/Likes.json')
-    console.log(L)
 
     let User = "b"
 

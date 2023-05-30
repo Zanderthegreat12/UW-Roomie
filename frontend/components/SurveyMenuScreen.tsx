@@ -530,6 +530,12 @@ export default function SurveyMenuScreen({route}) {
     );
 }
 
+/**
+ * 
+ * @param infoString information with which to update the survey to
+ * @param nav object that can redirect user to another screen
+ * @param userN idenfier for user
+ */
 let updateSurvey = async({infoString}, {nav}, {userN}) => {
     let userNew = encodeURIComponent(userN);
     try{
@@ -549,6 +555,9 @@ let updateSurvey = async({infoString}, {nav}, {userN}) => {
     }
 }
 
+/**
+ * Standard purple and white style to display survey info
+ */
 const styles = StyleSheet.create({
     container: {
         flexGrow: 1,

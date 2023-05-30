@@ -291,6 +291,8 @@ export default function MatchInfoScreen({route}) {
 
     useEffect(()=>{getContact(matchname)},[]);
     let matchBtns: any[] = []
+    //changes what buttons are displayed on screen depending on
+    //the type of matches that the screens are displaying
     if(status == 0) {
         matchBtns.push(<Button
             title="Reject Match"

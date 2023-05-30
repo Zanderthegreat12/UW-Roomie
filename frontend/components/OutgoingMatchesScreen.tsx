@@ -6,8 +6,8 @@ import {Divider} from "react-native-paper";
 
 /**
  * Displays a screen that shows outgoing matches
- * @param route
- * @returns
+ * @param route contains the info about user
+ * @returns rendering all outgoing matches that you can click on
  */
 export default function OutgoingMatchesScreen({route}) {
     const navigation = useNavigation();
@@ -17,6 +17,11 @@ export default function OutgoingMatchesScreen({route}) {
     const [loading, setLoading] = useState(true);
 
 
+    /**
+     * gets all the outgoing matches for user
+     * and then loads them into buttons
+     * @param user identifier for user
+     */
     let getOutgoingMatches = async (user) => {
         try {
             let userNew = encodeURIComponent(user);
@@ -84,6 +89,7 @@ export default function OutgoingMatchesScreen({route}) {
         }
     }
 
+    // refreshes page upon entring page (even if page cached)
     useEffect(()=>{getOutgoingMatches(username);},[]);
     useEffect(() => {
         const focusHandler = navigation.addListener('focus', () => {
@@ -112,9 +118,9 @@ export default function OutgoingMatchesScreen({route}) {
     );alignItems
 }
 
-
-
-
+/**
+ * Standard purple and white style with items centered
+ */
 const styles = StyleSheet.create({
     container: {
         flexGrow: 1,

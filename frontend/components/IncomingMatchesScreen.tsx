@@ -6,8 +6,8 @@ import {Divider} from "react-native-paper";
 
 /**
  * Displays a screen that shows incoming matches
- * @param route
- * @constructor
+ * @param route contains information of user
+ * @returns rendering of incoming matches that you can click on
  */
 export default function IncomingMatchesScreen({route}) {
     const navigation = useNavigation();

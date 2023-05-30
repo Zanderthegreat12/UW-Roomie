@@ -5,9 +5,10 @@ import {TextInput} from 'react-native';
 import React, {useState} from 'react';
 
 /**
- * 
+ * Displays the home screen where the user can redirect themselves
+ * to any other screen.
  * @param route contains information about the user
- * @returns 
+ * @returns rendering of home screen
  */
 export default function HomeScreen({route}) {
     const navigation = useNavigation();
@@ -16,6 +17,10 @@ export default function HomeScreen({route}) {
     const [discord, setDiscord] = useState('');
     const [email, setEmail] = useState('');
 
+    /**
+     * Get contact info of given user
+     * @param user identifier for user
+     */
     getContactInfo = async({user}) => {
         try{
              let userNew = encodeURIComponent(user);
