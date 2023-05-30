@@ -272,7 +272,8 @@ public class Query {
         PreparedStatement stmt = conn.prepareStatement(
             "UPDATE Matches " +
                 "SET matchStatus = ? " +
-                "WHERE user1 = ? and user2 = ?;"
+                "WHERE user1 = ? and user2 = ? " +
+                "ORDER BY compatibility DESC;"
         );
         stmt.setFloat(1, matchStatus);
         stmt.setString(2, user1);
@@ -291,7 +292,8 @@ public class Query {
         PreparedStatement stmt = conn.prepareStatement(
             "SELECT * FROM Matches " +
                 "WHERE (user1 = ? and matchStatus = 2) " +
-                    "or (user2 = ? and matchStatus = 1)"
+                    "or (user2 = ? and matchStatus = 1) " +
+                "ORDER BY compatibility DESC;"
         );
         stmt.setString(1, user);
         stmt.setString(2, user);
@@ -303,7 +305,8 @@ public class Query {
         PreparedStatement stmt = conn.prepareStatement(
                 "SELECT * FROM Matches " +
                     "WHERE (user1 = ? and matchStatus = 1) " +
-                        "or (user2 = ? and matchStatus = 2)"
+                        "or (user2 = ? and matchStatus = 2) " +
+                    "ORDER BY compatibility DESC;"
         );
         stmt.setString(1, user);
         stmt.setString(2, user);
@@ -315,7 +318,8 @@ public class Query {
         PreparedStatement stmt = conn.prepareStatement(
                 "SELECT * FROM Matches " +
                     "WHERE (user1 = ? or user2 = ?) " +
-                        "and matchStatus = 3"
+                        "and matchStatus = 3 " +
+                    "ORDER BY compatibility DESC;"
         );
         stmt.setString(1, user);
         stmt.setString(2, user);
@@ -327,7 +331,8 @@ public class Query {
         PreparedStatement stmt = conn.prepareStatement(
                 "SELECT * FROM Matches " +
                         "WHERE (user1 = ? or user2 = ?) " +
-                        "and matchStatus = -1"
+                        "and matchStatus = -1 " +
+                    "ORDER BY compatibility DESC;"
         );
         stmt.setString(1, user);
         stmt.setString(2, user);
