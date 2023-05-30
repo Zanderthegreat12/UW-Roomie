@@ -26,24 +26,6 @@ export default function MatchingMenuScreen({route}) {
     }
 
     /**
-     * calculates the new compatibility with given user will all other users
-     * @param user username of current user
-     */
-    let runAlg = async(user) => {
-        try{
-            let userNew = encodeURIComponent(user);
-            let responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/runAlg?username=" + userNew);
-            let res = await responsePromise;
-            if(!res.ok){
-                return;
-            }
-        } catch(e) {
-            alert("There was an error contacting the server.");
-            console.log(e);
-        }
-    }
-
-    /**
      * retrives the top matches for the given user (defined as having the best compatibility)
      * @param user username of current user
      */
