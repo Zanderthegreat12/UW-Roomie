@@ -21,27 +21,8 @@ export default function MatchingMenuScreen({route}) {
      * @param user username of current user
      */
     let AlgMatch = async(user) => {
-        //let a = await runAlg(user);
         let b = await getMatches(user);
         setLoading(false);
-    }
-
-    /**
-     * calculates the new compatibility with given user will all other users
-     * @param user username of current user
-     */
-    let runAlg = async(user) => {
-        try{
-            let userNew = encodeURIComponent(user);
-            let responsePromise = fetch("https://5pfrmumuxf.us-west-2.awsapprunner.com/runAlg?username=" + userNew);
-            let res = await responsePromise;
-            if(!res.ok){
-                return;
-            }
-        } catch(e) {
-            alert("There was an error contacting the server.");
-            console.log(e);
-        }
     }
 
     /**
