@@ -15,7 +15,7 @@ export default function LoginScreen({route}) {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Welcome {username}</Text>
-            <View style={{flexDirection:'row', height:'20%'}}>
+            <View style={{flexDirection:'row', height:'25%'}}>
                 <View style={[styles.button, {flex:1,},]}>
                     <View>
                         <Image style = {styles.logo}
@@ -41,7 +41,7 @@ export default function LoginScreen({route}) {
                     </View>
                 </View>
             </View>
-            <View style={{flexDirection:'row', height:'20%'}}>
+            <View style={{flexDirection:'row', height:'25%'}}>
                 <View style={[styles.button, {flex:1,},]}>
                     <View>
                         <Image style = {styles.logo}
@@ -67,7 +67,7 @@ export default function LoginScreen({route}) {
                     </View>
                 </View>
             </View>
-            <View style={{flexDirection:'row', height:'20%'}}>
+            <View style={{flexDirection:'row', height:'25%'}}>
                 <View style={[styles.button, {flex:1,},]}>
                     <View>
                         <Image style = {styles.logo}
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 30,
         padding: 10,
-        color: 'white',
+        color: '#FFDA8F',
     },
 
     button: {
