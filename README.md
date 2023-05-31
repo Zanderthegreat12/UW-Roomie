@@ -21,7 +21,7 @@ Quit icons created by Pixel perfect - https://www.flaticon.com/free-icons/quit <
 
 ## USER GUIDE
 How to Install and Run App:
-  1. Install code here - https://expo.dev/artifacts/eas/5sW4JNPdUQDGiCkJqUK5ac.apk
+  1. Install our app here - https://expo.dev/artifacts/eas/ijVzj1oFqqWY9ujMawaDeK.apk
   2. Run app using adroid device or android emulator
   3. Note: This app is currently only available for android 
 
