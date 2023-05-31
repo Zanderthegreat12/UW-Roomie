@@ -42,7 +42,12 @@ Final build version
 - add query to view all rejected matches
 
 #### Second subsection:
-
+- added ability to undo outgoing match requests
+- added query to view all rejected matches (this wasn't utilized in frontend though)
+- debugged issue where case sensitivity in username caused matching alogorithm to fail
+- ordered outgoing/incoming/complete matches by compatibility
+- finalized documentation for frontend
+- refresh desired matches page upon going back a screen
 
 #### Third Subsection:
 
