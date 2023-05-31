@@ -25,7 +25,7 @@ How to Install and Run App:
   2. Run app using adroid device or android emulator
   3. Note: This app is currently only available for android 
 
-How to run code in devlopment environment (for users):
+How to run code in devlopment environment:
   1. Clone UW-Roomie repository on your local machine
   2. Install ExpoGo on phone to use app
   3. Nagivate to the frontend folder of this Repo from the Command Prompt
@@ -52,13 +52,12 @@ Bug Reporting:
     - What the actual value/screen is
 
 Known Bugs:
-- Not all matches show up after creating survey.
-- Loading match menu resets match status.
+- None that we know of. So if you find any, please report it.
 
 ## DEVELOPER GUIDE
 How to host code on independent server (for developers):
   1. Clone UW-Roomie repository on your local machine
-  2. Create 2 SQL databases. One for testing and one for main service <br>
+  2. Create 2 SQL databases (only supported type is Azure SQL Server). One for testing and one for main service <br>
     - After creating the databases, connect to said databases <br>
     - Then execute CreateTables.sql in root directory on both databases
   4. Input the needed properties of your databses in dbconn (service database) and dbconntest (test database)
@@ -70,9 +69,9 @@ How to host code on independent server (for developers):
     - This isn't currently centralized in our code
   7. Install ExpoGo on phone to use app
   8. Nagivate to the frontend folder of this Repo from the Command Prompt (on local machine)
-  9. Run "npm install expo"
-  10. Run "npx expo start"
-  11. Scan QR code on computer from within ExpoGo app
+  9. Run "npm install expo" (in frontend folder)
+  10. To run code in devlopement environemnt, run "npx expo start" (in frontend folder)
+  11. Scan QR code on computer from within ExpoGo app (to view screens on phone)
 
 --The current Use Cases that are functional are Filing out the survery and Finding Matches--
 
