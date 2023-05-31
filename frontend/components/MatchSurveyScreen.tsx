@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import {StyleSheet, Text, View, Button, Alert, TouchableOpacity, ScrollView} from 'react-native';
+import {StyleSheet, Text, View, Button, Alert, TouchableOpacity, ScrollView, Image} from 'react-native';
 import {useNavigation} from "@react-navigation/native";
 import React, {useEffect, useState} from 'react';
 
@@ -22,22 +22,32 @@ export default function MatchInfoScreen({route}) {
     ReturnButton = []
 
     if(route.params.screen == 1){
-        ReturnButton.push(<Button
-            title="Back to all Matches"
-            color="#7c2bee"
-            onPress={() => navigation.navigate('Matching Menu', {user: '' + username})}
-        />)
+        ReturnButton.push(
+        <View style={styles.button}>
+            <Button
+                title="Back to all Matches"
+                color="#FFA456"
+                onPress={() => navigation.navigate('Matching Menu', {user: '' + username})}
+            />
+        </View>)
     } else if (route.params.screen == 2){
-        ReturnButton.push(<Button
-            title="Back to Oncomming Matches"
-            color="#7c2bee"
-            onPress={() => navigation.navigate('Incoming Matches Screen', {user: '' + username})}
-        />)
+        ReturnButton.push(
+        <View style={styles.button}>
+            <Button
+                title="Back to Oncomming Matches"
+                color="#FFA456"
+                onPress={() => navigation.navigate('Incoming Matches Screen', {user: '' + username})}
+            />
+        </View>)
     } else {
-        ReturnButton.push(<Button
-            title="Back to Outgoing Matches"
-            color="#7c2bee"
-            onPress={() => navigation.navigate('Outgoing Matches Screen', {user: '' + username})} />)
+        ReturnButton.push(
+        <View style={styles.button}>
+            <Button
+                title="Back to Outgoing Matches"
+                color="#FFA456"
+                onPress={() => navigation.navigate('Outgoing Matches Screen', {user: '' + username})}
+            />
+        </View>)
     }
 
     const[data, setData] = useState([]);
@@ -63,7 +73,7 @@ export default function MatchInfoScreen({route}) {
             let TextInfo: any[];
             TextInfo = [];
 
-            TextInfo.push(<Text key={0} style={styles.text}>Match Name:  {parsed.username}</Text>);
+            TextInfo.push(<Text key={0} style={styles.title}>{parsed.username}</Text>);
             TextInfo.push(<Text key={1} style={styles.text}>Top Dorm:    {parsed.firstDorm}</Text>);
             TextInfo.push(<Text key={2} style={styles.text}>Second Dorm:    {parsed.secondDorm}</Text>);
             TextInfo.push(<Text key={3} style={styles.text}>Third Dorm:    {parsed.thirdDorm}</Text>);
@@ -99,9 +109,9 @@ export default function MatchInfoScreen({route}) {
             }
 
             if (parsed.drinkingPref == 0) {
-                TextInfo.push(<Text key={7} style={styles.text}>Drinking/Smoking Preference:   No Drinking/Smoking</Text>);
+                TextInfo.push(<Text key={7} style={styles.text}>Drinking Preference:   No Drinking</Text>);
             } else {
-                TextInfo.push(<Text key={7} style={styles.text}>Drinking/Smoking Preference:   Can Drinking/Smoking</Text>);
+                TextInfo.push(<Text key={7} style={styles.text}>Drinking Preference:   Drinking Ok</Text>);
             }
 
             if (parsed.wakeTime == 6) {
@@ -294,40 +304,70 @@ export default function MatchInfoScreen({route}) {
     //changes what buttons are displayed on screen depending on
     //the type of matches that the screens are displaying
     if(status == 0) {
-        matchBtns.push(<Button
-            title="Reject Match"
-            color="#7c2bee"
-            disabled={buttonStatus}
-            onPress={() => RejectMatch({user:username}, {matchname:matchname})}
-        />)
-        matchBtns.push(<Button
-            title="Send Match Request"
-            color="#7c2bee"
-            disabled={buttonStatus}
-            onPress={() => AcceptMatch({user: username},  {matchname: matchname}, {num:status})}
-        />)
+        matchBtns.push(
+        <View style={styles.button}>
+            <Image style = {styles.logo}
+                source = {require('../assets/remove.png')}>
+            </Image>
+            <Button
+                title="Reject Match"
+                color="#7c2bee"
+                disabled={buttonStatus}
+                onPress={() => RejectMatch({user:username}, {matchname:matchname})}
+            />
+        </View>)
+        matchBtns.push(
+        <View style={styles.button}>
+            <Image style = {styles.logo}
+                source = {require('../assets/check.png')}>
+            </Image>
+            <Button
+                title="Send Match Request"
+                color="#7c2bee"
+                disabled={buttonStatus}
+                onPress={() => AcceptMatch({user: username},  {matchname: matchname}, {num:status})}
+            />
+        </View>)
     } else if((status == 1 && username.localeCompare(matchname) == 1) ||
             (status == 2 && username.localeCompare(matchname) == -1)) {
-        matchBtns.push(<Button
-            title="Reject Match"
-            color="#7c2bee"
-            disabled={buttonStatus}
-            onPress={() => RejectMatch({user:username}, {matchname:matchname})}
-        />)
-        matchBtns.push(<Button
-            title="Accept Match"
-            color="#7c2bee"
-            disabled={buttonStatus}
-            onPress={() => AcceptMatch({user: username},  {matchname: matchname}, {num:status})}
-        />)
+        matchBtns.push(
+        <View style={styles.button}>
+            <Image style = {styles.logo}
+                source = {require('../assets/remove.png')}>
+            </Image>
+            <Button
+                title="Reject Match"
+                color="#7c2bee"
+                disabled={buttonStatus}
+                onPress={() => RejectMatch({user:username}, {matchname:matchname})}
+            />
+        </View>)
+        matchBtns.push(
+        <View style={styles.button}>
+            <Image style = {styles.logo}
+                source = {require('../assets/check.png')}>
+            </Image>
+            <Button
+                title="Accept Match"
+                color="#7c2bee"
+                disabled={buttonStatus}
+                onPress={() => AcceptMatch({user: username},  {matchname: matchname}, {num:status})}
+            />
+        </View>)
     } else if((status == 2 && username.localeCompare(matchname) == 1) ||
             (status == 1 && username.localeCompare(matchname) == -1)) {
-        matchBtns.push(<Button
-            title="Undo Match Request"
-            color="#7c2bee"
-            disabled={buttonStatus}
-            onPress={() => UndoMatch({user:username}, {matchname:matchname})}
-        />)
+        matchBtns.push(
+        <View style={styles.button}>
+            <Image style = {styles.logo}
+                source = {require('../assets/remove.png')}>
+            </Image>
+            <Button
+                title="Undo Match Request"
+                color="#7c2bee"
+                disabled={buttonStatus}
+                onPress={() => UndoMatch({user:username}, {matchname:matchname})}
+            />
+        </View>)
     }
 
 
@@ -335,11 +375,13 @@ export default function MatchInfoScreen({route}) {
         <ScrollView contentContainerStyle={styles.container} nestedScrollEnabled={true}>
             <View style={styles.container}>
                 {loading && <Text style={styles.text}> Loading...</Text>}
+                <Text>{'\n'}</Text>
                 {data}
-                <View style={{ flexDirection:"row", padding:10}}>
+                <View style={{ flexDirection:"row", padding:10, flex:1}}>
                     {matchBtns}
                 </View>
                 {ReturnButton}
+                <Text>{'\n'}</Text>
             </View>
         </ScrollView>
     );
@@ -361,4 +403,22 @@ const styles = StyleSheet.create({
         margin: 10,
         color: 'white',
     },
+
+    title: {
+        fontSize: 30,
+        color: '#FFDA8F',
+        padding: 10,
+    },
+
+    button: {
+        justifyContent:'center',
+        padding: 10,
+    },
+
+    logo: {
+        width: 40,
+        height: 40,
+        margin: 10,
+        alignSelf: 'center',
+    }
 });

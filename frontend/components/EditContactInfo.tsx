@@ -143,11 +143,11 @@ const styles = StyleSheet.create({
 
     text: {
         margin: 10,
-        color: '#FFDA8F',
+        color: 'white',
     },
 
     title: {
         fontSize: 30,
-        color: 'white',
+        color: '#FFDA8F',
     },
 });

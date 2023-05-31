@@ -201,15 +201,15 @@ export default function SurveyMenuScreen({route}) {
     return (
         <ScrollView contentContainerStyle={styles.container} nestedScrollEnabled={true}>
             <Text style={styles.title}>Roomie Survey</Text>
-            <Text style={styles.text} paddingBottom={15}>Answer these survey questions to get the best matches for you!</Text>
+            <Text style={styles.text} paddingBottom={20}>Answer these survey questions to get the best matches for you!</Text>
             <Button
                 title="Back to Home"
-                color="#7c2bee"
+                color="#FFA456"
                 disabled={buttonStatus}
                 onPress={() => navigation.navigate('Home', {user:'' + username})}
             />
 
-            <Text> {'\n'} </Text>
+
             <Text> {'\n'} </Text>
             <Text style={styles.text}>What's your first dorm choice?</Text>
             <Dropdown open={firstDormOpen}

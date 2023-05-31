@@ -61,7 +61,7 @@ export default function MatchProfileScreen({route}) {
 
             <Button
                 title="Return to Mutual Matches"
-                color="#7c2bee"
+                color="#FFA456"
                 onPress={() => navigation.navigate('View Matches Screen',  {user:'' + username})}
             />
         </View>

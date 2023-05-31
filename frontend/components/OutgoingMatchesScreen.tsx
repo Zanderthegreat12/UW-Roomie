@@ -101,19 +101,21 @@ export default function OutgoingMatchesScreen({route}) {
 
     return (
         <ScrollView contentContainerStyle={styles.container} nestedScrollEnabled={true}>
-            <Text style={styles.title}>Outgoing Matches</Text>
+            <Text style={styles.title}>Roomies You Liked</Text>
             {!loading &&  <Text style={styles.text}> Match Name            Compatability Percent</Text>}
             <Divider style={{width:'75%'}} bold="true"/>
             {loading && <Text style={styles.text}> Loading...</Text>}
             {data}
             <Divider style={{width:'75%'}} bold="true"/>
+            <Text>{'\n'}</Text>
             <View style={styles.button}>
                 <Button
                     title="Back to Home"
-                    color="#7c2bee"
+                    color="#FFA456"
                     onPress={() => navigation.navigate('Home', {user: '' + username})}
                 />
             </View>
+            <Text>{'\n'}</Text>
         </ScrollView>
     );alignItems
 }

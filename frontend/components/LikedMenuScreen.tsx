@@ -47,7 +47,7 @@ export default function LikedMenuScreen({route}) {
             <View style={styles.button}>
                 <Button
                     title="Back to Home"
-                    color="#7c2bee"
+                    color="#FFA456"
                     onPress={() => navigation.navigate('Home', {user:'' + username})}
                 />
             </View>

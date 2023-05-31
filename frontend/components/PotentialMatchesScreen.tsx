@@ -102,7 +102,7 @@ export default function MatchingMenuScreen({route}) {
 
     return (
         <ScrollView contentContainerStyle={styles.container} nestedScrollEnabled={true}>
-            <Text style={styles.title}>Matching Menu</Text>
+            <Text style={styles.title}>Potential Roomies</Text>
             <View style={styles.button}>
                 <Button
                     title="Refresh"
@@ -115,13 +115,15 @@ export default function MatchingMenuScreen({route}) {
             {loading && <Text style={styles.text}> Loading...</Text>}
             {data}
             <Divider style={{width:'75%'}} bold="true"/>
+            <Text>{'\n'}</Text>
             <View style={styles.button}>
                 <Button
                     title="Back to Home"
-                    color="#7c2bee"
+                    color="#FFA456"
                     onPress={() => navigation.navigate('Home', {user: '' + username})}
                 />
             </View>
+            <Text>{'\n'}</Text>
         </ScrollView>
     );alignItems
 }

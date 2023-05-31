@@ -78,7 +78,7 @@ export default function HomeScreen({route}) {
 
             <Button
                title="Back to Home"
-               color="#7c2bee"
+               color="#FFA456"
                onPress={() => navigation.navigate('Home',  {user:'' + username})}
             />
         </View>

@@ -16,6 +16,8 @@ Package icons - https://www.flaticon.com/free-icons/package <br />
 Gift box icons - https://www.flaticon.com/free-icons/gift-box <br />
 Profile icons - https://www.flaticon.com/free-icons/profile <br />
 Export icons - https://www.flaticon.com/free-icons/export <br /> <br />
+Yes icons created by Adrien Coquet - https://www.flaticon.com/free-icons/yes <br /> <br />
+Quit icons created by Pixel perfect - https://www.flaticon.com/free-icons/quit <br /> <br />
 
 ## USER GUIDE
 How to Install and Run App:
