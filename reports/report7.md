@@ -59,7 +59,11 @@ Final build version
 - Add more design formatting throughout the app
 
 #### Second Subsection:
-
+- Implemented working radio buttons for short survey questions
+- Made a grid layout for the home screen buttons
+- Added an app icon and additional icons for important buttons
+- Changed titles and back button colors for styling
+- Updated the match survey profile screen 
 
 #### Third Subsection:
 
