@@ -30,8 +30,10 @@ Final build version
 - Make the front end look more uniform and presentable.
 
 #### Second Subsection:
-
-
+- Helped Colby fix the bug where getKmatches didn't work
+- Designed the button layout for the matching screens
+- Created a buffering screen between survey screen and
+  the matching menu screen.
 #### Third Subsection:
 
 
