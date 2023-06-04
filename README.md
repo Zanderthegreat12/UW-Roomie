@@ -21,7 +21,8 @@ Quit icons created by Pixel perfect - https://www.flaticon.com/free-icons/quit <
 
 ## Notices
 We have lost access to the databases that stored our app data. <br>
-As such, all functionality in our app is currently not working (500 errors are thrown).
+The commits on June 4th connects the server to a different database to ensure
+that our app is still functional.
 
 ## USER GUIDE
 How to Install and Run App:
