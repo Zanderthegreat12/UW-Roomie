@@ -30,8 +30,10 @@ Final build version
 - Make the front end look more uniform and presentable.
 
 #### Second Subsection:
-
-
+- Helped Colby fix the bug where getKmatches didn't work
+- Designed the button layout for the matching screens
+- Created a buffering screen between survey screen and
+  the matching menu screen.
 #### Third Subsection:
 
 
@@ -59,7 +61,11 @@ Final build version
 - Add more design formatting throughout the app
 
 #### Second Subsection:
-
+- Implemented working radio buttons for short survey questions
+- Made a grid layout for the home screen buttons
+- Added an app icon and additional icons for important buttons
+- Changed titles and back button colors for styling
+- Updated the match survey profile screen 
 
 #### Third Subsection:
 
