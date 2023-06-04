@@ -19,6 +19,10 @@ Export icons - https://www.flaticon.com/free-icons/export <br />
 Yes icons created by Adrien Coquet - https://www.flaticon.com/free-icons/yes <br />
 Quit icons created by Pixel perfect - https://www.flaticon.com/free-icons/quit <br /> <br />
 
+## Notices
+We have lost access to the databases that stored our app data. <br>
+As such, all functionality in our app is currently not working (500 errors are thrown).
+
 ## USER GUIDE
 How to Install and Run App:
   1. Install our app here - https://expo.dev/artifacts/eas/ijVzj1oFqqWY9ujMawaDeK.apk
