@@ -20,9 +20,8 @@ Yes icons created by Adrien Coquet - https://www.flaticon.com/free-icons/yes <br
 Quit icons created by Pixel perfect - https://www.flaticon.com/free-icons/quit <br /> <br />
 
 ## Notices
-We have lost access to the databases that stored our app data. <br>
-The commits on June 4th connects the server to a different database to ensure
-that our app is still functional.
+The server and database for our app has ceased functionality. <br>
+However, a demo of our app can be found here: https://www.youtube.com/watch?v=VQGxVEHJPNI&ab_channel=Leah
 
 ## USER GUIDE
 How to Install and Run App:
